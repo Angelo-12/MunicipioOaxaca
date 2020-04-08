@@ -1,14 +1,22 @@
-@extends('layouts.master')
 
-@section('content')
+
+
 <div class="container-fluid">
     <!-- Ejemplo de tabla Listado -->
     <div class="card">
+      <div class="card-header">
+        <h1>
+          Organizaciones
+        </h1>
+      </div>
+    </div>
+
+    <div class="card">
         <div class="card-header">
            
-            <button type="button"  class="btn btn-secondary" data-toggle="modal"  data-target="#exampleModal">
+            <a class="create-modal btn btn-secondary">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
-            </button>
+            </a>
              <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;Reporte
             </button>
@@ -23,21 +31,23 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-bordered table-striped table-sm">
+            <table id="table" class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Nombre Zona</th>
+                        <th>Nombre de la organizacion</th>
+                        <th>Nombre del dirigente</th>
                         <th>Total de vendedores</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                  @foreach ($zonas as $z)
+                  @foreach ($organizaciones as $o)
                   <tr >
-                    <td >{{$z->id_zona}}</td>
-                    <td >{{$z->nombre}}</td>
-                    <td>{{$z->id_zona}}</td>
+                    <td >{{$o->id_organizacion}}</td>
+                    <td >{{$o->nombre_organizacion}}</td>
+                    <td>{{$o->id_organizacion}}</td>
+                    <td>{{$o->nombre_dirigente}}</td>
                     <td align="center">
                       <button type="button"  class="btn btn-warning btn-sm">
                         <i class="fa fa-eye"></i>
@@ -74,34 +84,42 @@
     </div>
  
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+{{-- Modal Form Create Post --}}
+<div id="create" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar Zona</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Agregar Organizacion</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-          <label>Nombre de la organizacion</label>
-          <input  type="text" name="nombre" placeholder="Nombre de la zona"
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label>Nombre de la organizacion</label>
+            <input  type="text" name="nombre_organizacion" placeholder="Nombre de la organizacion"
+            class="form-control">
+         </div>
+         <div class="form-group">
+          <label>Nombre del dirigente</label>
+          <input  type="text" name="nombre_dirigente" placeholder="Nombre del dirigente"
           class="form-control">
        </div>
+        </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">
-            Cerrar
-            <i class="fa fa-times-circle"></i>
-        </button>
-        <button type="button" id="agregar" class="btn btn-primary" value="Add">
-            Guardar
-            <i class="fa fa-save"></i>
-        </button>
-      </div>
+          <div class="modal-footer">
+            <button class="btn btn-danger" type="submit" id="add">
+              <span class="glyphicon glyphicon-plus"></span>Guardar
+            </button>
+            <button class="btn btn-primary" type="button" data-dismiss="modal">
+              <span class="glyphicon glyphicon-remobe"></span>Cerrar
+            </button>
+          </div>
     </div>
   </div>
 </div>
-@endsection
+
+<script type="text/javascript">
+
+</script>

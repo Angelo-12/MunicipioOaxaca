@@ -1,7 +1,3 @@
-@extends('layouts.master')
-
-@section('content')
-
 <div class="box">
 
   <div class="box-header">
@@ -159,47 +155,6 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <script>
-       $('sample_form').on('submit',function(event){
-          event.preventDefault();
-          var action_url='';
-          if($('#action').val=='Add'){
-            action_url="/Usuarios/insertar";
-          }
-
-          $.ajax({
-            url:action_url,
-            method:"POST",
-            data:$(this).serialize(),
-            dataType:"json",
-            success:function(data){
-              var html='';
-
-              if(data.errors){
-                html='<div class="alert alert-danger">';
-
-                  for(var count=0; count<data.errors.length; count++){
-                    html+='<p>'+data.errors[count]+'</p>'
-                  }
-
-                  html+='</div>'
-              }
-
-              if(data.success){
-                html='<div class="alert alert-success">'+data.success+'</div>';
-                $('#sample_form')[0].reset();
-                $('#myTable').DataTable().ajax.reload();
-
-              }
-              $('#form_result').html(html);
-
-            }
-          });
-       });
-      </script>
-      
-      
-      @endsection
+      </div>     
+    
 

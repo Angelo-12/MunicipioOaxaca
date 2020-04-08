@@ -1,5 +1,4 @@
 
-@extends('layouts.master')
 
 <style>
   .verde{
@@ -27,8 +26,6 @@
   }
 </style>
 
-
-@section('content')
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="/">Inicio</a></li>
@@ -207,7 +204,6 @@
     </div>
   </div>
 </div>
-@endsection
 
 
 

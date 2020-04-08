@@ -185,7 +185,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="{{url('Usuarios/mostrar')}}" class="nav-link">
+                <a href="#" class="nav-link" id="usuarios">
                   <i class="nav-icon fas fa-users " style="color:black;"></i>
                   <p>
                     Usuarios
@@ -194,16 +194,16 @@
               </li>
           
               <li class="nav-item">
-                <a href="{{url('Zonas/mostrar')}}" class="nav-link">
+                <a href="#" id="zona" class="nav-link">
                   <i class="nav-icon fas fa-thumbtack" style="color:green;"></i>
                   <p>
                     Zonas
                   </p>
-                </rou>
+                </a>
               </li>
 
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="#" class="nav-link" id="organizacion">
                   <i class="nav-icon fas fa-sitemap " style="color:teal;"></i>
                   <p>
                     Organizaciones
@@ -273,8 +273,8 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content" >
-      <div class="container-fluid">
+    <div class="content">
+      <div class="container-fluid" id="contenido">
         @yield('content')
       </div><!-- /.container-fluid -->
     </div>
@@ -294,6 +294,7 @@
 
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="https://kit.fontawesome.com/7646b98399.js" crossorigin="anonymous"></script>
 <script src="{{asset('js/jquery.min.js')}}"></script>
@@ -318,14 +319,34 @@
 
 
 <script>
-  $(document).ready( function () {
+  /*$(document).ready( function () {
     $('#myTable').DataTable({
     "language": {
       "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
     }
   });
     
-    } );
+  });*/
+
+  $(document).ready(function(){
+    $('#usuarios').click(function(){
+      $('#contenido').load('/Usuarios/mostrar');
+    });
+
+    $('#zona').click(function(){
+      $('#contenido').load('/Zonas/mostrar');
+    });
+
+    $('#organizacion').click(function(){
+      $('#contenido').load('/Organizaciones/mostrar');
+    });
+  });
+
+  $(document).on('click','.create-modal', function(){
+    $('#create').modal('show');
+    
+  });
+
 </script>
 
 </body>
