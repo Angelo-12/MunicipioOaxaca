@@ -45,8 +45,8 @@
                   <tr >
                     <td >{{$o->id_organizacion}}</td>
                     <td >{{$o->nombre_organizacion}}</td>
-                    <td>{{$o->id_organizacion}}</td>
                     <td>{{$o->nombre_dirigente}}</td>
+                    <td>{{$o->id_organizacion}}</td>
                     <td align="center">
                       <button type="button" class="btn btn-warning btn-sm" data-id="{{$o->id_organizacion}}">
                           <i class="fa fa-eye"></i>
@@ -95,11 +95,6 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label >Id</label>
-            <input  type="number" name="id_organizacion" value="{{$o->id_organizacion}}" id="id_organizacion" placeholder="id"
-            class="form-control">
-         </div>
 
           <div class="form-group">
             <label>Nombre de la organizacion</label>
@@ -123,6 +118,32 @@
           </div>
     </div>
   </div>
+</div>
+
+{{-- Modal Form Create Post --}}
+<div id="show" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+                  </div>
+                    <div class="modal-body">
+                    <div class="form-group">
+                      <label for="">ID :</label>
+                      <b id="id"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nombre de la Organizacon </label>
+                      <b id="nombre_organizacion"/>
+                    </div>
+                    <div class="form-group">
+                      <label for="">Nombre del dirigente</label>
+                      <b id="nombre_dirigente"/>
+                    </div>
+                    </div>
+                    </div>
+                  </div>
 </div>
 
 <script src="{{asset('js/funciones.js')}}"></script>

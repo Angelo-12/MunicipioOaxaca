@@ -54,5 +54,12 @@ $(document).ready(function(){
     
   });
 
+  $(document).on('click', '.show-modal', function() {
+    $('#show').modal('show');
+    $('#id').text($(this).data('id'));
+    $('#nombre_organizacion').text($(this).data('nombre_organizacion'));
+    $('#nombre_dirigente').text($(this).data('nombre_dirigente'));
+  });
+
 
  
