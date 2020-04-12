@@ -1,6 +1,3 @@
-
-
-
 <div class="container-fluid">
     <!-- Ejemplo de tabla Listado -->
     <div class="card">
@@ -40,6 +37,8 @@
                         <th>Total de vendedores</th>
                         <th>Opciones</th>
                     </tr>
+                    {{ csrf_field() }}
+                    
                 </thead>
                 <tbody>
                   @foreach ($organizaciones as $o)
@@ -49,17 +48,17 @@
                     <td>{{$o->id_organizacion}}</td>
                     <td>{{$o->nombre_dirigente}}</td>
                     <td align="center">
-                      <button type="button"  class="btn btn-warning btn-sm">
-                        <i class="fa fa-eye"></i>
+                      <button type="button" class="btn btn-warning btn-sm" data-id="{{$o->id_organizacion}}">
+                          <i class="fa fa-eye"></i>
+                      </button>
+
+                      <button type="button" class="btn btn-danger btn-sm" data-id="{{$o->id_organizacion}}">
+                          <i class="fa fa-pencil-alt"></i>
                       </button>
                      
-                          <button type="button" class="btn btn-danger btn-sm" >
-                              <i class="fa fa-pencil-alt"></i>
-                          </button>
-                     
-                          <button type="button" class="btn btn-info btn-sm" >
-                              <i class="fa fa-eraser"></i>
-                          </button>
+                      <button type="button" class="btn btn-info btn-sm" data-id="{{$o->id_organizacion}}">
+                          <i class="fa fa-eraser"></i>
+                      </button>
                     
                   </td>
                 </tr>             
@@ -97,22 +96,28 @@
       <div class="modal-body">
         <form class="form-horizontal" role="form">
           <div class="form-group">
+            <label >Id</label>
+            <input  type="number" name="id_organizacion" value="{{$o->id_organizacion}}" id="id_organizacion" placeholder="id"
+            class="form-control">
+         </div>
+
+          <div class="form-group">
             <label>Nombre de la organizacion</label>
-            <input  type="text" name="nombre_organizacion" placeholder="Nombre de la organizacion"
+            <input  type="text" name="nombre_organizacion" id="nombre_organizacion" placeholder="Nombre de la organizacion"
             class="form-control">
          </div>
          <div class="form-group">
           <label>Nombre del dirigente</label>
-          <input  type="text" name="nombre_dirigente" placeholder="Nombre del dirigente"
+          <input  type="text" name="nombre_dirigente" id="nombre_dirigente" placeholder="Nombre del dirigente"
           class="form-control">
        </div>
         </form>
       </div>
           <div class="modal-footer">
-            <button class="btn btn-danger" type="submit" id="add">
+            <button class="btn btn-primary" type="submit" id="agregando">
               <span class="glyphicon glyphicon-plus"></span>Guardar
             </button>
-            <button class="btn btn-primary" type="button" data-dismiss="modal">
+            <button class="btn btn-danger" type="button" data-dismiss="modal">
               <span class="glyphicon glyphicon-remobe"></span>Cerrar
             </button>
           </div>
@@ -120,6 +125,5 @@
   </div>
 </div>
 
-<script type="text/javascript">
+<script src="{{asset('js/funciones.js')}}"></script>
 
-</script>

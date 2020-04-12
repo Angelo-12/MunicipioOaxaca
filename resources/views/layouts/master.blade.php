@@ -257,6 +257,7 @@
     <!-- /.sidebar -->
   </aside>
 
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -316,38 +317,7 @@
 <script src="{{asset('js/demo.js')}}"></script>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
-
-
-<script>
-  /*$(document).ready( function () {
-    $('#myTable').DataTable({
-    "language": {
-      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-    }
-  });
-    
-  });*/
-
-  $(document).ready(function(){
-    $('#usuarios').click(function(){
-      $('#contenido').load('/Usuarios/mostrar');
-    });
-
-    $('#zona').click(function(){
-      $('#contenido').load('/Zonas/mostrar');
-    });
-
-    $('#organizacion').click(function(){
-      $('#contenido').load('/Organizaciones/mostrar');
-    });
-  });
-
-  $(document).on('click','.create-modal', function(){
-    $('#create').modal('show');
-    
-  });
-
-</script>
+<script src="{{asset('js/funciones.js')}}"></script>
 
 </body>
 </html>

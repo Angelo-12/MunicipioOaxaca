@@ -24,6 +24,6 @@ class OrganizacionesController extends Controller
         $org->nombre_dirigente=$request->input('nombre_dirigente');
         $org->save();
 
-        return redirect('organizacion')->with('succes','Datos agregados');
+        return response()->json($org);
     }
 }
