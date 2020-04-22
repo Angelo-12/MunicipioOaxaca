@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\input;
-
+use App\Models\Administrador_Secretaria;
+use App\Models\Permisos;
+use App\Models\Vendedor;
+use App\Models\Zona;
+use App\Models\Organizacion;
+use App\Models\Calle;
 class UsuarioController extends Controller
 {
    public function crearUsuario(Request $request){
@@ -41,13 +46,16 @@ class UsuarioController extends Controller
    }
 
    public function mostrar(){
-      $usuarios=User::all();
-      return view('Administrador.Usuarios')->with('usuarios',$usuarios);
+      //$usuarios=User::all();
+      $usuarios=User::paginate(10);
+      return view('Administrador.usuarios',compact('usuarios'))->render();
    }
 
-   public function listarUsuarios(){
-      $usuario=User::all();
-      return $usuario;
+   public function fetch_data(Request $request){
+      if($request->ajax()){
+         $usuarios=User::paginate(10);
+         return view('Administrador.usuarios',compact('usuarios'))->render();
+      }
    }
    public function iniciarsesion($id){
       $usuario=Administrador_Secretaria::join('users','admin_secretaria.id','=','users.id')

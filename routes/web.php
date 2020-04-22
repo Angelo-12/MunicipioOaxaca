@@ -34,7 +34,8 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
 });
 
-
+//Route::get('/pagination', 'Administrador\UsuarioController@mostrar');
+//Route::get('pagination/fetch_data', 'Administrador\UsuarioController@fetch_data');
 
 
 Route::get('usuarios','Administrador\UsuarioController@mostrarUsuarios');

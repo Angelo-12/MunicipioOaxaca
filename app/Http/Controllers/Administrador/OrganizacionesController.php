@@ -8,7 +8,7 @@ use App\Models\Organizacion;
 class OrganizacionesController extends Controller
 {
     public function mostrar(){
-        $organizaciones=Organizacion::all();
+        $organizaciones=Organizacion::paginate(10);
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
     }
 

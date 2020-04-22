@@ -1,5 +1,9 @@
-<div class="container-fluid">
-    <!-- Ejemplo de tabla Listado -->
+@extends('layouts.master')
+
+@section('content')
+
+<div class="container-fluid center"> 
+ 
     <div class="card">
       <div class="card-header">
         <h1>
@@ -48,7 +52,9 @@
                     <td>{{$o->nombre_dirigente}}</td>
                     <td>{{$o->id_organizacion}}</td>
                     <td align="center">
-                      <button type="button" class="btn btn-warning btn-sm" data-id="{{$o->id_organizacion}}">
+                      <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$o->id_organizacion}}"
+                        data-nombre_organizacion="{{$o->nombre_organizacion}}" 
+                        data-nombre_dirigente="{{$o->nombre_dirigente}}">
                           <i class="fa fa-eye"></i>
                       </button>
 
@@ -65,20 +71,9 @@
                   @endforeach                   
                 </tbody>
             </table>
-            <nav>
-                <ul class="pagination">
-                    <li class="page-item" >
-                        <a class="page-link" href="#" >Ant</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" ></a>
-                    </li>
-                    <li class="page-item" >
-                        <a class="page-link" href="#" >Sig</a>
-                    </li>
-                </ul>
-            </nav>
+            {!! $organizaciones->links() !!}
         </div>
+       
     </div>
     </div>
  
@@ -120,13 +115,14 @@
   </div>
 </div>
 
-{{-- Modal Form Create Post --}}
+{{-- Modal show  --}}
 <div id="show" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Detalles</h5>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
+         
                   </div>
                     <div class="modal-body">
                     <div class="form-group">
@@ -134,17 +130,18 @@
                       <b id="id"/>
                     </div>
                     <div class="form-group">
-                      <label for="">Nombre de la Organizacon </label>
-                      <b id="nombre_organizacion"/>
+                      <label for="">Nombre de la Organizacion :</label>
+                      <b id="nombre_organizacion_show"/>
                     </div>
                     <div class="form-group">
-                      <label for="">Nombre del dirigente</label>
-                      <b id="nombre_dirigente"/>
+                      <label for="">Nombre del dirigente :</label>
+                      <b id="nombre_dirigente_show"/>
                     </div>
                     </div>
                     </div>
                   </div>
 </div>
 
-<script src="{{asset('js/funciones.js')}}"></script>
+
+@endsection
 

@@ -18,10 +18,16 @@
   <link rel="stylesheet" href="{{asset('css/datepicker3.css')}}">
   <link rel="stylesheet" href="{{asset('css/daterangepicker-bs3.css')}}">
   <link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
-  <link rel="stylesheet" href="{{asset('css/jquery.dataTables.min.css')}}">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hidden">
+
+  <div class="centrado">
+    <div class="lds-dual-ring"></div>
+  </div>
+ 
+ 
 <div class="wrapper" id="app">
+  
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-light" style="background-color:#313d4c">
@@ -184,17 +190,18 @@
                 </router-link>
               </li>
 
-              <li class="nav-item">
-                <a href="#" class="nav-link" id="usuarios">
+              <li class="nav-item has-treeview menu-close">
+                <a href="{{url('Usuarios/mostrar')}}" class="nav-link">
                   <i class="nav-icon fas fa-users " style="color:black;"></i>
                   <p>
                     Usuarios
+              
                   </p>
                 </a>
               </li>
           
               <li class="nav-item">
-                <a href="#" id="zona" class="nav-link">
+                <a href="{{url('Zonas/mostrar')}}" class="nav-link">
                   <i class="nav-icon fas fa-thumbtack" style="color:green;"></i>
                   <p>
                     Zonas
@@ -203,7 +210,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="#" class="nav-link" id="organizacion">
+                <a href="{{url('Organizaciones/mostrar')}}" class="nav-link">
                   <i class="nav-icon fas fa-sitemap " style="color:teal;"></i>
                   <p>
                     Organizaciones
@@ -276,8 +283,11 @@
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid" id="contenido">
+        
         @yield('content')
+        
       </div><!-- /.container-fluid -->
+      
     </div>
     <!-- /.content -->
   </div>
@@ -316,7 +326,6 @@
 <script src="{{asset('js/dashboard.js')}}"></script>
 <script src="{{asset('js/demo.js')}}"></script>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('js/funciones.js')}}"></script>
 
 </body>
