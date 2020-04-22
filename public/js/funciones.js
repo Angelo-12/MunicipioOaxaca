@@ -11,7 +11,7 @@ $(document).ready(function() {
         $('#contenido').load('/Organizaciones/mostrar');
     });
 
-    $("#agregando").click(function() {
+    $("#agregar_organizacion").click(function() {
         $.ajax({
             type: 'POST',
             url: 'Organizaciones/insertar',
@@ -48,22 +48,45 @@ $(document).ready(function() {
 
     });
 
+    $('#estado').change(function(){
+        var estado = $(this).val();
+        console.log(estado);
+        $.get('municipioEstado/'+estado, function(data){
+          console.log(data);
+            var municipio_select = '<option value="" selected disabled>Seleccione Municipio</option>'
+              for (var i=0; i<data.length;i++)
+                municipio_select+='<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
+  
+              $("#municipio").html(municipio_select);
+  
+        });
+      });
+
 });
 
 
 $(document).on('click', '.create-modal', function() {
-    $('#create').modal('show');
-    var page = $(this).attr('href').split('page=')[1];
-    fetch_data(page);
+    $('#create_organizacion').modal('show');
+
+});
+
+$(document).on('click', '.create-modal', function() {
+    $('#create_usuario').modal('show');
 
 });
 
 
 $(document).on('click', '.show-modal', function() {
-    $('#show').modal('show');
+    $('#show_organizacion').modal('show');
     $('#id').text($(this).data('id'));
     $('#nombre_organizacion_show').text($(this).data('nombre_organizacion'));
     $('#nombre_dirigente_show').text($(this).data('nombre_dirigente'));
     $('#show').modal('show');
 
 });
+
+window.onload=function(){
+    $('#onload').fadeOut();
+    $('body').removeClass('hidden');
+    $('div').removeAttr('hidden');
+}

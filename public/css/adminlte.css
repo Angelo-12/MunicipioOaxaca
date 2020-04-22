@@ -88,6 +88,10 @@ body {
     background-color: #ffffff;
 }
 
+.hidden{
+    overflow: hidden;
+}
+
 [tabindex="-1"]:focus {
     outline: 0 !important;
 }
@@ -13707,4 +13711,3 @@ a.text-muted:hover {
     align-items: center;
 }
 
-ve v

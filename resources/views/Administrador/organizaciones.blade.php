@@ -2,7 +2,11 @@
 
 @section('content')
 
-<div class="container-fluid center"> 
+<div class="centrado" id="onload">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<div class="container-fluid center" hidden> 
  
     <div class="card">
       <div class="card-header">
@@ -75,11 +79,10 @@
         </div>
        
     </div>
-    </div>
- 
+</div>
 
 {{-- Modal Form Create Post --}}
-<div id="create" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div id="create_organizacion" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -90,25 +93,28 @@
       </div>
       <div class="modal-body">
         <form class="form-horizontal" role="form">
+          @csrf
 
           <div class="form-group">
             <label>Nombre de la organizacion</label>
             <input  type="text" name="nombre_organizacion" id="nombre_organizacion" placeholder="Nombre de la organizacion"
             class="form-control">
-         </div>
-         <div class="form-group">
-          <label>Nombre del dirigente</label>
-          <input  type="text" name="nombre_dirigente" id="nombre_dirigente" placeholder="Nombre del dirigente"
-          class="form-control">
-       </div>
+          </div>
+          <div class="form-group">
+            <label>Nombre del dirigente</label>
+            <input  type="text" name="nombre_dirigente" id="nombre_dirigente" placeholder="Nombre del dirigente"
+            class="form-control">
+          </div>
         </form>
       </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" type="submit" id="agregando">
-              <span class="glyphicon glyphicon-plus"></span>Guardar
+            <button class="btn btn-primary" type="submit" id="agregar_organizacion">
+              Guardar
+              <i class="fa fa-save"></i>
             </button>
             <button class="btn btn-danger" type="button" data-dismiss="modal">
-              <span class="glyphicon glyphicon-remobe"></span>Cerrar
+              Cerrar
+              <i class="fa fa-times-circle"></i>
             </button>
           </div>
     </div>
@@ -116,7 +122,7 @@
 </div>
 
 {{-- Modal show  --}}
-<div id="show" class="modal fade" role="dialog">
+<div id="show_organizacion" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

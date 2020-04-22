@@ -12,6 +12,7 @@ use App\Models\Vendedor;
 use App\Models\Zona;
 use App\Models\Organizacion;
 use App\Models\Calle;
+use App\Models\Estado;
 class UsuarioController extends Controller
 {
    public function crearUsuario(Request $request){
@@ -48,7 +49,8 @@ class UsuarioController extends Controller
    public function mostrar(){
       //$usuarios=User::all();
       $usuarios=User::paginate(10);
-      return view('Administrador.usuarios',compact('usuarios'))->render();
+      $estado=Estado::all();
+      return view('Administrador.usuarios',compact('usuarios','estado'))->render();
    }
 
    public function fetch_data(Request $request){

@@ -20,11 +20,6 @@
   <link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
 </head>
 <body class="hidden">
-
-  <div class="centrado">
-    <div class="lds-dual-ring"></div>
-  </div>
- 
  
 <div class="wrapper" id="app">
   

@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar','UsuarioController@crearUsuario');
     Route::get('mostrar','Administrador\UsuarioController@mostrar');
+    Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
 
 });
 
@@ -32,6 +33,10 @@ Route::group(['prefix' => 'Zonas'], function () {
 Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('mostrar','Administrador\OrganizacionesController@mostrar');
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
+});
+
+Route::group(['prefix' => 'Municipios'], function () {
+    //Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
 });
 
 //Route::get('/pagination', 'Administrador\UsuarioController@mostrar');

@@ -1,7 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container-fluid center"> 
+<div class="centrado" id="onload">
+  <div class="lds-dual-ring"></div>
+</div>
+<div class="container-fluid center" hidden> 
   <div class="card">
     <div class="card-header">
       <h1>
@@ -25,7 +28,7 @@
    
 </div> 
 
-<div class="modal fade" id="agregarEmpleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="create_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -35,8 +38,8 @@
         </button>
       </div>
       
-          <div id="formModal" class="modal-body">
-              <form id="sample_form" action="" class="form-horizontal" role="form">
+          <div class="modal-body">
+              <form class="form-horizontal" role="form">
                 @csrf
                    <div class="form-group">
                       <label>Nombre</label>
@@ -86,32 +89,32 @@
             
                    <div class="form-group">
                       <label>Estado</label>
-                      <select class="form-control">
+                      <select name="estado" id="estado" class="form-control">
                         <option value="" selected disabled>Seleccionar Estado</option>
-                        <option value="Oaxaca">Oaxaca</option>
-                        <option value="Mexico">Mexico</option>
+                        @foreach ($estado as $e)
+                          <option value="{{$e->id_estado}}">{{$e->nombre}}</option>
+                        @endforeach
                       </select>
                    </div>
             
                    <div class="form-group">
                       <label>Municipio</label>
-                      <select class="form-control">
+                      <select name="municipio" id="municipio" class="form-control">
                         <option value="" selected disabled>Seleccionar Municipio</option>
-                        <option value="1">Oaxaca de juarez</option>
-                        <option value="2">Santa Cruz Xoxocotlan</option>
+                        
                       </select>
                    </div>
               </form>
           </div>
       
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">
-            Cerrar
-            <i class="fa fa-times-circle"></i>
+        <button class="btn btn-primary" type="submit" id="agregar_usuario">
+          Guardar
+          <i class="fa fa-save"></i>
         </button>
-        <button type="button" id="agregar" class="btn btn-primary" value="Add">
-            Guardar
-            <i class="fa fa-save"></i>
+        <button class="btn btn-danger" type="button" data-dismiss="modal">
+          Cerrar
+          <i class="fa fa-times-circle"></i>
         </button>
       </div>
     </div>
