@@ -39,8 +39,6 @@ Route::group(['prefix' => 'Municipios'], function () {
     //Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
 });
 
-//Route::get('/pagination', 'Administrador\UsuarioController@mostrar');
-//Route::get('pagination/fetch_data', 'Administrador\UsuarioController@fetch_data');
 
 
 Route::get('usuarios','Administrador\UsuarioController@mostrarUsuarios');

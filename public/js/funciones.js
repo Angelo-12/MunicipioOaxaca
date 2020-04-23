@@ -14,18 +14,28 @@ $(document).ready(function() {
     $("#agregar_organizacion").click(function() {
         $.ajax({
             type: 'POST',
-            url: 'Organizaciones/insertar',
+            url: 'insertar',
             data: {
                 '_token': $('input[name=_token]').val(),
                 'nombre_organizacion': $('input[name=nombre_organizacion]').val(),
                 'nombre_dirigente': $('input[name=nombre_dirigente]').val()
             },
+            dataType:'json',
             success: function(data) {
+                var html='';
                 if ((data.errors)) {
-                    $('.error').removeClass('hidden');
-                    $('.error').text(data.errors.nombre_organizacion);
-                    $('.error').text(data.errors.nombre_dirigente);
+                    console.log(data.errors);
+                    html='<div class="alert alert-danger">';
+                    if(data.errors.nombre_organizacion){
+                        html+='<p>'+data.errors.nombre_organizacion+'</p>';
+                    }
+                    if(data.errors.nombre_dirigente){
+                        html+='<p>'+data.errors.nombre_dirigente+'</p>';
+                    }
+
+                    html+='</div>';
                 } else {
+                    html='<div class="alert alert-success">Datos agregado correctamente</div>';
                     $('.error').remove();
                     $('#table').append("<tr class='post" + data.id + "'>" +
                         "<td>" + data.id + "</td>" +
@@ -39,12 +49,14 @@ $(document).ready(function() {
                         "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
                         "</td>" +
                         "</tr>");
-
+                        $('#nombre_organizacion').val('');
+                        $('#nombre_dirigente').val('');
                 }
+                $('#form_result').html(html);
+                
             },
         });
-        $('#nombre_organizacion').val('');
-        $('#nombre_dirigente').val('');
+        
 
     });
 
@@ -58,7 +70,6 @@ $(document).ready(function() {
                 municipio_select+='<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
   
               $("#municipio").html(municipio_select);
-  
         });
       });
 
@@ -85,8 +96,23 @@ $(document).on('click', '.show-modal', function() {
 
 });
 
+$(document).on('click','.edit-modal',function(){
+    $('#update_organizacion').modal('show');
+    $('#id_update').val($(this).data('id'))
+    $('#nombre_organizacion_update').val($(this).data('nombre_organizacion'));
+    $('#nombre_dirigente_update').val($(this).data('nombre_dirigente'));
+    $('#show').modal('show');
+});
+
+//Funcion para limpiar los datos de la ventana modal al cerrarla
+$('.modal').on('hidden.bs.modal', function(){ 
+    $(this).find('form')[0].reset();
+    $("#form_result").empty();
+});
+
 window.onload=function(){
     $('#onload').fadeOut();
     $('body').removeClass('hidden');
     $('div').removeAttr('hidden');
 }
+

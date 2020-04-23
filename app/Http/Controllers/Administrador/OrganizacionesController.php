@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Administrador;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Organizacion;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Input;
 class OrganizacionesController extends Controller
 {
     public function mostrar(){
@@ -13,7 +16,7 @@ class OrganizacionesController extends Controller
     }
 
     public function insertar(Request $request){
-        $this->validate($request,[
+        /*$this->validate($request,[
            'nombre_organizacion'=>'required',
            'nombre_dirigente'=>'required',
         ]);
@@ -24,6 +27,25 @@ class OrganizacionesController extends Controller
         $org->nombre_dirigente=$request->input('nombre_dirigente');
         $org->save();
 
-        return response()->json($org);
+        return response()->json($org);*/
+
+        $rules= array(
+           'nombre_organizacion'=>'required',
+           'nombre_dirigente'=>'required',
+        );
+
+        $validator = Validator::make ( Input::all(), $rules);
+        if ($validator->fails())
+        return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
+    
+        else {
+            $org=new Organizacion;
+
+            $org->nombre_organizacion=$request->input('nombre_organizacion');
+            $org->nombre_dirigente=$request->input('nombre_dirigente');
+            $org->save();
+    
+            return response()->json($org);
+        }
     }
 }
