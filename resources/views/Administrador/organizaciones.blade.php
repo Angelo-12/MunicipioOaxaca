@@ -51,18 +51,18 @@
                 <tbody>
                     @foreach ($organizaciones as $o)
                     <tr >
-                        <td >{{$o->id_organizacion}}</td>
+                        <td >{{$o->idorganizacion}}</td>
                         <td >{{$o->nombre_organizacion}}</td>
                         <td>{{$o->nombre_dirigente}}</td>
                         <td>{{$o->id_organizacion}}</td>
                         <td align="center">
-                            <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$o->id_organizacion}}"
+                            <button type="button" class="show-modal btn btn-warning btn-sm" data-idorganizacion="{{$o->idorganizacion}}"
                                     data-nombre_organizacion="{{$o->nombre_organizacion}}" 
                                     data-nombre_dirigente="{{$o->nombre_dirigente}}">
                                 <i class="fa fa-eye"></i>
                             </button>
 
-                            <button type="button" class="edit-modal btn btn-danger btn-sm" data-id="{{$o->id_organizacion}}"
+                            <button type="button" class="edit-modal btn btn-danger btn-sm" data-idorganizacion="{{$o->idorganizacion}}"
                               data-nombre_organizacion="{{$o->nombre_organizacion}}" 
                                     data-nombre_dirigente="{{$o->nombre_dirigente}}">
                                 <i class="fa fa-pencil-alt"></i>
@@ -188,6 +188,17 @@
                 
             </div>
             </form> 
+            <div class="modal-footer">
+                <button class="btn btn-primary actualizar_organizacion" type="submit" id="actualizar_organizacion">
+                    Actualizar
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                    Cerrar
+                    <i class="fa fa-times-circle"></i>
+                </button>
+            </div>
+        </div>
               
           </div>
       </div>

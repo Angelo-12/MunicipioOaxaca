@@ -16,18 +16,6 @@ class OrganizacionesController extends Controller
     }
 
     public function insertar(Request $request){
-        /*$this->validate($request,[
-           'nombre_organizacion'=>'required',
-           'nombre_dirigente'=>'required',
-        ]);
-
-        $org=new Organizacion;
-
-        $org->nombre_organizacion=$request->input('nombre_organizacion');
-        $org->nombre_dirigente=$request->input('nombre_dirigente');
-        $org->save();
-
-        return response()->json($org);*/
 
         $rules= array(
            'nombre_organizacion'=>'required',
@@ -47,5 +35,9 @@ class OrganizacionesController extends Controller
     
             return response()->json($org);
         }
+    }
+
+    public function actualizar(){
+        
     }
 }

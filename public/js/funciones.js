@@ -43,9 +43,9 @@ $(document).ready(function() {
                         "<td>" + data.nombre_dirigente + "</td>" +
                         "<td>" + data.id + "</td>" +
                         "<td align='center'>" +
-                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-idorganizacion='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
                         "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
-                        "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-id='" + data.id + "'><i class='fa fa-pencil-alt'></i></button>" +
+                        "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data.idorganizacion + "'><i class='fa fa-pencil-alt'></i></button>" +
                         "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
                         "</td>" +
                         "</tr>");
@@ -89,7 +89,7 @@ $(document).on('click', '.create-modal', function() {
 
 $(document).on('click', '.show-modal', function() {
     $('#show_organizacion').modal('show');
-    $('#id').text($(this).data('id'));
+    $('#id').text($(this).data('idorganizacion'));
     $('#nombre_organizacion_show').text($(this).data('nombre_organizacion'));
     $('#nombre_dirigente_show').text($(this).data('nombre_dirigente'));
     $('#show').modal('show');
@@ -98,11 +98,40 @@ $(document).on('click', '.show-modal', function() {
 
 $(document).on('click','.edit-modal',function(){
     $('#update_organizacion').modal('show');
-    $('#id_update').val($(this).data('id'))
+    $('#id_update').val($(this).data('idorganizacion'))
     $('#nombre_organizacion_update').val($(this).data('nombre_organizacion'));
     $('#nombre_dirigente_update').val($(this).data('nombre_dirigente'));
     $('#show').modal('show');
 });
+
+
+$('.modal-footer').on('click', '.actualizar_organizacion', function() {
+    $.ajax({
+      type: 'POST',
+      url: 'editar',
+      data: {
+        '_token': $('input[name=_token]').val(),
+        'id_organizacion': $("#id_update").val(),
+        'nombre_organizacion': $('#nombre_organizacion_update').val(),
+        'nombre_dirigente': $('#nombre_dirigente_update').val()
+    },
+  success: function(data) {
+        $('.post' + data.id_organizacion).replaceWith(" "+
+        "<tr class='post" + data.id_organizacion + "'>"+
+        "<td>" + data.id_organizacion + "</td>"+
+        "<td>" + data.nombre_organizacion + "</td>"+
+        "<td>" + data.nombre_dirigente + "</td>"+
+        "<td>" + data.id_organizacion + "</td>"+
+        "<td align='center'>" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
+                        "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
+                        "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-id='" + data.id + "'><i class='fa fa-pencil-alt'></i></button>" +
+                        "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
+                        "</td>" +
+        "</tr>");
+      }
+    });
+  });
 
 //Funcion para limpiar los datos de la ventana modal al cerrarla
 $('.modal').on('hidden.bs.modal', function(){ 

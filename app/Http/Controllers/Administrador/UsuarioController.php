@@ -46,17 +46,10 @@ class UsuarioController extends Controller
       
    }
 
-   public function hola(){
+   
 
-   }
 
    public function mostrar(){
-      //$usuarios=User::all();
-      $usuarios=User::paginate(10);
-      $estado=Estado::all();
-      return view('Administrador.usuarios',compact('usuarios','estado'))->render();
-   }
-   public function mostrartwo(){
       //$usuarios=User::all();
       $usuarios=User::paginate(10);
       $estado=Estado::all();
