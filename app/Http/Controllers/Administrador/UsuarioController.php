@@ -46,6 +46,10 @@ class UsuarioController extends Controller
       
    }
 
+   public function hola(){
+
+   }
+
    public function mostrar(){
       //$usuarios=User::all();
       $usuarios=User::paginate(10);
