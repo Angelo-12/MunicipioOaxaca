@@ -52,6 +52,12 @@ class UsuarioController extends Controller
       $estado=Estado::all();
       return view('Administrador.usuarios',compact('usuarios','estado'))->render();
    }
+   public function mostrartwo(){
+      //$usuarios=User::all();
+      $usuarios=User::paginate(10);
+      $estado=Estado::all();
+      return view('Administrador.usuarios',compact('usuarios','estado'))->render();
+   }
 
    public function fetch_data(Request $request){
       if($request->ajax()){
