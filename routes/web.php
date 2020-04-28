@@ -33,6 +33,7 @@ Route::group(['prefix' => 'Zonas'], function () {
 Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('mostrar','Administrador\OrganizacionesController@mostrar');
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
+    Route::post('editar','Administrador\OrganizacionesController@editar');
 });
 
 Route::group(['prefix' => 'Municipios'], function () {

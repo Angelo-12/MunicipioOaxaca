@@ -11,6 +11,7 @@ $(document).ready(function() {
         $('#contenido').load('/Organizaciones/mostrar');
     });
 
+    //Funcion para agregar una organizacion
     $("#agregar_organizacion").click(function() {
         $.ajax({
             type: 'POST',
@@ -43,7 +44,7 @@ $(document).ready(function() {
                         "<td>" + data.nombre_dirigente + "</td>" +
                         "<td>" + data.id + "</td>" +
                         "<td align='center'>" +
-                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-idorganizacion='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
                         "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
                         "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data.idorganizacion + "'><i class='fa fa-pencil-alt'></i></button>" +
                         "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
@@ -60,6 +61,43 @@ $(document).ready(function() {
 
     });
 
+    
+    //Funcion para actualizar una organizacion
+    $('.modal-footer').on('click', '.actualizar_organizacion', function() {
+        $.ajax({
+        type: 'POST',
+        url: 'editar',
+        data: {
+            '_token': $('input[name=_token]').val(),
+            'id': $("#id_update").val(),
+            'nombre_organizacion': $('#nombre_organizacion_update').val(),
+            'nombre_dirigente': $('#nombre_dirigente_update').val()
+        },
+        success: function(data) {
+                $('.post' + data.id).replaceWith(" "+
+                "<tr class='post" + data.id + "'>"+
+                    "<td>" + data.id + "</td>"+
+                    "<td>" + data.nombre_organizacion + "</td>"+
+                    "<td>" + data.nombre_dirigente + "</td>"+
+                    "<td>" + data.id + "</td>"+
+                    "<td align='center'>" +
+                                    "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" 
+                                     + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
+                                    "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
+                                    "<button type='button' style='margin-right:3px;'  class='edit-modal btn btn-warning btn-sm' data-id='" 
+                                    + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
+                                    "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-pencil'></i></button>" +
+                                    "<button type='button' style='margin-right:3px;'  class='delete-modal btn btn-warning btn-sm' data-id='" 
+                                    + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
+                                    "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eraser'></i></button>" +
+                    "</td>" +
+                "</tr>");
+            }
+            });
+    });
+
+
+    //Funcion para mostrar los municipios dependiendo del estado seleccionado
     $('#estado').change(function(){
         var estado = $(this).val();
         console.log(estado);
@@ -75,21 +113,17 @@ $(document).ready(function() {
 
 });
 
+/********************************************ORGANIZACIONES************************************************ */
 
+//Funcuion para crear la ventana modal para agregar una organizacion
 $(document).on('click', '.create-modal', function() {
     $('#create_organizacion').modal('show');
 
 });
 
-$(document).on('click', '.create-modal', function() {
-    $('#create_usuario').modal('show');
-
-});
-
-
 $(document).on('click', '.show-modal', function() {
     $('#show_organizacion').modal('show');
-    $('#id').text($(this).data('idorganizacion'));
+    $('#id').text($(this).data('id'));
     $('#nombre_organizacion_show').text($(this).data('nombre_organizacion'));
     $('#nombre_dirigente_show').text($(this).data('nombre_dirigente'));
     $('#show').modal('show');
@@ -98,40 +132,26 @@ $(document).on('click', '.show-modal', function() {
 
 $(document).on('click','.edit-modal',function(){
     $('#update_organizacion').modal('show');
-    $('#id_update').val($(this).data('idorganizacion'))
+    $('#id_update').val($(this).data('id'))
     $('#nombre_organizacion_update').val($(this).data('nombre_organizacion'));
     $('#nombre_dirigente_update').val($(this).data('nombre_dirigente'));
     $('#show').modal('show');
 });
 
+$(document).on('click', '.delete-modal', function() {
+    $('#delete_organizacion').modal('show');
+    $('#show').modal('show');
+    
+});
 
-$('.modal-footer').on('click', '.actualizar_organizacion', function() {
-    $.ajax({
-      type: 'POST',
-      url: 'editar',
-      data: {
-        '_token': $('input[name=_token]').val(),
-        'id_organizacion': $("#id_update").val(),
-        'nombre_organizacion': $('#nombre_organizacion_update').val(),
-        'nombre_dirigente': $('#nombre_dirigente_update').val()
-    },
-  success: function(data) {
-        $('.post' + data.id_organizacion).replaceWith(" "+
-        "<tr class='post" + data.id_organizacion + "'>"+
-        "<td>" + data.id_organizacion + "</td>"+
-        "<td>" + data.nombre_organizacion + "</td>"+
-        "<td>" + data.nombre_dirigente + "</td>"+
-        "<td>" + data.id_organizacion + "</td>"+
-        "<td align='center'>" +
-                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
-                        "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
-                        "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-id='" + data.id + "'><i class='fa fa-pencil-alt'></i></button>" +
-                        "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
-                        "</td>" +
-        "</tr>");
-      }
-    });
-  });
+
+/******************************************** USUARIOS ************************************************ */
+$(document).on('click', '.create-modal', function() {
+    $('#create_usuario').modal('show');
+
+});
+
+
 
 //Funcion para limpiar los datos de la ventana modal al cerrarla
 $('.modal').on('hidden.bs.modal', function(){ 
@@ -139,6 +159,7 @@ $('.modal').on('hidden.bs.modal', function(){
     $("#form_result").empty();
 });
 
+//Funcion para agregar un pageloader
 window.onload=function(){
     $('#onload').fadeOut();
     $('body').removeClass('hidden');

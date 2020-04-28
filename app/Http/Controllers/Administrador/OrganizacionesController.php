@@ -24,7 +24,7 @@ class OrganizacionesController extends Controller
 
         $validator = Validator::make ( Input::all(), $rules);
         if ($validator->fails())
-        return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
+            return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
     
         else {
             $org=new Organizacion;
@@ -37,7 +37,14 @@ class OrganizacionesController extends Controller
         }
     }
 
-    public function actualizar(){
+    public function editar(Request $request){
+        
+            $org = Organizacion::find ($request->id);
+            $org->nombre_organizacion = $request->nombre_organizacion;
+            $org->nombre_dirigente = $request->nombre_dirigente;
+            $org->save();
+            return response()->json($org);
+         
         
     }
 }

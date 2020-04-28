@@ -38,7 +38,7 @@
             </div>
             <table id="table" class="table table-bordered table-striped table-sm">
                 <thead>
-                    <tr>
+                    <tr >
                         <th>Id</th>
                         <th>Nombre de la organizacion</th>
                         <th>Nombre del dirigente</th>
@@ -50,25 +50,25 @@
                 </thead>
                 <tbody>
                     @foreach ($organizaciones as $o)
-                    <tr >
-                        <td >{{$o->idorganizacion}}</td>
+                    <tr class="post{{$o->id}}">
+                        <td >{{$o->id}}</td>
                         <td >{{$o->nombre_organizacion}}</td>
                         <td>{{$o->nombre_dirigente}}</td>
                         <td>{{$o->id_organizacion}}</td>
                         <td align="center">
-                            <button type="button" class="show-modal btn btn-warning btn-sm" data-idorganizacion="{{$o->idorganizacion}}"
+                            <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$o->id}}"
                                     data-nombre_organizacion="{{$o->nombre_organizacion}}" 
                                     data-nombre_dirigente="{{$o->nombre_dirigente}}">
                                 <i class="fa fa-eye"></i>
                             </button>
 
-                            <button type="button" class="edit-modal btn btn-danger btn-sm" data-idorganizacion="{{$o->idorganizacion}}"
+                            <button type="button" class="edit-modal btn btn-danger btn-sm" data-id="{{$o->id}}"
                               data-nombre_organizacion="{{$o->nombre_organizacion}}" 
                                     data-nombre_dirigente="{{$o->nombre_dirigente}}">
                                 <i class="fa fa-pencil-alt"></i>
                             </button>
 
-                            <button type="button" class="btn btn-info btn-sm" data-id="{{$o->id_organizacion}}">
+                            <button type="button" class="delete-modal btn btn-info btn-sm" data-id="{{$o->id}}">
                                 <i class="fa fa-eraser"></i>
                             </button>
 
@@ -169,20 +169,20 @@
             <form class="form-horizontal" role="modal">
               <div class="form-group">
                 <label class="control-label col-sm-2" for="">ID :</label>
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                   <input class="form-control" type="text" id="id_update" disabled/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-10" for="">Nombre de la Organizacion :</label>
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                   <input class="form-control" type="text" id="nombre_organizacion_update"/>
                 </div>
                
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-10" for="">Nombre del dirigente :</label>
-                <div class="col-sm-10">
+                <div class="col-sm-12">
                   <input class="form-control" type="text" id="nombre_dirigente_update"/>
                 </div>
                 
@@ -203,6 +203,38 @@
           </div>
       </div>
   </div>
+
+  {{-- Modal Delete  --}}
+<div id="delete_organizacion" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Organizacion</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+  
+            </div>
+            <div class="modal-body">
+  
+                <div class="deleteContent">
+                    ¿Esta seguro que desea eliminar este registro? <span class="title"></span>?
+                    <span class="hidden id"></span>
+                </div>
+              <div class="modal-footer">
+                  <button class="btn btn-primary eliminar_organizacion" type="submit" id="eliminar_organizacion">
+                      Eliminar
+                      <i class="far fa-trash-alt"></i>
+                  </button>
+                  <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                      Cerrar
+                      <i class="fa fa-times-circle"></i>
+                  </button>
+              </div>
+          </div>
+                
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @endsection
