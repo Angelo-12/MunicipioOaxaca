@@ -32,7 +32,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Empleado</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -43,67 +43,78 @@
                         @csrf
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input  type="text" name="name" placeholder="Nombre"
-                                    class="form-control">
+                            <input  type="text" name="nombre" placeholder="Nombre"
+                                    class="form-control" id="nombre">
+                            <span class="text-danger" id="nombre_error"></span>
                         </div>
 
                         <div class="form-group">
                             <label>Apellido Paterno</label>
                             <input type="text" name="apellido_paterno" placeholder="Apellido Paterno"
-                                   class="form-control" >
+                                   class="form-control" id="apellido_paterno">
+                            <span class="text-danger" id="apellido_paterno_error"></span>
 
                         </div>
 
                         <div class="form-group">
                             <label>Apellido Materno</label>
                             <input  type="text" name="apellido_materno" placeholder="Apellido Materno"
-                                    class="form-control" >
+                                    class="form-control" id="apellido_materno">
+                            <span class="text-danger" id="apellido_materno_error"></span>
 
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input  type="password" class="form-control" id="password" placeholder="Password">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Sexo</label>
-                            <select class="form-control" >
+                            <label for="sexo">Sexo</label>
+                            <select class="form-control" name="sexo" id="sexo">
                                 <option value="" selected disabled>Seleccionar sexo</option>
                                 <option value="M">Mujer</option>
                                 <option value="H">Hombre</option>
                             </select>
+                            <span class="text-danger" id="sexo_error"></span>
                         </div>
 
+
                         <div class="form-group">
-                            <label>Fecha de nacimiento</label>
-                            <div class="input-group date">
-                                <input type="date" class="form-control pull-right" id="datepicker">
-                            </div>
+                            <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                            <input type="text" class="form-control fj-date" id="datepicker" 
+                            placeholder="yyyy/mm/dd" name="fecha_nacimiento">
+                            <span class="text-danger" id="fecha_nacimiento_error"></span>
                         </div>
 
                         <div class="form-group">
                             <label>Estado</label>
                             <select name="estado" id="estado" class="form-control">
-                                <option value="" selected disabled>Seleccionar Estado</option>
-                                @foreach ($estado as $e)
-                                <option value="{{$e->id_estado}}">{{$e->nombre}}</option>
-                                @endforeach
+                                <option value="" selected disabled>Seleccione su estado</option>
+                                    @foreach ($estado as $e)
+                                        <option value="{{$e->id_estado}}">{{$e->nombre}}</option>
+                                    @endforeach
                             </select>
+                            <span class="text-danger" id="estado_error"></span>
                         </div>
 
                         <div class="form-group">
                             <label>Municipio</label>
-                            <select name="municipio" id="municipio" class="form-control">
-                                <option value="" selected disabled>Seleccionar Municipio</option>
+                            <select name="id_municipio" id="municipio" class="form-control">
+                                <option value="" selected disabled>Seleccione su municipio</option>
 
                             </select>
+                            <span class="text-danger" id="id_municipio_error"></span>
                         </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <span class="text-danger" id="email_error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input  type="password" class="form-control" id="password" placeholder="Password">
+                            <span class="text-danger" id="password_error"></span>
+                        </div>
+
+
                     </form>
                 </div>
 

@@ -15,14 +15,16 @@ use App\Models\Calle;
 use App\Models\Estado;
 class UsuarioController extends Controller
 {
-   public function crearUsuario(Request $request){
+   public function insertar(Request $request){
       $rules = array(
-         'name'=>'required',
-         'apellido_paterno'=>'required',
-         'apellido_materno'=>'required',
+         'name'=>'required|string|max:40',
+         'apellido_paterno'=>'required|string|max:30',
+         'apellido_materno'=>'required|string|max:30',
          'fecha_nacimiento'=>'required',
-         'email'=>'required|email',
+         'id_municipio'=>'required',
+         'email'=>'required|email|unique',
          'password'=>'required|min:6'
+         
       );
 
       $validator=Validator::make(input::all(),$rules);
@@ -30,18 +32,21 @@ class UsuarioController extends Controller
       if($validator->fails()){
          return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }else{
-         $nombre=$request->name;
-         $apellido_paterno=$request->apellido_paterno;
-         $apellido_materno=$request->apellido_materno;
-         $fecha_nacimiento=$request->fecha_nacimiento;
-         $sexo=$request->sexo;
-         $email=$request->email;
-         $password=$request->password;
-         $id_municipio=$request->id_municipio;
+         $user= new User;
+         
+         $user->name=$request->input('name');
+         $user->apellido_paterno=$request->input('apellido_paterno');
+         $user->apellido_materno=$request->input('apellido_materno');
+         $user->fecha_nacimiento=$request->input('fecha_nacimiento');
+         $sexo=$request->input('sexo');
+         $user->email=$request->input('email');
+         $user->password=Hash::make($request->input('password'));
+         $user->id_municipio=$request->input('id_municipio');
 
-         User::create(['name'=>$nombre,'apellido_paterno'=>$apellido_paterno,'apellido_materno'=>$apellido_materno,
-         'fecha_nacimiento'=>$fecha_nacimiento,'sexo'=>$sexo,'email'=>$email,'password'=>$password,'id_municipio'=>$id_municipio
-         ]);
+         $user->save();
+    
+         return response()->json($user);
+         
       }
       
    }

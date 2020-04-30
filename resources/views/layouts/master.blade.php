@@ -15,9 +15,9 @@
   <link rel="stylesheet" href="{{asset('css/blue.css')}}">
   <link rel="stylesheet" href="{{asset('css/morris.css')}}">
   <link rel="stylesheet" href="{{asset('css/jquery-jvectormap-1.2.2.css')}}">
-  <link rel="stylesheet" href="{{asset('css/datepicker3.css')}}">
-  <link rel="stylesheet" href="{{asset('css/daterangepicker-bs3.css')}}">
+  <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">
   <link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
+  <link rel="stylesheet" href="{{asset('css/inputs.css')}}">
 </head>
 <body class="hidden">
  
@@ -303,7 +303,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="https://kit.fontawesome.com/7646b98399.js" crossorigin="anonymous"></script>
-<script src="{{asset('js/jquery.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="{{asset('js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('js/angel.js')}}"></script>
 <script src="{{asset('js/morris.min.js')}}"></script>
@@ -312,8 +312,7 @@
 <script src="{{asset('js/jquery-jvectormap-world-mill-en.js')}}"></script>
 <script src="{{asset('js/jquery.knob.js')}}"></script>
 <script src="{{asset('js/moment.js')}}"></script>
-<script src="{{asset('js/daterangepicker.js')}}"></script>
-<script src="{{asset('js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('js/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script src="{{asset('js/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('js/fastclick.min.js')}}"></script>

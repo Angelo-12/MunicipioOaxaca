@@ -104,14 +104,16 @@
                         <label>Nombre de la organizacion</label>
                         <input  type="text" name="nombre_organizacion" id="nombre_organizacion" placeholder="Nombre de la organizacion"
                                 class="form-control">
-
+                        <span class="text-danger" id="nombre_organizacion_error"></span>
                     </div>
                     <div class="form-group">
                         <label>Nombre del dirigente</label>
                         <input  type="text" name="nombre_dirigente" id="nombre_dirigente" placeholder="Nombre del dirigente"
                                 class="form-control">
+                        <span class="text-danger" id="nombre_dirigente_error"></span>
 
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">

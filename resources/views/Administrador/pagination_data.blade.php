@@ -25,7 +25,7 @@
         </thead>
         <tbody>
           @foreach ($usuarios as $u)
-          <tr id="{{$u->id}}">
+          <tr class="post{{$u->id}}" id="{{$u->id}}">
             <td>{{$u->id}}</td>
             <td>{{$u->name}}</td>
             <td>{{$u->apellido_paterno}}</td>
