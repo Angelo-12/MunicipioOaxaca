@@ -13,7 +13,9 @@ $(document).ready(function() {
 
     //Funcion para agregar un usuario
 
-    $("agregar_usuario").click(function(){
+    $("#agregar_usuario").click(function(){
+        var aux=$('#sexo option:selected').val();
+        console.log(aux);
         $.ajax({
             type: 'POST',
             url: 'insertar',
@@ -22,36 +24,97 @@ $(document).ready(function() {
                 'name': $('input[name=nombre]').val(),
                 'apellido_paterno': $('input[name=apellido_paterno]').val(),
                 'apellido_materno': $('input[name=apellido_materno]').val(),
-                'sexo': $('input[name=sexo]').val(),
+                'sexo': aux,
+                'fecha_nacimiento': $('input[name=fecha_nacimiento]').val(),
                 'email': $('input[name=email]').val(),
                 'password': $('input[name=password]').val(),
-                'id_municipio': $('input[name=id_municipio]').val(),
+                'id_municipio': $('select[name=id_municipio]').val(),
 
             },
             dataType:'json',
             success: function(data) {
-                $('#nombre').addClass('green-border');
+                
+                $('#name').addClass('green-border');
                 $('#apellido_paterno').addClass('green-border');
                 $('#apellido_materno').addClass('green-border');
                 $('#apellido_paterno').addClass('green-border');
                 $('#sexo').addClass('green-border');
+                $('#fecha_nacimiento').addClass('green-border');
                 $('#estado').addClass('green-border');
                 $('#municipio').addClass('green-border');
                 $('#email').addClass('green-border');
                 $('#password').addClass('green-border');
-                
-                if ((data.errors)) {
+
+                if ((data.errors)) {   
+
+                    $.each( data.errors, function( key, value ) {
+                        
+                        var ErrorId='#'+key+'_error';
+                        var aux='#'+key;
+                        $(aux).removeClass('green-border');
+                        $(aux).addClass('red-border');
+                        $(ErrorId).removeClass('d-none');
+                        $(ErrorId).text(value);
+                    });
                    
                 } else {
-                   
+
+                    $('#name').val('');
+                    $('#apellido_paterno').val('');
+                    $('#apellido_materno').val('');
+                    $('#fecha_nacimiento').val('');
+                    $('#email').val('');
+                    $('#password').val('');
+                    $('#sexo').prop('selectedIndex',0);
+                    $('#id_municipio').prop('selectedIndex',0);
+
+                    $('#name').removeClass('green-border');
+                    $('#name').removeClass('red-border');
+                    $('#name_error').addClass('d-none');
+                    $('#apellido_paterno').removeClass('green-border');
+                    $('#apellido_paterno').removeClass('red-border');
+                    $('#apellido_paterno_error').addClass('d-none');
+                    $('#apellido_materno').removeClass('green-border');
+                    $('#apellido_materno').removeClass('red-border');
+                    $('#apellido_materno_error').addClass('d-none');
+                    $('#fecha_nacimiento').removeClass('green-border');
+                    $('#fecha_nacimiento').removeClass('red-border');
+                    $('#fecha_nacimiento_error').addClass('d-none');
+                    $('#sexo').removeClass('green-border');
+                    $('#sexo').removeClass('red-border');
+                    $('#sexo_error').addClass('d-none');
+                    $('#estado').removeClass('green-border');
+                    $('#estado').removeClass('red-border');
+                    $('#estado_error').addClass('d-none');
+                    $('#id_municipio').removeClass('green-border');
+                    $('#id_municipio').removeClass('red-border');
+                    $('#id_municipio_error').addClass('d-none');
+                    $('#email').removeClass('green-border');
+                    $('#email').removeClass('red-border');
+                    $('#email_error').addClass('d-none');
+                    $('#password').removeClass('green-border');
+                    $('#password').removeClass('red-border');
+                    $('#password_error').addClass('d-none');
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Usuario agregado correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
                     $('#table').append("<tr class='post" + data.id + "'>" +
                         "<td>" + data.id + "</td>" +
-                        "<td>" + data.nombre_organizacion + "</td>" +
-                        "<td>" + data.nombre_dirigente + "</td>" +
-                        "<td>" + data.id + "</td>" +
+                        "<td>" + data.name + "</td>" +
+                        "<td>" + data.apellido_paterno + "</td>" +
+                        "<td>" + data.apellido_materno + "</td>" +
+                        "<td>" + data.email + "</td>" +
+                        "<td>" + data.sexo + "</td>" +
+                        "<td>" + data.sexo + "</td>" +
+                        "<td>" + data.sexo + "</td>" +
                         "<td align='center'>" +
-                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
-                        "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-name='" + data.name + "'" +
+                        "data-apellido_paterno='" + data.apellido_paterno + "'><i class='fa fa-eye'></i></button>" +
                         "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data.idorganizacion + "'><i class='fa fa-pencil-alt'></i></button>" +
                         "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
                         "</td>" +
@@ -120,14 +183,10 @@ $(document).ready(function() {
                             "</td>" +
                         "</tr>");
                         
-                    }
-                    
-                }
-                
+                    }   
+                }     
             },
         });
-        
-
     });
 
     
@@ -174,9 +233,9 @@ $(document).ready(function() {
           console.log(data);
             var municipio_select = '<option value="" selected disabled>Seleccione su municipio</option>'
               for (var i=0; i<data.length;i++)
-                municipio_select+='<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
+                municipio_select+='<option value="'+data[i].id_municipio+'">'+data[i].nombre+'</option>';
   
-              $("#municipio").html(municipio_select);
+              $("#id_municipio").html(municipio_select);
         });
       });
 
@@ -194,8 +253,6 @@ $(document).ready(function() {
 //Funcuion para crear la ventana modal para agregar una organizacion
 $(document).on('click', '.create-modal', function() {
     $('#create_organizacion').modal('show');
-    //var yea=document.getElementById("table").rows.length;
-    //console.log(yea);
 
 });
 
@@ -225,15 +282,6 @@ $(document).on('click', '.delete-modal', function() {
     
 });
 
-
-/******************************************** USUARIOS ************************************************ */
-$(document).on('click', '.create-modal', function() {
-    $('#create_usuario').modal('show');
-
-});
-
-
-
 //Funcion para limpiar los datos de la ventana modal al cerrarla
 $('#create_organizacion').on('hidden.bs.modal', function(){ 
     $('#form_organizaciones')[0].reset();
@@ -247,10 +295,63 @@ $('#create_organizacion').on('hidden.bs.modal', function(){
 });
 
 
+
+/******************************************** USUARIOS ************************************************ */
+$(document).on('click', '.create-modal', function() {
+    $('#create_usuario').modal('show');
+
+});
+
+$(document).on('click', '.role-usuario', function() {
+    $('#role_usuario').modal('show');
+    $('#id_usuario').val($(this).data('id'))
+});
+
+$('#create_usuario').on('hidden.bs.modal', function(){ 
+    $('#name').val('');
+    $('#apellido_paterno').val('');
+    $('#apellido_materno').val('');
+    $('#fecha_nacimiento').val('');
+    $('#email').val('');
+    $('#password').val('');
+    $('#sexo').prop('selectedIndex',0);
+    $('#id_municipio').prop('selectedIndex',0);
+
+    $('#name').removeClass('green-border');
+    $('#name').removeClass('red-border');
+    $('#name_error').addClass('d-none');
+    $('#apellido_paterno').removeClass('green-border');
+    $('#apellido_paterno').removeClass('red-border');
+    $('#apellido_paterno_error').addClass('d-none');
+    $('#apellido_materno').removeClass('green-border');
+    $('#apellido_materno').removeClass('red-border');
+    $('#apellido_materno_error').addClass('d-none');
+    $('#fecha_nacimiento').removeClass('green-border');
+    $('#fecha_nacimiento').removeClass('red-border');
+    $('#fecha_nacimiento_error').addClass('d-none');
+    $('#sexo').removeClass('green-border');
+    $('#sexo').removeClass('red-border');
+    $('#sexo_error').addClass('d-none');
+    $('#estado').removeClass('green-border');
+    $('#estado').removeClass('red-border');
+    $('#estado_error').addClass('d-none');
+    $('#id_municipio').removeClass('green-border');
+    $('#id_municipio').removeClass('red-border');
+    $('#id_municipio_error').addClass('d-none');
+    $('#email').removeClass('green-border');
+    $('#email').removeClass('red-border');
+    $('#email_error').addClass('d-none');
+    $('#password').removeClass('green-border');
+    $('#password').removeClass('red-border');
+    $('#password_error').addClass('d-none');
+});
+
+
+
+
 //Funcion para agregar un pageloader
 window.onload=function(){
     $('#onload').fadeOut();
     $('body').removeClass('hidden');
     $('div').removeAttr('hidden');
 }
-

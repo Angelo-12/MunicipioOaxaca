@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\input;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Administrador_Secretaria;
 use App\Models\Permisos;
 use App\Models\Vendedor;
@@ -13,17 +14,21 @@ use App\Models\Zona;
 use App\Models\Organizacion;
 use App\Models\Calle;
 use App\Models\Estado;
+use Validator;
+use Response;
+
 class UsuarioController extends Controller
 {
    public function insertar(Request $request){
       $rules = array(
-         'name'=>'required|string|max:40',
-         'apellido_paterno'=>'required|string|max:30',
-         'apellido_materno'=>'required|string|max:30',
+         'name'=>['required','alpha','max:40'],
+         'apellido_paterno'=>['required','alpha','max:30'],
+         'apellido_materno'=>['required','alpha','max:30'],
+         'sexo'=>'required',
          'fecha_nacimiento'=>'required',
-         'id_municipio'=>'required',
-         'email'=>'required|email|unique',
-         'password'=>'required|min:6'
+         'id_municipio'=>'integer',
+         'email'=>['email','required'],
+         'password'=>['required','min:6'],
          
       );
 
@@ -38,10 +43,11 @@ class UsuarioController extends Controller
          $user->apellido_paterno=$request->input('apellido_paterno');
          $user->apellido_materno=$request->input('apellido_materno');
          $user->fecha_nacimiento=$request->input('fecha_nacimiento');
-         $sexo=$request->input('sexo');
+         $user->sexo=$request->input('sexo');
          $user->email=$request->input('email');
          $user->password=Hash::make($request->input('password'));
          $user->id_municipio=$request->input('id_municipio');
+         $user->status='1';
 
          $user->save();
     
@@ -50,9 +56,6 @@ class UsuarioController extends Controller
       }
       
    }
-
-   
-
 
    public function mostrar(){
       //$usuarios=User::all();
@@ -67,6 +70,7 @@ class UsuarioController extends Controller
          return view('Administrador.usuarios',compact('usuarios'))->render();
       }
    }
+   
    public function iniciarsesion($id){
       $usuario=Administrador_Secretaria::join('users','admin_secretaria.id','=','users.id')
       ->join('municipio','users.id_municipio','=','municipio.id_municipio')

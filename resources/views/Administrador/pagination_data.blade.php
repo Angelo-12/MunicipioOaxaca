@@ -16,6 +16,7 @@
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno</th>
                 <th>Correo Electronico</th>
+                <th>Edad</th>
                 <th>Cargo</th>
                 <th>Status</th>
                 <th>Opciones</th>
@@ -24,6 +25,7 @@
             
         </thead>
         <tbody>
+            if
           @foreach ($usuarios as $u)
           <tr class="post{{$u->id}}" id="{{$u->id}}">
             <td>{{$u->id}}</td>
@@ -32,7 +34,30 @@
             <td>{{$u->apellido_materno}}</td>
             <td>{{$u->email}}</td>
             <td>{{$u->sexo}}</td>
-            <td>{{$u->sexo}}</td>
+            <td align="center">
+                <button type="button" class="role-modal btn btn-success btn-sm">
+                    <i class="fa fa-user-shield"></i>
+                </button>
+                
+            </td>
+                
+            <td>@if($u->status==1)
+                <div class="switch">
+                    <label>
+                      Activo
+                      <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                      
+                    </label>
+                  </div>
+                @else
+                <div class="switch">
+                    <label>
+                      Inactivo
+                      <input type="checkbox" readonly onclick="javascript: return false;">
+                      
+                    </label>
+                  </div>
+                @endif</td>
            
             <td align="center">
               <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$u->id}}"

@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'Usuarios'], function () {
-    Route::post('insertar','UsuarioController@crearUsuario');
+    Route::post('insertar','Administrador\UsuarioController@insertar');
     Route::get('mostrar','Administrador\UsuarioController@mostrar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
 
