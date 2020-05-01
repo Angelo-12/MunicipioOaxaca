@@ -26,7 +26,7 @@ class UsuarioController extends Controller
          'apellido_materno'=>['required','alpha','max:30'],
          'sexo'=>'required',
          'fecha_nacimiento'=>'required',
-         'id_municipio'=>'integer',
+         'id_municipio'=>'required',
          'email'=>['email','required'],
          'password'=>['required','min:6'],
          
@@ -57,6 +57,39 @@ class UsuarioController extends Controller
       
    }
 
+   public function insertar_rol(Request $request){
+      $usuario=Administrador_Secretaria::where('id_usuario','=',$request->input('id_usuario'))->first();
+
+      if(Administrador_Secretaria::where('id_usuario','=',$request->input('id_usuario'))->exists()){
+
+         $usuario->id_usuario = $request->input('id_usuario');;
+         $usuario->cargo = $request->input('cargo');
+         $usuario->save();
+         return response()->json($usuario);
+         
+      }else{
+         $rules = array(
+            'cargo'=>['required','alpha','max:40'],
+         );
+   
+         $validator=Validator::make(input::all(),$rules);
+   
+         if($validator->fails()){
+            return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+         }else{
+            $rol=new Administrador_Secretaria;
+            $rol->cargo=$request->input('cargo');
+            $rol->id_usuario=$request->input('id_usuario');
+   
+            $rol->save();
+       
+            return response()->json($rol);
+   
+         }
+      }
+
+   }
+
    public function mostrar(){
       //$usuarios=User::all();
       $usuarios=User::paginate(10);
@@ -70,7 +103,7 @@ class UsuarioController extends Controller
          return view('Administrador.usuarios',compact('usuarios'))->render();
       }
    }
-   
+
    public function iniciarsesion($id){
       $usuario=Administrador_Secretaria::join('users','admin_secretaria.id','=','users.id')
       ->join('municipio','users.id_municipio','=','municipio.id_municipio')

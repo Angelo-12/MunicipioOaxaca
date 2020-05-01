@@ -223,7 +223,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="">Id</label>
                             <div class="col-sm-12">
-                                <input class="form-control" type="text" id="id_usuario" disabled/>
+                                <input class="form-control" type="text" name="id_usuario" id="id_usuario" disabled/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -237,8 +237,8 @@
                     </form>
 
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" id="agregar_usuario">
-                            Guardar
+                        <button class="btn btn-primary" type="submit" id="asignar_rol">
+                            Agregar
                             <i class="fa fa-save"></i>
                         </button>
                         <button class="btn btn-danger" type="button" data-dismiss="modal">

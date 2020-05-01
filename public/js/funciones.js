@@ -11,11 +11,50 @@ $(document).ready(function() {
         $('#contenido').load('/Organizaciones/mostrar');
     });
 
-    //Funcion para agregar un usuario
+    //Funcion para asignar un rol a un usuario
 
+    $("#asignar_rol").click(function(){
+        var aux=$('#cargo option:selected').val();
+        var a=$("#id_usuario").val();
+        console.log(a);
+        console.log(aux);
+        $.ajax({
+            type: 'POST',
+            url: 'insertar_rol',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'cargo': aux,
+                'id_usuario': a,
+                
+            },
+            dataType:'json',
+            success: function(data) {
+               
+                if ((data.errors)) {
+                    
+                    $.each( data.errors, function( key, value ) {
+                        console.log(key);
+                        console.log(value);
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Rol asignado',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
+                     
+                }     
+            },
+        });
+    });
+
+    //Funcion para agregar un usuario
     $("#agregar_usuario").click(function(){
         var aux=$('#sexo option:selected').val();
-        console.log(aux);
         $.ajax({
             type: 'POST',
             url: 'insertar',
@@ -121,8 +160,6 @@ $(document).ready(function() {
                         "</tr>");
                         
                 }
-               
-                
             },
         });
 

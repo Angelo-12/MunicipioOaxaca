@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar','Administrador\UsuarioController@insertar');
+    Route::post('insertar_rol','Administrador\UsuarioController@insertar_rol');
     Route::get('mostrar','Administrador\UsuarioController@mostrar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
 
