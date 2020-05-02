@@ -20,7 +20,11 @@
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
             <button type="button"  class="btn btn-info">
-                <i class="fa fa-file-pdf"></i>&nbsp;Reporte
+                <i class="fa fa-file-pdf"></i>&nbsp;PDF
+            </button>
+
+            <button type="button"  class="btn btn-info">
+                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
             </button>
         </div>
 

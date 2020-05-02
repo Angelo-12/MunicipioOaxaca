@@ -169,7 +169,7 @@
 
                <li class="nav-item">
                 <router-link to="/inicio" class="nav-link">
-                  <i class="nav-icon fas fa-clipboard-list" style="color:blue;"></i>
+                  <i class="nav-icon fas fa-clipboard-list" style="color:brown;"></i>
                   <p>
                     Inicio
                   </p>
@@ -187,9 +187,18 @@
 
               <li class="nav-item has-treeview menu-close">
                 <a href="{{url('Usuarios/mostrar')}}" class="nav-link">
-                  <i class="nav-icon fas fa-users " style="color:black;"></i>
+                  <i class="nav-icon fas fa-user-lock" style="color:#17a2b8;"></i>
                   <p>
                     Usuarios
+              
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item has-treeview menu-close">
+                <a href="{{url('Usuarios/mostrar')}}" class="nav-link">
+                  <i class="nav-icon fas fa-users " style="color:black;"></i>
+                  <p>
+                    Vendedores
               
                   </p>
                 </a>
@@ -225,14 +234,48 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
+                 
+                  <i class="fas fa-tag nav-icon"></i>
+                  <p>Comercial movil</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
+                  <i class="fas fa-tag nav-icon"></i>
+                  <p>Comercial semifija</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-tag nav-icon"></i>
+                  <p>Comercial movil</p>
+                  <p>&emsp;&emsp;con equipo rodante</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-tag nav-icon"></i>
+                  <p>Comercial fija</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-tag nav-icon"></i>
+                  <p>Comercios</p>
+                  <p>&emsp;&emsp;establecidos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-tag nav-icon"></i>
+                  <p>Tianguis</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-tag nav-icon"></i>
+                  <p>Prestacion de</p>
+                  <p>&emsp;&emsp;servicios</p>
                 </a>
               </li>
             </ul>

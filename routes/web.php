@@ -37,8 +37,8 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::post('editar','Administrador\OrganizacionesController@editar');
 });
 
-Route::group(['prefix' => 'Municipios'], function () {
-    //Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
+Route::group(['prefix' => 'Actividades'], function () {
+    Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
 });
 
 
