@@ -205,7 +205,7 @@
               </li>
           
               <li class="nav-item">
-                <a href="{{url('Zonas/mostrar')}}" class="nav-link">
+                <a href="{{url('Zonas/index')}}" class="nav-link">
                   <i class="nav-icon fas fa-thumbtack" style="color:green;"></i>
                   <p>
                     Zonas
@@ -214,7 +214,7 @@
               </li>
 
               <li class="nav-item">
-                <a href="{{url('Organizaciones/mostrar')}}" class="nav-link">
+                <a href="{{url('Organizaciones/index')}}" class="nav-link">
                   <i class="nav-icon fas fa-sitemap " style="color:teal;"></i>
                   <p>
                     Organizaciones
@@ -233,46 +233,46 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('Actividades/comerciales/1')}}" class="nav-link">
                  
                   <i class="fas fa-tag nav-icon"></i>
                   <p>Comercial movil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('Actividades/comerciales/2')}}" class="nav-link">
                   <i class="fas fa-tag nav-icon"></i>
                   <p>Comercial semifija</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('Actividades/comerciales/3')}}" class="nav-link">
                   <i class="fas fa-tag nav-icon"></i>
                   <p>Comercial movil</p>
                   <p>&emsp;&emsp;con equipo rodante</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('Actividades/comerciales/4')}}" class="nav-link">
                   <i class="fas fa-tag nav-icon"></i>
                   <p>Comercial fija</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('Actividades/comerciales/5')}}" class="nav-link">
                   <i class="fas fa-tag nav-icon"></i>
                   <p>Comercios</p>
                   <p>&emsp;&emsp;establecidos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('Actividades/comerciales/6')}}" class="nav-link">
                   <i class="fas fa-tag nav-icon"></i>
                   <p>Tianguis</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url('Actividades/comerciales/7')}}" class="nav-link">
                   <i class="fas fa-tag nav-icon"></i>
                   <p>Prestacion de</p>
                   <p>&emsp;&emsp;servicios</p>

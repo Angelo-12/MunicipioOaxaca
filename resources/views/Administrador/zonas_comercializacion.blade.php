@@ -1,32 +1,6 @@
+@extends('layouts.master')
 
-
-<style>
-  .verde{
-   background-color:#2EA71B; 
-   color: white;
-  }
-
-  .amarillo{
-    background-color:#E7EA26; 
-    color: white;
-  }
-
-  .rojo{
-    background-color:#D60A0A; 
-    color: white;
-  }
-
-  .gris{
-    background-color:#898686; 
-    color: white;
-  }
-
-  .azul{
-    background-color: #4CAEF1;
-  }
-</style>
-
-
+@section('content')
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><a href="/">Inicio</a></li>
 </ol>
@@ -137,7 +111,7 @@
                   <tr >
                     <td >{{$z->id_zona}}</td>
                     <td >{{$z->nombre}}</td>
-                    <td>{{$z->id_zona}}</td>
+                    <td>{{$z->total}}</td>
                     <td align="center">
                       <button type="button"  class="btn btn-warning btn-sm">
                         <i class="fa fa-eye"></i>
@@ -204,6 +178,9 @@
     </div>
   </div>
 </div>
+
+@endsection
+
 
 
 

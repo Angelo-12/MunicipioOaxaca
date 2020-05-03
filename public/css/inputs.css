@@ -5,3 +5,27 @@
 .green-border{
     border: 1px solid green;
 }
+
+.verde{
+    background-color:#2EA71B; 
+    color: white;
+   }
+ 
+   .amarillo{
+     background-color:#E7EA26; 
+     color: white;
+   }
+ 
+   .rojo{
+     background-color:#D60A0A; 
+     color: white;
+   }
+ 
+   .gris{
+     background-color:#898686; 
+     color: white;
+   }
+ 
+   .azul{
+     background-color: #4CAEF1;
+   }

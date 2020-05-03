@@ -10,7 +10,7 @@ use Response;
 use Illuminate\Support\Facades\Input;
 class OrganizacionesController extends Controller
 {
-    public function mostrar(){
+    public function index(){
         $organizaciones=Organizacion::paginate(10);
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
     }
@@ -44,7 +44,6 @@ class OrganizacionesController extends Controller
             $org->nombre_dirigente = $request->nombre_dirigente;
             $org->save();
             return response()->json($org);
-         
         
     }
 }

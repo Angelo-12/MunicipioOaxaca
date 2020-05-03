@@ -28,11 +28,11 @@ Route::group(['prefix' => 'Usuarios'], function () {
 });
 
 Route::group(['prefix' => 'Zonas'], function () {
-    Route::get('mostrar','Administrador\ZonaController@mostrar');
+    Route::get('index','Administrador\ZonaController@index');
 });
 
 Route::group(['prefix' => 'Organizaciones'], function () {
-    Route::get('mostrar','Administrador\OrganizacionesController@mostrar');
+    Route::get('index','Administrador\OrganizacionesController@mostrar');
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
     Route::post('editar','Administrador\OrganizacionesController@editar');
 });

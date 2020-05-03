@@ -73,16 +73,26 @@ $(document).ready(function() {
             dataType:'json',
             success: function(data) {
                 
+                //Agrega los bordes verdes a los inputs
                 $('#name').addClass('green-border');
                 $('#apellido_paterno').addClass('green-border');
                 $('#apellido_materno').addClass('green-border');
-                $('#apellido_paterno').addClass('green-border');
                 $('#sexo').addClass('green-border');
                 $('#fecha_nacimiento').addClass('green-border');
                 $('#estado').addClass('green-border');
                 $('#municipio').addClass('green-border');
                 $('#email').addClass('green-border');
                 $('#password').addClass('green-border');
+                //Oculta los errores en caso de que el valor sea correcto
+                $('#name_error').addClass('d-none');
+                $('#apellido_paterno_error').addClass('d-none');
+                $('#apellido_materno_error').addClass('d-none');
+                $('#sexo_error').addClass('d-none');
+                $('#fecha_nacimiento_error').addClass('d-none');
+                $('#estado_error').addClass('d-none');
+                $('#municipio_error').addClass('d-none');
+                $('#email_error').addClass('d-none');
+                $('#password_error').addClass('d-none');
 
                 if ((data.errors)) {   
 
@@ -180,6 +190,8 @@ $(document).ready(function() {
             success: function(data) {
                 $('#nombre_organizacion').addClass('green-border');
                 $('#nombre_dirigente').addClass('green-border');
+                $('#nombre_organizacion_error').addClass('d-none');
+                $('#nombre_dirigente_error').addClass('d-none');
                 if ((data.errors)) {
                     
                     $.each( data.errors, function( key, value ) {
