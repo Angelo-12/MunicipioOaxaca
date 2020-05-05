@@ -29,10 +29,12 @@ Route::group(['prefix' => 'Usuarios'], function () {
 
 Route::group(['prefix' => 'Zonas'], function () {
     Route::get('index','Administrador\ZonaController@index');
+    Route::get('detalle_zona/{id}','Administrador\ZonaController@detalle_zona');
+    Route::get('pagination', 'Administrador\ZonaController@fetch_data');
 });
 
 Route::group(['prefix' => 'Organizaciones'], function () {
-    Route::get('index','Administrador\OrganizacionesController@mostrar');
+    Route::get('index','Administrador\OrganizacionesController@index');
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
     Route::post('editar','Administrador\OrganizacionesController@editar');
 });

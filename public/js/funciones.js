@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    $('#usuarios').click(function() {
-        $('#contenido').load('/Usuarios/mostrar');
+    $('#permitida').click(function() {
+        $('#table_data').load('/Zonas/detalle_zona/1');
+        console.log("permitida");
     });
 
     $('#zona').click(function() {
@@ -10,6 +11,8 @@ $(document).ready(function() {
     $('#organizacion').click(function() {
         $('#contenido').load('/Organizaciones/mostrar');
     });
+
+
 
     //Funcion para asignar un rol a un usuario
 
@@ -218,6 +221,9 @@ $(document).ready(function() {
                         timer: 1500
                       })
 
+                     $('#create_organizacion').modal('hide');
+
+
                     if(registros<11){
                         $('#table').append("<tr class='post" + data.id + "'>" +
                             "<td>" + data.id + "</td>" +
@@ -351,6 +357,17 @@ $(document).on('click', '.create-modal', function() {
 
 });
 
+/*$(document).on('click', '.show-modal-zona', function() {
+    $('#show_zona').modal('show');
+    //map.invalidateSize();
+    map.resize();
+});*/
+
+$('#show_zona').on('shown.bs.modal', function() {
+    map.resize();
+  });
+
+
 $(document).on('click', '.role-usuario', function() {
     $('#role_usuario').modal('show');
     $('#id_usuario').val($(this).data('id'))
@@ -394,8 +411,6 @@ $('#create_usuario').on('hidden.bs.modal', function(){
     $('#password').removeClass('red-border');
     $('#password_error').addClass('d-none');
 });
-
-
 
 
 //Funcion para agregar un pageloader

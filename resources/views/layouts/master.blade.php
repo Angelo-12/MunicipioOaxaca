@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">
   <link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/inputs.css')}}">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 </head>
 <body class="hidden">
  
@@ -204,13 +206,44 @@
                 </a>
               </li>
           
-              <li class="nav-item">
-                <a href="{{url('Zonas/index')}}" class="nav-link">
+              <li class="nav-item has-treeview menu-close">
+                <a href="" class="nav-link">
                   <i class="nav-icon fas fa-thumbtack" style="color:green;"></i>
                   <p>
                     Zonas
+                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{url('Zonas/index')}}" class="nav-link">
+                     
+                      <i class="fas fa-map-marker nav-icon"></i>
+                      <p>Zonas</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('Zonas/detalle_zona/1')}}" class="nav-link">
+                      <i class="fas fa-map-marker nav-icon"></i>
+                      <p>Zona Permitida</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('Zonas/detalle_zona/2')}}" class="nav-link">
+                      <i class="fas fa-map-marker nav-icon"></i>
+                      <p>Zona Restringida</p>
+          
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{url('Zonas/detalle_zona/3')}}" class="nav-link">
+                      <i class="fas fa-map-marker nav-icon"></i>
+                      <p>Zona Prohibida</p>
+                    </a>
+                  </li>
+                  
+                </ul>
               </li>
 
               <li class="nav-item">
@@ -343,10 +376,12 @@
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="https://kit.fontawesome.com/7646b98399.js" crossorigin="anonymous"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <script src="{{asset('js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('js/angel.js')}}"></script>
 <script src="{{asset('js/morris.min.js')}}"></script>
@@ -354,7 +389,6 @@
 <script src="{{asset('js/jquery-jvectormap-1.2.2.min.js')}}"></script>
 <script src="{{asset('js/jquery-jvectormap-world-mill-en.js')}}"></script>
 <script src="{{asset('js/jquery.knob.js')}}"></script>
-<script src="{{asset('js/moment.js')}}"></script>
 <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{asset('js/bootstrap3-wysihtml5.all.min.js')}}"></script>
 <script src="{{asset('js/jquery.slimscroll.min.js')}}"></script>
@@ -364,6 +398,7 @@
 <script src="{{asset('js/demo.js')}}"></script>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/funciones.js')}}"></script>
+<script src="{{asset('js/mapas.js')}}"></script>
 
 </body>
 </html>
