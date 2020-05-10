@@ -120,7 +120,7 @@
                   <td >{{$z->nombre}}</td>
                   <td>{{$z->total}}</td>
                   <td align="center">
-                    <button type="button"  class="show-modal-zona btn btn-warning btn-sm" data-toggle="modal" data-target="#show_zona">
+                    <button type="button"  class="show-modal-zona btn btn-warning btn-sm" data-toggle="modal" data-id="{{$z->id}}" data-target="#show_zona">
                       <i class="fa fa-eye"></i>
                     </button>
                    
@@ -150,6 +150,10 @@
 
           </div>
           <div class="modal-body">
+
+            <div class="form-group">
+              <input type="text" id="id_zona_update" name="id_zona">
+            </div>
              
             <div id="map" style="height:300px;"></div> 
           </div>

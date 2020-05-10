@@ -14,6 +14,7 @@ use App\Models\Zona;
 use App\Models\Organizacion;
 use App\Models\Calle;
 use App\Models\Estado;
+use Carbon\Carbon;
 use Validator;
 use Response;
 
@@ -57,6 +58,45 @@ class UsuarioController extends Controller
       
    }
 
+   public function editar(Request $request){
+      $usuario=Users::find($request->id);
+      $rules = array(
+         'name'=>['required','alpha','max:40'],
+         'apellido_paterno'=>['required','alpha','max:30'],
+         'apellido_materno'=>['required','alpha','max:30'],
+         'sexo'=>'required',
+         'fecha_nacimiento'=>'required',
+         'id_municipio'=>'required',
+         'email'=>['email','required'],
+         'password'=>['required','min:6'],
+         
+      );
+
+      $validator=Validator::make(input::all(),$rules);
+
+      if($validator->fails()){
+         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }else{
+         $user= new User;
+         
+         $user->name=$request->input('name');
+         $user->apellido_paterno=$request->input('apellido_paterno');
+         $user->apellido_materno=$request->input('apellido_materno');
+         $user->fecha_nacimiento=$request->input('fecha_nacimiento');
+         $user->sexo=$request->input('sexo');
+         $user->email=$request->input('email');
+         $user->password=Hash::make($request->input('password'));
+         $user->id_municipio=$request->input('id_municipio');
+         $user->status='1';
+
+         $user->save();
+    
+         return response()->json($user);
+         
+      }
+   }
+
+
    public function insertar_rol(Request $request){
       $usuario=Administrador_Secretaria::where('id_usuario','=',$request->input('id_usuario'))->first();
 
@@ -90,7 +130,7 @@ class UsuarioController extends Controller
 
    }
 
-   public function mostrar(){
+   public function index(){
       //$usuarios=User::all();
       $usuarios=User::paginate(10);
       $estado=Estado::all();

@@ -40,22 +40,6 @@ class ZonaController extends Controller
         ->paginate(10);
 
         return view('Administrador.detalle_zona')->with('vendedor',$vendedor)->with('zona',$zona);
-
-        //return $vendedor;
     }
 
-    public function fetch_data(){
-     /*if($request->ajax()){
-        $vendedor=Vendedor::join('permiso','permiso.id','=','vendedor.id_permiso')
-        ->join('users','users.id','vendedor.id_usuario')
-        ->join('calle','calle.id','=','permiso.id_calle')
-        ->join('zona','zona.id','=','calle.id_zona')
-        ->where('zona.id','=','1')
-        ->select('users.*',DB::raw('permiso.*,vendedor.*'))
-        ->paginate(10);*/
-
-      //return view('Administrador.detalle_zona',compact('vendedor'))->render();
-      return view('Administrador.hola');
-     //}
-    }
 }

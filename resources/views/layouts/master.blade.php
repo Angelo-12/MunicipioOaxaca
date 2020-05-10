@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/inputs.css')}}">
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+ 
 </head>
 <body class="hidden">
  
@@ -398,7 +398,6 @@
 <script src="{{asset('js/demo.js')}}"></script>
 <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('js/funciones.js')}}"></script>
-<script src="{{asset('js/mapas.js')}}"></script>
 
 </body>
 </html>
