@@ -131,8 +131,10 @@ class UsuarioController extends Controller
    }
 
    public function index(){
-      //$usuarios=User::all();
-      $usuarios=User::paginate(10);
+      //$usuarios=User::paginate(10);
+      $usuarios=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
+      //->select('admin_secretaria.*,users.*')
+      ->paginate(10);
       $estado=Estado::all();
       return view('Administrador.usuarios',compact('usuarios','estado'))->render();
    }

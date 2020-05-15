@@ -20,6 +20,10 @@ class User extends Authenticatable
         'foto_perfil', 'email', 'password','id_municipio','status',
     ];
 
+    protected $dates=[
+        'fecha_nacimiento',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *

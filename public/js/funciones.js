@@ -371,12 +371,19 @@ $(document).on('click', '.create-modal', function() {
     map.resize();
 });*/
 
-
+$(document).on('click','.show-modal-usuario',function(){
+    $('#show_usuario').modal('show');
+    $('#id').text($(this).data('id'));
+    $('#nombre_usuario_show').text($(this).data('nombre'));
+    $('#paterno_show').text($(this).data('apellido_paterno'));
+    $('#materno_show').text($(this).data('apellido_materno'));
+    $('#email_show').text($(this).data('email'));
+});
 
 
 $(document).on('click', '.role-usuario', function() {
     $('#role_usuario').modal('show');
-    $('#id_usuario').val($(this).data('id'))
+    $('#id_usuario').val($(this).data('id'));
 });
 
 $('#create_usuario').on('hidden.bs.modal', function(){ 

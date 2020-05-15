@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('edad/{fecha_nacimiento}','Administrador\UsuarioController@calcular_edad');
 
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar','Administrador\UsuarioController@insertar');
@@ -43,6 +44,12 @@ Route::group(['prefix' => 'Actividades'], function () {
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
 });
 
+Route::get('hola',function(){
+    Mail::send('Administrador.email',['curso'=>'AHI ESTA EL ENVIO DE CORREO ELECTRONICO'],function($m){
+        $m->from('angel23.aj32@gmail.com','Angel Gabriel');
+        $m->to('jaibertolledo@gmail.com','Jaiber')->subject('AHI ESTA EL ENVIO DE CORREO');
+    });
+});
 
 
 Route::get('usuarios','Administrador\UsuarioController@mostrarUsuarios');

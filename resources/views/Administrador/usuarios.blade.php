@@ -46,7 +46,6 @@
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
                         <th>Correo Electronico</th>
-                        <th>Edad</th>
                         <th>Cargo</th>
                         <th>Status</th>
                         <th>Opciones</th>
@@ -63,8 +62,9 @@
                     <td>{{$u->apellido_paterno}}</td>
                     <td>{{$u->apellido_materno}}</td>
                     <td>{{$u->email}}</td>
-                    <td>{{$u->sexo}}</td>
                     <td align="center">
+                        {{$u->cargo}}
+                        
                         <button type="button" class="role-usuario btn btn-success btn-sm" data-id="{{$u->id}}">
                             <i class="fa fa-user-shield"></i>
                         </button>
@@ -87,9 +87,12 @@
                         @endif</td>
                    
                     <td align="center">
-                      <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$u->id}}"
-                        data-nombre_organizacion="{{$u->name}}" 
-                        data-nombre_dirigente="{{$u->name}}">
+                      <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
+                        data-nombre="{{$u->name}}" 
+                        data-apellido_paterno="{{$u->apellido_paterno}}"
+                        data-apellido_materno="{{$u->apellido_materno}}"
+                        data-email="{{$u->email}}"
+                        data-status="{{$u->status}}">
                           <i class="fa fa-eye"></i>
                       </button>
         
@@ -196,7 +199,6 @@
                             <span class="text-danger" id="password_error"></span>
                         </div>
 
-
                     </form>
                 </div>
 
@@ -255,6 +257,49 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal show  --}}
+<div id="show_usuario" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Id:</label>
+                    <p id="id"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Nombre:</label>
+                    <p id="nombre_usuario_show"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Apellido Paterno:</label>
+                    <p id="paterno_show"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Apellido Materno:</label>
+                    <p id="materno_show"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Email:</label>
+                    <p id="email_show"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Cargo:</label>
+                    <p id="cargo_show"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Status:</label>
+                    <p id="status_show"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 
