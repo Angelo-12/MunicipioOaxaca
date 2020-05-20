@@ -18,14 +18,21 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('edad/{fecha_nacimiento}','Administrador\UsuarioController@calcular_edad');
 
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar','Administrador\UsuarioController@insertar');
     Route::post('insertar_rol','Administrador\UsuarioController@insertar_rol');
-    Route::get('mostrar','Administrador\UsuarioController@index');
+    Route::get('index','Administrador\UsuarioController@index');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
 
+});
+
+Route::group(['prefix' => 'Vendedores'], function () {
+    Route::get('index','Administrador\VendedorController@index');
+});
+
+Route::group(['prefix' => 'Permisos'], function () {
+    Route::get('index','Administrador\PermisosController@index');
 });
 
 Route::group(['prefix' => 'Zonas'], function () {
@@ -44,12 +51,3 @@ Route::group(['prefix' => 'Actividades'], function () {
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
 });
 
-Route::get('hola',function(){
-    Mail::send('Administrador.email',['curso'=>'AHI ESTA EL ENVIO DE CORREO ELECTRONICO'],function($m){
-        $m->from('angel23.aj32@gmail.com','Angel Gabriel');
-        $m->to('jaibertolledo@gmail.com','Jaiber')->subject('AHI ESTA EL ENVIO DE CORREO');
-    });
-});
-
-
-Route::get('usuarios','Administrador\UsuarioController@mostrarUsuarios');

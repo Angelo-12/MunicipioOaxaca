@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-header">
             <h1>
-                Usuarios
+                Vendedores
             </h1>
         </div>
     </div>
@@ -46,7 +46,6 @@
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
                         <th>Correo Electronico</th>
-                        <th>Cargo</th>
                         <th>Status</th>
                         <th>Opciones</th>
                     </tr>
@@ -55,23 +54,13 @@
                 </thead>
                 <tbody>
                 
-                  @foreach ($usuarios as $u)
+                  @foreach ($vendedores as $u)
                   <tr class="post{{$u->id}}" id="{{$u->id}}">
                     <td>{{$u->id}}</td>
                     <td>{{$u->name}}</td>
                     <td>{{$u->apellido_paterno}}</td>
                     <td>{{$u->apellido_materno}}</td>
                     <td>{{$u->email}}</td>
-                    <td>
-                        
-                      
-                        {{$u->cargo}}
-                        
-                          <p><button type="button" class="role-usuario btn btn-success btn-sm" data-id="{{$u->id}}">
-                            <i class="fa fa-user-shield"></i>
-                        </button></p>
-                        
-                    </td>
                         
                     <td>@if($u->status==1)
                         <div class="switch">
@@ -112,7 +101,7 @@
                   @endforeach                   
                 </tbody>
             </table>
-            {!! $usuarios->links() !!}
+            {!! $vendedores->links() !!}
         </div>
 
     </div> 
@@ -218,51 +207,9 @@
             </div>
         </div>
     </div>  
-    
-    <div id="role_usuario" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Asignar rol</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="">Id</label>
-                            <div class="col-sm-12">
-                                <input class="form-control" type="text" name="id_usuario" id="id_usuario" disabled/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-10" for="">Seleccionar rol</label>
-                            <select name="cargo" id="cargo" class="form-control">
-                                <option value="" selected disabled>Seleccione un rol</option>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Secretaria">Secretari@</option>
-                               </select>
-                        </div>
-                    </form>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" id="asignar_rol">
-                            Agregar
-                            <i class="fa fa-save"></i>
-                        </button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">
-                            Cerrar
-                            <i class="fa fa-times-circle"></i>
-                        </button>
-                    </div>
-                   
-                </div>
-            </div>
-        </div>
-    </div>
 
     {{-- Modal show  --}}
-<div id="show_usuario" class="modal fade" role="dialog">
+<div id="show_vendedor" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

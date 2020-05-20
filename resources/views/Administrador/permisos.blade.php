@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-header">
             <h1>
-                Usuarios
+                Permisos
             </h1>
         </div>
     </div>
@@ -41,12 +41,11 @@
             <table id="table" class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th>Correo Electronico</th>
-                        <th>Cargo</th>
+                        <th>N° Cuenta</th>
+                        <th>Expediente</th>
+                        <th>Tipo de actividad</th>
+                        <th>Giro</th>
+                        <th>Fecha de Registro</th>
                         <th>Status</th>
                         <th>Opciones</th>
                     </tr>
@@ -55,55 +54,48 @@
                 </thead>
                 <tbody>
                 
-                  @foreach ($usuarios as $u)
-                  <tr class="post{{$u->id}}" id="{{$u->id}}">
-                    <td>{{$u->id}}</td>
-                    <td>{{$u->name}}</td>
-                    <td>{{$u->apellido_paterno}}</td>
-                    <td>{{$u->apellido_materno}}</td>
-                    <td>{{$u->email}}</td>
-                    <td>
-                        
-                      
-                        {{$u->cargo}}
-                        
-                          <p><button type="button" class="role-usuario btn btn-success btn-sm" data-id="{{$u->id}}">
-                            <i class="fa fa-user-shield"></i>
-                        </button></p>
-                        
-                    </td>
-                        
-                    <td>@if($u->status==1)
+                  @foreach ($permisos as $p)
+                  <tr class="post{{$p->id}}" id="{{$p->id}}">
+                    <td>{{$p->numero_cuenta}}</td>
+                    <td>{{$p->numero_expediente}}</td>
+                    <td>{{$p->tipo_actividad}}</td>
+                    <td>{{$p->giro}}</td>
+                    <td>{{$p->created_at}}</td>
+                    
+                    
+                    <td>@if($p->status==1)
                         <div class="switch">
                             <label>
-                              Activo
-                              <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                                Asignado
+                            <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
                             </label>
                           </div>
                         @else
                         <div class="switch">
                             <label>
-                              Inactivo
+                              Sin Asignar
                               <input type="checkbox" readonly onclick="javascript: return false;">
                             </label>
                           </div>
                         @endif</td>
                    
                     <td align="center">
-                      <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
-                        data-nombre="{{$u->name}}" 
-                        data-apellido_paterno="{{$u->apellido_paterno}}"
-                        data-apellido_materno="{{$u->apellido_materno}}"
-                        data-email="{{$u->email}}"
-                        data-status="{{$u->status}}">
+                      <button type="button" class="show-modal-permiso btn btn-warning btn-sm" data-id="{{$p->id}}"
+                        data-numero_cuenta="{{$p->numero_cuente}}"
+                        data-numero_expediente="{{$p->numero_expediente}}"
+                        data-tipo_actividad="{{$p->tipo_actividad}}"
+                        data-giro="{{$p->giro}}"
+                        data-dias_laborados="{{$p->dias_laborados}}"
+                        data-hora_inicio="{{$p->hora_inicio}}"
+                        data-hora_fin="{{$p->hora_fin}}">
                           <i class="fa fa-eye"></i>
                       </button>
         
-                      <button type="button" class="btn btn-danger btn-sm" data-id="{{$u->id}}">
+                      <button type="button" class="btn btn-danger btn-sm" data-id="{{$p->id}}">
                           <i class="fa fa-pencil-alt"></i>
                       </button>
                      
-                      <button type="button" class="btn btn-info btn-sm" data-id="{{$u->id}}">
+                      <button type="button" class="btn btn-info btn-sm" data-id="{{$p->id}}">
                           <i class="fa fa-eraser"></i>
                       </button>
                     
@@ -112,12 +104,12 @@
                   @endforeach                   
                 </tbody>
             </table>
-            {!! $usuarios->links() !!}
+            {!! $permisos->links() !!}
         </div>
 
     </div> 
 
-    <div class="modal fade" id="create_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="create_permiso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -171,17 +163,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Estado</label>
-                            <select name="estado" id="estado" class="form-control">
-                             <option value="" selected disabled>Seleccione su estado</option>
-                                    @foreach ($estado as $e)
-                                        <option value="{{$e->id_estado}}">{{$e->nombre}}</option>
-                                    @endforeach
-                            </select>
-                            <span class="text-danger" id="estado_error"></span>
-                        </div>
-
-                        <div class="form-group">
                             <label>Municipio</label>
                             <select name="id_municipio" id="id_municipio" class="form-control">
                                 <option value="" selected disabled>Seleccione su municipio</option>
@@ -219,54 +200,13 @@
         </div>
     </div>  
     
-    <div id="role_usuario" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Asignar rol</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    
-                </div>
-                <div class="modal-body">
-                    <form action="">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="">Id</label>
-                            <div class="col-sm-12">
-                                <input class="form-control" type="text" name="id_usuario" id="id_usuario" disabled/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-10" for="">Seleccionar rol</label>
-                            <select name="cargo" id="cargo" class="form-control">
-                                <option value="" selected disabled>Seleccione un rol</option>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Secretaria">Secretari@</option>
-                               </select>
-                        </div>
-                    </form>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" id="asignar_rol">
-                            Agregar
-                            <i class="fa fa-save"></i>
-                        </button>
-                        <button class="btn btn-danger" type="button" data-dismiss="modal">
-                            Cerrar
-                            <i class="fa fa-times-circle"></i>
-                        </button>
-                    </div>
-                   
-                </div>
-            </div>
-        </div>
-    </div>
 
     {{-- Modal show  --}}
-<div id="show_usuario" class="modal fade" role="dialog">
+<div id="show_permiso" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Permiso</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
 
             </div>
@@ -275,30 +215,38 @@
                     <label for="">Id:</label>
                     <p id="id"/>
                 </div>
+
+                <div id="map" style="height:100px;"></div> 
+
                 <div class="form-group">
-                    <label for="">Nombre:</label>
-                    <p id="nombre_usuario_show"/>
+                    <label for="">N° Cuenta:</label>
+                    <p id="numero_cuenta_show"/>
                 </div>
                 <div class="form-group">
-                    <label for="">Apellido Paterno:</label>
-                    <p id="paterno_show"/>
+                    <label for="">N° Expediente:</label>
+                    <p id="numero_expendiente_show"/>
                 </div>
                 <div class="form-group">
-                    <label for="">Apellido Materno:</label>
-                    <p id="materno_show"/>
+                    <label for="">Tipo de Actividad:</label>
+                    <p id="actividad_show"/>
                 </div>
                 <div class="form-group">
-                    <label for="">Email:</label>
-                    <p id="email_show"/>
+                    <label for="">Giro:</label>
+                    <p id="giro_show"/>
                 </div>
                 <div class="form-group">
-                    <label for="">Cargo:</label>
-                    <p id="cargo_show"/>
+                    <label for="">Dias Laborales:</label>
+                    <p id="laborales_show"/>
                 </div>
                 <div class="form-group">
-                    <label for="">Status:</label>
-                    <p id="status_show"/>
+                    <label for="">Hora Inicio:</label>
+                    <p id="inicio_show"/>
                 </div>
+                <div class="form-group">
+                    <label for="">Hora Fin:</label>
+                    <p id="fin_show"/>
+                </div>
+               
             </div>
         </div>
     </div>

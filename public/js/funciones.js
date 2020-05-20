@@ -14,13 +14,18 @@ $(document).ready(function() {
 
     $('#show_zona').on('shown.bs.modal', function(e) {
     
-       
         var aux =$(e.relatedTarget).data('id');
         $('#id_zona_update').val(aux);
-        hola();
+        cargarMapa();
         //map.resize();
-      });
+    });
 
+     $(document).on('click', '.show-modal-permiso', function() {
+        $('#show_permiso').modal('show');
+        $('#id').text($(this).data('id'));
+        cargarMapa();
+
+    });
 
     //Funcion para asignar un rol a un usuario
 
@@ -169,9 +174,14 @@ $(document).ready(function() {
                         "<td>" + data.apellido_paterno + "</td>" +
                         "<td>" + data.apellido_materno + "</td>" +
                         "<td>" + data.email + "</td>" +
-                        "<td>" + data.sexo + "</td>" +
-                        "<td>" + data.sexo + "</td>" +
-                        "<td>" + data.sexo + "</td>" +
+                        "<td>  No asignado    </td>" +
+                        "<td>" + "<div class='switch'>"+
+                                "<label>"+
+                                    Activo
+                                    +"<input type='checkbox' checked readonly='readonly' onclick='javascript: return false;'>"+
+                                +"</label>"
+                               +"</div>" 
+                        + "</td>" +
                         "<td align='center'>" +
                         "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-name='" + data.name + "'" +
                         "data-apellido_paterno='" + data.apellido_paterno + "'><i class='fa fa-eye'></i></button>" +

@@ -14,7 +14,6 @@ use App\Models\Zona;
 use App\Models\Organizacion;
 use App\Models\Calle;
 use App\Models\Estado;
-use Carbon\Carbon;
 use Validator;
 use Response;
 
@@ -131,9 +130,10 @@ class UsuarioController extends Controller
    }
 
    public function index(){
-      //$usuarios=User::paginate(10);
       $usuarios=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
       //->select('admin_secretaria.*,users.*')
+      ->where('admin_secretaria.cargo','=','Administrador')
+      ->orWhere('admin_secretaria.cargo','=','Secretaria')
       ->paginate(10);
       $estado=Estado::all();
       return view('Administrador.usuarios',compact('usuarios','estado'))->render();

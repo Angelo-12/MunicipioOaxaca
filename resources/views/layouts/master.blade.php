@@ -13,10 +13,7 @@
   <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/adminlte.css')}}">
   <link rel="stylesheet" href="{{asset('css/blue.css')}}">
-  <link rel="stylesheet" href="{{asset('css/morris.css')}}">
-  <link rel="stylesheet" href="{{asset('css/jquery-jvectormap-1.2.2.css')}}">
   <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">
-  <link rel="stylesheet" href="{{asset('css/bootstrap3-wysihtml5.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/inputs.css')}}">
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
  
@@ -188,7 +185,7 @@
               </li>
 
               <li class="nav-item has-treeview menu-close">
-                <a href="{{url('Usuarios/mostrar')}}" class="nav-link">
+                <a href="{{url('Usuarios/index')}}" class="nav-link">
                   <i class="nav-icon fas fa-user-lock" style="color:#17a2b8;"></i>
                   <p>
                     Usuarios
@@ -197,10 +194,21 @@
                 </a>
               </li>
               <li class="nav-item has-treeview menu-close">
-                <a href="{{url('Usuarios/mostrar')}}" class="nav-link">
+                <a href="{{url('Vendedores/index')}}" class="nav-link">
                   <i class="nav-icon fas fa-users " style="color:black;"></i>
                   <p>
                     Vendedores
+              
+                  </p>
+                </a>
+              </li>
+
+              <li class="nav-item has-treeview menu-close">
+                <a href="{{url('Permisos/index')}}" class="nav-link">
+    
+                  <i class="nav-icon fas fa-address-card"></i>
+                  <p>
+                    Permisos
               
                   </p>
                 </a>
@@ -381,17 +389,8 @@
 <script src="https://kit.fontawesome.com/7646b98399.js" crossorigin="anonymous"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-<script src="{{asset('js/jquery-ui.min.js')}}"></script>
 <script src="{{asset('js/angel.js')}}"></script>
-<script src="{{asset('js/morris.min.js')}}"></script>
-<script src="{{asset('js/jquery.sparkline.min.js')}}"></script>
-<script src="{{asset('js/jquery-jvectormap-1.2.2.min.js')}}"></script>
-<script src="{{asset('js/jquery-jvectormap-world-mill-en.js')}}"></script>
-<script src="{{asset('js/jquery.knob.js')}}"></script>
 <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
-<script src="{{asset('js/bootstrap3-wysihtml5.all.min.js')}}"></script>
-<script src="{{asset('js/jquery.slimscroll.min.js')}}"></script>
 <script src="{{asset('js/fastclick.min.js')}}"></script>
 <script src="{{asset('js/adminlte.js')}}"></script>
 <script src="{{asset('js/dashboard.js')}}"></script>
