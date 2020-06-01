@@ -15,10 +15,10 @@
 
     <div class="card">
         <div class="card-header">
-
-            <a class="create-modal btn btn-secondary">
+                        
+            <button type="button" class="create-modal-permiso btn btn-secondary" data-toggle="modal" data-target="#create_permiso">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
-            </a>
+            </button>
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </button>
@@ -80,14 +80,17 @@
                         @endif</td>
                    
                     <td align="center">
-                      <button type="button" class="show-modal-permiso btn btn-warning btn-sm" data-id="{{$p->id}}"
-                        data-numero_cuenta="{{$p->numero_cuente}}"
+                      <button type="button" class="show-modal-permiso btn btn-warning btn-sm" data-toggle="modal" data-target="#show_permiso"
+                        data-id="{{$p->id}}"
+                        data-numero_cuenta="{{$p->numero_cuenta}}"
                         data-numero_expediente="{{$p->numero_expediente}}"
                         data-tipo_actividad="{{$p->tipo_actividad}}"
                         data-giro="{{$p->giro}}"
                         data-dias_laborados="{{$p->dias_laborados}}"
                         data-hora_inicio="{{$p->hora_inicio}}"
-                        data-hora_fin="{{$p->hora_fin}}">
+                        data-hora_fin="{{$p->hora_fin}}"
+                        data-latitud="{{$p->latitud}}"
+                        data-longitud="{{$p->longitud}}">
                           <i class="fa fa-eye"></i>
                       </button>
         
@@ -113,54 +116,99 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Permiso</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" name="formulario">
                         @csrf
                         <div class="form-group">
-                            <label>Nombre</label>
-                            <input  type="text" name="nombre" placeholder="Nombre"
-                                    class="form-control" id="name">
-                            <span class="text-danger" id="name_error"></span>
+                            <label>Numero de cuenta</label>
+                            <input  type="text" name="numero_cuenta" placeholder="Numero de cuenta"
+                                    class="form-control" id="numero_cuenta">
+                            <span class="text-danger" id="numero_cuenta_error"></span>
                         </div>
 
                         <div class="form-group">
-                            <label>Apellido Paterno</label>
-                            <input type="text" name="apellido_paterno" placeholder="Apellido Paterno"
-                                   class="form-control" id="apellido_paterno">
-                            <span class="text-danger" id="apellido_paterno_error"></span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label>Apellido Materno</label>
-                            <input  type="text" name="apellido_materno" placeholder="Apellido Materno"
-                                    class="form-control" id="apellido_materno">
-                            <span class="text-danger" id="apellido_materno_error"></span>
+                            <label>Numero de expediente</label>
+                            <input type="text" name="numero_expediente" placeholder="Numero de expediente"
+                                   class="form-control" id="numero_expediente">
+                            <span class="text-danger" id="numero_expediente_error"></span>
 
                         </div>
 
                         <div class="form-group">
-                            <label for="sexo">Sexo</label>
-                            <select class="form-control" name="sexo" id="sexo">
-                                <option value="" selected disabled>Seleccionar sexo</option>
-                                <option value="H">Hombre</option>
-                                <option value="M">Mujer</option>
+                            <label>Tipo de actividad</label>
+                            <select class="form-control" name="tipo_actividad" id="tipo_actividad">
+                                <option value="ninguna" selected disabled>Seleccionar Actividad</option>
+                                <option value="Comercial Movil">Comercial Movil</option>
+                                <option value="Comercial Semifija">Comercial Semifija</option>
+                                <option value="Comercial Movil Con Equipo Rodante">Comercial Movil Con Equipo Rodante</option>
+                                <option value="Comercial Fija">Comercial Fija</option>
+                                <option value="Comercio Establecido">Comercio Establecido</option>
+                                <option value="Tianguis">Tianguis</option>
+                                <option value="Prestacion de Servicios">Prestacion de Servicios</option>
                             </select>
-                            <span class="text-danger" id="sexo_error"></span>
+                            <span class="text-danger" id="tipo_actividad_error"></span>
+
                         </div>
 
                         <div class="form-group">
-                            <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                            <input type="text" class="form-control fj-date" id="fecha_nacimiento" 
-                            placeholder="yyyy/mm/dd" name="fecha_nacimiento">
-                            <span class="text-danger" id="fecha_nacimiento_error"></span>
+                            <label for="sexo">Giro</label>
+                            <input type="text" name="giro" placeholder="Giro"
+                            class="form-control" id="giro">
+                            <span class="text-danger" id="giro_error"></span>
                         </div>
+
+                        <div class="form-group">
+                            <label>Seleccione la ubicacion del permiso</label>
+                            <div id="map" style="height:200px;"></div> 
+                        </div>
+                        
+                        <pre id="coordinates" class="coordinates"></pre>
+
+                        <div class="form-group">
+                            <label>Dias Laborados</label>
+                            <div class="checkbox" id="checkbox">
+                                <label>
+                                    <input type="checkbox"> Lunes
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Martes
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Miercoles
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Jueves
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Viernes
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Sabado
+                                </label>
+                                <label>
+                                    <input type="checkbox"> Domingo
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="seleccionar-todos"> Seleccionar Todos
+                                </label>
+                              </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Hora de Inicio</label>
+                           
+                                <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
+                                data-autoclose="true" readonly="">
+                                
+                            
+                        </div>
+                          
 
                         <div class="form-group">
                             <label>Municipio</label>
@@ -216,7 +264,9 @@
                     <p id="id"/>
                 </div>
 
-                <div id="map" style="height:100px;"></div> 
+                <div class="form-group">
+                    <div id="map" style="height:200px;"></div> 
+                </div>
 
                 <div class="form-group">
                     <label for="">N° Cuenta:</label>
@@ -224,7 +274,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">N° Expediente:</label>
-                    <p id="numero_expendiente_show"/>
+                    <p id="numero_expediente_show"/>
                 </div>
                 <div class="form-group">
                     <label for="">Tipo de Actividad:</label>
@@ -253,6 +303,8 @@
 </div>
 
 </div>
+
+
 
 @endsection
 

@@ -15,7 +15,13 @@
   <link rel="stylesheet" href="{{asset('css/blue.css')}}">
   <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">
   <link rel="stylesheet" href="{{asset('css/inputs.css')}}">
+  <link rel="stylesheet" href="{{asset('css/clockpicker.css')}}">
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css" type="text/css"/>
+<!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
  
 </head>
 <body class="hidden">
@@ -138,8 +144,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{asset('img/logo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+      
       <span class="brand-text font-weight-light"></span>
       
     </a>
@@ -389,14 +394,17 @@
 <script src="https://kit.fontawesome.com/7646b98399.js" crossorigin="anonymous"></script>
 <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="{{asset('js/angel.js')}}"></script>
+<!-- /. <script src="{{asset('js/angel.js')}}"></script> -->
 <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
-<script src="{{asset('js/fastclick.min.js')}}"></script>
 <script src="{{asset('js/adminlte.js')}}"></script>
 <script src="{{asset('js/dashboard.js')}}"></script>
 <script src="{{asset('js/demo.js')}}"></script>
-<script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('js/mapas.js')}}"></script>
 <script src="{{asset('js/funciones.js')}}"></script>
+<script src="{{asset('js/clockpicker.js')}}"></script>
+<script type="text/javascript">
+  $('.clockpicker').clockpicker();
+</script>
 
 </body>
 </html>

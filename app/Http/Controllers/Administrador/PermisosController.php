@@ -16,4 +16,16 @@ class PermisosController extends Controller
         ->paginate(10);
         return view('Administrador.permisos')->with('permisos',$permisos);
     }
+
+    public function insertar(Request $request){
+
+    }
+
+    public function editar(Request $request){
+
+    }
+
+    public function eliminar(Request $request){
+
+    }
 }

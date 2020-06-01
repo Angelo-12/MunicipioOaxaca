@@ -42,4 +42,17 @@ class ZonaController extends Controller
         return view('Administrador.detalle_zona')->with('vendedor',$vendedor)->with('zona',$zona);
     }
 
+    public function exportarPdf(){
+        $zonas=Permisos::join('calle','permiso.id_calle','=','calle.id')
+        ->join('zona','zona.id','=','calle.id_zona')
+        ->select('zona.*',DB::raw('count(permiso.id)as total'))
+        ->groupBy('zona.id')
+        ->get();
+
+        $pdf=\PDF::loadView('Pdfs.zonas',compact('zonas'));
+
+        //return $pdf->download("hola.pdf");
+        return $pdf->stream();
+    }
+
 }

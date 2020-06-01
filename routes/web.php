@@ -39,6 +39,7 @@ Route::group(['prefix' => 'Zonas'], function () {
     Route::get('index','Administrador\ZonaController@index');
     Route::get('detalle_zona/{id}','Administrador\ZonaController@detalle_zona');
     Route::get('pagination', 'Administrador\ZonaController@fetch_data');
+    Route::get('download/pdf','Administrador\ZonaController@exportarPdf');
 });
 
 Route::group(['prefix' => 'Organizaciones'], function () {

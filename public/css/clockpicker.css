@@ -1,44 +1,5 @@
-.red-border{
-    border: 1px solid red;
-}
-
-.green-border{
-    border: 1px solid green;
-}
-
-.verde{
-    background-color:#2EA71B; 
-    color: white;
-   }
- 
-   .amarillo{
-     background-color:#E7EA26; 
-     color: white;
-   }
- 
-   .rojo{
-     background-color:#D60A0A; 
-     color: white;
-   }
- 
-   .gris{
-     background-color:#898686; 
-     color: white;
-   }
- 
-   .azul{
-     background-color: #4CAEF1;
-   }
-
-   .ajustar{
-    width: auto;
-    height: 220px;
-	  margin-left: auto;
-	  margin-right: auto;
-   }
-
-   /*!
- * ClockPicker v0.0.7 for Bootstrap (http://weareoutman.github.io/clockpicker/)
+/*!
+ * ClockPicker v{package.version} for Bootstrap (http://weareoutman.github.io/clockpicker/)
  * Copyright 2014 Wang Shenwei.
  * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
  */

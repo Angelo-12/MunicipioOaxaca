@@ -84,9 +84,9 @@
     <!-- Ejemplo de tabla Listado -->
     <div class="card">
         <div class="card-header">
-            <button type="button"  class="btn btn-info">
+            <a type="button" href="{{url('Zonas/download/pdf')}}" class="btn btn-info">
               <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+            </a>
 
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
@@ -120,7 +120,7 @@
                   <td >{{$z->nombre}}</td>
                   <td>{{$z->total}}</td>
                   <td align="center">
-                    <button type="button"  class="show-modal-zona btn btn-warning btn-sm" data-toggle="modal" data-id="{{$z->id}}" data-target="#show_zona">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-id="{{$z->id}}" data-target="#show_zona">
                       <i class="fa fa-eye"></i>
                     </button>
                    
@@ -152,7 +152,7 @@
           <div class="modal-body">
 
             <div class="form-group">
-              <input type="text" id="id_zona_update" name="id_zona">
+              <input type="text" id="id_zona_update" name="id_zona" hidden>
             </div>
              
             <div id="map" style="height:300px;"></div> 
