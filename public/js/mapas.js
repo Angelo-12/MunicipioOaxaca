@@ -68,9 +68,8 @@ function cargarMapa(id){
 }
 
 function agregarMarcador(latitud,longitud){
-    //mapboxgl.accessToken = 'pk.eyJ1IjoidG9sZWRvMTYiLCJhIjoiY2s4eGRsYWNmMHBmbzNrcGpqYmtocng2biJ9.3EUpV8hXK0x-KVMH5NvAcA';
-        var map = new mapboxgl.Map({
-            container: 'map', // container id
+       var map = new mapboxgl.Map({
+            container: 'map2', // container id
             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
             center: [longitud,latitud], // starting position [lng, lat]
             zoom: 16 // starting zoom
@@ -83,9 +82,12 @@ function agregarMarcador(latitud,longitud){
         map.addControl(new mapboxgl.NavigationControl());
         map.addControl(new mapboxgl.FullscreenControl());
 
+        map.resize();
+
 }
 
 function agregarPosicion(){
+
     var coordinates = document.getElementById('coordinates');
     var map = new mapboxgl.Map({
     container: 'map',
@@ -102,32 +104,42 @@ function agregarPosicion(){
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
     
-    /*var geocoder = new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken,
-        marker:{
-            draggable:true
-            //onDragEnd:onDragEnd
-        },
-        mapboxgl: mapboxgl
-    });
-    map.addControl(geocoder);*/
 
     function onDragEnd() {
         var lngLat = marker.getLngLat();
-        coordinates.style.display = 'block';
-        coordinates.innerHTML =
-        'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+        $("#latitud").val(lngLat.lat);
+        $("#longitud").val(lngLat.lng);
     }
 
     marker.on('dragend', onDragEnd);
 }
 
-function selectall(form)  {  
- var formulario = eval(form)  
- for (var i=0, len=formulario.elements.length; i<len ; i++)  
-  {  
-    if ( formulario.elements[i].type == "checkbox" )  
-      formulario.elements[i].checked = formulario.elements[0].checked  
-  }  
-}  
+function mapaUbicacionFin(){
+    var coordinates = document.getElementById('coordinates');
+    var map = new mapboxgl.Map({
+    container: 'map3',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-96.7257924,17.0608691],
+    zoom: 12
+    });
+    
+    var marker = new mapboxgl.Marker({
+    draggable: true
+    })
+    .setLngLat([-96.7257924,17.0608691])
+    .addTo(map);
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+    
+
+    function onDragEnd() {
+        var lngLat = marker.getLngLat();
+        $("#latitudfin").val(lngLat.lat);
+        $("#longitudfin").val(lngLat.lng);
+    }
+
+    marker.on('dragend', onDragEnd);
+
+    map.resize();
+}
 

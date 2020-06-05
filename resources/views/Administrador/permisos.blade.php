@@ -8,20 +8,22 @@
     <div class="card">
         <div class="card-header">
             <h1>
-                Permisos
+                Permisos   {{$nombre}}
             </h1>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
-                        
-            <button type="button" class="create-modal-permiso btn btn-secondary" data-toggle="modal" data-target="#create_permiso">
+                
+            <button type="button" class="create-modal-permiso btn btn-secondary" 
+            data-toggle="modal" data-target="#create_permiso">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </button>
-            <button type="button"  class="btn btn-info">
+
+            <a type="button" href="{{url('Permisos/download/pdf/'.$nombre)}}" class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+              </a>
 
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
@@ -45,6 +47,9 @@
                         <th>Expediente</th>
                         <th>Tipo de actividad</th>
                         <th>Giro</th>
+                        @if ($nombre=="SinAsignar")
+                            <th>Tipo</th>
+                        @endif
                         <th>Fecha de Registro</th>
                         <th>Status</th>
                         <th>Opciones</th>
@@ -54,16 +59,27 @@
                 </thead>
                 <tbody>
                 
-                  @foreach ($permisos as $p)
+                  @foreach ($permisos as $p )
                   <tr class="post{{$p->id}}" id="{{$p->id}}">
                     <td>{{$p->numero_cuenta}}</td>
                     <td>{{$p->numero_expediente}}</td>
                     <td>{{$p->tipo_actividad}}</td>
                     <td>{{$p->giro}}</td>
+
+                    @if ($nombre=="Pendientes")
+                    <td>
+                        Pendiente
+                        <button type="button" class="tipo-permiso btn btn-success btn-sm" data-toggle="modal"
+                            data-target="#asignar_tipo_permiso" data-id-permiso="{{$p->id}}" >
+                            <i class="fas fa-cog"></i>
+                        </button>
+
+                    </td> 
+                    @endif
+                   
                     <td>{{$p->created_at}}</td>
                     
-                    
-                    <td>@if($p->status==1)
+                    <td>@if($p->asignado==1)
                         <div class="switch">
                             <label>
                                 Asignado
@@ -73,7 +89,7 @@
                         @else
                         <div class="switch">
                             <label>
-                              Sin Asignar
+                              Pendiente
                               <input type="checkbox" readonly onclick="javascript: return false;">
                             </label>
                           </div>
@@ -123,7 +139,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" name="formulario">
+                    <form class="form-horizontal" role="form" name="formulario" id="formulario">
                         @csrf
                         <div class="form-group">
                             <label>Numero de cuenta</label>
@@ -168,74 +184,72 @@
                             <div id="map" style="height:200px;"></div> 
                         </div>
                         
-                        <pre id="coordinates" class="coordinates"></pre>
+                        <div class="form-group" hidden>
+                            <label hidden>Latitud</label>
+                            <input hidden class="form-control" type="text" name="latitud" id="latitud">
+                        </div>
+
+                        <div class="form-group" hidden>
+                            <label hidden>Longitud</label>
+                            <input hidden class="form-control" type="text" name="longitud" id="longitud">
+                        </div>
 
                         <div class="form-group">
                             <label>Dias Laborados</label>
-                            <div class="checkbox" id="checkbox">
+                            <div class="checkbox" name="dias_laborados" id="checkbox">
                                 <label>
-                                    <input type="checkbox"> Lunes
+                                    <input type="checkbox" name="dias[]" value="Lunes"> Lunes
                                 </label>
                                 <label>
-                                    <input type="checkbox"> Martes
+                                    <input type="checkbox" name="dias[]" value="Martes"> Martes
                                 </label>
                                 <label>
-                                    <input type="checkbox"> Miercoles
+                                    <input type="checkbox" name="dias[]" value="Miercoles"> Miercoles
                                 </label>
                                 <label>
-                                    <input type="checkbox"> Jueves
+                                    <input type="checkbox" name="dias[]" value="Jueves"> Jueves
                                 </label>
                                 <label>
-                                    <input type="checkbox"> Viernes
+                                    <input type="checkbox" name="dias[]" value="Viernes"> Viernes
                                 </label>
                                 <label>
-                                    <input type="checkbox"> Sabado
+                                    <input type="checkbox" name="dias[]" value="Sabado"> Sabado
                                 </label>
                                 <label>
-                                    <input type="checkbox"> Domingo
+                                    <input type="checkbox" name="dias[]" value="Domingo"> Domingo
                                 </label>
                                 <label>
                                     <input type="checkbox" id="seleccionar-todos"> Seleccionar Todos
                                 </label>
                               </div>
+                              <span class="text-danger" id="dias_laborados_error"></span>
                         </div>
 
                         <div class="form-group">
                             <label>Hora de Inicio</label>
-                           
-                                <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
-                                data-autoclose="true" readonly="">
-                                
-                            
+                            <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
+                            data-autoclose="true" readonly="" name="hora_inicio">
+                            <span class="text-danger" id="hora_inicio_error"></span>    
                         </div>
                           
-
                         <div class="form-group">
-                            <label>Municipio</label>
-                            <select name="id_municipio" id="id_municipio" class="form-control">
-                                <option value="" selected disabled>Seleccione su municipio</option>
-
-                            </select>
-                            <span class="text-danger" id="id_municipio_error"></span>
+                            <label>Hora de Fin</label>
+                            <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
+                            data-autoclose="true" readonly="" name="hora_fin">  
+                            <span class="text-danger" id="hora_fin_error"></span>   
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" name="email">
-                            <span class="text-danger" id="email_error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input  type="password" name="password" class="form-control" id="password" placeholder="Password">
-                            <span class="text-danger" id="password_error"></span>
+                            <label for="detalles">Detalles</label>
+                            <textarea class="form-control" id="detalles" name="detalles" placeholder="Detalles" rows="3"></textarea>
+                            <span class="text-danger" id="detalles_error"></span>
                         </div>
 
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit" id="agregar_usuario">
+                    <button class="btn btn-primary" type="submit" id="agregar_permiso">
                         Guardar
                         <i class="fa fa-save"></i>
                     </button>
@@ -250,58 +264,189 @@
     
 
     {{-- Modal show  --}}
-<div id="show_permiso" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Permiso</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div id="show_permiso" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Permiso</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="">Id:</label>
-                    <p id="id"/>
                 </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Id:</label>
+                        <p id="id"/>
+                    </div>
 
-                <div class="form-group">
-                    <div id="map" style="height:200px;"></div> 
-                </div>
+                    <div class="form-group">
+                        <div id="map2" style="height:200px;"></div> 
+                    </div>
 
-                <div class="form-group">
-                    <label for="">N° Cuenta:</label>
-                    <p id="numero_cuenta_show"/>
+                    <div class="form-group">
+                        <label for="">N° Cuenta:</label>
+                        <p id="numero_cuenta_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">N° Expediente:</label>
+                        <p id="numero_expediente_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tipo de Actividad:</label>
+                        <p id="actividad_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Giro:</label>
+                        <p id="giro_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Dias Laborales:</label>
+                        <p id="laborales_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Hora Inicio:</label>
+                        <p id="inicio_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Hora Fin:</label>
+                        <p id="fin_show"/>
+                    </div>
+                
                 </div>
-                <div class="form-group">
-                    <label for="">N° Expediente:</label>
-                    <p id="numero_expediente_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Tipo de Actividad:</label>
-                    <p id="actividad_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Giro:</label>
-                    <p id="giro_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Dias Laborales:</label>
-                    <p id="laborales_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Hora Inicio:</label>
-                    <p id="inicio_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Hora Fin:</label>
-                    <p id="fin_show"/>
-                </div>
-               
             </div>
         </div>
     </div>
-</div>
 
+    <div id="asignar_tipo_permiso" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Tipo de Permiso</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="formulario" id="formulario_asignar">
+                        @csrf                        
+                        <input type="text" id="id_permiso" name="id_permiso" hidden>
+
+                        <div class="form-group">
+                            <label>Seleccione el tipo de permiso</label>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioTipo" id="Anual" value="Anual">
+                                  Anual
+                                </label>
+                            </div>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioTipo" id="Eventual" value="Eventual">
+                                  Eventual
+                                </label>
+                            </div>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioTipo" id="Provisional" value="Provisional">
+                                  Provisional
+                                </label>
+                            </div>
+
+                            <div id="div1" style="display:none;">
+                                <div class="form-group">
+                                    <label>Largo  <span class="valueSpan"></span></label>
+                                    <input  type="range" name="largo" id="largo" class="form-control" 
+                                    min="0.5" max="6" step="0.5" value="1">
+                                   
+                                    <span class="text-danger" id="largo_error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Ancho <span class="valueSpan2"></span></label>
+                                    <input  type="range" name="ancho" id="ancho" class="form-control" 
+                                    min="0.5" max="6" step="0.5" value="1">
+                                    <span class="text-danger" id="ancho_error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Utensilios</label>
+                                    <div class="utensilios" name="utensilios" id="checkbox">
+                                    <label>
+                                    <input type="checkbox" name="utensilios[]" value="Cubiertos"> Cubiertos
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="utensilios[]" value="Mostrador"> Mostrador
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="utensilios[]" value="Sillas"> Sillas
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="utensilios[]" value="Mesas"> Mesas
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="utensilios[]" value="Material Desechable"> Material Desechable
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="utensilios[]" value="Estructura"> Estructura
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" onchange="javascript:opcionOtra()" id="otra" value> Otra
+                                    </label>
+                                </div>
+                                <div id="div4" style="display:none;">
+                                    <input  type="text" name="otraOpcion" placeholder="Escriba el utensilio"
+                                    class="form-control" id="otro">
+                                    <span class="text-danger" id="latitud_error"></span>
+                                </div>
+                                   
+                                </div>
+                            </div>
+
+                            <div id="div2" style="display:none;">
+                                <div class="form-group">
+                                    <label>Seleccione la ubicacion de termino</label>
+                                    <div id="map3" style="height:200px;"></div> 
+                                </div>
+
+                                <div class="form-group">
+                                    <label hidden>Latitud</label>
+                                    <input hidden class="form-control" type="text" name="latitudFin" id="latitudfin">
+                                </div>
+        
+                                <div class="form-group" hidden>
+                                    <label hidden>Longitud</label>
+                                    <input hidden class="form-control" type="text" name="longitudFin" id="longitudfin">
+                                </div>
+
+                            </div>
+
+                            <div id="div3" style="display:none;">
+                                <div class="form-group">
+                                    <label for="fecha_nacimiento">Fecha de vencimiento</label>
+                                    <input type="text" class="form-control fj-date-vencimiento" id="fecha_vencimiento" 
+                                    placeholder="yyyy/mm/dd" name="fecha_vencimiento">
+                                    <span class="text-danger" id="fecha_nacimiento_error"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" id="agregar_tipo_permiso">
+                        Guardar
+                        <i class="fa fa-save"></i>
+                    </button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 </div>
 
 

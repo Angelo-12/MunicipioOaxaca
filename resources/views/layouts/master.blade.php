@@ -214,9 +214,38 @@
                   <i class="nav-icon fas fa-address-card"></i>
                   <p>
                     Permisos
-              
+                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{url('Permisos/index/Pendientes')}}" class="nav-link">
+                      <i class="fas fa-bell nav-icon"></i>
+                      <p>Pendientes</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('Permisos/index/Anuales')}}" class="nav-link">
+                      <i class="fas fa-map-marker nav-icon"></i>
+                      <p>Anuales</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('Permisos/index/Eventuales')}}" class="nav-link">
+                      <i class="fas fa-calendar-day nav-icon"></i>
+                      <p>Eventuales</p>
+          
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{url('Permisos/index/Provisionales')}}" class="nav-link">
+                      <i class="fas fa-map-marker nav-icon"></i>
+                      <p>Provisionales</p>
+                    </a>
+                  </li>
+                  
+                </ul>
               </li>
           
               <li class="nav-item has-treeview menu-close">
@@ -243,7 +272,7 @@
                   </li>
                   <li class="nav-item">
                     <a href="{{url('Zonas/detalle_zona/2')}}" class="nav-link">
-                      <i class="fas fa-map-marker nav-icon"></i>
+                      <i class="fas fa-exclamation-triangle nav-icon"></i>
                       <p>Zona Restringida</p>
           
                     </a>
@@ -251,7 +280,7 @@
 
                   <li class="nav-item">
                     <a href="{{url('Zonas/detalle_zona/3')}}" class="nav-link">
-                      <i class="fas fa-map-marker nav-icon"></i>
+                      <i class="fas fa-ban nav-icon"></i>
                       <p>Zona Prohibida</p>
                     </a>
                   </li>

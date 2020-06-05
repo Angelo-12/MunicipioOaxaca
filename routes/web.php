@@ -32,8 +32,21 @@ Route::group(['prefix' => 'Vendedores'], function () {
 });
 
 Route::group(['prefix' => 'Permisos'], function () {
-    Route::get('index','Administrador\PermisosController@index');
+    Route::get('index/{nombre}','Administrador\PermisosController@index');
+    Route::post('insertar','Administrador\PermisosController@insertar');
+    Route::get('download/pdf/{nombre}','Administrador\PermisosController@exportarPdf');
 });
+
+Route::post('insertarAnuales','Administrador\AnualesController@insertarAnuales');
+
+Route::group(['prefix' => 'Eventuales'], function () {
+    Route::post('insertar','Administrador\EventualesController@insertar');
+});
+
+Route::group(['prefix' => 'Provisionales'], function () {
+    Route::post('insertar','Administrador\ProvisionalesController@insertar');
+});
+
 
 Route::group(['prefix' => 'Zonas'], function () {
     Route::get('index','Administrador\ZonaController@index');

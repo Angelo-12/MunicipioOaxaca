@@ -13,7 +13,7 @@ class ZonaController extends Controller
 {
     public function index(){
         $zonas=Permisos::join('calle','permiso.id_calle','=','calle.id')
-        ->join('zona','zona.id','=','calle.id_zona')
+        //->join('zona','zona.id','=','calle.id_zona')
         ->select('zona.*',DB::raw('count(permiso.id)as total'))
         ->groupBy('zona.id')
         ->get();
@@ -33,7 +33,7 @@ class ZonaController extends Controller
         }
         $vendedor=Vendedor::join('permiso','permiso.id','=','vendedor.id_permiso')
         ->join('users','users.id','vendedor.id_usuario')
-        ->join('calle','calle.id','=','permiso.id_calle')
+        //->join('calle','calle.id','=','permiso.id_calle')
         ->join('zona','zona.id','=','calle.id_zona')
         ->where('zona.id','=',$id)
         ->select('users.*',DB::raw('permiso.*,vendedor.*'))

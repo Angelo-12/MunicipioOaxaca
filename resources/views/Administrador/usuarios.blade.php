@@ -67,7 +67,7 @@
                       
                         {{$u->cargo}}
                         
-                          <p><button type="button" class="role-usuario btn btn-success btn-sm" data-id="{{$u->id}}">
+                        <p><button type="button" class="role-usuario btn btn-success btn-sm" data-id="{{$u->id}}">
                             <i class="fa fa-user-shield"></i>
                         </button></p>
                         
@@ -307,4 +307,9 @@
 </div>
 
 @endsection
+
+
+
+
+
 
