@@ -143,7 +143,6 @@ $(document).ready(function() {
                             showConfirmButton: false,
                             timer: 1500
                           })
-    
                     }     
                 },
             });
@@ -155,8 +154,9 @@ $(document).ready(function() {
                 url: '/Eventuales/insertar',
                 data: {
                     '_token': $('input[name=_token]').val(),
-                    'latitud': $('input[name=latitudFin]').val(),
-                    'longitud': $('input[name=longitudFin]').val(),
+                    'largo': $('#largo').val(),
+                    'ancho': ancho,
+                    'utensilios':utensilios,
                     'id_permiso':$('input[name=id_permiso]').val(),
                 },
                 dataType:'json',
@@ -216,6 +216,78 @@ $(document).ready(function() {
             });    
         }
     });
+
+    //Funcion para asignrar una sancion al permiso seleccionado
+    $("#agregar_sancion").click(function(){
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Sanciones/insertar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'multa': $('input[name=multa]').val(),
+                'motivo': $('textarea[name=motivo]').val(),
+                'id_permiso':$('input[name=id_permiso_sancion]').val(),
+
+            },
+            dataType:'json',
+            success: function(data) {
+                if ((data.errors)) {
+                    $.each( data.errors, function( key, value ) {
+                        console.log(key);
+                        console.log(value);
+                    });
+
+                } else {
+                   
+                    var registros=document.getElementById("table").rows.length;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Sancion Creada Correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                }     
+            },
+        });
+    });
+
+    $("#agregar_cancelacion").click(function(){
+       
+        $.ajax({
+            type: 'POST',
+            url: '/Cancelaciones/insertar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'observaciones': $('textarea[name=observaciones]').val(),
+                'motivo_cancelacion': $('textarea[name=motivo_cancelacion]').val(),
+                'id_permiso':$('input[name=id_permiso_cancelacion]').val(),
+
+            },
+            dataType:'json',
+            success: function(data) {
+                if ((data.errors)) {
+                    $.each( data.errors, function( key, value ) {
+                        console.log(key);
+                        console.log(value);
+                    });
+
+                } else {
+                   
+                    var registros=document.getElementById("table").rows.length;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cancelacion Creada Correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                }     
+            },
+        });
+    });
+
 
     //Funcion para agregar un nuevo permiso e insertar el registro en la base de datos
     $("#agregar_permiso").click(function(){
@@ -533,7 +605,6 @@ $(document).ready(function() {
             },
         });
     });
-
     
     //Funcion para actualizar una organizacion
     $('.modal-footer').on('click', '.actualizar_organizacion', function() {
@@ -602,6 +673,18 @@ $(document).ready(function() {
 
 });
 
+//Funcion para que al dar click en el boton de sancion aparezca la ventana modal
+$(document).on('click','.asignar-sancion',function(){
+    $('#asignar_sancion').modal('show');
+    $('#id_permiso_sancion').val($(this).data('id'));
+});
+
+//Funcion para que al dar click en el boton de cancelacion aparezca la ventana modal
+$(document).on('click','.asignar-cancelacion',function(){
+    $('#asignar_cancelacion').modal('show');
+    $('#id_permiso_cancelacion').val($(this).data('id'));
+});
+
 /********************************************ORGANIZACIONES************************************************ */
 
 //Funcuion para crear la ventana modal para agregar una organizacion
@@ -653,7 +736,6 @@ $('#create_organizacion').on('hidden.bs.modal', function(){
 /******************************************** USUARIOS ************************************************ */
 $(document).on('click', '.create-modal', function() {
     $('#create_usuario').modal('show');
-
 });
 
 $(document).on('click','.show-modal-usuario',function(){

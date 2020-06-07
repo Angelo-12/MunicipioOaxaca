@@ -96,7 +96,7 @@
                         @endif</td>
                    
                     <td align="center">
-                      <button type="button" class="show-modal-permiso btn btn-warning btn-sm" data-toggle="modal" data-target="#show_permiso"
+                      <button type="button" title="Mostrar" class="show-modal-permiso btn btn-warning btn-sm" data-toggle="modal" data-target="#show_permiso"
                         data-id="{{$p->id}}"
                         data-numero_cuenta="{{$p->numero_cuenta}}"
                         data-numero_expediente="{{$p->numero_expediente}}"
@@ -110,12 +110,20 @@
                           <i class="fa fa-eye"></i>
                       </button>
         
-                      <button type="button" class="btn btn-danger btn-sm" data-id="{{$p->id}}">
+                      <button type="button" title="Editar" class="btn btn-danger btn-sm" data-id="{{$p->id}}">
                           <i class="fa fa-pencil-alt"></i>
                       </button>
+
+                      <button type="button" title="Reevalidar" class="asignar-reevalidacion btn btn-success btn-sm" data-id="{{$p->id}}">
+                        <i class="fas fa-hand-point-right"></i>
+                      </button>
                      
-                      <button type="button" class="btn btn-info btn-sm" data-id="{{$p->id}}">
-                          <i class="fa fa-eraser"></i>
+                      <button type="button" title="Suspender" class="asignar-sancion btn btn-secondary btn-sm" data-id="{{$p->id}}">
+                          <i class="fa fa-ban"></i>
+                      </button>
+
+                      <button type="button" title="Cancelar" class="asignar-cancelacion btn btn-info btn-sm" data-id="{{$p->id}}">
+                        <i class="fa fa-eraser"></i>
                       </button>
                     
                   </td>
@@ -443,6 +451,149 @@
                         <i class="fa fa-times-circle"></i>
                     </button>
                 </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="asignar_sancion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Sancion</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="formulario" id="formulario_sancion">
+                        @csrf                        
+                        <input type="text" id="id_permiso_sancion" name="id_permiso_sancion" hidden>
+                       
+
+                        <div class="form-group">
+                                <div class="form-group">
+                                    <label>Monto $</label>
+                                    <input type="text" name="multa" id="multa" class="form-control" 
+                                    placeholder="Monto $">
+                                   
+                                    <span class="text-danger" id="multa_error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Motivo </label>
+                                    <textarea class="form-control" id="motivo" name="motivo" placeholder="Motivo" rows="2"></textarea>
+                                    <span class="text-danger" id="motivo_error"></span>
+                                </div>
+                        </div>    
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" id="agregar_sancion">
+                            Guardar
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">
+                            Cerrar
+                            <i class="fa fa-times-circle"></i>
+                        </button>
+                    </div>
+                    
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="asignar_cancelacion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cancelacion</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="formulario_cancelacion" id="formulario_cancelacion">
+                        @csrf                        
+                        <input type="text" id="id_permiso_cancelacion" name="id_permiso_cancelacion" hidden>
+                       
+
+                        <div class="form-group">
+                                <div class="form-group">
+                                    <label>Motivo </label>
+                                    <textarea class="form-control" id="motivo_cancelacion" name="motivo_cancelacion" placeholder="Motivo" rows="2"></textarea>
+                                    <span class="text-danger" id="motivo_error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Observaciones </label>
+                                    <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Opcional" rows="2"></textarea>
+                                    <span class="text-danger" id="observaciones_error"></span>
+                                </div>
+                        </div>    
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" id="agregar_cancelacion">
+                            Guardar
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">
+                            Cerrar
+                            <i class="fa fa-times-circle"></i>
+                        </button>
+                    </div>
+                    
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    <div id="asignar_reevalidacion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Reevalidacion</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="formulario_reevalidacion" id="formulario_reevalidacion">
+                        @csrf                        
+                        <input type="text" id="id_permiso_reevalidacion" name="id_permiso_reevalidacion" hidden>
+                       
+
+                        <div class="form-group">
+                                <div class="form-group">
+                                    
+                                    <span class="text-danger" id="multa_error"></span>
+                                </div>
+
+                                <div class="form-group">
+                                   
+                                </div>
+                        </div>    
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" id="agregar_sancion">
+                            Guardar
+                            <i class="fa fa-save"></i>
+                        </button>
+                        <button class="btn btn-danger" type="button" data-dismiss="modal">
+                            Cerrar
+                            <i class="fa fa-times-circle"></i>
+                        </button>
+                    </div>
+                    
+                </div>
+
                 
             </div>
         </div>

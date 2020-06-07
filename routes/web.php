@@ -47,6 +47,14 @@ Route::group(['prefix' => 'Provisionales'], function () {
     Route::post('insertar','Administrador\ProvisionalesController@insertar');
 });
 
+Route::group(['prefix' => 'Sanciones'], function () {
+    Route::post('insertar','Administrador\SuspensionesController@insertar');
+});
+
+Route::group(['prefix' => 'Cancelaciones'], function () {
+    Route::post('insertar','Administrador\CancelacionesController@insertar');
+});
+
 
 Route::group(['prefix' => 'Zonas'], function () {
     Route::get('index','Administrador\ZonaController@index');
