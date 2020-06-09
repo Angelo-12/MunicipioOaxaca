@@ -15,7 +15,7 @@ use DB;
 class PermisosController extends Controller
 {
     public function index($nombre){
-        $permisos="";
+        //$permisos="";
         if($nombre=="Anuales"){
             $permisos=Permisos::join('anuales','permiso.id','anuales.id_permiso')
             ->paginate(10);
@@ -29,6 +29,19 @@ class PermisosController extends Controller
             $permisos=Permisos::where('asignado','=','0')
             ->paginate(10);
             $nombre="Pendientes";
+        }else if($nombre=="Cancelados"){
+            $permisos=Permisos::join('cancelacion','permiso.id','=','cancelacion.id_permiso')
+            ->paginate(10);
+            $nombre="Cancelados";
+
+        }else if($nombre=="Sancionados"){
+            $permisos=Permisos::join('sancion','permiso.id','=','sancion.id_permiso')
+            ->paginate(10);
+            $nombre="Sancionados";
+        }else if($nombre=="Revalidados"){
+            $permisos=Permisos::join('revalidacion','permiso.id','=','revalidacion.id_permiso')
+            ->paginate(10);
+            $nombre="Revalidados";
         }
 
         //return $anuales;
@@ -98,7 +111,21 @@ class PermisosController extends Controller
             $permisos=Permisos::where('asignado','=','0')
             ->get();
             $nombre="Pendientes";
+        }else if($nombre=="Cancelados"){
+            $permisos=Permisos::join('cancelacion','permiso.id','=','cancelacion.id_permiso')
+            ->paginate(10);
+            $nombre="Cancelados";
+
+        }else if($nombre=="Sancionados"){
+            $permisos=Permisos::join('sancion','permiso.id','=','sancion.id_permiso')
+            ->paginate(10);
+            $nombre="Sancionados";
+        }else if($nombre=="Revalidados"){
+            $permisos=Permisos::join('revalidacion','permiso.id','=','revalidacion.id_permiso')
+            ->paginate(10);
+            $nombre="Revalidados";
         }
+
 
         $pdf=\PDF::loadView('Pdfs.permisos',compact('permisos','nombre'));
         return $pdf->stream();

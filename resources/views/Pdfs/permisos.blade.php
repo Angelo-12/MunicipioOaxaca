@@ -11,7 +11,9 @@
                     date_default_timezone_set('America/Mexico_City');
                     ?>
                     <?=date('m/d/Y g:ia');?></h3>
-                <h3>Total de registros : {{$permisos->count()}}</h3>
+                <h3>Total de registros :
+                  {{$permisos->count()}}
+                </h3>
             </p>
             
 

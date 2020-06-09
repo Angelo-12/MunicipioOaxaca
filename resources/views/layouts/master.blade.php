@@ -244,6 +244,27 @@
                       <p>Provisionales</p>
                     </a>
                   </li>
+
+                  <li class="nav-item">
+                    <a href="{{url('Permisos/index/Cancelados')}}" class="nav-link">
+                      <i class="fas fa-window-close nav-icon"></i>
+                      <p>Cancelados</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{url('Permisos/index/Sancionados')}}" class="nav-link">
+                      <i class="fas fa-ban nav-icon"></i>
+                      <p>Sancionados</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{url('Permisos/index/Revalidados')}}" class="nav-link">
+                      <i class="far fa-thumbs-up nav-icon"></i>
+                      <p>Revalidados</p>
+                    </a>
+                  </li>     
                   
                 </ul>
               </li>

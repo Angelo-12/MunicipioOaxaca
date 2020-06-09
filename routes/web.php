@@ -55,6 +55,10 @@ Route::group(['prefix' => 'Cancelaciones'], function () {
     Route::post('insertar','Administrador\CancelacionesController@insertar');
 });
 
+Route::group(['prefix' => 'Revalidaciones'], function () {
+    Route::post('insertar','Administrador\ReevalidacionesController@insertar');
+});
+
 
 Route::group(['prefix' => 'Zonas'], function () {
     Route::get('index','Administrador\ZonaController@index');

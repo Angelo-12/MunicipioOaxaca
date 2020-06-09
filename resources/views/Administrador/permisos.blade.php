@@ -114,18 +114,21 @@
                           <i class="fa fa-pencil-alt"></i>
                       </button>
 
-                      <button type="button" title="Reevalidar" class="asignar-reevalidacion btn btn-success btn-sm" data-id="{{$p->id}}">
-                        <i class="fas fa-hand-point-right"></i>
-                      </button>
-                     
-                      <button type="button" title="Suspender" class="asignar-sancion btn btn-secondary btn-sm" data-id="{{$p->id}}">
-                          <i class="fa fa-ban"></i>
-                      </button>
+                      @if (!($nombre=="Cancelados"||$nombre=="Sancionados"||$nombre=="Revalidados"))
+                        <button type="button" title="Reevalidar" class="asignar-reevalidacion btn btn-success btn-sm" data-id="{{$p->id}}">
+                            <i class="fas fa-hand-point-right"></i>
+                        </button>
+                        
+                        <button type="button" title="Sancionar" class="asignar-sancion btn btn-secondary btn-sm" data-id="{{$p->id}}">
+                            <i class="fa fa-ban"></i>
+                        </button>
 
-                      <button type="button" title="Cancelar" class="asignar-cancelacion btn btn-info btn-sm" data-id="{{$p->id}}">
-                        <i class="fa fa-eraser"></i>
-                      </button>
-                    
+                        <button type="button" title="Cancelar" class="asignar-cancelacion btn btn-info btn-sm" data-id="{{$p->id}}">
+                            <i class="fa fa-eraser"></i>
+                        </button> 
+                            
+                      @endif
+                          
                   </td>
                 </tr>             
                   @endforeach                   
@@ -566,28 +569,30 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" name="formulario_reevalidacion" id="formulario_reevalidacion">
                         @csrf                        
-                        <input type="text" id="id_permiso_reevalidacion" name="id_permiso_reevalidacion" hidden>
-                       
-
+                        <input name="id_revalidacion" id="id_revalidacion" hidden></inp>
                         <div class="form-group">
                                 <div class="form-group">
-                                    
-                                    <span class="text-danger" id="multa_error"></span>
-                                </div>
+                                   <label for="seguro">¿Esta seguro que desea revalidar el permiso con Id
+                                    <b name="id_permiso_reevalidacion" id="id_permiso_reevalidacion"></b>
+                                    ?
+                                   </label>
+                                </div>   
 
                                 <div class="form-group">
-                                   
-                                </div>
+                                    <label for="seguro">Monto</label>
+                                    <input class="form-control" type="text" name="monto" id="monto" placeholder="Opcional">
+                                    
+                                 </div>   
                         </div>    
                     </form>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" type="submit" id="agregar_sancion">
-                            Guardar
-                            <i class="fa fa-save"></i>
+                        <button class="btn btn-primary" type="submit" id="agregar_reevalidacion">
+                            SI
+                            <i class="fa fa-check"></i>
                         </button>
                         <button class="btn btn-danger" type="button" data-dismiss="modal">
-                            Cerrar
+                            NO
                             <i class="fa fa-times-circle"></i>
                         </button>
                     </div>
@@ -598,6 +603,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 
