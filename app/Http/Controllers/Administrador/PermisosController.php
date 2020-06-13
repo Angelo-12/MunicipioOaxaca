@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use DB;
 class PermisosController extends Controller
 {
+    //Funcion que nos regresa la pagina princiapl de cada uno de los permisos dependiente el parametro que reciba la funcion
     public function index($nombre){
         //$permisos="";
         if($nombre=="Anuales"){
@@ -48,6 +49,7 @@ class PermisosController extends Controller
          return view('Administrador.permisos')->with('permisos',$permisos)->with('nombre',$nombre);
     }
 
+    //Funcion para insertar un nuevo permiso
     public function insertar(Request $request){
         $rules= array(
             'numero_cuenta'=>'required|numeric',
@@ -96,6 +98,17 @@ class PermisosController extends Controller
 
     }
 
+    //Funcion que regresa los detalles de el permiso se recibe como parametro un id
+    public function detalle_permiso($id){
+        return Permisos::join('vendedor','vendedor.id_permiso','=','permiso.id')
+        ->where('permiso.id','=',$id)
+        ->get();
+
+        //return $permisos;
+        //return Permisos::where('id','=',$id)->get();
+    }
+
+    //Esporta a pdf cada uno de los registros de los permisos
     public function exportarPdf($nombre){
         $permisos="";
         if($nombre=="Anuales"){

@@ -50,6 +50,15 @@ class UsuarioController extends Controller
          $user->status='1';
 
          $user->save();
+
+         $ultimo=User::latest('id')->first();
+         $id_ultimo=$ultimo->id+1;
+
+         $administrador=new Administrador_Secretaria;
+         $administrador->cargo='Administrador';
+         $administrador->id_ultimo;
+
+         $administrador->save();
     
          return response()->json($user);
          
@@ -57,6 +66,101 @@ class UsuarioController extends Controller
       
    }
 
+   //Funcion pora insertar un nuevo administrador  validando los inputs correspondientes
+   public function insertar_administrador(Request $request){
+      $rules = array(
+         'name'=>['required','alpha','max:40'],
+         'apellido_paterno'=>['required','alpha','max:30'],
+         'apellido_materno'=>['required','alpha','max:30'],
+         'sexo'=>'required',
+         'fecha_nacimiento'=>'required',
+         'id_municipio'=>'required',
+         'email'=>['email','required'],
+         'password'=>['required','min:6'],
+         
+      );
+
+      $validator=Validator::make(input::all(),$rules);
+
+      if($validator->fails()){
+         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }else{
+         $user= new User;
+         
+         $user->name=$request->input('name');
+         $user->apellido_paterno=$request->input('apellido_paterno');
+         $user->apellido_materno=$request->input('apellido_materno');
+         $user->fecha_nacimiento=$request->input('fecha_nacimiento');
+         $user->sexo=$request->input('sexo');
+         $user->email=$request->input('email');
+         $user->password=Hash::make($request->input('password'));
+         $user->id_municipio=$request->input('id_municipio');
+         $user->status='1';
+
+         $user->save();
+
+         $ultimo=User::latest('id')->first();
+         $id_ultimo=$ultimo->id;
+         
+         $administrador=new Administrador_Secretaria;
+         $administrador->cargo='Administrador';
+         $administrador->id_usuario=$id_ultimo;
+
+         $administrador->save();
+    
+         return response()->json($user);
+         
+      }
+   }
+
+   //Funcion para insertar una nueva secretaria y para validar los campos correspondientes de cada dato
+   public function insertar_secretaria(Request $request){
+      $rules = array(
+         'name'=>['required','alpha','max:40'],
+         'apellido_paterno'=>['required','alpha','max:30'],
+         'apellido_materno'=>['required','alpha','max:30'],
+         'sexo'=>'required',
+         'fecha_nacimiento'=>'required',
+         'id_municipio'=>'required',
+         'email'=>['email','required'],
+         'password'=>['required','min:6'],
+         
+      );
+
+      $validator=Validator::make(input::all(),$rules);
+
+      if($validator->fails()){
+         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }else{
+         $user= new User;
+         
+         $user->name=$request->input('name');
+         $user->apellido_paterno=$request->input('apellido_paterno');
+         $user->apellido_materno=$request->input('apellido_materno');
+         $user->fecha_nacimiento=$request->input('fecha_nacimiento');
+         $user->sexo=$request->input('sexo');
+         $user->email=$request->input('email');
+         $user->password=Hash::make($request->input('password'));
+         $user->id_municipio=$request->input('id_municipio');
+         $user->status='1';
+
+         $user->save();
+
+         $ultimo=User::latest('id')->first();
+         $id_ultimo=$ultimo->id;
+         
+         $administrador=new Administrador_Secretaria;
+         $administrador->cargo='Secretaria';
+         $administrador->id_usuario=$id_ultimo;
+
+         $administrador->save();
+    
+         return response()->json($user);
+         
+      }
+   }
+
+   //Actualizar un usuario
    public function editar(Request $request){
       $usuario=Users::find($request->id);
       $rules = array(
@@ -89,7 +193,7 @@ class UsuarioController extends Controller
          $user->status='1';
 
          $user->save();
-    
+
          return response()->json($user);
          
       }
@@ -129,15 +233,25 @@ class UsuarioController extends Controller
 
    }
 
-   public function index(){
-      $usuarios=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
-      //->select('admin_secretaria.*,users.*')
-      ->where('admin_secretaria.cargo','=','Administrador')
-      ->orWhere('admin_secretaria.cargo','=','Secretaria')
-      ->paginate(10);
-      $estado=Estado::all();
-      return view('Administrador.usuarios',compact('usuarios','estado'))->render();
+   //Funcion para obtener el ultimo registro insertado en la tabla usuarios solo necesitamos el id
+   public function ultimo(){
+      $ultimo=User::latest('id')->first();
+      $id = $ultimo->id+1;
+      return $id;
    }
+
+   //Nos muestra la pagina principal de los administradopres
+   public function index(){
+      $tipo="Administradores";
+      $usuarios=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
+      ->where('admin_secretaria.cargo','=','Administrador')
+      ->paginate(10);
+     
+      $estado=Estado::all();
+      return view('Administrador.usuarios',compact('usuarios','estado','tipo'))->render();
+   }
+
+
 
    public function fetch_data(Request $request){
       if($request->ajax()){
@@ -219,12 +333,11 @@ class UsuarioController extends Controller
       ->orderby('id_vendedor')
       ->get();
       return response(["vendedores"=>$vendedores]);
-      ;
       
    }
    
-   public function ver_detalle($id){
-		
+   //Funcion que regresa los detalles del usuario buscado, la busqueda se hace mediante el id
+   public function ver_detalle($id){		
       $vendedores=Administrador_Secretaria::join('users','admin_secretaria.id','=','users.id')
       ->select('name','apellido_paterno','apellido_materno','email','cargo')->get();
       return response()->json(['admin'=>$usuario]);

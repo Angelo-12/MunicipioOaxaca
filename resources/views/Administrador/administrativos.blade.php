@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-header">
             <h1>
-                Administradores
+                Secretari@s
             </h1>
         </div>
     </div>
@@ -16,7 +16,7 @@
     <div class="card">
         <div class="card-header">
 
-            <a class="create-modal btn btn-success">
+            <a class="create-modal-administrativo btn btn-success">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
             <button type="button"  class="btn btn-info">
@@ -117,7 +117,7 @@
 
     </div> 
 
-    <div class="modal fade" id="create_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="create_administrativo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -206,7 +206,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit" id="agregar_usuario">
+                    <button class="btn btn-primary" type="submit" id="agregar_usuario_administrativo">
                         Guardar
                         <i class="fa fa-save"></i>
                     </button>
@@ -262,7 +262,7 @@
     </div>
 
     {{-- Modal show  --}}
-<div id="show_usuario" class="modal fade" role="dialog">
+<div id="show_administrativo" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -20,7 +20,7 @@ function cargarMapa(id){
     //var latitud=new Array(17.062283,17.059519,17.058909,17.061703,17.062283);
 
     var map = new mapboxgl.Map({
-        container: 'map', // container id
+        container: 'map_zona', // container id
         style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
         center: [-96.7257924,17.0608691], // starting position [lng, lat]
         zoom: 16 // starting zoom

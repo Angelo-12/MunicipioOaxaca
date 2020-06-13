@@ -7,10 +7,12 @@ use App\Http\Controllers\Controller;
 use Response;
 use App\User;
 use App\Models\Permiso;
-use App\Models\Actividad_Comercial;
+use App\Models\Tipo_Actividad;
 use App\Models\Vendedor;
 class ActividadesComercialesController extends Controller
 {
+    /*Funcion que muestra la pagina principal de las actividades comerciales, se recibe 
+    como parametro un id que corresponde a la actividad comercial*/
     public function index($id){
         $actividad="";
         if($id==1){
@@ -29,13 +31,12 @@ class ActividadesComercialesController extends Controller
             $actividad="Prestacion de servicios";
         }
         $vendedor=Vendedor::join('users','vendedor.id_usuario','=','users.id')
-        ->join('actividad_comercial','vendedor.id_actividad','=','actividad_comercial.id')
-        ->where('id_actividad','=',$id)
-        ->select('users.*','vendedor.*','actividad_comercial.*')
+        ->join('permiso','permiso.id','=','tipo_actividad')
+        ->where('tipo_actividad','=',$id)
         ->paginate(10);
        
-       
-        return view('administrador.actividades_comerciales')->with('vendedor',$vendedor)->with('actividad',$actividad);
+       //return $vendedor;
+       return view('administrador.actividades_comerciales')->with('vendedor',$vendedor)->with('actividad',$actividad);
     }
 
     public function insertar(Request $request){

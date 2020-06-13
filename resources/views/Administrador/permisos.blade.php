@@ -1,10 +1,10 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
 @section('content')
 <div class="centrado" id="onload">
     <div class="lds-dual-ring"></div>
 </div>
-<div class="container-fluid center" hidden> 
+<div class="container-fluid center"> 
     <div class="card">
         <div class="card-header">
             <h1>
@@ -47,7 +47,7 @@
                         <th>Expediente</th>
                         <th>Tipo de actividad</th>
                         <th>Giro</th>
-                        @if ($nombre=="SinAsignar")
+                        @if ($nombre=="Pendientes")
                             <th>Tipo</th>
                         @endif
                         <th>Fecha de Registro</th>
@@ -171,13 +171,13 @@
                             <label>Tipo de actividad</label>
                             <select class="form-control" name="tipo_actividad" id="tipo_actividad">
                                 <option value="ninguna" selected disabled>Seleccionar Actividad</option>
-                                <option value="Comercial Movil">Comercial Movil</option>
-                                <option value="Comercial Semifija">Comercial Semifija</option>
-                                <option value="Comercial Movil Con Equipo Rodante">Comercial Movil Con Equipo Rodante</option>
-                                <option value="Comercial Fija">Comercial Fija</option>
-                                <option value="Comercio Establecido">Comercio Establecido</option>
-                                <option value="Tianguis">Tianguis</option>
-                                <option value="Prestacion de Servicios">Prestacion de Servicios</option>
+                                <option value="1">Comercial Movil</option>
+                                <option value="2">Comercial Semifija</option>
+                                <option value="3">Comercial Movil Con Equipo Rodante</option>
+                                <option value="4">Comercial Fija</option>
+                                <option value="5">Comercio Establecido</option>
+                                <option value="6">Tianguis</option>
+                                <option value="7">Prestacion de Servicios</option>
                             </select>
                             <span class="text-danger" id="tipo_actividad_error"></span>
 
@@ -406,7 +406,7 @@
                                 <div id="div4" style="display:none;">
                                     <input  type="text" name="otraOpcion" placeholder="Escriba el utensilio"
                                     class="form-control" id="otro">
-                                    <span class="text-danger" id="latitud_error"></span>
+                                    <span class="text-danger" id="otra_error">Escriba la opcion</span>
                                 </div>
                                    
                                 </div>
@@ -435,7 +435,7 @@
                                     <label for="fecha_nacimiento">Fecha de vencimiento</label>
                                     <input type="text" class="form-control fj-date-vencimiento" id="fecha_vencimiento" 
                                     placeholder="yyyy/mm/dd" name="fecha_vencimiento">
-                                    <span class="text-danger" id="fecha_nacimiento_error"></span>
+                                    <span class="text-danger" id="fecha_nacimiento_error">El Campo Fecha de Vencimiento es Obligatorio</span>
                                 </div>
                             </div>
 
@@ -528,7 +528,7 @@
                                 <div class="form-group">
                                     <label>Motivo </label>
                                     <textarea class="form-control" id="motivo_cancelacion" name="motivo_cancelacion" placeholder="Motivo" rows="2"></textarea>
-                                    <span class="text-danger" id="motivo_error"></span>
+                                    <span class="text-danger" id="motivo_error">El campo motivo es obligatorio</span>
                                 </div>
 
                                 <div class="form-group">
@@ -580,8 +580,8 @@
 
                                 <div class="form-group">
                                     <label for="seguro">Monto</label>
-                                    <input class="form-control" type="text" name="monto" id="monto" placeholder="Opcional">
-                                    
+                                    <input class="form-control" type="text" name="monto" id="monto" placeholder="">
+                                    <span class="text-danger" id="monto_error">El campo monto es obligatorio</span>
                                  </div>   
                         </div>    
                     </form>
@@ -605,8 +605,6 @@
     </div>
 
 </div>
-
-
 
 @endsection
 

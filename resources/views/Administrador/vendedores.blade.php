@@ -16,9 +16,9 @@
     <div class="card">
         <div class="card-header">
 
-            <a class="create-modal btn btn-secondary">
+            <button class="create-modal-vendedor btn btn-success" data-total="{{$permisos->count()}}">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
-            </a>
+            </button>
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </button>
@@ -106,150 +106,242 @@
 
     </div> 
 
-    <div class="modal fade" id="create_usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="create_vendedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Vendedor</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+
                 </div>
 
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
                         @csrf
-                        <div class="form-group">
-                            <label>Nombre</label>
-                            <input  type="text" name="nombre" placeholder="Nombre"
-                                    class="form-control" id="name">
-                            <span class="text-danger" id="name_error"></span>
+                        
+
+                        <div id="paso1">
+                            <b for="">Paso 1/2</b>
+                            <div class="progress form-group">
+                                <div class="progress-bar bg-success" role="progressbar"  
+                                style="width: 50%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input  type="text" name="nombre" placeholder="Nombre"
+                                        class="form-control" id="name">
+                                <span class="text-danger" id="name_error">El campo nombre es obligatorio</span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label>Apellido Paterno</label>
+                                <input type="text" name="apellido_paterno" placeholder="Apellido Paterno"
+                                       class="form-control" id="apellido_paterno">
+                                <span class="text-danger" id="apellido_paterno_error">El campo apellido paterno es obligatorio</span>
+    
+                            </div>
+    
+                            <div class="form-group">
+                                <label>Apellido Materno</label>
+                                <input  type="text" name="apellido_materno" placeholder="Apellido Materno"
+                                        class="form-control" id="apellido_materno">
+                                <span class="text-danger" id="apellido_materno_error">El campo apellido materno es obligatorio</span>
+    
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="sexo">Sexo</label>
+                                <select class="form-control" name="sexo" id="sexo">
+                                    <option value="" selected disabled>Seleccionar sexo</option>
+                                    <option value="H">Hombre</option>
+                                    <option value="M">Mujer</option>
+                                </select>
+                                <span class="text-danger" id="sexo_error"></span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                                <input type="text" class="form-control fj-date" id="fecha_nacimiento" 
+                                placeholder="yyyy/mm/dd" name="fecha_nacimiento">
+                                <span class="text-danger" id="fecha_nacimiento_error"></span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <select name="estado" id="estado" class="form-control">
+                                 <option value="" selected disabled>Seleccione su estado</option>
+                                        @foreach ($estado as $e)
+                                            <option value="{{$e->id_estado}}">{{$e->nombre}}</option>
+                                        @endforeach
+                                </select>
+                                <span class="text-danger" id="estado_error"></span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label>Municipio</label>
+                                <select name="id_municipio" id="id_municipio" class="form-control">
+                                    <option value="" selected disabled>Seleccione su municipio</option>
+    
+                                </select>
+                                <span class="text-danger" id="id_municipio_error"></span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+                                <span class="text-danger" id="email_error">El campo email ya se encuentra</span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input  type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                <span class="text-danger" id="password_error"></span>
+                            </div>
+    
+
                         </div>
 
-                        <div class="form-group">
-                            <label>Apellido Paterno</label>
-                            <input type="text" name="apellido_paterno" placeholder="Apellido Paterno"
-                                   class="form-control" id="apellido_paterno">
-                            <span class="text-danger" id="apellido_paterno_error"></span>
+                        <div id="paso2" style="display:none;">
+                            <b for="">Paso 2/2</b>
+                            <div class="progress form-group">
+                                <div class="progress-bar bg-success form-control" role="progressbar" 
+                                style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
 
-                        </div>
-
-                        <div class="form-group">
-                            <label>Apellido Materno</label>
-                            <input  type="text" name="apellido_materno" placeholder="Apellido Materno"
-                                    class="form-control" id="apellido_materno">
-                            <span class="text-danger" id="apellido_materno_error"></span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="sexo">Sexo</label>
-                            <select class="form-control" name="sexo" id="sexo">
-                                <option value="" selected disabled>Seleccionar sexo</option>
-                                <option value="H">Hombre</option>
-                                <option value="M">Mujer</option>
-                            </select>
-                            <span class="text-danger" id="sexo_error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="fecha_nacimiento">Fecha de nacimiento</label>
-                            <input type="text" class="form-control fj-date" id="fecha_nacimiento" 
-                            placeholder="yyyy/mm/dd" name="fecha_nacimiento">
-                            <span class="text-danger" id="fecha_nacimiento_error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Estado</label>
-                            <select name="estado" id="estado" class="form-control">
-                             <option value="" selected disabled>Seleccione su estado</option>
-                                    @foreach ($estado as $e)
-                                        <option value="{{$e->id_estado}}">{{$e->nombre}}</option>
+                            <div class="form-group">
+                                <label>RFC</label>
+                                <input  type="text" name="rfc" placeholder="RFC (Opcional)"
+                                        class="form-control" id="rfc">
+                                <span class="text-danger" id="rfc_error">El campo RFC es requerido</span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label>CURP</label>
+                                <input type="text" name="curp" placeholder="CURP"
+                                       class="form-control" id="curp">
+                                <span class="text-danger" id="curp_error">El campo CURP es requerido</span>
+    
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="sexo">Seleccione la Organizacion</label>
+                                <select class="form-control" name="id_organizacion" id="id_organizacion">
+                                    <option value="" selected disabled>Seleccionar organizacion</option>
+                                    @foreach ($organizaciones as $o)
+                                        <option value="{{$o->id}}">{{$o->nombre_organizacion}}</option>
                                     @endforeach
-                            </select>
-                            <span class="text-danger" id="estado_error"></span>
+                                </select>
+                                <span class="text-danger" id="id_organizacion_error">Debe Seleccionar una organizacion</span>
+                            </div>
+    
+                            <div class="form-group">
+                                <label>Seleccione el permiso</label>
+                                <select name="id_permiso" id="id_permiso" class="form-control">
+                                 <option value="" selected disabled>Seleccione el permiso</option>
+                                        @foreach ($permisos as $p)
+                                            <option value="{{$p->id}}">{{$p->numero_cuenta}}</option>
+                                        @endforeach
+                                </select>
+                                <span class="text-danger" id="id_permiso_error"></span>
+                            </div>
+    
+                            <div id="datos_permiso" style="display:none;">
+                                <div class="form-group">
+                                    <label>Giro</label>
+                                    <input class="form-control red-border" id="giro_permiso" type="text" name="giro_permiso" readonly></input> 
+                                    <span class="text-danger" id="giro_error"></span>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label >Actividad</label>
+                                    <input class="form-control" type="text" name="actividad_permiso" id="actividad_permiso" readonly>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label>Id Usuario</label>
+                                    <input  type="text" name="id_usuario" placeholder="id"
+                                            class="form-control" id="id_usuario" readonly>
+                                    <span class="text-danger" id="id_usuario_error"></span>
+                                </div>
+        
+    
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label>Municipio</label>
-                            <select name="id_municipio" id="id_municipio" class="form-control">
-                                <option value="" selected disabled>Seleccione su municipio</option>
-
-                            </select>
-                            <span class="text-danger" id="id_municipio_error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" name="email">
-                            <span class="text-danger" id="email_error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input  type="password" name="password" class="form-control" id="password" placeholder="Password">
-                            <span class="text-danger" id="password_error"></span>
-                        </div>
+                        
 
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit" id="agregar_usuario">
-                        Guardar
-                        <i class="fa fa-save"></i>
-                    </button>
-                    <button class="btn btn-danger" type="button" data-dismiss="modal">
-                        Cerrar
-                        <i class="fa fa-times-circle"></i>
-                    </button>
+
+                    <div id="siguiente">
+                        <button class="btn btn-secondary" type="button" id="btn_siguiente">
+                            Siguiente
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+                    </div>
+
+                    <div id="guardar" style="display: none;">
+                        <button class="btn btn-secondary" type="button" id="btn_anterior">
+                            Anterior
+                            <i class="fa fa-arrow-circle-left"></i>
+                        </button>
+
+                        <button class="btn btn-primary" type="submit" id="agregar_vendedor">
+                            Guardar
+                            <i class="fa fa-save"></i>
+                        </button>
+                    </div>  
+                   
                 </div>
             </div>
         </div>
     </div>  
 
     {{-- Modal show  --}}
-<div id="show_vendedor" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div id="show_vendedor" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="">Id:</label>
-                    <p id="id"/>
                 </div>
-                <div class="form-group">
-                    <label for="">Nombre:</label>
-                    <p id="nombre_usuario_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Apellido Paterno:</label>
-                    <p id="paterno_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Apellido Materno:</label>
-                    <p id="materno_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Email:</label>
-                    <p id="email_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Cargo:</label>
-                    <p id="cargo_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Status:</label>
-                    <p id="status_show"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Id:</label>
+                        <p id="id"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nombre:</label>
+                        <p id="nombre_usuario_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Apellido Paterno:</label>
+                        <p id="paterno_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Apellido Materno:</label>
+                        <p id="materno_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email:</label>
+                        <p id="email_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Cargo:</label>
+                        <p id="cargo_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Status:</label>
+                        <p id="status_show"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
 

@@ -56,7 +56,7 @@ $(document).ready(function() {
         var aux=$('#sexo option:selected').val();
         $.ajax({
             type: 'POST',
-            url: 'insertar',
+            url: 'insertar_administrador',
             data: {
                 '_token': $('input[name=_token]').val(),
                 'name': $('input[name=nombre]').val(),
@@ -179,6 +179,186 @@ $(document).ready(function() {
 
     });
 
+    //Funcion que permite crear una nueva secretaria
+    $("#agregar_usuario_administrativo").click(function(){
+        var aux=$('#sexo option:selected').val();
+        $.ajax({
+            type: 'POST',
+            url: 'insertar_secretaria',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'name': $('input[name=nombre]').val(),
+                'apellido_paterno': $('input[name=apellido_paterno]').val(),
+                'apellido_materno': $('input[name=apellido_materno]').val(),
+                'sexo': aux,
+                'fecha_nacimiento': $('input[name=fecha_nacimiento]').val(),
+                'email': $('input[name=email]').val(),
+                'password': $('input[name=password]').val(),
+                'id_municipio': $('select[name=id_municipio]').val(),
+
+            },
+            dataType:'json',
+            success: function(data) {
+                
+                //Agrega los bordes verdes a los inputs
+                $('#name').addClass('green-border');
+                $('#apellido_paterno').addClass('green-border');
+                $('#apellido_materno').addClass('green-border');
+                $('#sexo').addClass('green-border');
+                $('#fecha_nacimiento').addClass('green-border');
+                $('#estado').addClass('green-border');
+                $('#municipio').addClass('green-border');
+                $('#email').addClass('green-border');
+                $('#password').addClass('green-border');
+                //Oculta los errores en caso de que el valor sea correcto
+                $('#name_error').addClass('d-none');
+                $('#apellido_paterno_error').addClass('d-none');
+                $('#apellido_materno_error').addClass('d-none');
+                $('#sexo_error').addClass('d-none');
+                $('#fecha_nacimiento_error').addClass('d-none');
+                $('#estado_error').addClass('d-none');
+                $('#municipio_error').addClass('d-none');
+                $('#email_error').addClass('d-none');
+                $('#password_error').addClass('d-none');
+
+                if ((data.errors)) {   
+
+                    $.each( data.errors, function( key, value ) {
+                        
+                        var ErrorId='#'+key+'_error';
+                        var aux='#'+key;
+                        $(aux).removeClass('green-border');
+                        $(aux).addClass('red-border');
+                        $(ErrorId).removeClass('d-none');
+                        $(ErrorId).text(value);
+                    });
+                   
+                } else {
+
+                    $('#name').val('');
+                    $('#apellido_paterno').val('');
+                    $('#apellido_materno').val('');
+                    $('#fecha_nacimiento').val('');
+                    $('#email').val('');
+                    $('#password').val('');
+                    $('#sexo').prop('selectedIndex',0);
+                    $('#id_municipio').prop('selectedIndex',0);
+
+                    $('#name').removeClass('green-border');
+                    $('#name').removeClass('red-border');
+                    $('#name_error').addClass('d-none');
+                    $('#apellido_paterno').removeClass('green-border');
+                    $('#apellido_paterno').removeClass('red-border');
+                    $('#apellido_paterno_error').addClass('d-none');
+                    $('#apellido_materno').removeClass('green-border');
+                    $('#apellido_materno').removeClass('red-border');
+                    $('#apellido_materno_error').addClass('d-none');
+                    $('#fecha_nacimiento').removeClass('green-border');
+                    $('#fecha_nacimiento').removeClass('red-border');
+                    $('#fecha_nacimiento_error').addClass('d-none');
+                    $('#sexo').removeClass('green-border');
+                    $('#sexo').removeClass('red-border');
+                    $('#sexo_error').addClass('d-none');
+                    $('#estado').removeClass('green-border');
+                    $('#estado').removeClass('red-border');
+                    $('#estado_error').addClass('d-none');
+                    $('#id_municipio').removeClass('green-border');
+                    $('#id_municipio').removeClass('red-border');
+                    $('#id_municipio_error').addClass('d-none');
+                    $('#email').removeClass('green-border');
+                    $('#email').removeClass('red-border');
+                    $('#email_error').addClass('d-none');
+                    $('#password').removeClass('green-border');
+                    $('#password').removeClass('red-border');
+                    $('#password_error').addClass('d-none');
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Secretaria Agregada Correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
+                    $('#table').append("<tr class='post" + data.id + "'>" +
+                        "<td>" + data.id + "</td>" +
+                        "<td>" + data.name + "</td>" +
+                        "<td>" + data.apellido_paterno + "</td>" +
+                        "<td>" + data.apellido_materno + "</td>" +
+                        "<td>" + data.email + "</td>" +
+                        "<td>  No asignado    </td>" +
+                        "<td>" + "<div class='switch'>"+
+                                "<label>"+
+                                    Activo
+                                    +"<input type='checkbox' checked readonly='readonly' onclick='javascript: return false;'>"+
+                                +"</label>"
+                               +"</div>" 
+                        + "</td>" +
+                        "<td align='center'>" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-name='" + data.name + "'" +
+                        "data-apellido_paterno='" + data.apellido_paterno + "'><i class='fa fa-eye'></i></button>" +
+                        "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data.idorganizacion + "'><i class='fa fa-pencil-alt'></i></button>" +
+                        "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
+                        "</td>" +
+                        "</tr>");
+                        
+                }
+            },
+        });
+
+    });
+
+     //Funcion para agregar un nuevo vendedor se valida antes que haya un permiso disponible
+     $("#agregar_vendedor").click(function(){
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Vendedores/insertar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'rfc': $('input[name=rfc]').val(),
+                'curp': $('textarea[name=curp]').val(),
+                'id_permiso':$('input[name=id_permiso]').val(),
+
+            },
+            dataType:'json',
+            success: function(data) {
+                if ((data.errors)) {
+                    $.each( data.errors, function( key, value ) {
+                        console.log(key);
+                        console.log(value);
+                    });
+
+                } else {
+                
+                    var registros=document.getElementById("table").rows.length;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Vendedor Creado Correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }     
+            },
+        });
+
+    
+    });
+
+    $("#btn_siguiente").click(function(){
+        $("#paso1").hide();
+        $("#paso2").show();
+        $("#siguiente").hide();
+        $("#guardar").show();
+    });
+
+    $("#btn_anterior").click(function(){
+        $("#paso2").hide();
+        $("#paso1").show();
+        $("#siguiente").show();
+        $("#guardar").hide();
+    });
+
     //Funcion para agregar una organizacion
     $("#agregar_organizacion").click(function() {
         
@@ -244,6 +424,7 @@ $(document).ready(function() {
             },
         });
     });
+
     
     //Funcion para actualizar una organizacion
     $('.modal-footer').on('click', '.actualizar_organizacion', function() {
@@ -292,7 +473,38 @@ $(document).ready(function() {
   
               $("#id_municipio").html(municipio_select);
         });
-      });
+    });
+
+    //Funcion para mostrar los detalles de un permiso en los inputs
+    $('#id_permiso').change(function(){
+        $('#datos_permiso').show();
+        var id = $(this).val();
+        $.get('/Permisos/detalle/'+id, function(data){
+            //console.log(data[0].giro);
+          //$('#giro_permiso').val(data[0].giro);  
+          var actividad=data[0].tipo_actividad;
+          var tipo;
+          if(actividad==1){
+            tipo="Comercial Movil";
+          }else if(actividad==2){
+            tipo="Comercial Semifija";
+          }else if(actividad==3){
+            tipo="Comercial Movil Con Equipo Rodante";
+          }else if(actividad==4){
+            tipo="Comercial Fija";
+          }else if(actividad==5){
+            tipo="Comercios Establecidos";
+          }else if(actividad==6){
+            tipo="Tianguis";
+          }else if(actividad==7){
+            tipo="Prestacion De Servicios";
+          }
+          $('#actividad_permiso').val(tipo);  
+          //$('#id_usuario').val(data[0].id_usuario);  
+        });
+    });
+
+    
 
 });
 
@@ -380,6 +592,14 @@ $(document).ready(function() {
     //Funcion para mostrar la ventana para registrar un nuevo permiso
     $('#create_permiso').on('shown.bs.modal', function() {
         agregarPosicion();
+    });
+
+    //Funcion que muestra la zona de comercializacion en un mapa modal
+    $('#show_zona').on('shown.bs.modal',function(e){
+        var aux =$(e.relatedTarget).data('id');
+        $('#id_zona_update').val(aux);
+        cargarMapa(aux);
+        //map.resize();
     });
 
     //Funcion para asignar un tipo de permiso a los permisos pendientes que hay en los registros
@@ -564,6 +784,7 @@ $(document).ready(function() {
         });
     });
 
+    //Funcion para asignar una cancelacion a un permiso determinado
     $("#agregar_cancelacion").click(function(){
     
         $.ajax({
@@ -683,6 +904,7 @@ $(document).ready(function() {
         });
     });
     
+    //Funcion para asignar una revalidacion al permiso que se haya seleccionado
     $("#agregar_reevalidacion").click(function(){
     
         $.ajax({
@@ -723,7 +945,27 @@ $(document).ready(function() {
 //Funcuion para crear la ventana modal para agregar una organizacion
 $(document).on('click', '.create-modal', function() {
     $('#create_organizacion').modal('show');
+    
+});
 
+$(document).on('click', '.create-modal-administrativo', function() {
+    $('#create_administrativo').modal('show');    
+});
+
+
+//Funcuion para mostrar la ventana modal para crear un permiso
+$(document).on('click', '.create-modal-vendedor', function() {
+    var total=$(this).data('total');
+    if(total==0){
+        Swal.fire({
+            icon: 'error',
+            title: 'No hay permisos creados',
+            showConfirmButton: true
+        })
+    }else {
+        $('#create_vendedor').modal('show');
+    }
+    
 });
 
 //Funcion para mostrar los datos de la organizacion

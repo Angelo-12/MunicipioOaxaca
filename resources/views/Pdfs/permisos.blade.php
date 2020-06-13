@@ -2,7 +2,7 @@
 
                  <div class="card-header" align="center">
                     <h2>
-                        Permisos   {{$nombre}}
+                        Permisos  {{$nombre}}
                     </h2>
                 </div>
 

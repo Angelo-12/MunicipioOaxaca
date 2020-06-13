@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="Shortcut Icon" type="image/x-icon" href="assets/icons/book.ico" />
     <script src="js/sweet-alert.min.js"></script>
-    <link rel="stylesheet" href="css/sweet-alert.css">
-    <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('css/sweet-alert.css')}}">
+    <link rel="stylesheet" href="{{asset('css/material-design-iconic-font.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/jquery.mCustomScrollbar.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
     <script src="js/modernizr.js"></script>
@@ -24,60 +24,69 @@
         <div class="visible-xs font-movile-menu mobile-menu-button"></div>
         <div class="full-reset container-menu-movile nav-lateral-scroll">
             <div class="logo full-reset all-tittles">
-                <i class="visible-xs zmdi zmdi-close pull-left mobile-menu-button" style="line-height: 55px; cursor: pointer; padding: 0 10px; margin-left: 7px;"></i> 
-                sistema bibliotecario
+                Oaxaca de Juarez
             </div>
             <div class="nav-lateral-divider full-reset"></div>
             <div class="full-reset" style="padding: 10px 0; color:#fff;">
                 <figure>
                     <img src="assets/img/logo.png" alt="Biblioteca" class="img-responsive center-box" style="width:55%;">
                 </figure>
-                <p class="text-center" style="padding-top: 15px;">Sistema Bibliotecario</p>
+                <p class="text-center" style="padding-top: 15px;">
+                    Sistema de Control de Comercio en Via Publica
+                </p>
             </div>
             <div class="nav-lateral-divider full-reset"></div>
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
                     <li><a href="home.html"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio</a></li>
-                    <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-case zmdi-hc-fw"></i>&nbsp;&nbsp; Administración <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
-                        <ul class="list-unstyled">
-                            <li><a href="institution.html"><i class="zmdi zmdi-balance zmdi-hc-fw"></i>&nbsp;&nbsp; Datos institución</a></li>
-                            <li><a href="provider.html"><i class="zmdi zmdi-truck zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo proveedor</a></li>
-                            <li><a href="category.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Nueva categoría</a></li>
-                            <li><a href="section.html"><i class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Nueva sección</a></li>
-                        </ul>
-                    </li>
+                    
                     <li>
                         <div class="dropdown-menu-button"><i class="zmdi zmdi-account-add zmdi-hc-fw"></i>&nbsp;&nbsp; Registro de usuarios <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="admin.html"><i class="zmdi zmdi-face zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo administrador</a></li>
-                            <li><a href="teacher.html"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo docente</a></li>
-                            <li><a href="student.html"><i class="zmdi zmdi-accounts zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo estudiante</a></li>
-                            <li><a href="personal.html"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo personal administrativo</a></li>
+                            <li><a href="admin.html"><i class="zmdi zmdi-face zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo Administrador</a></li>
+                            <li><a href="teacher.html"><i class="zmdi zmdi-male-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Nueva Secretaria</a></li>
+                            <li><a href="personal.html"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo Vendedor</a></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Libros y catálogo <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-card zmdi-hc-fw"></i>&nbsp;&nbsp; Permisos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="book.html"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo libro</a></li>
-                            <li><a href="catalog.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Catálogo</a></li>
+                            <li><a href="{{url('Permisos/index/Pendientes')}}"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Pendientes</a></li>
+                            <li><a href="{{url('Permisos/index/Anuales')}}" ><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Anuales</a></li>
+                            <li><a href="{{url('Permisos/index/Eventuales')}}" ><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Eventuales</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Provisionales</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Revalidaciones</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-block zmdi-hc-fw"></i>&nbsp;&nbsp; Sanciones</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-close zmdi-hc-fw"></i>&nbsp;&nbsp; Cancelaciones</a></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-alarm zmdi-hc-fw"></i>&nbsp;&nbsp; Préstamos y reservaciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Zonas de Comercializacion <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="loan.html"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Todos los préstamos</a></li>
-                            <li>
-                                <a href="loanpending.html"><i class="zmdi zmdi-time-restore zmdi-hc-fw"></i>&nbsp;&nbsp; Devoluciones pendientes <span class="label label-danger pull-right label-mhover">7</span></a>
-                            </li>
-                            <li>
-                                <a href="loanreservation.html"><i class="zmdi zmdi-timer zmdi-hc-fw"></i>&nbsp;&nbsp; Reservaciones <span class="label label-danger pull-right label-mhover">7</span></a>
-                            </li>
+                            <li><a href="book.html"><i class="zmdi zmdi-google-maps zmdi-hc-fw"></i>&nbsp;&nbsp; Permitida</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-google-maps zmdi-hc-fw"></i>&nbsp;&nbsp; Restringida</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-google-maps zmdi-hc-fw"></i>&nbsp;&nbsp; Prohibida</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href=""><i class="zmdi zmdi-accounts-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Organizaciones</a>
+                    </li>
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-card-membership zmdi-hc-fw"></i>&nbsp;&nbsp; Actividades Comerciales <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="book.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Comercial Movil</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Comercial Semifija</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Comercial Movil Con Equipo Rodante</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Comercial Fija</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Comercios Establecidos</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Tianguis</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-money zmdi-hc-fw"></i>&nbsp;&nbsp; Prestacion de Servicios</a></li>
                         </ul>
                     </li>
                     <li><a href="report.html"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes y estadísticas</a></li>
                     <li><a href="advancesettings.html"><i class="zmdi zmdi-wrench zmdi-hc-fw"></i>&nbsp;&nbsp; Configuraciones avanzadas</a></li>
-                </ul>
+                </>
             </div>
         </div>
     </div>
@@ -106,72 +115,14 @@
             </ul>
         </nav>
         <div class="container">
-            <div class="page-header">
-              <h1 class="all-tittles">Sistema bibliotecario <small>Inicio</small></h1>
+       
+            <div class="content">
+                <div class="container-fluid full-reset text-center" style="padding: 40px 0;" id="contenido">
+                    @yield('content')
+                </div>
             </div>
         </div>
-        <section class="full-reset text-center" style="padding: 40px 0;">
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-face"></i></div>
-                <div class="tile-name all-tittles">administradores</div>
-                <div class="tile-num full-reset">7</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-accounts"></i></div>
-                <div class="tile-name all-tittles">estudiantes</div>
-                <div class="tile-num full-reset">70</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-male-alt"></i></div>
-                <div class="tile-name all-tittles">docentes</div>
-                <div class="tile-num full-reset">11</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-male-female"></i></div>
-                <div class="tile-name all-tittles" style="width: 90%;">personal administrativo</div>
-                <div class="tile-num full-reset">17</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-truck"></i></div>
-                <div class="tile-name all-tittles">proveedores</div>
-                <div class="tile-num full-reset">21</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-book"></i></div>
-                <div class="tile-name all-tittles">libros</div>
-                <div class="tile-num full-reset">77</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-bookmark-outline"></i></div>
-                <div class="tile-name all-tittles">categorías</div>
-                <div class="tile-num full-reset">11</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-assignment-account"></i></div>
-                <div class="tile-name all-tittles">secciones</div>
-                <div class="tile-num full-reset">17</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-timer"></i></div>
-                <div class="tile-name all-tittles">reservaciones</div>
-                <div class="tile-num full-reset">10</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-time-restore"></i></div>
-                <div class="tile-name all-tittles" style="width: 90%;">devoluciones pendientes</div>
-                <div class="tile-num full-reset">9</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-calendar"></i></div>
-                <div class="tile-name all-tittles">préstamos</div>
-                <div class="tile-num full-reset">7</div>
-            </article>
-            <article class="tile">
-                <div class="tile-icon full-reset"><i class="zmdi zmdi-trending-up"></i></div>
-                <div class="tile-name all-tittles" style="width: 90%;">reportes y estadísticas</div>
-                <div class="tile-num full-reset">&nbsp;</div>
-            </article>
-        </section>
+        
         <div class="modal fade" tabindex="-1" role="dialog" id="ModalHelp">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -188,25 +139,7 @@
             </div>
           </div>
         </div>
-        <footer class="footer full-reset">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <h4 class="all-tittles">Acerca de</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam quam dicta et, ipsum quo. Est saepe deserunt, adipisci eos id cum, ducimus rem, dolores enim laudantium eum repudiandae temporibus sapiente.
-                        </p>
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <h4 class="all-tittles">Desarrollador</h4>
-                        <ul class="list-unstyled">
-                            <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Carlos Alfaro <i class="zmdi zmdi-facebook zmdi-hc-fw footer-social"></i><i class="zmdi zmdi-twitter zmdi-hc-fw footer-social"></i></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-copyright full-reset all-tittles">© 2018 Carlos Alfaro</div>
-        </footer>
+
     </div>
 </body>
 </html>

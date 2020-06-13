@@ -11,17 +11,14 @@
         <div class="card-header">
             <h1>
                 {{$actividad}}
-               
             </h1>
-
-            
         </div>
     </div>
 
     <div class="card">
         <div class="card-header">
 
-            <a class="create-modal btn btn-secondary">
+            <a class="create-modal btn btn-success">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
             <button type="button"  class="btn btn-info">
@@ -45,7 +42,6 @@
             <table id="table" class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr >
-                        <th>Id</th>
                         <th>N° Permiso</th>
                         <th>Nombre</th>
                         <th>Apellido Paterno</th>
@@ -59,8 +55,7 @@
                 <tbody>
                     @foreach ($vendedor as $v)
                    
-                    <tr class="post{{$v->id}}">
-                        <td >{{$v->id}}</td>
+                    <tr class="post{{$v->id_usuario}}">
                         <td >{{$v->id_permiso}}</td>
                         <td >{{$v->name}}</td>
                         <td >{{$v->apellido_paterno}}</td>

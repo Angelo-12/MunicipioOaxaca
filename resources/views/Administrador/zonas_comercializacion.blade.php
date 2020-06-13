@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
 @section('content')
 
@@ -155,7 +155,7 @@
               <input type="text" id="id_zona_update" name="id_zona" hidden>
             </div>
              
-            <div id="map" style="height:300px;"></div> 
+            <div id="map_zona" style="height:300px;"></div> 
           </div>
       </div>
   </div>

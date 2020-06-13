@@ -10,11 +10,13 @@ use Response;
 use Illuminate\Support\Facades\Input;
 class OrganizacionesController extends Controller
 {
+    //Funcion que muyestra la pagina principal de las organizaciones
     public function index(){
         $organizaciones=Organizacion::paginate(10);
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
     }
 
+    //Funcion para insertar una nueva organizacion
     public function insertar(Request $request){
 
         $rules= array(
@@ -37,6 +39,7 @@ class OrganizacionesController extends Controller
         }
     }
 
+    //Funcion para editar una organizacion validando cada uno de los campos sean correctos
     public function editar(Request $request){
         $rules= array(
             'nombre_organizacion'=>'required',
