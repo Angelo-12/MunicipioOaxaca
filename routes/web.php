@@ -17,7 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes(['verify'=>true]);
+
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar','Administrador\UsuarioController@insertar');
@@ -46,8 +48,6 @@ Route::group(['prefix' => 'Permisos'], function () {
     Route::get('detalle/{id}','Administrador\PermisosController@detalle_permiso');
     Route::get('download/pdf/{nombre}','Administrador\PermisosController@exportarPdf');
 });
-
-Route::get('ultimo','Administrador\UsuarioController@ultimo');
 
 Route::post('insertarAnuales','Administrador\AnualesController@insertarAnuales');
 
@@ -87,3 +87,6 @@ Route::group(['prefix' => 'Organizaciones'], function () {
 Route::group(['prefix' => 'Actividades'], function () {
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
 });
+
+Route::get('index','Administrador\LoginController@index');
+Route::post('verificar','Administrador\LoginController@login')->name('verificar');
