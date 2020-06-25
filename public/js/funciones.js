@@ -1070,9 +1070,9 @@ $('#create_usuario').on('hidden.bs.modal', function(){
 
 //Funcion para agregar un pageloader
 window.onload=function(){
+    //alert("hola");
     $('#onload').fadeOut();
     $('body').removeClass('hidden');
-    $('div').removeAttr('hidden');
 }
 
 $(function(){

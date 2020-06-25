@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="container-fluid center">
       <div class="card">
         <div class="card-header">

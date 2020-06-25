@@ -1,11 +1,8 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 
 @section('content')
-<div class="centrado" id="onload">
-    <div class="lds-dual-ring"></div>
-</div>
 
-<div class="container-fluid center" hidden> 
+<div class="container-fluid center"> 
 
     <div class="card">
         <div class="card-header">

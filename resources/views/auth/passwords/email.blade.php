@@ -1,47 +1,55 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Inicio de sesión</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{asset('css/sweet-alert.css')}}">
+    <link rel="stylesheet" href="{{asset('css/material-design-iconic-font.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+</head>
+<body>
+  <div class="login-container full-cover-background">
+    <div class="form-container">
+        <p class="text-center" style="margin-top: 17px;">
+           <i class="zmdi zmdi-collection-case-play zmdi-hc-5x"></i>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+       </p>
+       <h4 class="text-center all-tittles" style="margin-bottom: 30px;">Restablecer Contraseña</h4>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+       @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
             </div>
-        </div>
-    </div>
-</div>
-@endsection
+        @endif
+
+        <br>
+        <br>
+
+       <form method="POST" action="{{ route('password.email') }}">
+        @csrf 
+
+
+       <div class="group-material-login {{$errors->has('email') ? 'has-error' : '' }}">
+              <input type="text" name="email" value="{{old('email')}}"
+              class="material-login-control"  maxlength="70">
+              <span class="highlight-login"></span>
+              <span class="bar-login"></span>
+              <label>
+                <i class="zmdi zmdi-account">
+                  </i> &nbsp; 
+                  Email
+              </label>
+              <strong>{{ $errors->first('email') }}</strong>
+        </div><br>
+            
+        <button class="btn-login " type="submit">Enviar enlace de restablecimiento de contraseña &nbsp; <i class="zmdi zmdi-arrow-right"></i></button>
+          
+    </form>
+    </div>   
+  </div>
+</body>
+</html>

@@ -9,13 +9,35 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="{{asset('img/')}}/{{Auth::user()->foto_perfil}}"cu alt=""/>
+                    <img src="{{asset('img/')}}/{{Auth::user()->foto_perfil}}" id="image" alt=""/>
                     <div class="file btn btn-lg btn-primary">
                         Cambiar Foto
-                        <input type="file" name="file"/>
+                        <input type="file" name="file" id="file"/>
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.getElementById("file").onchange = function(e) {
+                // Creamos el objeto de la clase FileReader
+                    let reader = new FileReader();
+
+                    // Leemos el archivo subido y se lo pasamos a nuestro fileReader
+                    reader.readAsDataURL(e.target.files[0]);
+
+                    // Le decimos que cuando este listo ejecute el código interno
+                    reader.onload = function(){
+                        let preview = document.getElementById('preview'),
+                        image = document.getElementById('image');
+
+                        image.src = reader.result;
+
+                        image.innerHTML = '';
+                    };
+                }
+            </script>
+
+
             <div class="col-md-6">
                 <div class="profile-head">
                             <h5>
@@ -32,9 +54,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-2">
-                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
-            </div>
+            
         </div>
         <div class="row">
             
@@ -43,7 +63,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>User Id</label>
+                                        <label>Id</label>
                                     </div>
                                     <div class="col-md-6">
                                         <p>{{Auth::user()->id}}</p>
@@ -73,6 +93,16 @@
                                         <p>{{Auth::user()->apellido_materno}}</p>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Edad</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{$edad}}</p>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Sexo</label>
@@ -86,6 +116,14 @@
                                        
                                     </div>
                                 </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-success">Guardar</button>
+                                    </div>
+                                </div>
+                                  
+
                     </div>
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="row">
@@ -96,44 +134,59 @@
                                         <p>{{Auth::user()->email}}</p>
                                     </div>
                                 </div>
+
+                                @foreach ($rol as $r)
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Hourly Rate</label>
+                                        <label>Cargo</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>10$/hr</p>
+                                        <p>{{$r['cargo']}}</p>
                                     </div>
-                                </div>
+                                </div> 
+
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Total Projects</label>
+                                        <label>Fecha de registro</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <p>230</p>
+                                        <p>{{Auth::user()->created_at}}</p>
                                     </div>
                                 </div>
+                                @endforeach
+
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label>English Level</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>Expert</p>
-                                    </div>
+                                   
+                                        <div class="col-md-6">
+                                            <label>Cambiar contraseña</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="password" class="form-control">
+                                        </div>
+                                   
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Availability</label>
+
+                                    <div class="row form-group">
+                                        <div class="col-md-6">
+                                            <label>Confirmar contraseña</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="password" class="form-control">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <p>6 months</p>
+
+                                    <br>
+                                    <br>
+
+                                    <div class="row form-group">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-success">Actualizar</button>
+                                        </div>
                                     </div>
-                                </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Your Bio</label><br/>
-                                <p>Your detail description</p>
-                            </div>
-                        </div>
+                                      
+                                </div> 
+                               
+                              
                     </div>
                 </div>
             </div>

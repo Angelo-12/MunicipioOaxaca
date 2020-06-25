@@ -94,6 +94,7 @@ class UsuarioController extends Controller
          $user->sexo=$request->input('sexo');
          $user->email=$request->input('email');
          $user->password=Hash::make($request->input('password'));
+         $user->foto_perfil='profile.png';
          $user->id_municipio=$request->input('id_municipio');
          $user->status='1';
 

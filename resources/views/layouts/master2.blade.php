@@ -17,12 +17,16 @@
     <link rel="stylesheet" href="{{asset('css/inputs.css')}}">
     <link rel="stylesheet" href="{{asset('css/clockpicker.css')}}">
     <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" >
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css">
   </head>
 
-  <body class="nav-md" >
+  <body class="nav-md hidden">
+
+    <div class="centrado" id="onload">
+      <div class="lds-dual-ring"></div>
+    </div>
+
     <div class="container body">
       <div class="main_container" >
         <div class="col-md-3 left_col" >
@@ -56,9 +60,8 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
+                      <li><a href="index.html">Estadisticas</a></li>
+                      <li><a href="index2.html">Reportes</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-edit"></i> Registro de Usuarios<span class="fa fa-chevron-down"></span></a>
@@ -111,21 +114,7 @@
             </div>
             <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
+            
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -143,16 +132,16 @@
                       <img src="images/img.jpg" alt="">{{Auth::user()->name}}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                      <a class="dropdown-item"  href="{{url('home')}}"> Perfil</a>
                         <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
+                          <span class="badge bg-red pull-right">2</span>
+                          <span>Notificaciones</span>
                         </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
+                    <a class="dropdown-item"  href="javascript:;">Ayuda</a>
                       <a class="dropdown-item"   href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
-                        <i class="fa fa-sign-out pull-right"></i> Log Out
+                        <i class="fa fa-sign-out pull-right"></i> Cerrar Sesion
                       </a>
 
                       <form method="POST" action="{{route('logout')}}" id="logout-form">

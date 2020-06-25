@@ -29,9 +29,13 @@
               class="material-login-control"  maxlength="70">
               <span class="highlight-login"></span>
               <span class="bar-login"></span>
-              <label><i class="zmdi zmdi-account"></i> &nbsp; Email</label>
+              <label>
+                <i class="zmdi zmdi-account">
+                  </i> &nbsp; 
+                  Email
+              </label>
               <strong>{{ $errors->first('email') }}</strong>
-            </div><br>
+        </div><br>
             <div class="group-material-login {{$errors->has('password') ? 'has-error' : '' }}"">
               <input type="password" name="password" class="material-login-control" maxlength="70">
               <span class="highlight-login"></span>
@@ -39,8 +43,14 @@
               <label><i class="zmdi zmdi-lock"></i> &nbsp; Contraseña</label>
               <strong>{{ $errors->first('password') }}</strong>
             </div>
-            <button class="btn-login" type="submit">Ingresar al sistema &nbsp; <i class="zmdi zmdi-arrow-right"></i></button>
-        </form>
+              <a class="" href="{{ route('password.request') }}">
+                ¿Olvido su contraseña?
+              </a>
+              <button class="btn-login" type="submit">Ingresar al sistema &nbsp; <i class="zmdi zmdi-arrow-right"></i></button>
+          
+
+
+           </form>
     </div>   
   </div>
 </body>
