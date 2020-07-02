@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Administrador;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\input;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Administrador_Secretaria;
@@ -19,6 +21,33 @@ use Response;
 
 class UsuarioController extends Controller
 {
+
+   public function perfil(){
+      $id=Auth::user()->id;
+        $rol = Administrador_Secretaria::where('id_usuario','=',$id)->get();
+        $user=User::find($id)->first();
+        $usuarios=json_decode($user,true);
+    
+        $fecha_nacimiento= $usuarios['fecha_nacimiento'];
+        $edad=\Carbon\Carbon::parse($fecha_nacimiento)->age;
+        //return $edad;
+        return view('Administrador.perfil')->with('user',$user)->with('rol',$rol)->with('edad',$edad);
+   }
+   public function cambiar_foto_perfil(Request $request,$id){
+     
+      $usuario=User::find($request->id);
+
+		$imagen=$request->file('imagen');
+		$nombre_imagen=time().$imagen->getClientOriginalName();
+		$imagen->move(public_path().'/img/',$nombre_imagen);
+      
+      
+      $usuario->foto_perfil=$nombre_imagen;
+      $usuario->save();
+      return $usuario;
+   
+   }
+
    public function insertar(Request $request){
       $rules = array(
          'name'=>['required','alpha','max:40'],

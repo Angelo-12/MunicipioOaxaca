@@ -23,8 +23,8 @@ class ProvisionalesController extends Controller
  
          $validator = Validator::make ( Input::all(), $rules);
          if ($validator->fails())
-             return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
-     
+            return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
+            
          else {
 
              $id_permiso=$request->input('id_permiso');

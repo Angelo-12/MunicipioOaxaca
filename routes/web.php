@@ -27,8 +27,11 @@ Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar_rol','Administrador\UsuarioController@insertar_rol');
     Route::get('index','Administrador\UsuarioController@index');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
-
+    Route::get('perfil','Administrador\UsuarioController@perfil');
 });
+
+Route::post('cambiar_foto/{id}','Administrador\UsuarioController@cambiar_foto_perfil');
+
 
 Route::group(['prefix' => 'Secretarias'], function () {
     Route::get('index','Administrador\Administrador_SecretariaController@index');

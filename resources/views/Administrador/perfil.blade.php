@@ -6,10 +6,6 @@
 </div>
 <div class="container emp-profile">
    
-    <form class="form-horizontal" role="form" method="POST" name="formulario" 
-        action="{{url('cambiar_foto/'.$user->id)}}" id="formulario_asignar" enctype="multipart/form-data">
-            {{ csrf_field() }}  
-   
         <div class="row">
             <div class="col-md-4">
 
@@ -22,7 +18,6 @@
                     </div>
                 </div>
 
-               
             
             
             </div>
@@ -130,82 +125,23 @@
 
                                 <div class="row form-group">
                                     <div class="col-md-6">
-                                        <button class="btn btn-success" type="submit">Guardar</button>
                                     </div>
                                 </div>
-
-                            </form>   
                            
 
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Email</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>{{Auth::user()->email}}</p>
-                                    </div>
-                                </div>
-
-                                @foreach ($rol as $r)
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Cargo</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>{{$r['cargo']}}</p>
-                                    </div>
-                                </div> 
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Fecha de registro</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>{{Auth::user()->created_at}}</p>
-                                    </div>
-                                </div>
-                                @endforeach
-
-                                <div class="row">
-                                   
-                                        <div class="col-md-6">
-                                            <label>Cambiar contraseña</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                   
-                                </div>
-
-                                    <div class="row form-group">
-                                        <div class="col-md-6">
-                                            <label>Confirmar contraseña</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="password" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <br>
-                                    <br>
-
-                                    <div class="row form-group">
-                                        <div class="col-md-6">
-                                            <button class="btn btn-success">Actualizar</button>
-                                        </div>
-                                    </div>
-                                      
-                                </div> 
-                               
-                              
-                    </div>
+                    
                 </div>
             </div>
         </div>
 </div>
 
-
-   
+<form class="form-horizontal" role="form" method="POST" name="formulario" 
+action="{{route('cambiar_foto')}}" id="formulario_asignar" enctype="multipart/form-data">
+    {{ csrf_field() }}  
+    <label for="jeje">Hola</label>                  
+    <input type="text" id="id_permiso" name="id_permiso" >
+    <br>
+    <button class="btn btn-success" type="submit">Guardar</button>
+</form>
 @endsection

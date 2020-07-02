@@ -1,4 +1,8 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoidG9sZWRvMTYiLCJhIjoiY2s4eGRsYWNmMHBmbzNrcGpqYmtocng2biJ9.3EUpV8hXK0x-KVMH5NvAcA';
+ var bounds = [
+        [-96.774702,17.031150],
+        [-96.693678,17.132557]
+];
 
 function cargarMapa(id){
     var latitud;
@@ -15,15 +19,14 @@ function cargarMapa(id){
     }else if(id==3){
 
     }
-    //mapboxgl.accessToken = 'pk.eyJ1IjoidG9sZWRvMTYiLCJhIjoiY2s4eGRsYWNmMHBmbzNrcGpqYmtocng2biJ9.3EUpV8hXK0x-KVMH5NvAcA';
-    //var longitud=new Array(-96.726492,-96.727066,-96.724223,-96.723628,-96.726492);
-    //var latitud=new Array(17.062283,17.059519,17.058909,17.061703,17.062283);
-
+  
     var map = new mapboxgl.Map({
         container: 'map_zona', // container id
         style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-        center: [-96.7257924,17.0608691], // starting position [lng, lat]
-        zoom: 16 // starting zoom
+        
+        center: [-96.729649, 17.063483], // starting position [lng, lat]
+        zoom: 16,// starting zoom,
+        maxBounds:bounds
     });
 
     map.addControl(new mapboxgl.NavigationControl());
@@ -68,11 +71,13 @@ function cargarMapa(id){
 }
 
 function agregarMarcador(latitud,longitud){
+
        var map = new mapboxgl.Map({
             container: 'map2', // container id
             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
             center: [longitud,latitud], // starting position [lng, lat]
-            zoom: 16 // starting zoom
+            zoom: 16, // starting zoom,
+             maxBounds:bounds
 
         });
 
@@ -90,16 +95,18 @@ function agregarPosicion(){
 
     var coordinates = document.getElementById('coordinates');
     var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-96.7257924,17.0608691],
-    zoom: 12
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+       center: [-96.729649, 17.063483],
+        zoom: 12,
+        maxBounds:bounds
+
     });
     
     var marker = new mapboxgl.Marker({
     draggable: true
     })
-    .setLngLat([-96.7257924,17.0608691])
+    .setLngLat([-96.729649, 17.063483])
     .addTo(map);
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
@@ -117,20 +124,21 @@ function agregarPosicion(){
 function mapaUbicacionFin(){
     var coordinates = document.getElementById('coordinates');
     var map = new mapboxgl.Map({
-    container: 'map3',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-96.7257924,17.0608691],
-    zoom: 12
+        container: 'map3',
+        style: 'mapbox://styles/mapbox/streets-v11',
+         center: [-96.729649, 17.063483],
+        zoom: 12,
+        maxBounds:bounds
     });
     
     var marker = new mapboxgl.Marker({
-    draggable: true
-    })
-    .setLngLat([-96.7257924,17.0608691])
-    .addTo(map);
-    map.addControl(new mapboxgl.NavigationControl());
-    map.addControl(new mapboxgl.FullscreenControl());
-    
+        draggable: true
+        })
+        .setLngLat([-96.729649, 17.063483])
+        .addTo(map);
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
+        
 
     function onDragEnd() {
         var lngLat = marker.getLngLat();

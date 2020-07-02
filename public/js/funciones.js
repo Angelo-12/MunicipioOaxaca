@@ -591,8 +591,12 @@ $(document).ready(function() {
 
     //Funcion para mostrar la ventana para registrar un nuevo permiso
     $('#create_permiso').on('shown.bs.modal', function() {
+       limpiarCamposPermiso();
         agregarPosicion();
+        
     });
+
+
 
     //Funcion que muestra la zona de comercializacion en un mapa modal
     $('#show_zona').on('shown.bs.modal',function(e){
@@ -604,6 +608,7 @@ $(document).ready(function() {
 
     //Funcion para asignar un tipo de permiso a los permisos pendientes que hay en los registros
     $('#asignar_tipo_permiso').on('shown.bs.modal', function(e) {
+        limpiarCamposTipoPermiso();
         mapaUbicacionFin();
         var id_permiso=$(e.relatedTarget).data('id-permiso');
         $('#id_permiso').val(id_permiso);
@@ -613,15 +618,19 @@ $(document).ready(function() {
     //Funcion para desplegar las opciones dependiendo del radio seleccionado
     $("input[type=radio]").click(function(event){
         var valor = $(event.target).val();
+       
         if(valor =="Anual"){
+            limpiarCamposTipoPermiso();
             $("#div1").show();
             $("#div2").hide();
             $("#div3").hide();
         } else if (valor == "Eventual") {
+            limpiarCamposTipoPermiso();
             $("#div1").hide();
             $("#div2").show();
             $("#div3").hide();
         } else if(valor=="Provisional") { 
+            limpiarCamposTipoPermiso();
             $("#div1").show();
             $("#div2").hide();
             $("#div3").show();
@@ -634,10 +643,12 @@ $(document).ready(function() {
         var seleccionado=$('input:radio[name=radioTipo]:checked').val();
         var ancho = $('#ancho').val();
         var otraOpcion='';
-        var utensilios = '';    
+        var utensilios = '';  
+        var total_utensilios=0;  
         $('#formulario_asignar input[type=checkbox]').each(function(){
             if (this.checked) {
                 utensilios += $(this).val()+', ';
+                total_utensilios++;
             }
         }); 
 
@@ -662,8 +673,13 @@ $(document).ready(function() {
                 success: function(data) {
                     mensajesPermiso();
                     if ((data.errors)) {
-                        
-
+                        if(total_utensilios==0){
+                            
+                            $('#utensilios').removeClass('green-border');
+                            $('#utensilios').addClass('red-border');
+                            $('#utensilios_error').removeClass('d-none');
+                            $('#utensilios_error').text('El campo utensilios es obligatorio');
+                        }
                     } else {
                     
                         var registros=document.getElementById("table").rows.length;
@@ -729,8 +745,14 @@ $(document).ready(function() {
                 success: function(data) {
                     mensajesPermiso();
                     if ((data.errors)) {
-                        
-
+                        $.each( data.errors, function( key, value ) {
+                            var ErrorId='#'+key+'_error';
+                            var aux='#'+key;
+                            $(aux).removeClass('green-border');
+                            $(aux).addClass('red-border');
+                            $(ErrorId).removeClass('d-none');
+                            $(ErrorId).text(value);
+                        });
                     } else {
                     
                         var registros=document.getElementById("table").rows.length;
@@ -1072,7 +1094,9 @@ $('#create_usuario').on('hidden.bs.modal', function(){
 window.onload=function(){
     //alert("hola");
     $('#onload').fadeOut();
+    $('#carga').fadeOut();
     $('body').removeClass('hidden');
+    $('div').removeClass('hidden');
 }
 
 $(function(){
@@ -1113,8 +1137,38 @@ function limpiarCamposPermiso(){
     $('#hora_inicio').val('');
     $('#hora_fin').val('');
     $('#detalles').val('');
-    //$('#tipo_actividad').removeClass('green-border');
-    //$('#nombre_dirigente').removeClass('green-border');
+    $('#numero_cuenta').removeClass('green-border');
+    $('#numero_cuenta').removeClass('red-border');
+    $('#numero_cuenta_error').addClass('d-none');
+
+    $('#numero_expediente').removeClass('green-border');
+    $('#numero_expediente').removeClass('red-border');
+    $('#numero_expediente_error').addClass('d-none');
+
+    $('#tipo_actividad').removeClass('green-border');
+    $('#tipo_actividad').removeClass('red-border');
+    $('#tipo_actividad_error').addClass('d-none');
+
+    $('#giro').removeClass('green-border');
+    $('#giro').removeClass('red-border');
+    $('#giro_error').addClass('d-none');
+
+    $('#dias_laborados_error').addClass('d-none');
+    $('#hora_inicio_error').addClass('d-none');
+    $('#hora_fin_error').addClass('d-none');
+    $('#detalles').removeClass('green-border');
+    $('#detalles').removeClass('red-border');
+    $('#detalles_error').addClass('d-none');
+}
+
+function limpiarCamposTipoPermiso(){
+    $('#utensilios').removeClass('green-border');
+    $('#utensilios').removeClass('red-border');
+    $('#utensilios_error').addClass('d-none');
+
+    $('#fecha_vencimiento').removeClass('green-border');
+    $('#fecha_vencimiento').removeClass('red-border');
+    $('#fecha_vencimiento_error').addClass('d-none');
 }
 
 //Funcion para que aparezca otra opcion para que el administrador eliga otro utensislio que no aparezca en la lista
@@ -1126,3 +1180,4 @@ function opcionOtra(){
         $("#div4").hide();
     }
 }
+

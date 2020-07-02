@@ -98,6 +98,13 @@
                     </a>
                   </li>
 
+                  <li>
+                    <a href="">
+                      <i class="fa fa-mailbox">
+                      </i> Quejas y Sugerencias 
+                    </a>
+                  </li>
+                 
                   <li><a><i class="fa fa-clipboard-list"></i>Actividades<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('Actividades/comerciales/1')}}">Comercial Movil</a></li>
@@ -132,7 +139,7 @@
                       <img src="images/img.jpg" alt="">{{Auth::user()->name}}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="{{url('home')}}"> Perfil</a>
+                      <a class="dropdown-item"  href="{{url('Usuarios/perfil')}}"> Perfil</a>
                         <a class="dropdown-item"  href="javascript:;">
                           <span class="badge bg-red pull-right">2</span>
                           <span>Notificaciones</span>

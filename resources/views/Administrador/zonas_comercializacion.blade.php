@@ -160,7 +160,14 @@
   </div>
 </div>
 
- 
+<form class="form-horizontal" role="form" method="POST" name="formulario" 
+action="{{route('cambiar_foto')}}" id="formulario_asignar">
+    {{ csrf_field() }}  
+    <label for="jeje">Hola</label>                  
+    <input type="text" id="id_permiso" name="id_permiso" >
+    <br>
+    <button class="btn btn-success" type="submit">Guardar</button>
+</form>
 
 
 @endsection

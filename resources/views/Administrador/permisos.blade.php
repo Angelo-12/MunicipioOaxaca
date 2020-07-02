@@ -2,7 +2,11 @@
 
 @section('content')
 
-<div class="container-fluid center"> 
+<div class="centrado" id="carga">
+    <div class="lds-dual-ring"></div>
+</div>
+
+<div class="container-fluid center hidden"> 
     <div class="card">
         <div class="card-header">
             <h1>
@@ -14,10 +18,14 @@
     <div class="card">
         <div class="card-header">
                 
+            @if (!($nombre=="Sancionados"||$nombre=="Cancelados"
+            ||$nombre=="Revalidados"||$nombre=="Anuales"||$nombre=="Eventuales"||$nombre=="Provisionales"))
             <button type="button" class="create-modal-permiso btn btn-secondary" 
             data-toggle="modal" data-target="#create_permiso">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
-            </button>
+            </button> 
+            @endif
+           
 
             <a type="button" href="{{url('Permisos/download/pdf/'.$nombre)}}" class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
@@ -112,7 +120,7 @@
                           <i class="fa fa-pencil-alt"></i>
                       </button>
 
-                      @if (!($nombre=="Cancelados"||$nombre=="Sancionados"||$nombre=="Revalidados"))
+                      @if (!($nombre=="Cancelados"||$nombre=="Sancionados"||$nombre=="Revalidados"||$p->asignado==0))
                         <button type="button" title="Reevalidar" class="asignar-reevalidacion btn btn-success btn-sm" data-id="{{$p->id}}">
                             <i class="fas fa-hand-point-right"></i>
                         </button>
@@ -182,7 +190,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="sexo">Giro</label>
+                            <label for="Giro">Giro</label>
                             <input type="text" name="giro" placeholder="Giro"
                             class="form-control" id="giro">
                             <span class="text-danger" id="giro_error"></span>
@@ -192,15 +200,15 @@
                             <label>Seleccione la ubicacion del permiso</label>
                             <div id="map" style="height:200px;"></div> 
                         </div>
-                        
+                       
                         <div class="form-group" hidden>
-                            <label hidden>Latitud</label>
-                            <input hidden class="form-control" type="text" name="latitud" id="latitud">
+                            <label >Latitud</label>
+                            <input  class="form-control" type="text" name="latitud" id="latitud" value="17.063483">
                         </div>
 
                         <div class="form-group" hidden>
-                            <label hidden>Longitud</label>
-                            <input hidden class="form-control" type="text" name="longitud" id="longitud">
+                            <label >Longitud</label>
+                            <input class="form-control" type="text" name="longitud" id="longitud" value="-96.729649">
                         </div>
 
                         <div class="form-group">
@@ -378,33 +386,37 @@
 
                                 <div class="form-group">
                                     <label>Utensilios</label>
-                                    <div class="utensilios" name="utensilios" id="checkbox">
-                                    <label>
-                                    <input type="checkbox" name="utensilios[]" value="Cubiertos"> Cubiertos
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="utensilios[]" value="Mostrador"> Mostrador
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="utensilios[]" value="Sillas"> Sillas
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="utensilios[]" value="Mesas"> Mesas
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="utensilios[]" value="Material Desechable"> Material Desechable
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" name="utensilios[]" value="Estructura"> Estructura
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" onchange="javascript:opcionOtra()" id="otra" value> Otra
-                                    </label>
+                                    <div id="utensilios">
+                                        <div class="utensilios" name="utensilios" id="checkbox">
+                                            <label>
+                                            <input type="checkbox" name="utensilios[]" value="Cubiertos"> Cubiertos
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" name="utensilios[]" value="Mostrador"> Mostrador
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" name="utensilios[]" value="Sillas"> Sillas
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" name="utensilios[]" value="Mesas"> Mesas
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" name="utensilios[]" value="Material Desechable"> Material Desechable
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" name="utensilios[]" value="Estructura"> Estructura
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" onchange="javascript:opcionOtra()" id="otra" value> Otra
+                                            </label>
+                                    </div>
+                                    
+                                    <span class="text-danger" id="utensilios_error"></span>
                                 </div>
                                 <div id="div4" style="display:none;">
                                     <input  type="text" name="otraOpcion" placeholder="Escriba el utensilio"
                                     class="form-control" id="otro">
-                                    <span class="text-danger" id="otra_error">Escriba la opcion</span>
+                                    <span class="text-danger" id="otra_error"></span>
                                 </div>
                                    
                                 </div>
@@ -418,22 +430,22 @@
 
                                 <div class="form-group">
                                     <label hidden>Latitud</label>
-                                    <input hidden class="form-control" type="text" name="latitudFin" id="latitudfin">
+                                    <input hidden class="form-control" type="text" name="latitudFin" id="latitudfin"  value="17.063483">
                                 </div>
         
                                 <div class="form-group" hidden>
                                     <label hidden>Longitud</label>
-                                    <input hidden class="form-control" type="text" name="longitudFin" id="longitudfin">
+                                    <input hidden class="form-control" type="text" name="longitudFin" id="longitudfin" value="-96.729649">
                                 </div>
 
                             </div>
 
                             <div id="div3" style="display:none;">
-                                <div class="form-group">
+                                <div class="form-group {{$errors->has('fecha_vencimiento') ? 'has-error' : 'has-success' }}">
                                     <label for="fecha_nacimiento">Fecha de vencimiento</label>
                                     <input type="text" class="form-control fj-date-vencimiento" id="fecha_vencimiento" 
                                     placeholder="yyyy/mm/dd" name="fecha_vencimiento">
-                                    <span class="text-danger" id="fecha_nacimiento_error">El Campo Fecha de Vencimiento es Obligatorio</span>
+                                    <span class="text-danger" id="fecha_vencimiento_error"></span>
                                 </div>
                             </div>
 
