@@ -22,20 +22,17 @@ use Response;
 class UsuarioController extends Controller
 {
 
-   public function perfil(){
-      $id=Auth::user()->id;
-        $rol = Administrador_Secretaria::where('id_usuario','=',$id)->get();
-        $user=User::find($id)->first();
-        $usuarios=json_decode($user,true);
-    
-        $fecha_nacimiento= $usuarios['fecha_nacimiento'];
-        $edad=\Carbon\Carbon::parse($fecha_nacimiento)->age;
-        //return $edad;
-        return view('Administrador.perfil')->with('user',$user)->with('rol',$rol)->with('edad',$edad);
-   }
+   /**Funcion para que el usuario cambie su foto de perfil 1 ITERACION */
    public function cambiar_foto_perfil(Request $request,$id){
      
       $usuario=User::find($request->id);
+
+      if($usuario->foto_perfil=="profile.png"){
+        
+      }else {
+         \File::delete(public_path().'/img/'.$usuario->foto_perfil);
+      }
+     
 
 		$imagen=$request->file('imagen');
 		$nombre_imagen=time().$imagen->getClientOriginalName();

@@ -8,10 +8,12 @@ use App\User;
 use Auth;
 class LoginController extends Controller
 {
+    /**Muestra la vista principal del login 1 ITERACION */
     public function index(){
         return view('login');
     }
 
+    /**Funcion que permite al usuario loguarse validando el usuario y el password vez 1 ITERACION */
     public function login(){
         $credenciales =$this->Validate(request(),
         [

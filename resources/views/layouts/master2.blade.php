@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -11,12 +11,11 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/nprogress.css')}}" >
+    <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
     <link rel="stylesheet" href="{{asset('css/custom.css')}}" >
     <link rel="stylesheet" href="{{asset('css/bootstrap-datepicker.css')}}">
     <link rel="stylesheet" href="{{asset('css/inputs.css')}}">
     <link rel="stylesheet" href="{{asset('css/clockpicker.css')}}">
-    <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" >
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css">
   </head>
@@ -32,7 +31,7 @@
         <div class="col-md-3 left_col" >
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>
+              <a href="index.html" class="site_title">
                 Oaxaca
               </a>
             </div>
@@ -94,14 +93,7 @@
                   <li>
                     <a href="{{url('Organizaciones/index')}}">
                       <i class="fa fa-sitemap"></i> 
-                      Organizaciones <span class="label label-success pull-right"></span>
-                    </a>
-                  </li>
-
-                  <li>
-                    <a href="">
-                      <i class="fa fa-mailbox">
-                      </i> Quejas y Sugerencias 
+                      Organizaciones 
                     </a>
                   </li>
                  
@@ -116,6 +108,15 @@
                       <li><a href="{{url('Actividades/comerciales/7')}}">Prestacion De Servicios</a></li>
                     </ul>
                   </li>
+
+                  <li>
+                    <a href="{{url('Observaciones/index')}}">
+                      <i class="fa fa-mail-bulk"></i>
+                      Quejas y Sugerencias 
+                    </a>
+                  </li>
+
+
                 </ul>
               </div>
             </div>
@@ -139,7 +140,7 @@
                       <img src="images/img.jpg" alt="">{{Auth::user()->name}}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="{{url('Usuarios/perfil')}}"> Perfil</a>
+                      <a class="dropdown-item"  href="{{url('home')}}"> Perfil</a>
                         <a class="dropdown-item"  href="javascript:;">
                           <span class="badge bg-red pull-right">2</span>
                           <span>Notificaciones</span>
@@ -226,26 +227,18 @@
                 </ul>
               </nav>
             </div>
-          </div>
+        </div>
         <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col content" role="main">
-            <div class="container-fluid" id="contenido">
+            <div  id="contenido">
         
                 @yield('content')
                 
             </div>
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+        
       </div>
     </div>
 
@@ -264,7 +257,7 @@
     <script src="{{asset('js/funciones.js')}}"></script>
     <script src="{{asset('js/clockpicker.js')}}"></script>
     <script type="text/javascript">
-    $('.clockpicker').clockpicker();
+      $('.clockpicker').clockpicker();
     </script>
   </body>
 </html>

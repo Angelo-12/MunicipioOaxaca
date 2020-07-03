@@ -291,7 +291,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Id:</label>
+                        <label for=""><p>Id</p></label>
                         <p id="id"/>
                     </div>
 

@@ -24,6 +24,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+     /**Funcion que muestra la pagina principal del usuario en donde le apareceran sus datos personales y de la cuenta
+      * 1 ITERACION
+      */
     public function index()
     {
         $id=Auth::user()->id;

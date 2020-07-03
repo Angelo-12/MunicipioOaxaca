@@ -464,9 +464,7 @@ $(document).ready(function() {
     //Funcion para mostrar los municipios dependiendo del estado seleccionado
     $('#estado').change(function(){
         var estado = $(this).val();
-        console.log(estado);
         $.get('municipioEstado/'+estado, function(data){
-          console.log(data);
             var municipio_select = '<option value="" selected disabled>Seleccione su municipio</option>'
               for (var i=0; i<data.length;i++)
                 municipio_select+='<option value="'+data[i].id_municipio+'">'+data[i].nombre+'</option>';
@@ -504,7 +502,17 @@ $(document).ready(function() {
         });
     });
 
-    
+    //Funcion pora mostrar el formulario de responder una observacion si el usuario presiona la casilla de responder
+    $('#responder_observacion').change(function() {
+        if(this.checked) {
+            $('#div_responder').show();
+            $('#div_enviar').show();
+        }else{
+            $('#div_responder').hide();
+            $('#div_enviar').hide();
+        }
+           
+    });
 
 });
 
@@ -514,6 +522,17 @@ $(document).ready(function() {
         $('#asignar_sancion').modal('show');
         $('#id_permiso_sancion').val($(this).data('id'));
     });
+
+    $(document).on('click','.responder-observacion',function(){
+        $('#show_observacion').modal('show');
+        $('#id_observacion').text($(this).data('id'));
+        $('#nombre_observacion').text($(this).data('nombre'));
+        $('#apellido_observacion').text($(this).data('apellido_paterno'));
+        $('#motivo_observacion').text($(this).data('motivo'));
+        $('#email_observacion').text($(this).data('email'));
+
+    });
+    
 
     //Funcion para que al dar click en el boton de cancelacion aparezca la ventana modal
     $(document).on('click','.asignar-cancelacion',function(){
@@ -596,8 +615,6 @@ $(document).ready(function() {
         
     });
 
-
-
     //Funcion que muestra la zona de comercializacion en un mapa modal
     $('#show_zona').on('shown.bs.modal',function(e){
         var aux =$(e.relatedTarget).data('id');
@@ -635,6 +652,43 @@ $(document).ready(function() {
             $("#div2").hide();
             $("#div3").show();
         }
+    });
+
+    /**Funcion para crear el seguimiento de una nueva observacion ya sea una queja o una sugerencia */
+    $('#agregar_seguimiento_observacion').click(function(){
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Observaciones/responder',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'mensaje': $('textarea[name=mensaje]').val(),
+                'status': $('input:radio[name=radioStatus]:checked').val(),
+                'id_observacion':$('#id_observacion').text(),
+
+            },
+            dataType:'json',
+            success: function(data) {
+                if ((data.errors)) {
+                    $.each( data.errors, function( key, value ) {
+                        console.log(key);
+                        console.log(value);
+                    });
+
+                } else {
+                
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Respuesta Enviada Correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                    location.reload();
+                }     
+            },
+        });
     });
 
     /*Funcion para asignar que tipo de permiso sera el anteriormente creado
@@ -771,7 +825,7 @@ $(document).ready(function() {
     });
 
     //Funcion para asignrar una sancion al permiso seleccionado
-    $("#agregar_sancion").click(function(){
+    $('#agregar_sancion').click(function(){
         
         $.ajax({
             type: 'POST',

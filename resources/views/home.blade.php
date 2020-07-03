@@ -7,24 +7,18 @@
 <div class="container emp-profile">
    
     <form class="form-horizontal" role="form" method="POST" name="formulario" 
-        action="{{url('cambiar_foto/'.$user->id)}}" id="formulario_asignar" enctype="multipart/form-data">
+        action="{{url('Usuarios/cambiar_foto/'.$user->id)}}" id="formulario_asignar" enctype="multipart/form-data">
             {{ csrf_field() }}  
    
         <div class="row">
             <div class="col-md-4">
-
-            
                 <div class="profile-img">
                     <img src="{{asset('img/')}}/{{Auth::user()->foto_perfil}}" id="image" alt=""/>
                     <div class="file btn btn-lg btn-primary">
                         Cambiar Foto
-                        <input type="file" name="imagen" id="file" accept="image/*"/>
+                        <input type="file" name="imagen" id="file" accept="image/*" value="{{$user->foto_perfil}}"/>
                     </div>
                 </div>
-
-               
-            
-            
             </div>
 
             <script>

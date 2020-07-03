@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+/**Envia un correo de verificacion para que los usuarios puedan acceder al sistema */
 Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
@@ -28,9 +29,10 @@ Route::group(['prefix' => 'Usuarios'], function () {
     Route::get('index','Administrador\UsuarioController@index');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('perfil','Administrador\UsuarioController@perfil');
+    Route::post('cambiar_foto/{id}','Administrador\UsuarioController@cambiar_foto_perfil');
 });
 
-Route::post('cambiar_foto/{id}','Administrador\UsuarioController@cambiar_foto_perfil');
+
 
 
 Route::group(['prefix' => 'Secretarias'], function () {
@@ -89,6 +91,11 @@ Route::group(['prefix' => 'Organizaciones'], function () {
 
 Route::group(['prefix' => 'Actividades'], function () {
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
+});
+
+Route::group(['prefix' => 'Observaciones'], function () {
+    Route::get('index','Administrador\ObservacionesController@index');
+    Route::post('responder','Administrador\ObservacionesController@responder_observacion');
 });
 
 Route::get('index','Administrador\LoginController@index');

@@ -204,7 +204,7 @@
               
           </div>
       </div>
-  </div>
+</div>
 
   {{-- Modal Delete  --}}
 <div id="delete_organizacion" class="modal fade" role="dialog">
