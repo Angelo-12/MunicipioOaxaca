@@ -2,7 +2,6 @@ $(document).ready(function() {
 
     $('#permitida').click(function() {
         $('#table_data').load('/Zonas/detalle_zona/1');
-        console.log("permitida");
     });
 
     $('#zona').click(function() {
@@ -473,13 +472,42 @@ $(document).ready(function() {
         });
     });
 
+    $('#observacion').change(function(){
+        var id=$(this).val();
+        $('#table_seguimiento tbody').empty();
+        $.get('seguimiento/'+id, function(data){
+
+                if(data.length==0){
+                    $('#table_seguimiento').append("<tr>" +
+                    "<td colspan='5' align='center' >No hay registros</td>"
+                    +"</tr>");
+                }
+
+              for (var i=0; i<data.length;i++){  
+                
+                $('#table_seguimiento').append("<tr class='post" + data[i].id + "'>" +
+                    "<td>" + data[i].id + "</td>" +
+                    "<td>" + data[i].mensaje + "</td>" +
+                    "<td>" + data[i].status + "</td>" +
+                    "<td>" + data[i].id_observacion + "</td>" +
+                    "<td align='center'>" +
+                    "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].id + "'" +
+                    "data-nombre_dirigente='" + data[i].mensaje + "'><i class='fa fa-eye'></i></button>" +
+                    "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data[i].id + "'><i class='fa fa-pencil-alt'></i></button>" +
+                    "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data[i].id + "'><i class='fa fa-eraser'></i></button>" +
+                    "</td>" +
+                "</tr>");
+              }
+
+        });
+    });
+
     //Funcion para mostrar los detalles de un permiso en los inputs
     $('#id_permiso').change(function(){
         $('#datos_permiso').show();
         var id = $(this).val();
         $.get('/Permisos/detalle/'+id, function(data){
-            //console.log(data[0].giro);
-          //$('#giro_permiso').val(data[0].giro);  
+           
           var actividad=data[0].tipo_actividad;
           var tipo;
           if(actividad==1){
@@ -510,8 +538,7 @@ $(document).ready(function() {
         }else{
             $('#div_responder').hide();
             $('#div_enviar').hide();
-        }
-           
+        }     
     });
 
 });
@@ -521,6 +548,52 @@ $(document).ready(function() {
     $(document).on('click','.asignar-sancion',function(){
         $('#asignar_sancion').modal('show');
         $('#id_permiso_sancion').val($(this).data('id'));
+    });
+
+    $(document).on('click','.detalles-organizacion',function(){
+        $('#show_detalles').modal('show');
+        var id=$(this).data('id');
+
+        $('#table_organizacion_vendedor tbody').empty();
+        $.get('/Organizaciones/detalle/'+id, function(data){
+
+            /*if(data.length==0){
+                $('#table_organizacion_vendedor').append("<tr>" +
+                "<td colspan='5' align='center' >No hay registros</td>"
+                +"</tr>");
+            }*/
+
+          for (var i=0; i<data.length;i++){  
+            
+            $('#table_organizacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
+                "<td style='width: 15%'>" + data[i].id + "</td>" +
+                "<td style='width: 20%'>" + data[i].rfc + "</td>" +
+                "<td style='width: 30%'>" + data[i].curp + "</td>" +
+                "<td style='width: 10%'>" + data[i].id_permiso + "</td>" +
+                "<td style='width: 25%' align='center'>" +
+                "<button type='button' style='margin-right:3px;'  class='show-modal-organizacion-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                /*"<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data[i].id + "'><i class='fa fa-pencil-alt'></i></button>" +
+                "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data[i].id + "'><i class='fa fa-eraser'></i></button>" +*/
+                "</td>" +
+            "</tr>");
+          }
+
+    });
+       
+    });
+
+    $(document).on('click','.show-modal-organizacion-vendedor',function(){
+        $('#show_organizacion_vendedor').modal('show');
+        $('#nombre_show').text($(this).data('nombre'));
+        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
+        $('#apellido_materno_show').text($(this).data('apellido-materno'));
+        $('#fecha_show').text($(this).data('registro'));
+        if($(this).data('sexo')=='H'){
+            $('#sexo_show').text('Hombre');
+        }else
+         $('#sexo_show').text('Mujer');
+
     });
 
     $(document).on('click','.responder-observacion',function(){
@@ -948,7 +1021,6 @@ $(document).ready(function() {
                 } else {
                     limpiarCamposPermiso();
                 
-                    var registros=document.getElementById("table").rows.length;
 
                     Swal.fire({
                         icon: 'success',
@@ -1153,7 +1225,7 @@ window.onload=function(){
     $('div').removeClass('hidden');
 }
 
-$(function(){
+$(function (){
     $('#seleccionar-todos').change(function() {
       $('#checkbox > label >input[type=checkbox]').prop('checked', $(this).is(':checked'));
     });

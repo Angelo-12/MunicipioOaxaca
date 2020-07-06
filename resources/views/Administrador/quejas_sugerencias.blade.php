@@ -96,16 +96,6 @@
 
     <div class="card">
         <div class="card-body">
-            
-                <div class="form-group">
-                    <label>Seleccione la queja</label>
-                    <select name="observacion" id="observacion" class="form-control">
-                            @foreach ($observaciones as $o)
-                                <option value="{{$o->id}}">{{$o->email}}</option>
-                            @endforeach
-                    </select>
-                    <span class="text-danger" id="estado_error"></span>
-                </div>
 
                 <button type="button"  class="btn btn-info">
                     <i class="fa fa-file-pdf"></i>&nbsp;PDF
@@ -116,7 +106,20 @@
                 </button>
         </div>
 
+
         <div class="card-body">
+
+            <div class="form-group">
+                <label>Seleccione la queja</label>
+                <select name="observacion" id="observacion" class="form-control">
+                    <option value="" selected disabled>Seleccione la queja</option>
+                        @foreach ($observaciones as $o)
+                            <option value="{{$o->id}}">{{$o->email}}</option>
+                        @endforeach
+                </select>
+                <span class="text-danger" id="estado_error"></span>
+            </div>
+
             <div class="form-group row">
                 <div class="col-md-6">
                     <div class="input-group">
@@ -126,9 +129,11 @@
                     </div>
                 </div>
             </div>
-            <table id="table" class="table table-bordered table-striped table-sm">
+
+
+            <table id="table_seguimiento" class="table table-bordered table-striped table-sm">
                 <thead>
-                    <tr >
+                    <tr>
                         <th>Id</th>
                         <th>Mensaje</th>
                         <th>Status</th>
@@ -139,13 +144,9 @@
 
                 </thead>
                 <tbody>
-                    @if ($observaciones->count()==0)
-                        <tr>
-                            <td colspan="5" align="center" style="font-family: 'Courier New', Courier, monospace">No hay registros</td>
-                        </tr>    
-                    @else
-                               
-                    @endif
+                    <tr>
+                        <td colspan="9" align="center" style="font-family: 'Courier New', Courier, monospace">No hay registros</td>
+                    </tr>    
                          
                 </tbody>
             </table>

@@ -33,8 +33,6 @@ Route::group(['prefix' => 'Usuarios'], function () {
 });
 
 
-
-
 Route::group(['prefix' => 'Secretarias'], function () {
     Route::get('index','Administrador\Administrador_SecretariaController@index');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
@@ -87,6 +85,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('index','Administrador\OrganizacionesController@index');
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
     Route::post('editar','Administrador\OrganizacionesController@editar');
+    Route::get('detalle/{id}','Administrador\OrganizacionesController@detalle_organizacion');
 });
 
 Route::group(['prefix' => 'Actividades'], function () {
@@ -95,6 +94,7 @@ Route::group(['prefix' => 'Actividades'], function () {
 
 Route::group(['prefix' => 'Observaciones'], function () {
     Route::get('index','Administrador\ObservacionesController@index');
+    Route::get('seguimiento/{id}','Administrador\ObservacionesController@seguimiento');
     Route::post('responder','Administrador\ObservacionesController@responder_observacion');
 });
 

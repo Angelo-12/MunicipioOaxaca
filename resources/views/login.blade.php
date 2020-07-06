@@ -36,7 +36,7 @@
               </label>
               <strong>{{ $errors->first('email') }}</strong>
         </div><br>
-            <div class="group-material-login {{$errors->has('password') ? 'has-error' : '' }}"">
+            <div class="group-material-login {{$errors->has('password') ? 'has-error' : '' }}">
               <input type="password" name="password" class="material-login-control" maxlength="70">
               <span class="highlight-login"></span>
               <span class="bar-login"></span>

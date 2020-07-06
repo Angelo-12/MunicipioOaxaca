@@ -41,10 +41,10 @@ class ObservacionesController extends Controller
     }
 
     /**Funcion para mostrar el seguimiento a detalle de cada uno de las quejas y sugerencias  */
-    public function mostrar_seguimiento($id){
-        $seguimiento=Seguimiento_Observaciones::where('id_observaciones','=',$id)
+    public function seguimiento($id){
+        $seguimiento=Seguimiento_Observaciones::where('id_observacion','=',$id)
         ->get();
 
-        return $seguimiemnto;
+        return $seguimiento;
     }
 }

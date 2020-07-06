@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrador;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Organizacion;
+use App\Models\Vendedor;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -57,5 +58,12 @@ class OrganizacionesController extends Controller
             $org->save();
             return response()->json($org);
         }
+    }
+
+    public function detalle_organizacion($id){
+        $vendedores=Vendedor::join('users','users.id','=','vendedor.id_usuario')
+        ->where('vendedor.id_organizacion','=',$id)
+        ->get();
+        return $vendedores;
     }
 }

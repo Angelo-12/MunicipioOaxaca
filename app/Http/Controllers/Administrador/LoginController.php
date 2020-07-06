@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     /**Muestra la vista principal del login 1 ITERACION */
     public function index(){
-        return view('login');
+        return view('login2');
     }
 
     /**Funcion que permite al usuario loguarse validando el usuario y el password vez 1 ITERACION */
