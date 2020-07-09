@@ -86,10 +86,15 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
     Route::post('editar','Administrador\OrganizacionesController@editar');
     Route::get('detalle/{id}','Administrador\OrganizacionesController@detalle_organizacion');
+    Route::get('buscar/{dato}','Administrador\OrganizacionesController@buscar');
+    Route::get('descargar_pdf','Administrador\OrganizacionesController@descargar_pdf');
 });
 
 Route::group(['prefix' => 'Actividades'], function () {
+    Route::get('index','Administrador\ActividadesComercialesController@index');
+    Route::get('detalle/{id}','Administrador\ActividadesComercialesController@detalles');
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
+    Route::get('descargar_pdf','Administrador\ActividadesComercialesController@descargar_pdf');
 });
 
 Route::group(['prefix' => 'Observaciones'], function () {

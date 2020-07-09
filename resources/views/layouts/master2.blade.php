@@ -97,16 +97,10 @@
                     </a>
                   </li>
                  
-                  <li><a><i class="fa fa-clipboard-list"></i>Actividades<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('Actividades/comerciales/1')}}">Comercial Movil</a></li>
-                      <li><a href="{{url('Actividades/comerciales/2')}}">Comercial Semifija</a></li>
-                      <li><a href="{{url('Actividades/comerciales/3')}}">Comercial Movil Con Equipo Rodante</a></li>
-                      <li><a href="{{url('Actividades/comerciales/4')}}">Comercial Fija</a></li>
-                      <li><a href="{{url('Actividades/comerciales/5')}}">Comercios Establecidos</a></li>
-                      <li><a href="{{url('Actividades/comerciales/6')}}">Tianguis</a></li>
-                      <li><a href="{{url('Actividades/comerciales/7')}}">Prestacion De Servicios</a></li>
-                    </ul>
+                  <li>
+                    <a href="{{url('Actividades/index')}}"><i class="fa fa-clipboard-list">
+                      </i>Actividades Comerciales
+                    </a>
                   </li>
 
                   <li>
@@ -217,7 +211,7 @@
                       <li class="nav-item">
                         <div class="text-center">
                           <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
+                            <strong>Todas la notificaciones</strong>
                             <i class="fa fa-angle-right"></i>
                           </a>
                         </div>

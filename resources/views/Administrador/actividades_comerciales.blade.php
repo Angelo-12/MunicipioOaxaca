@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-header">
             <h1>
-                {{$actividad}}
+               Actividades Comerciales
             </h1>
         </div>
     </div>
@@ -18,9 +18,9 @@
             <a class="create-modal btn btn-success">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
-            <button type="button"  class="btn btn-info">
+            <a type="button" href="{{url('Actividades/descargar_pdf')}}" class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+            </a>
 
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
@@ -39,51 +39,161 @@
             <table id="table" class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr >
-                        <th>N° Permiso</th>
+                        <th>Id</th>
                         <th>Nombre</th>
-                        <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
-                        <th>RFC</th>
+                        <th>Total de vendedores</th>
                         <th>Opciones</th>
                     </tr>
                     {{ csrf_field() }}
 
                 </thead>
                 <tbody>
-                    @foreach ($vendedor as $v)
+                    @foreach ($actividades as $a)
                    
-                    <tr class="post{{$v->id_usuario}}">
-                        <td >{{$v->id_permiso}}</td>
-                        <td >{{$v->name}}</td>
-                        <td >{{$v->apellido_paterno}}</td>
-                        <td>{{$v->apellido_materno}}</td>
-                        <td>{{$v->rfc}}</td>
+                    <tr class="post{{$a->id}}">
+                        <td >{{$a->id}}</td>
+                        <td >{{$a->nombre_actividad}}</td>
+                        <td >{{$a->id}}</td>
                         <td align="center">
-                            <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$v->id}}"
-                                    data-nombre_organizacion="{{$v->name}}" 
-                                    data-nombre_dirigente="{{$v->name}}">
+                            <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$a->id}}"
+                                    data-nombre_organizacion="{{$a->id}}" 
+                                    data-nombre_dirigente="{{$a->id}}"
+                                    title="Mostrar">
                                 <i class="fa fa-eye"></i>
                             </button>
 
-                            <button type="button" class="edit-modal btn btn-danger btn-sm" data-id="{{$v->id}}"
-                              data-nombre_organizacion="{{$v->name}}" 
-                                    data-nombre_dirigente="{{$v->name}}">
-                                <i class="fa fa-pencil-alt"></i>
+                            <button type="button" class="detalles-actividad btn btn-secondary btn-sm" data-id="{{$a->id}}" title="Detalle">
+                                <i class="fa fa-info-circle"></i>
                             </button>
-
-                            <button type="button" class="delete-modal btn btn-info btn-sm" data-id="{{$v->id}}">
-                                <i class="fa fa-eraser"></i>
-                            </button>
-
                         </td>
                     </tr>             
                     @endforeach                   
                 </tbody>
             </table>
-           {{$vendedor->links()}}
+         
         </div>
 
     </div>
+
+    <div id="show_detalles_actividad" class="modal fade" role="dialog">
+
+        <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Vendedores</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+                    </div>
+
+                    <div class="modal-body" >
+
+                        <div class="card-header">
+                            <button type="button"  class="btn btn-info">
+                                <i class="fa fa-file-pdf"></i>&nbsp;PDF
+                            </button>
+                
+                            <button type="button"  class="btn btn-info">
+                                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                            </button>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                
+                                        <input type="text"  class="form-control" placeholder="Texto a buscar">
+                                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ajustar" style="overflow-y: auto">
+
+                                <table id="table_actividad_vendedor" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr >
+                                            <th style="width: 15%" >Id</th>
+                                            <th style="width: 20%">RFC</th>
+                                            <th style="width: 30%">Curp</th>
+                                            <th style="width: 10%">Permiso</th>
+                                            <th style="width: 25%" align="center">Opciones</th>
+                                        </tr>
+                                        {{ csrf_field() }}
+                    
+                                    </thead>
+                                    <tbody >
+                                                          
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                           
+                        </div>
+                    </div>
+        
+                        
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+                        
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
 </div>
+
+<div id="show_actividad_vendedor" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Nombre :</label>
+                    <p id="nombre_show"/>
+                </div>
+                <div class="form-group">
+                    <label for="">Apellido Paterno :</label>
+                    <p id="apellido_paterno_show"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Apellido Materno :</label>
+                    <p id="apellido_materno_show"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Sexo :</label>
+                    <p id="sexo_show"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Fecha de Registro :</label>
+                    <p id="fecha_show"/>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection

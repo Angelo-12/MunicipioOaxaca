@@ -9,11 +9,16 @@ use App\Models\Vendedor;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use DB;
 class OrganizacionesController extends Controller
 {
     //Funcion que muyestra la pagina principal de las organizaciones
     public function index(){
-        $organizaciones=Organizacion::paginate(10);
+        //$organizaciones=Organizacion::paginate(10);
+        $organizaciones=Organizacion::join('vendedor','organizacion.id','=','vendedor.id_organizacion')
+        ->select('organizacion.*',DB::raw('count(vendedor.id_organizacion)as total'))
+        ->groupBy('organizacion.id')
+        ->paginate(10);
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
     }
 
@@ -65,5 +70,25 @@ class OrganizacionesController extends Controller
         ->where('vendedor.id_organizacion','=',$id)
         ->get();
         return $vendedores;
+    }
+
+    public function descargar_pdf(){
+        $organizaciones=Organizacion::join('vendedor','organizacion.id','=','vendedor.id_organizacion')
+        ->select('organizacion.*',DB::raw('count(vendedor.id_organizacion)as total'))
+        ->groupBy('organizacion.id')
+        ->get();
+
+        $pdf=\PDF::loadView('Pdfs.organizaciones',compact('organizaciones'));
+
+        return $pdf->stream();
+    }
+
+    public function buscar($dato){
+        $organizaciones=Organizacion::where('id','=',$dato)
+        ->orWhere('nombre_organizacion','LIKE',"%$dato%")
+        ->orWhere('nombre_dirigente','LIKE',"%$dato%")
+        ->get();
+
+        return $organizaciones;
     }
 }

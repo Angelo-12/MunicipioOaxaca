@@ -541,15 +541,6 @@ $(document).ready(function() {
         }     
     });
 
-});
-
-/******************************************* PERMISOS *****************************************************/
-    //Funcion para que al dar click en el boton de sancion aparezca la ventana modal
-    $(document).on('click','.asignar-sancion',function(){
-        $('#asignar_sancion').modal('show');
-        $('#id_permiso_sancion').val($(this).data('id'));
-    });
-
     $(document).on('click','.detalles-organizacion',function(){
         $('#show_detalles').modal('show');
         var id=$(this).data('id');
@@ -557,11 +548,11 @@ $(document).ready(function() {
         $('#table_organizacion_vendedor tbody').empty();
         $.get('/Organizaciones/detalle/'+id, function(data){
 
-            /*if(data.length==0){
+            if(data.length==0){
                 $('#table_organizacion_vendedor').append("<tr>" +
                 "<td colspan='5' align='center' >No hay registros</td>"
                 +"</tr>");
-            }*/
+            }
 
           for (var i=0; i<data.length;i++){  
             
@@ -579,9 +570,52 @@ $(document).ready(function() {
             "</tr>");
           }
 
+        });
+    });
+
+    $(document).on('click','.detalles-actividad',function(){
+        $('#show_detalles_actividad').modal('show');
+        var id=$(this).data('id');
+
+        $('#table_actividad_vendedor tbody').empty();
+
+        
+        $.get('/Actividades/detalle/'+id, function(data){
+
+            if(data.length==0){
+                $('#table_actividad_vendedor').append("<tr>" +
+                "<td colspan='5' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+
+          for (var i=0; i<data.length;i++){  
+            
+            $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
+                "<td style='width: 15%'>" + data[i].id + "</td>" +
+                "<td style='width: 20%'>" + data[i].rfc + "</td>" +
+                "<td style='width: 30%'>" + data[i].curp + "</td>" +
+                "<td style='width: 10%'>" + data[i].id_permiso + "</td>" +
+                "<td style='width: 25%' align='center'>" +
+                "<button type='button' style='margin-right:3px;'  class='show-modal-actividad-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                 "</td>" +
+            "</tr>");
+          }
+
+        });
+
+    });
+    
+
+});
+
+/******************************************* PERMISOS *****************************************************/
+    //Funcion para que al dar click en el boton de sancion aparezca la ventana modal
+    $(document).on('click','.asignar-sancion',function(){
+        $('#asignar_sancion').modal('show');
+        $('#id_permiso_sancion').val($(this).data('id'));
     });
        
-    });
 
     $(document).on('click','.show-modal-organizacion-vendedor',function(){
         $('#show_organizacion_vendedor').modal('show');
@@ -596,6 +630,20 @@ $(document).ready(function() {
 
     });
 
+    $(document).on('click','.show-modal-actividad-vendedor',function(){
+        $('#show_actividad_vendedor').modal('show');
+        $('#nombre_show').text($(this).data('nombre'));
+        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
+        $('#apellido_materno_show').text($(this).data('apellido-materno'));
+        $('#fecha_show').text($(this).data('registro'));
+        if($(this).data('sexo')=='H'){
+            $('#sexo_show').text('Hombre');
+        }else
+         $('#sexo_show').text('Mujer');
+
+    });
+
+
     $(document).on('click','.responder-observacion',function(){
         $('#show_observacion').modal('show');
         $('#id_observacion').text($(this).data('id'));
@@ -605,7 +653,6 @@ $(document).ready(function() {
         $('#email_observacion').text($(this).data('email'));
 
     });
-    
 
     //Funcion para que al dar click en el boton de cancelacion aparezca la ventana modal
     $(document).on('click','.asignar-cancelacion',function(){
@@ -1029,24 +1076,7 @@ $(document).ready(function() {
                         timer: 1500
                     })
 
-                    //$('#create_organizacion').modal('hide');
-
-
-                    /*if(registros<11){
-                        $('#table').append("<tr class='post" + data.id + "'>" +
-                            "<td>" + data.id + "</td>" +
-                            "<td>" + data.nombre_organizacion + "</td>" +
-                            "<td>" + data.nombre_dirigente + "</td>" +
-                            "<td>" + data.id + "</td>" +
-                            "<td align='center'>" +
-                            "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
-                            "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
-                            "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data.idorganizacion + "'><i class='fa fa-pencil-alt'></i></button>" +
-                            "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
-                            "</td>" +
-                        "</tr>");
-                        
-                    } */  
+                    
                 }     
             },
         });
@@ -1287,15 +1317,6 @@ function limpiarCamposPermiso(){
     $('#detalles_error').addClass('d-none');
 }
 
-function limpiarCamposTipoPermiso(){
-    $('#utensilios').removeClass('green-border');
-    $('#utensilios').removeClass('red-border');
-    $('#utensilios_error').addClass('d-none');
-
-    $('#fecha_vencimiento').removeClass('green-border');
-    $('#fecha_vencimiento').removeClass('red-border');
-    $('#fecha_vencimiento_error').addClass('d-none');
-}
 
 //Funcion para que aparezca otra opcion para que el administrador eliga otro utensislio que no aparezca en la lista
 function opcionOtra(){
@@ -1306,4 +1327,58 @@ function opcionOtra(){
         $("#div4").hide();
     }
 }
+
+function limpiarCamposTipoPermiso(){
+    $('#utensilios').removeClass('green-border');
+    $('#utensilios').removeClass('red-border');
+    $('#utensilios_error').addClass('d-none');
+
+    $('#fecha_vencimiento').removeClass('green-border');
+    $('#fecha_vencimiento').removeClass('red-border');
+    $('#fecha_vencimiento_error').addClass('d-none');
+}
+
+$("#caja_busqueda").keyup(function(){
+   var consulta=$('#caja_busqueda').val();
+
+
+ 
+   $.get('/Organizaciones/buscar/'+consulta, function(data){
+    $('#table tbody').empty();
+    if(data.length==0){
+        $('#table').append("<tr>" +
+            "<td colspan='5' align='center' >No hay registros</td>"
+        +"</tr>");
+    }
+
+  for (var i=0; i<data.length;i++){  
+    
+    $('#table').append("<tr class='post" + data[i].id + "'>" +
+        "<td >" + data[i].id + "</td>" +
+        "<td >" + data[i].nombre_organizacion + "</td>" +
+        "<td >" + data[i].nombre_dirigente + "</td>" +
+        "<td >" + data[i].id + "</td>" +
+        "<td align='center'>" +
+            "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
+            "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
+                "<i class='fa fa-eye'></i>"+
+            "</button>" +
+            "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
+                "title='Editar' "+
+                "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
+                "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
+                "<i class='fa fa-pencil'></i>"+
+            "</button>"+
+            "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
+                "<i class='fa fa-eraser'></i>"+
+            "</button>"+
+            "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
+                "<i class='fa fa-info-circle'></i>"+
+            "</button>"+
+        "</td>" +
+    "</tr>");
+  }
+
+});
+}); 
 

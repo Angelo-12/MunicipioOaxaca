@@ -1,4 +1,9 @@
-
+<style>
+    
+table th,tr {
+  text-align: center;
+}
+</style>
 
 @extends('layouts.master2')
 
@@ -20,9 +25,9 @@
             <a class="create-modal btn btn-secondary">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
-            <button type="button"  class="btn btn-info">
+            <a type="button"  class="btn btn-info" href="{{url('Organizaciones/descargar_pdf')}}">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+            </a>
 
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
@@ -33,7 +38,8 @@
                 <div class="col-md-6">
                     <div class="input-group">
 
-                        <input type="text"  class="form-control" placeholder="Texto a buscar">
+                        <input type="text"  class="form-control" placeholder="Texto a buscar" name="caja_busqueda" 
+                        id="caja_busqueda">
                         <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
@@ -56,25 +62,28 @@
                         <td>{{$o->id}}</td>
                         <td >{{$o->nombre_organizacion}}</td>
                         <td >{{$o->nombre_dirigente}}</td>
-                        <td >{{$o->id_organizacion}}</td>
+                        <td >{{$o->total}}</td>
                         <td  align="center">
                             <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$o->id}}"
                                     data-nombre_organizacion="{{$o->nombre_organizacion}}" 
-                                    data-nombre_dirigente="{{$o->nombre_dirigente}}">
+                                    data-nombre_dirigente="{{$o->nombre_dirigente}}"
+                                    title='Mostrar'>
                                 <i class="fa fa-eye"></i>
                             </button>
 
                             <button type="button" class="edit-modal btn btn-danger btn-sm" data-id="{{$o->id}}"
                               data-nombre_organizacion="{{$o->nombre_organizacion}}" 
-                                    data-nombre_dirigente="{{$o->nombre_dirigente}}">
+                                    data-nombre_dirigente="{{$o->nombre_dirigente}}"
+                                    title='Editar'>
                                 <i class="fa fa-pencil-alt"></i>
                             </button>
 
-                            <button type="button" class="delete-modal btn btn-info btn-sm" data-id="{{$o->id}}">
+                            <button type="button" class="delete-modal btn btn-info btn-sm" data-id="{{$o->id}}" title='Eliminar'>
                                 <i class="fa fa-eraser"></i>
                             </button>
 
-                            <button type="button" class="detalles-organizacion btn btn-secondary btn-sm" data-id="{{$o->id}}">
+                            <button type="button" class="detalles-organizacion btn btn-secondary btn-sm"
+                             data-id="{{$o->id}}" title='Detalles'>
                                 <i class="fa fa-info-circle"></i>
                             </button>
 

@@ -1,12 +1,12 @@
 <div align="center"><img src="img/encabezado.png"></div>
 
-                 <div class="card-header" align="center">
+          <div class="card-header" align="center">
                     <h2>
                         Permisos  {{$nombre}}
                     </h2>
-                </div>
+          </div>
 
-            <p>
+          <p>
                 <h3> Creado : <?php
                     date_default_timezone_set('America/Mexico_City');
                     ?>
