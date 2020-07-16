@@ -14,17 +14,13 @@
 
     <div class="card">
         <div class="card-header">
-
-            <a class="create-modal btn btn-success">
-                <i class="fa fa-plus"></i>&nbsp;Nuevo
-            </a>
             <a type="button" href="{{url('Actividades/descargar_pdf')}}" class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <button type="button"  class="btn btn-info">
+            <a type="button" href=""  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
-            </button>
+            </a>
         </div>
         <div class="card-body">
             <div class="form-group row">
@@ -53,16 +49,16 @@
                     <tr class="post{{$a->id}}">
                         <td >{{$a->id}}</td>
                         <td >{{$a->nombre_actividad}}</td>
-                        <td >{{$a->id}}</td>
+                        <td >{{$a->total}}</td>
                         <td align="center">
-                            <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$a->id}}"
-                                    data-nombre_organizacion="{{$a->id}}" 
-                                    data-nombre_dirigente="{{$a->id}}"
+                            <button type="button" class="show-modal-actividad btn btn-warning btn-sm" data-id="{{$a->id}}"
+                                    data-nombre_actividad="{{$a->nombre_actividad}}" 
+                                    data-total="{{$a->total}}"
                                     title="Mostrar">
                                 <i class="fa fa-eye"></i>
                             </button>
 
-                            <button type="button" class="detalles-actividad btn btn-secondary btn-sm" data-id="{{$a->id}}" title="Detalle">
+                            <button type="button" class="detalles-actividad btn btn-secondary btn-sm" data-id="{{$a->id}}" title="Detalles">
                                 <i class="fa fa-info-circle"></i>
                             </button>
                         </td>
@@ -74,6 +70,43 @@
         </div>
 
     </div>
+
+    <div id="show_actividad" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+        <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Actividad Comercial</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+                    </div>
+
+                    <div class="modal-body" >
+                        <div class="form-group">
+                            <label for="">Id :</label>
+                            <b id="id"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nombre de la actividad :</label>
+                            <b  id="actividad_show"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Numero de vendedores :</label>
+                            <b id="numero_vendedores_show"/>
+                        </div>
+                   
+                      
+                    </div>
+        
+                        
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+                        
+        </div>
+    </div>
+
 
     <div id="show_detalles_actividad" class="modal fade" role="dialog">
 
@@ -87,9 +120,11 @@
 
                     <div class="modal-body" >
 
+
+                        
                         <div class="card-header">
-                            <button type="button"  class="btn btn-info">
-                                <i class="fa fa-file-pdf"></i>&nbsp;PDF
+                            <button type="button" onclick="ActividadesComercialesVendedor();"  class="btn btn-info">
+                                <i class="fa fa-file-pdf"></i>&nbsp;PDfS
                             </button>
                 
                             <button type="button"  class="btn btn-info">
@@ -109,6 +144,8 @@
                             </div>
 
                             <div class="ajustar" style="overflow-y: auto">
+
+                                <input type="text" id="id_actividad" name="id_actividad" hidden.>
 
                                 <table id="table_actividad_vendedor" class="table table-bordered table-striped table-sm">
                                     <thead>
@@ -142,58 +179,58 @@
         </div>
     </div>
 
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-</div>
-
-<div id="show_actividad_vendedor" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="">Nombre :</label>
-                    <p id="nombre_show"/>
+    <div id="show_actividad_vendedor" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    
                 </div>
-                <div class="form-group">
-                    <label for="">Apellido Paterno :</label>
-                    <p id="apellido_paterno_show"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Nombre :</label>
+                        <p id="nombre_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Apellido Paterno :</label>
+                        <p id="apellido_paterno_show"/>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="">Apellido Materno :</label>
+                        <p id="apellido_materno_show"/>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="">Sexo :</label>
+                        <p id="sexo_show"/>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="">Fecha de Registro :</label>
+                        <p id="fecha_show"/>
+                    </div>
+                   
                 </div>
-
-                <div class="form-group">
-                    <label for="">Apellido Materno :</label>
-                    <p id="apellido_materno_show"/>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Sexo :</label>
-                    <p id="sexo_show"/>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Fecha de Registro :</label>
-                    <p id="fecha_show"/>
-                </div>
-               
             </div>
         </div>
     </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
 </div>
+
 
 
 @endsection

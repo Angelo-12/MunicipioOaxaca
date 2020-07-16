@@ -88,13 +88,17 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('detalle/{id}','Administrador\OrganizacionesController@detalle_organizacion');
     Route::get('buscar/{dato}','Administrador\OrganizacionesController@buscar');
     Route::get('descargar_pdf','Administrador\OrganizacionesController@descargar_pdf');
+    Route::get('descargar_pdf_detalle/{id}','Administrador\OrganizacionesController@descargar_pdf_detalle');
 });
 
 Route::group(['prefix' => 'Actividades'], function () {
     Route::get('index','Administrador\ActividadesComercialesController@index');
+    Route::get('buscar/{dato}','Administrador\ActividadesComercialesController@buscar');
     Route::get('detalle/{id}','Administrador\ActividadesComercialesController@detalles');
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
     Route::get('descargar_pdf','Administrador\ActividadesComercialesController@descargar_pdf');
+    Route::get('descargar_pdf_detalle/{id}','Administrador\ActividadesComercialesController@descargar_pdf_detalle');
+
 });
 
 Route::group(['prefix' => 'Observaciones'], function () {

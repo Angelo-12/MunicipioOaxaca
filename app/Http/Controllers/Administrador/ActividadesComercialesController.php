@@ -10,6 +10,8 @@ use App\Models\Permiso;
 use App\Models\Tipo_Actividad;
 use App\Models\Vendedor;
 use App\Models\Actividad_Comercial;
+use DB;
+
 class ActividadesComercialesController extends Controller
 {
     /*Funcion que muestra la pagina principal de las actividades comerciales, se recibe 
@@ -41,7 +43,11 @@ class ActividadesComercialesController extends Controller
     }*/
 
    public function index(){
-        $actividades=Actividad_Comercial::all();
+        $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
+        ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
+        ->groupBy('tipo_actividad.id')
+        ->get();
+        //return $actividades;
         return view('administrador.actividades_comerciales')->with('actividades',$actividades);
 
    }
@@ -55,9 +61,48 @@ class ActividadesComercialesController extends Controller
         return $vendedor;
     }
 
-    public function descargar_pdf(){
-        $pdf=\PDF::loadView('Pdfs.actividades_comerciales');
+    public function descargar_pdf_detalle($id){
+        if($id==1){
+            $nombre='Comercial Movil';
+        }else if($id==2){
+            $nombre='Comercial Semifija';
+        }else if($id==3){
+            $nombre='Comercial Movil Con Equipo Rodante';
+        }else if($id==4){
+            $nombre='Comercial Fija';
+        }else if($id==5){
+            $nombre='Comercios Establecidos';
+        }else if($id==6){
+            $nombre='Tianguis';
+        }else if($id==7){
+            $nombre='Prestacion de servicios';
+        }
+        $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')
+        ->join('permiso','permiso.id','=','tipo_actividad')
+        ->where('tipo_actividad','=',$id)
+        ->get();
+
+        $pdf=\PDF::loadView('Pdfs.vendedores_actividad',compact('vendedores'));
         return $pdf->stream();
+       
+    }
+
+    public function descargar_pdf(){
+        $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
+        ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
+        ->groupBy('tipo_actividad.id')
+        ->get();
+
+        $pdf=\PDF::loadView('Pdfs.actividades_comerciales',compact('actividades'));
+        return $pdf->stream();
+    }
+
+    public function buscar($dato){
+        $actividades=Actividad_Comercial::where('id','=',$dato)
+        ->orWhere('nombre_actividad','LIKE',"%$dato%")
+        ->get();
+
+        return $actividades;
     }
 
 }

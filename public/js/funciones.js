@@ -544,7 +544,7 @@ $(document).ready(function() {
     $(document).on('click','.detalles-organizacion',function(){
         $('#show_detalles').modal('show');
         var id=$(this).data('id');
-
+        $('#id_organizacion').val(id);
         $('#table_organizacion_vendedor tbody').empty();
         $.get('/Organizaciones/detalle/'+id, function(data){
 
@@ -576,6 +576,7 @@ $(document).ready(function() {
     $(document).on('click','.detalles-actividad',function(){
         $('#show_detalles_actividad').modal('show');
         var id=$(this).data('id');
+        $('#id_actividad').val(id);
 
         $('#table_actividad_vendedor tbody').empty();
 
@@ -1201,6 +1202,16 @@ $(document).on('click','.show-modal-usuario',function(){
 });
 
 
+$(document).on('click','.show-modal-actividad',function(){
+    $('#show_actividad').modal('show');
+    $('#id').text($(this).data('id'));
+    $('#actividad_show').text($(this).data('nombre_actividad'));
+    $('#numero_vendedores_show').text($(this).data('total'));
+});
+
+
+
+
 $(document).on('click', '.role-usuario', function() {
     $('#role_usuario').modal('show');
     $('#id_usuario').val($(this).data('id'));
@@ -1259,7 +1270,7 @@ $(function (){
     $('#seleccionar-todos').change(function() {
       $('#checkbox > label >input[type=checkbox]').prop('checked', $(this).is(':checked'));
     });
-  });
+});
 
 function mensajesPermiso(){
     $('#numero_cuenta').addClass('green-border');
@@ -1317,7 +1328,6 @@ function limpiarCamposPermiso(){
     $('#detalles_error').addClass('d-none');
 }
 
-
 //Funcion para que aparezca otra opcion para que el administrador eliga otro utensislio que no aparezca en la lista
 function opcionOtra(){
     var check=document.getElementById("otra");
@@ -1343,42 +1353,55 @@ $("#caja_busqueda").keyup(function(){
 
 
  
-   $.get('/Organizaciones/buscar/'+consulta, function(data){
-    $('#table tbody').empty();
-    if(data.length==0){
-        $('#table').append("<tr>" +
-            "<td colspan='5' align='center' >No hay registros</td>"
-        +"</tr>");
-    }
+    $.get('/Organizaciones/buscar/'+consulta, function(data){
+        $('#table tbody').empty();
+        if(data.length==0){
+            $('#table').append("<tr>" +
+                "<td colspan='5' align='center' >No hay registros</td>"
+            +"</tr>");
+        }
 
-  for (var i=0; i<data.length;i++){  
-    
-    $('#table').append("<tr class='post" + data[i].id + "'>" +
-        "<td >" + data[i].id + "</td>" +
-        "<td >" + data[i].nombre_organizacion + "</td>" +
-        "<td >" + data[i].nombre_dirigente + "</td>" +
-        "<td >" + data[i].id + "</td>" +
-        "<td align='center'>" +
-            "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
-            "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
-                "<i class='fa fa-eye'></i>"+
-            "</button>" +
-            "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
-                "title='Editar' "+
-                "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
-                "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
-                "<i class='fa fa-pencil'></i>"+
-            "</button>"+
-            "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
-                "<i class='fa fa-eraser'></i>"+
-            "</button>"+
-            "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
-                "<i class='fa fa-info-circle'></i>"+
-            "</button>"+
-        "</td>" +
-    "</tr>");
-  }
+        for (var i=0; i<data.length;i++){  
+            
+            $('#table').append("<tr class='post" + data[i].id + "'>" +
+                "<td >" + data[i].id + "</td>" +
+                "<td >" + data[i].nombre_organizacion + "</td>" +
+                "<td >" + data[i].nombre_dirigente + "</td>" +
+                "<td >" + data[i].id + "</td>" +
+                "<td align='center'>" +
+                    "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
+                    "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
+                        "<i class='fa fa-eye'></i>"+
+                    "</button>" +
+                    "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
+                        "title='Editar' "+
+                        "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
+                        "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
+                        "<i class='fa fa-pencil'></i>"+
+                    "</button>"+
+                    "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
+                        "<i class='fa fa-eraser'></i>"+
+                    "</button>"+
+                    "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
+                        "<i class='fa fa-info-circle'></i>"+
+                    "</button>"+
+                "</td>" +
+            "</tr>");
+        }
 
-});
+    });
 }); 
 
+
+function OrganizacionVendedor(){
+    var id=$('#id_organizacion').val();
+
+    location.href='/Organizaciones/descargar_pdf_detalle/'+id;
+}
+
+function ActividadesComercialesVendedor(){
+    var id=$('#id_actividad').val();
+    console.log(id);
+
+    location.href='/Actividades/descargar_pdf_detalle/'+id;
+}

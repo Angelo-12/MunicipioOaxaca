@@ -32,13 +32,14 @@
                 /*background: #dedede;*/
             }
 </style>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Actividades Comerciales</title>
+    <title>VENDEDORES</title>
 </head>
 <body>
     <br>
@@ -51,7 +52,7 @@
     <br>
     <br>
     <h4 class="texto">
-        ACTIVIDADES COMERCIALES
+        VENDEDORES
     </h4>
 
     <p>
@@ -60,7 +61,7 @@
             ?>
             <?=date('m/d/Y g:ia');?></p>
         <p>Total de registros :
-          {{$actividades->count()}}
+          {{$vendedores->count()}}
         </p>
     </p>
 
@@ -69,32 +70,22 @@
             <thead >
                 <tr>
                     <th>Id</th>
-                    <th>Nombre de la Actividad</th>
-                    <th>Total de vendedores</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Fecha Registro</th>
+                    <th>RFC</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($actividades as $a)
-                   
-                <tr class="post{{$a->id}}">
-                    <td >{{$a->id}}</td>
-                    <td >{{$a->nombre_actividad}}</td>
-                    <td >{{$a->total}}</td>
-                    <td align="center">
-                        <button type="button" class="show-modal-actividad btn btn-warning btn-sm" data-id="{{$a->id}}"
-                                data-nombre_actividad="{{$a->nombre_actividad}}" 
-                                data-total="{{$a->total}}"
-                                title="Mostrar">
-                            <i class="fa fa-eye"></i>
-                        </button>
-
-                        <button type="button" class="detalles-actividad btn btn-secondary btn-sm" data-id="{{$a->id}}" title="Detalles">
-                            <i class="fa fa-info-circle"></i>
-                        </button>
-                    </td>
-                </tr>             
-                @endforeach  
-                
+                @foreach ($vendedores as $v)
+                    <tr class="post{{$v->id}}">
+                        <td>{{$v->id}}</td>
+                        <td >{{$v->name}}</td>
+                        <td >{{$v->apellido_paterno}}</td>
+                        <td >{{$v->created_at}}</td>
+                        <td >{{$v->rfc}}</td>
+                    </tr>             
+                @endforeach           
             </tbody>
         </table>
 

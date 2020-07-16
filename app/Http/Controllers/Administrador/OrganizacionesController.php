@@ -72,6 +72,18 @@ class OrganizacionesController extends Controller
         return $vendedores;
     }
 
+    public function descargar_pdf_detalle($id){
+        $organizacion=Organizacion::find($id);
+
+        $vendedores=Vendedor::join('users','users.id','=','vendedor.id_usuario')
+        ->where('vendedor.id_organizacion','=',$id)
+        ->get();
+
+        $pdf=\PDF::loadView('Pdfs.vendedores_organizacion',compact('vendedores','organizacion'));
+
+        return $pdf->stream();
+    }
+
     public function descargar_pdf(){
         $organizaciones=Organizacion::join('vendedor','organizacion.id','=','vendedor.id_organizacion')
         ->select('organizacion.*',DB::raw('count(vendedor.id_organizacion)as total'))

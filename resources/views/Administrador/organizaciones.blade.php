@@ -1,9 +1,3 @@
-<style>
-    
-table th,tr {
-  text-align: center;
-}
-</style>
 
 @extends('layouts.master2')
 
@@ -97,267 +91,280 @@ table th,tr {
         </div>
 
     </div>
-</div>
 
-{{-- Modal Form Create Post --}}
-<div id="create_organizacion" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Agregar Organizacion</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group" >
-                  <span id="form_result"></span>
+        {{-- Modal Form Create Post --}}
+    <div id="create_organizacion" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Agregar Organizacion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <form class="form-horizontal" role="form" id="form_organizaciones">
-                    @csrf
-
-                    <div class="form-group">
-                        <label>Nombre de la organizacion</label>
-                        <input  type="text" name="nombre_organizacion" id="nombre_organizacion" placeholder="Nombre de la organizacion"
-                                class="form-control">
-                        <span class="text-danger" id="nombre_organizacion_error"></span>
+                <div class="modal-body">
+                    <div class="form-group" >
+                    <span id="form_result"></span>
                     </div>
-                    <div class="form-group">
-                        <label>Nombre del dirigente</label>
-                        <input  type="text" name="nombre_dirigente" id="nombre_dirigente" placeholder="Nombre del dirigente"
-                                class="form-control">
-                        <span class="text-danger" id="nombre_dirigente_error"></span>
+                    <form class="form-horizontal" role="form" id="form_organizaciones">
+                        @csrf
 
-                    </div>
+                        <div class="form-group">
+                            <label>Nombre de la organizacion</label>
+                            <input  type="text" name="nombre_organizacion" id="nombre_organizacion" placeholder="Nombre de la organizacion"
+                                    class="form-control">
+                            <span class="text-danger" id="nombre_organizacion_error"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre del dirigente</label>
+                            <input  type="text" name="nombre_dirigente" id="nombre_dirigente" placeholder="Nombre del dirigente"
+                                    class="form-control">
+                            <span class="text-danger" id="nombre_dirigente_error"></span>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="submit" id="agregar_organizacion">
-                    Guardar
-                    <i class="fa fa-save"></i>
-                </button>
-                <button class="btn btn-danger" type="button" data-dismiss="modal">
-                    Cerrar
-                    <i class="fa fa-times-circle"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+                        </div>
 
-{{-- Modal show  --}}
-<div id="show_organizacion" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Detalles</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="">ID :</label>
-                    <b id="id"/>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="">Nombre de la Organizacion :</label>
-                    <b id="nombre_organizacion_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Nombre del dirigente :</label>
-                    <b id="nombre_dirigente_show"/>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="submit" id="agregar_organizacion">
+                        Guardar
+                        <i class="fa fa-save"></i>
+                    </button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-{{-- Modal Update  --}}
-<div id="update_organizacion" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Actualizar Organizacion</h5>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+    {{-- Modal show  --}}
+    <div id="show_organizacion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Detalles</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-          </div>
-          <div class="modal-body">
-
-            <form class="form-horizontal" role="modal">
-              <div class="form-group">
-                <label class="control-label col-sm-2" for="">ID :</label>
-                <div class="col-sm-12">
-                  <input class="form-control" type="text" id="id_update" disabled/>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-10" for="">Nombre de la Organizacion :</label>
-                <div class="col-sm-12">
-                  <input class="form-control" type="text" id="nombre_organizacion_update"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">ID :</label>
+                        <b id="id"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nombre de la Organizacion :</label>
+                        <b id="nombre_organizacion_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nombre del dirigente :</label>
+                        <b id="nombre_dirigente_show"/>
+                    </div>
                 </div>
-               
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-10" for="">Nombre del dirigente :</label>
-                <div class="col-sm-12">
-                  <input class="form-control" type="text" id="nombre_dirigente_update"/>
-                </div>
-                
-            </div>
-            </form> 
-            <div class="modal-footer">
-                <button class="btn btn-primary actualizar_organizacion" type="submit" id="actualizar_organizacion">
-                    Actualizar
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">
-                    Cerrar
-                    <i class="fa fa-times-circle"></i>
-                </button>
             </div>
         </div>
-              
-          </div>
-      </div>
-</div>
+    </div>
 
-  {{-- Modal Delete  --}}
-<div id="delete_organizacion" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Organizacion</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-  
-            </div>
-            <div class="modal-body">
-  
-                <div class="deleteContent">
-                    ¿Esta seguro que desea eliminar este registro? <span class="title"></span>?
-                    <span class="hidden id"></span>
-                </div>
-              <div class="modal-footer">
-                  <button class="btn btn-primary eliminar_organizacion" type="submit" id="eliminar_organizacion">
-                      Eliminar
-                      <i class="far fa-trash-alt"></i>
-                  </button>
-                  <button class="btn btn-secondary" type="button" data-dismiss="modal">
-                      Cerrar
-                      <i class="fa fa-times-circle"></i>
-                  </button>
-              </div>
-          </div>
-                
-            </div>
-        </div>
-</div>
-
-
-<div id="show_detalles" class="modal fade" role="dialog">
-
-        <div class="modal-dialog modal-lg">
+    {{-- Modal Update  --}}
+    <div id="update_organizacion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Vendedores</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Actualizar Organizacion</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        
+
                     </div>
+                    <div class="modal-body">
 
-                    <div class="modal-body" >
-
-                        <div class="card-header">
-                            <button type="button"  class="btn btn-info">
-                                <i class="fa fa-file-pdf"></i>&nbsp;PDF
+                        <form class="form-horizontal" role="modal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="">ID :</label>
+                            <div class="col-sm-12">
+                            <input class="form-control" type="text" id="id_update" disabled/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-10" for="">Nombre de la Organizacion :</label>
+                            <div class="col-sm-12">
+                            <input class="form-control" type="text" id="nombre_organizacion_update"/>
+                            </div>
+                        
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-10" for="">Nombre del dirigente :</label>
+                            <div class="col-sm-12">
+                            <input class="form-control" type="text" id="nombre_dirigente_update"/>
+                            </div>
+                            
+                        </div>
+                        </form> 
+                        <div class="modal-footer">
+                            <button class="btn btn-primary actualizar_organizacion" type="submit" id="actualizar_organizacion">
+                                Actualizar
+                                <i class="fas fa-edit"></i>
                             </button>
-                
-                            <button type="button"  class="btn btn-info">
-                                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                                Cerrar
+                                <i class="fa fa-times-circle"></i>
                             </button>
                         </div>
+                    </div>
+                        
+                </div>
+        </div>
+    </div>
 
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                
-                                        <input type="text"  class="form-control" placeholder="Texto a buscar">
-                                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+    {{-- Modal Delete  --}}
+    <div id="delete_organizacion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar Organizacion</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    
+                </div>
+                <div class="modal-body">
+    
+                    <div class="deleteContent">
+                        ¿Esta seguro que desea eliminar este registro? <span class="title"></span>?
+                        <span class="hidden id"></span>
+                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary eliminar_organizacion" type="submit" id="eliminar_organizacion">
+                        Eliminar
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+            </div>
+                    
+                </div>
+            </div>
+    </div>
+
+
+    <div id="show_detalles" class="modal fade" role="dialog">
+
+            <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Vendedores</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+                        </div>
+
+                        <div class="modal-body" >
+
+                            <div class="card-header">
+                                <a type="button" onclick="OrganizacionVendedor();"  class="btn btn-info">
+                                    <i class="fa fa-file-pdf"></i>&nbsp;PDF
+                                </a>
+                    
+                                <button type="button"  class="btn btn-info">
+                                    <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                                </button>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                    
+                                            <input type="text"  class="form-control" placeholder="Texto a buscar">
+                                            <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="ajustar" style="overflow-y: auto">
+
+                                    <input type="text" id="id_organizacion" name="id" hidden>
+
+                                    <table id="table_organizacion_vendedor" class="table table-bordered table-striped table-sm">
+                                        <thead>
+                                            <tr >
+                                                <th style="width: 15%" >Id</th>
+                                                <th style="width: 20%">RFC</th>
+                                                <th style="width: 30%">Curp</th>
+                                                <th style="width: 10%">Permiso</th>
+                                                <th style="width: 25%" align="center">Opciones</th>
+                                            </tr>
+                                            {{ csrf_field() }}
+                        
+                                        </thead>
+                                        <tbody >
+                                                            
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            
                             </div>
-
-                            <div class="ajustar" style="overflow-y: auto">
-
-                                <table id="table_organizacion_vendedor" class="table table-bordered table-striped table-sm">
-                                    <thead>
-                                        <tr >
-                                            <th style="width: 15%" >Id</th>
-                                            <th style="width: 20%">RFC</th>
-                                            <th style="width: 30%">Curp</th>
-                                            <th style="width: 10%">Permiso</th>
-                                            <th style="width: 25%" align="center">Opciones</th>
-                                        </tr>
-                                        {{ csrf_field() }}
-                    
-                                    </thead>
-                                    <tbody >
-                                                          
-                                    </tbody>
-                                </table>
-
-
-                            </div>
-                           
+                        </div>
+            
+                            
+                        <div class="modal-footer">
+                            
                         </div>
                     </div>
-        
-                        
-                    <div class="modal-footer">
-                        
-                    </div>
-                </div>
-                        
-        </div>
-</div>
-
-<div id="show_organizacion_vendedor" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
+                            
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="">Nombre :</label>
-                    <p id="nombre_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Apellido Paterno :</label>
-                    <p id="apellido_paterno_show"/>
-                </div>
+    </div>
 
-                <div class="form-group">
-                    <label for="">Apellido Materno :</label>
-                    <p id="apellido_materno_show"/>
-                </div>
+    <div id="show_organizacion_vendedor" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                <div class="form-group">
-                    <label for="">Sexo :</label>
-                    <p id="sexo_show"/>
                 </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Nombre :</label>
+                        <p id="nombre_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Apellido Paterno :</label>
+                        <p id="apellido_paterno_show"/>
+                    </div>
 
-                <div class="form-group">
-                    <label for="">Fecha de Registro :</label>
-                    <p id="fecha_show"/>
+                    <div class="form-group">
+                        <label for="">Apellido Materno :</label>
+                        <p id="apellido_materno_show"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Sexo :</label>
+                        <p id="sexo_show"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Fecha de Registro :</label>
+                        <p id="fecha_show"/>
+                    </div>
+                
                 </div>
-               
             </div>
         </div>
     </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    
+
 </div>
+
 
 
 
