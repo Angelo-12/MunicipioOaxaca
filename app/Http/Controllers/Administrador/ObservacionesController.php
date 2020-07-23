@@ -47,4 +47,12 @@ class ObservacionesController extends Controller
 
         return $seguimiento;
     }
+
+    public function descargar_pdf(){
+
+        $observaciones=Observaciones::all();
+
+        $pdf=\PDF::loadView('Pdfs.quejas_sugerencias',compact('observaciones'));
+        return $pdf->stream();
+    }
 }

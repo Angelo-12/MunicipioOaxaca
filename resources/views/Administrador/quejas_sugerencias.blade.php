@@ -14,9 +14,9 @@
     <div class="card">
         <div class="card-header">
 
-            <button type="button"  class="btn btn-info">
+            <a type="button" href="{{url('Observaciones/descargar_pdf')}}" class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+            </a>
 
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
@@ -198,7 +198,6 @@
                             <div class="form-group">
                                 <b for="detalles">Respuesta </b>
                                 <textarea class="form-control" id="respuesta_observacion" name="mensaje" placeholder="Responder" rows="3"></textarea>
-                                <span class="text-danger" id="mensaje_error">El campo mensaje es obligatorio</span>
                             </div>
 
                             <div class="form-group">
@@ -215,7 +214,6 @@
                                         Resuelta
                                         </label>
                                     </div>
-                                    <span class="text-danger" id="status_error">El campo status es obligatorio</span>
                             </div>
 
                         </div>

@@ -189,16 +189,15 @@ class UsuarioController extends Controller
 
    //Actualizar un usuario
    public function editar(Request $request){
-      $usuario=Users::find($request->id);
+     
       $rules = array(
-         'name'=>['required','alpha','max:40'],
+         'name'=>['required','max:40'],
          'apellido_paterno'=>['required','alpha','max:30'],
          'apellido_materno'=>['required','alpha','max:30'],
          'sexo'=>'required',
          'fecha_nacimiento'=>'required',
          'id_municipio'=>'required',
          'email'=>['email','required'],
-         'password'=>['required','min:6'],
          
       );
 
@@ -207,7 +206,7 @@ class UsuarioController extends Controller
       if($validator->fails()){
          return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }else{
-         $user= new User;
+         $user=User::find($request->id);
          
          $user->name=$request->input('name');
          $user->apellido_paterno=$request->input('apellido_paterno');
@@ -215,7 +214,6 @@ class UsuarioController extends Controller
          $user->fecha_nacimiento=$request->input('fecha_nacimiento');
          $user->sexo=$request->input('sexo');
          $user->email=$request->input('email');
-         $user->password=Hash::make($request->input('password'));
          $user->id_municipio=$request->input('id_municipio');
          $user->status='1';
 
@@ -278,7 +276,14 @@ class UsuarioController extends Controller
       return view('Administrador.usuarios',compact('usuarios','estado','tipo'))->render();
    }
 
+   public function exportar_pdf_administrador(){
+      $usuarios=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
+      ->where('admin_secretaria.cargo','=','Administrador')
+      ->get();
 
+      $pdf=\PDF::loadView('Pdfs.usuarios',compact('usuarios'));
+      return $pdf->stream();
+   }
 
    public function fetch_data(Request $request){
       if($request->ajax()){

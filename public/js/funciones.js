@@ -150,7 +150,10 @@ $(document).ready(function() {
                         timer: 1500
                       })
 
-                    $('#table').append("<tr class='post" + data.id + "'>" +
+                      location.reload();
+
+
+                    /*$('#table').append("<tr class='post" + data.id + "'>" +
                         "<td>" + data.id + "</td>" +
                         "<td>" + data.name + "</td>" +
                         "<td>" + data.apellido_paterno + "</td>" +
@@ -170,7 +173,7 @@ $(document).ready(function() {
                         "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data.idorganizacion + "'><i class='fa fa-pencil-alt'></i></button>" +
                         "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
                         "</td>" +
-                        "</tr>");
+                        "</tr>");*/
                         
                 }
             },
@@ -273,12 +276,12 @@ $(document).ready(function() {
 
                     Swal.fire({
                         icon: 'success',
-                        title: 'Secretaria Agregada Correctamente',
+                        title: 'Secretari@ agregada correctamente',
                         showConfirmButton: false,
                         timer: 1500
                       })
 
-                    $('#table').append("<tr class='post" + data.id + "'>" +
+                    /*$('#table').append("<tr class='post" + data.id + "'>" +
                         "<td>" + data.id + "</td>" +
                         "<td>" + data.name + "</td>" +
                         "<td>" + data.apellido_paterno + "</td>" +
@@ -298,7 +301,9 @@ $(document).ready(function() {
                         "<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data.idorganizacion + "'><i class='fa fa-pencil-alt'></i></button>" +
                         "<button type='button' style='margin-right:3px;' class='btn btn-info btn-sm' data-id='" + data.id + "'><i class='fa fa-eraser'></i></button>" +
                         "</td>" +
-                        "</tr>");
+                        "</tr>");*/
+
+                        location.reload();
                         
                 }
             },
@@ -333,10 +338,12 @@ $(document).ready(function() {
 
                     Swal.fire({
                         icon: 'success',
-                        title: 'Vendedor Creado Correctamente',
+                        title: 'Vendedor creado correctamente',
                         showConfirmButton: false,
                         timer: 1500
                     })
+
+                    location.reload();
                 }     
             },
         });
@@ -359,7 +366,7 @@ $(document).ready(function() {
     });
 
     //Funcion para agregar una organizacion
-    $("#agregar_organizacion").click(function() {
+    $('#agregar_organizacion').click(function() {
         
         $.ajax({
             type: 'POST',
@@ -404,7 +411,7 @@ $(document).ready(function() {
                      $('#create_organizacion').modal('hide');
 
 
-                    if(registros<11){
+                    /*if(registros<11){
                         $('#table').append("<tr class='post" + data.id + "'>" +
                             "<td>" + data.id + "</td>" +
                             "<td>" + data.nombre_organizacion + "</td>" +
@@ -418,12 +425,53 @@ $(document).ready(function() {
                             "</td>" +
                         "</tr>");
                         
-                    }   
+                    }   */
+
+                    location.reload();
                 }     
             },
         });
     });
 
+    $('.modal-footer').on('click','.update-usuario',function(){
+        console.log('hola');
+        $.ajax({
+            type: 'POST',
+            url: '/Usuarios/editar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $('input[name=id2]').val(),
+                'name': $('input[name=nombre2]').val(),
+                'apellido_paterno': $('input[name=paterno2]').val(),
+                'apellido_materno': $('input[name=materno22]').val(),
+                'sexo': 'H',
+                'fecha_nacimiento': '1996-02-11',
+                'id_municipio': '10',
+                'email': $('input[name=email2]').val(),    
+            },
+            dataType:'json',
+            success: function(data) {
+               
+                if ((data.errors)) {
+                    
+                    $.each( data.errors, function( key, value ) {
+                       console.log(value);
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Usuario actualizado correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
+                    location.reload();
+                }     
+            },
+        });
+    })
     
     //Funcion para actualizar una organizacion
     $('.modal-footer').on('click', '.actualizar_organizacion', function() {
@@ -605,6 +653,42 @@ $(document).ready(function() {
 
         });
 
+    });
+
+    $(document).on('click','.show-modal-secretaria',function(){
+        $('#show_secretaria').modal('show');
+ 
+    });
+
+    $(document).on('click','.show-modal-vendedor',function(){
+         $('#show_vendedor').modal('show');
+
+        var status=$(this).data('status');
+        console.log(status);
+        if(status==1){
+           $('#status_show').text('Activo'); 
+        }else{
+            $('#status_show').text('Inactivo'); 
+        }
+       
+        $('#id').text($(this).data('id'));
+        $('#status_show').text($(this).data('estado')); 
+        $('#nombre_usuario_show').text($(this).data('nombre'));
+        $('#paterno_show').text($(this).data('apellido_paterno'));
+        $('#materno_show').text($(this).data('apellido_materno'));
+        $('#cargo_show').text($(this).data('cargo'));
+        $('#email_show').text($(this).data('email'));
+    });
+
+    $(document).on('click','.edit-modal-usuario',function(){
+        $('#update_usuario').modal('show');
+
+        $('#id2').val($(this).data('id'));
+        $('#nombre').val($(this).data('nombre'));
+        $('#paterno').val($(this).data('apellido_paterno'));
+        $('#materno').val($(this).data('apellido_materno'));
+        $('#cargo2').val($(this).data('cargo'));
+        $('#email2').val($(this).data('email'));
     });
     
 
@@ -1072,7 +1156,7 @@ $(document).ready(function() {
 
                     Swal.fire({
                         icon: 'success',
-                        title: 'Permiso Agregado Correctamente',
+                        title: 'Permiso agregado correctamente',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -1109,7 +1193,7 @@ $(document).ready(function() {
 
                     Swal.fire({
                         icon: 'success',
-                        title: 'Se Ha Actualizado Correctamente',
+                        title: 'Se ha actualizado correctamente',
                         showConfirmButton: false,
                         timer: 1500
                     })
@@ -1348,7 +1432,7 @@ function limpiarCamposTipoPermiso(){
     $('#fecha_vencimiento_error').addClass('d-none');
 }
 
-$("#caja_busqueda").keyup(function(){
+$('#caja_busqueda').keyup(function(){
    var consulta=$('#caja_busqueda').val();
 
 
@@ -1391,6 +1475,53 @@ $("#caja_busqueda").keyup(function(){
 
     });
 }); 
+
+$('#caja_busqueda_actividades').keyup(function(){
+    var consulta=$('#caja_busqueda_actividades').val();
+    
+    if(consulta.length==0){
+       consulta="";
+    }
+
+    $.get('/Actividades/buscar/'+consulta, function(data){
+        $('#table_actividades tbody').empty();
+        if(data.length==0){
+            $('#table_actividades').append("<tr>" +
+                "<td colspan='4' align='center' >No hay registros</td>"
+            +"</tr>");
+        }
+
+        for (var i=0; i<data.length;i++){  
+            
+            $('#table_actividades').append("<tr class='post" + data[i].id + "'>" +
+                "<td >" + data[i].id + "</td>" +
+                "<td >" + data[i].nombre_actividad + "</td>" +
+                "<td >" + data[i].total + "</td>" +
+                "<td align='center'>" +
+                    "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].id + "'" +
+                    "data-nombre_dirigente='" + data[i].id + "'>"+
+                        "<i class='fa fa-eye'></i>"+
+                    "</button>" +
+                    "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
+                        "title='Editar' "+
+                        "data-nombre_organizacion='"+data[i].id+"' "+ 
+                        "data-nombre_dirigente='"+data[i].id+"'> "+
+                        "<i class='fa fa-pencil'></i>"+
+                    "</button>"+
+                    "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
+                        "<i class='fa fa-eraser'></i>"+
+                    "</button>"+
+                    "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
+                        "<i class='fa fa-info-circle'></i>"+
+                    "</button>"+
+                "</td>" +
+            "</tr>");
+        }
+
+    });
+
+
+});
 
 
 function OrganizacionVendedor(){

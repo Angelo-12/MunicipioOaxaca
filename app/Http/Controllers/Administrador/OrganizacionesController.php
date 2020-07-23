@@ -73,7 +73,8 @@ class OrganizacionesController extends Controller
     }
 
     public function descargar_pdf_detalle($id){
-        $organizacion=Organizacion::find($id);
+        $organizacion=Organizacion::where('id','=',$id)
+        ->get();
 
         $vendedores=Vendedor::join('users','users.id','=','vendedor.id_usuario')
         ->where('vendedor.id_organizacion','=',$id)

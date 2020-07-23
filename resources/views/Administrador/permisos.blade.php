@@ -538,7 +538,7 @@
                                 <div class="form-group">
                                     <label>Motivo </label>
                                     <textarea class="form-control" id="motivo_cancelacion" name="motivo_cancelacion" placeholder="Motivo" rows="2"></textarea>
-                                    <span class="text-danger" id="motivo_error">El campo motivo es obligatorio</span>
+                                    <span class="text-danger" id="motivo_error"></span>
                                 </div>
 
                                 <div class="form-group">
@@ -591,7 +591,6 @@
                                 <div class="form-group">
                                     <label for="seguro">Monto</label>
                                     <input class="form-control" type="text" name="monto" id="monto" placeholder="">
-                                    <span class="text-danger" id="monto_error">El campo monto es obligatorio</span>
                                  </div>   
                         </div>    
                     </form>
@@ -614,7 +613,16 @@
         </div>
     </div>
 
+    
 </div>
-
+<br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 @endsection
 

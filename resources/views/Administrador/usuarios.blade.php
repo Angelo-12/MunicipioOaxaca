@@ -17,9 +17,9 @@
             <a class="create-modal btn btn-success">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
-            <button type="button"  class="btn btn-info">
+            <a type="button" class="btn btn-info" href="{{url('Usuarios/descargar_pdf')}}">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+            </a>
 
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
@@ -54,59 +54,63 @@
                 <tbody>
                 
                   @foreach ($usuarios as $u)
-                  <tr class="post{{$u->id}}" id="{{$u->id}}">
-                    <td>{{$u->id}}</td>
-                    <td>{{$u->name}}</td>
-                    <td>{{$u->apellido_paterno}}</td>
-                    <td>{{$u->apellido_materno}}</td>
-                    <td>{{$u->email}}</td>
-                    <td>
-                        
-                      
-                        {{$u->cargo}}
-                        
-                        <p><button type="button" class="role-usuario btn btn-success btn-sm" data-id="{{$u->id}}">
-                            <i class="fa fa-user-shield"></i>
-                        </button></p>
-                        
-                    </td>
-                        
-                    <td>@if($u->status==1)
-                        <div class="switch">
-                            <label>
-                              Activo
-                              <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
-                            </label>
-                          </div>
-                        @else
-                        <div class="switch">
-                            <label>
-                              Inactivo
-                              <input type="checkbox" readonly onclick="javascript: return false;">
-                            </label>
-                          </div>
-                        @endif</td>
-                   
-                    <td align="center">
-                      <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
-                        data-nombre="{{$u->name}}" 
-                        data-apellido_paterno="{{$u->apellido_paterno}}"
-                        data-apellido_materno="{{$u->apellido_materno}}"
-                        data-email="{{$u->email}}"
-                        data-status="{{$u->status}}">
-                          <i class="fa fa-eye"></i>
-                      </button>
-        
-                      <button type="button" class="btn btn-danger btn-sm" data-id="{{$u->id}}">
-                          <i class="fa fa-pencil-alt"></i>
-                      </button>
-                     
-                      <button type="button" class="btn btn-info btn-sm" data-id="{{$u->id}}">
-                          <i class="fa fa-eraser"></i>
-                      </button>
+                    <tr class="post{{$u->id}}" id="{{$u->id}}">
+                        <td>{{$u->id}}</td>
+                        <td>{{$u->name}}</td>
+                        <td>{{$u->apellido_paterno}}</td>
+                        <td>{{$u->apellido_materno}}</td>
+                        <td>{{$u->email}}</td>
+                        <td>
+                            {{$u->cargo}}
+                            
+                            <p><button type="button" class=" btn btn-success btn-sm" data-id="{{$u->id}}">
+                                <i class="fa fa-user-shield"></i>
+                            </button></p>
+                            
+                        </td>
+                            
+                        <td>@if($u->status==1)
+                            <div class="switch">
+                                <label>
+                                Activo
+                                <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                                </label>
+                            </div>
+                            @else
+                            <div class="switch">
+                                <label>
+                                Inactivo
+                                <input type="checkbox" readonly onclick="javascript: return false;">
+                                </label>
+                            </div>
+                            @endif</td>
                     
-                  </td>
-                </tr>             
+                        <td align="center">
+                            <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
+                                data-nombre="{{$u->name}}" 
+                                data-apellido_paterno="{{$u->apellido_paterno}}"
+                                data-apellido_materno="{{$u->apellido_materno}}"
+                                data-email="{{$u->email}}"
+                                data-status="{{$u->status}}">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                
+                            <button type="button" class="edit-modal-usuario btn btn-danger btn-sm" data-id="{{$u->id}}"
+                                data-nombre="{{$u->name}}" 
+                                data-apellido_paterno="{{$u->apellido_paterno}}"
+                                data-apellido_materno="{{$u->apellido_materno}}"
+                                data-cargo="Administrador"
+                                data-email="{{$u->email}}">
+
+                                <i class="fa fa-pencil-alt"></i>
+                            </button>
+                            
+                            <button type="button" class="btn btn-info btn-sm" data-id="{{$u->id}}">
+                                <i class="fa fa-eraser"></i>
+                            </button>
+                            
+                        </td>
+                    </tr>             
                   @endforeach                   
                 </tbody>
             </table>
@@ -260,47 +264,107 @@
     </div>
 
     {{-- Modal show  --}}
-<div id="show_usuario" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div id="show_usuario" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="">Id:</label>
-                    <p id="id"/>
                 </div>
-                <div class="form-group">
-                    <label for="">Nombre:</label>
-                    <p id="nombre_usuario_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Apellido Paterno:</label>
-                    <p id="paterno_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Apellido Materno:</label>
-                    <p id="materno_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Email:</label>
-                    <p id="email_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Cargo:</label>
-                    <p id="cargo_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Status:</label>
-                    <p id="status_show"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <b for="">Id:</b>
+                        <p id="id"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Nombre:</b>
+                        <p id="nombre_usuario_show"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <b for="">Apellido Paterno:</b>
+                        <p id="paterno_show"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Apellido Materno:</b>
+                        <p id="materno_show"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Email:</b>
+                        <p id="email_show"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Cargo:</b>
+                        <p id="cargo_show"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Status:</b>
+                        <p id="status_show"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div id="update_usuario" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" role="form">
+                        @csrf
+
+                        <div class="form-group">
+                            <b for="">Id:</b>
+                            <input class="form-control" type="text" readonly id="id2" name="id2"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Nombre:</b>
+                            <input class="form-control" type="text" id="nombre" name="nombre2"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <b for="">Apellido Paterno:</b>
+                            <input  class="form-control"  type="text" name="paterno2" id="paterno"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Apellido Materno:</b>
+                            <input  class="form-control"  type="text" name="materno22" id="materno"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Email:</b>
+                            <input  class="form-control" type="email" name="email2" id="email2"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Cargo:</b>
+                            <input  class="form-control" readonly type="text" name="cargo" id="cargo2"/>
+                        </div>
+                        
+                    </form>
+
+                   
+                </div>
+
+                <div class="modal-footer">
+                    <button class="update-usuario btn btn-primary" type="submit" id="update_usuario">
+                        Actualizar
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </div>
 

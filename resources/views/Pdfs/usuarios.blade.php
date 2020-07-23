@@ -32,14 +32,13 @@
                 /*background: #dedede;*/
             }
 </style>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>VENDEDORES</title>
+    <title>ADMINISTRADORES</title>
 </head>
 <body>
     <br>
@@ -52,7 +51,7 @@
     <br>
     <br>
     <h4 class="texto">
-        Actividad Comercial {{$nombre}}
+        Administradores
     </h4>
 
     <p>
@@ -61,7 +60,7 @@
             ?>
             <?=date('m/d/Y g:ia');?></p>
         <p>Total de registros :
-          {{$vendedores->count()}}
+          {{$usuarios->count()}}
         </p>
     </p>
 
@@ -72,20 +71,41 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Apellido Paterno</th>
-                    <th>Fecha Registro</th>
-                    <th>RFC</th>
+                    <th>Apellido Materno</th>
+                    <th>Correo</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($vendedores as $v)
-                    <tr class="post{{$v->id}}">
-                        <td>{{$v->id}}</td>
-                        <td >{{$v->name}}</td>
-                        <td >{{$v->apellido_paterno}}</td>
-                        <td >{{$v->created_at}}</td>
-                        <td >{{$v->rfc}}</td>
+                @foreach ($usuarios as $u)
+                    <tr class="post{{$u->id}}" id="{{$u->id}}">
+                        <td>{{$u->id}}</td>
+                        <td>{{$u->name}}</td>
+                        <td>{{$u->apellido_paterno}}</td>
+                        <td>{{$u->apellido_materno}}</td>
+                        <td>{{$u->email}}</td>
+                            
+                        <td>@if($u->status==1)
+                            <div class="switch">
+                                <label>
+                                Activo
+                                <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                                </label>
+                            </div>
+                            @else
+                            <div class="switch">
+                                <label>
+                                Inactivo
+                                <input type="checkbox" readonly onclick="javascript: return false;">
+                                </label>
+                            </div>
+                            @endif
+                        </td>
+                    
+                        
                     </tr>             
-                @endforeach           
+                  @endforeach      
+                
             </tbody>
         </table>
 

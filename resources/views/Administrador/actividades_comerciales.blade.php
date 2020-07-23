@@ -27,12 +27,12 @@
                 <div class="col-md-6">
                     <div class="input-group">
 
-                        <input type="text"  class="form-control" placeholder="Texto a buscar">
+                        <input type="text"  class="form-control" placeholder="Texto a buscar" id="caja_busqueda_actividades" name="caja_busqueda_actividades">
                         <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
             </div>
-            <table id="table" class="table table-bordered table-striped table-sm">
+            <table id="table_actividades" class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr >
                         <th>Id</th>

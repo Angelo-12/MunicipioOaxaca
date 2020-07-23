@@ -52,7 +52,10 @@
     <br>
     <br>
     <h4 class="texto">
-        VENDEDORES
+        Vendedores de la organizacion
+        @foreach ($organizacion as $o)
+           {{$o->nombre_organizacion}} 
+        @endforeach
     </h4>
 
     <p>

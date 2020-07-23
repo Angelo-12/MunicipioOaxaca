@@ -51,7 +51,7 @@
     <br>
     <br>
     <h4 class="texto">
-        ACTIVIDADES COMERCIALES
+        Actividades Comerciales
     </h4>
 
     <p>

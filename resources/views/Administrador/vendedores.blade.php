@@ -17,9 +17,9 @@
             <button class="create-modal-vendedor btn btn-success" data-total="{{$permisos->count()}}">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </button>
-            <button type="button"  class="btn btn-info">
+            <a type="button" href="{{url('Vendedores/descargar_pdf')}}" class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+            </a>
 
             <button type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;CSV
@@ -77,16 +77,17 @@
                         @endif</td>
                    
                     <td align="center">
-                      <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
+                      <button type="button" class="show-modal-vendedor btn btn-warning btn-sm" data-id="{{$u->id}}"
                         data-nombre="{{$u->name}}" 
                         data-apellido_paterno="{{$u->apellido_paterno}}"
                         data-apellido_materno="{{$u->apellido_materno}}"
+                        data-cargo="Vendedor"
                         data-email="{{$u->email}}"
-                        data-status="{{$u->status}}">
+                        data-estado="{{$u->status}}">
                           <i class="fa fa-eye"></i>
                       </button>
         
-                      <button type="button" class="btn btn-danger btn-sm" data-id="{{$u->id}}">
+                      <button type="button" class="edit-vendedores btn btn-danger btn-sm" data-id="{{$u->id}}">
                           <i class="fa fa-pencil-alt"></i>
                       </button>
                      
@@ -94,8 +95,8 @@
                           <i class="fa fa-eraser"></i>
                       </button>
                     
-                  </td>
-                </tr>             
+                   </td>
+                  </tr>             
                   @endforeach                   
                 </tbody>
             </table>
@@ -309,31 +310,31 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Id:</label>
+                        <b for="">Id:</b>
                         <p id="id"/>
                     </div>
                     <div class="form-group">
-                        <label for="">Nombre:</label>
+                        <b for="">Nombre:</b>
                         <p id="nombre_usuario_show"/>
                     </div>
                     <div class="form-group">
-                        <label for="">Apellido Paterno:</label>
+                        <b for="">Apellido Paterno:</b>
                         <p id="paterno_show"/>
                     </div>
                     <div class="form-group">
-                        <label for="">Apellido Materno:</label>
+                        <b for="">Apellido Materno:</b>
                         <p id="materno_show"/>
                     </div>
                     <div class="form-group">
-                        <label for="">Email:</label>
+                        <b for="">Email:</b>
                         <p id="email_show"/>
                     </div>
                     <div class="form-group">
-                        <label for="">Cargo:</label>
+                        <b for="">Cargo:</b>
                         <p id="cargo_show"/>
                     </div>
                     <div class="form-group">
-                        <label for="">Status:</label>
+                        <b for="">Status:</b>
                         <p id="status_show"/>
                     </div>
                 </div>

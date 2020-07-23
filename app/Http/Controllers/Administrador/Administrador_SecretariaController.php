@@ -20,7 +20,7 @@ class Administrador_SecretariaController extends Controller
      }
   
      //Funcion para visualizar en pdf a las secretarias existentes en el sistema web
-     public function exportarPdf(){
+     public function descargar_pdf(){
         $secretarias=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
         ->where('admin_secretaria.cargo','=','Secretaria')
         ->get();

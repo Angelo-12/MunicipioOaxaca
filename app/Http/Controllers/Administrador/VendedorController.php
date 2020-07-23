@@ -47,6 +47,15 @@ class VendedorController extends Controller
         }
     }
 
+    public function descargar_pdf(){
+      $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')
+      ->select('users.*')
+      ->get();
+
+      $pdf=\PDF::loadView('Pdfs.vendedores',compact('vendedores'));
+      return $pdf->stream();
+    }
+
     public function editar(){
         
     }
