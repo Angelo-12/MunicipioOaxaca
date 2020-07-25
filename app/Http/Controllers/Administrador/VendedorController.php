@@ -8,6 +8,9 @@ use App\Models\Vendedor;
 use App\Models\Estado;
 use App\Models\Organizacion;
 use App\Models\Permisos;
+use App\User;
+use Illuminate\Support\Facades\Hash;
+
 class VendedorController extends Controller
 {
     public function index(){
@@ -58,5 +61,17 @@ class VendedorController extends Controller
 
     public function editar(){
         
+    }
+
+    /**Funcion para cambiar el password a partir de un correo electronico dado */
+    public function actualizar_password(Request $request,$email){
+      $user=User::where('email','=',$email)
+      ->first();
+
+      $user->password=Hash::make($request->password);
+
+      $user->save();
+
+      return $user->email;
     }
 }

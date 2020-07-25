@@ -17,6 +17,7 @@ class OrganizacionesController extends Controller
         //$organizaciones=Organizacion::paginate(10);
         $organizaciones=Organizacion::join('vendedor','organizacion.id','=','vendedor.id_organizacion')
         ->select('organizacion.*',DB::raw('count(vendedor.id_organizacion)as total'))
+        ->where('organizacion.status','=',1)
         ->groupBy('organizacion.id')
         ->paginate(10);
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
@@ -63,6 +64,13 @@ class OrganizacionesController extends Controller
             $org->save();
             return response()->json($org);
         }
+    }
+
+    public function eliminar(Request $request){
+        $org = Organizacion::find ($request->id);
+        $org->status='0';
+        $org->save();
+        return response()->json($org);
     }
 
     public function detalle_organizacion($id){

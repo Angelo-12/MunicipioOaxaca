@@ -45,6 +45,7 @@ Route::group(['prefix' => 'Secretarias'], function () {
 
 Route::group(['prefix' => 'Vendedores'], function () {
     Route::get('index','Administrador\VendedorController@index');
+    Route::post('actualizar_password/{email}','Administrador\VendedorController@actualizar_password');
     Route::get('insertar','Administrador\VendedorController@insertar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('descargar_pdf','Administrador\VendedorController@descargar_pdf');
@@ -90,6 +91,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('index','Administrador\OrganizacionesController@index');
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
     Route::post('editar','Administrador\OrganizacionesController@editar');
+    Route::post('eliminar','Administrador\OrganizacionesController@eliminar');
     Route::get('detalle/{id}','Administrador\OrganizacionesController@detalle_organizacion');
     Route::get('buscar/{dato}','Administrador\OrganizacionesController@buscar');
     Route::get('descargar_pdf','Administrador\OrganizacionesController@descargar_pdf');
@@ -99,6 +101,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
 Route::group(['prefix' => 'Actividades'], function () {
     Route::get('index','Administrador\ActividadesComercialesController@index');
     Route::get('buscar/{dato}','Administrador\ActividadesComercialesController@buscar');
+    Route::get('vacio','Administrador\ActividadesComercialesController@vacio');
     Route::get('detalle/{id}','Administrador\ActividadesComercialesController@detalles');
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
     Route::get('descargar_pdf','Administrador\ActividadesComercialesController@descargar_pdf');

@@ -3,6 +3,7 @@
 
 @section('content')
 
+<!--
 <div class="container-fluid center"> 
 
     <div class="card">
@@ -14,6 +15,9 @@
     </div>
 
     <div class="card">
+
+        <div class="salida"></div>
+
         <div class="card-header">
 
             <a class="create-modal btn btn-secondary">
@@ -61,6 +65,7 @@
                             <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$o->id}}"
                                     data-nombre_organizacion="{{$o->nombre_organizacion}}" 
                                     data-nombre_dirigente="{{$o->nombre_dirigente}}"
+                                    data-total="{{$o->total}}"
                                     title='Mostrar'>
                                 <i class="fa fa-eye"></i>
                             </button>
@@ -80,7 +85,6 @@
                              data-id="{{$o->id}}" title='Detalles'>
                                 <i class="fa fa-info-circle"></i>
                             </button>
-
 
                         </td>
                     </tr>             
@@ -178,26 +182,26 @@
                     <div class="modal-body">
 
                         <form class="form-horizontal" role="modal">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="">ID :</label>
-                            <div class="col-sm-12">
-                            <input class="form-control" type="text" id="id_update" disabled/>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="">ID :</label>
+                                <div class="col-sm-12">
+                                <input class="form-control" type="text" id="id_update" disabled/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-10" for="">Nombre de la Organizacion :</label>
-                            <div class="col-sm-12">
-                            <input class="form-control" type="text" id="nombre_organizacion_update"/>
-                            </div>
-                        
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-10" for="">Nombre del dirigente :</label>
-                            <div class="col-sm-12">
-                            <input class="form-control" type="text" id="nombre_dirigente_update"/>
-                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-10" for="">Nombre de la Organizacion :</label>
+                                <div class="col-sm-12">
+                                <input class="form-control" type="text" id="nombre_organizacion_update"/>
+                                </div>
                             
-                        </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-10" for="">Nombre del dirigente :</label>
+                                <div class="col-sm-12">
+                                <input class="form-control" type="text" id="nombre_dirigente_update"/>
+                                </div>
+                                
+                            </div>
                         </form> 
                         <div class="modal-footer">
                             <button class="btn btn-primary actualizar_organizacion" type="submit" id="actualizar_organizacion">
@@ -226,10 +230,15 @@
                 </div>
                 <div class="modal-body">
     
-                    <div class="deleteContent">
-                        ¿Esta seguro que desea eliminar este registro? <span class="title"></span>?
-                        <span class="hidden id"></span>
-                    </div>
+                    <form class="form-horizontal" role="modal">
+                        <input type="text" name="id_delete_organizacion" id="id_delete_organizacion" hidden>
+
+                        <div class="deleteContent">
+                            ¿Esta seguro que desea eliminar este registro? <span class="title"></span>
+                        
+                        </div>
+                    </form>
+                    
                 <div class="modal-footer">
                     <button class="btn btn-primary eliminar_organizacion" type="submit" id="eliminar_organizacion">
                         Eliminar
@@ -364,7 +373,13 @@
     
 
 </div>
+-->
 
+<form action="{{url('Vendedores/actualizar_password/azu123j@gmail.com')}}" method="POST">
+    @csrf
+    <input type="submit" value="enviar" >
+    <input type="text" value="holamundo" name="password" id="password">
+</form>
 
 
 

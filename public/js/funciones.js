@@ -507,6 +507,28 @@ $(document).ready(function() {
             });
     });
 
+    /**Funcion para eliminar una organizacion solo se le cambia el status a el valor de 0 */
+    $('.modal-footer').on('click','.eliminar_organizacion',function(){
+        $.ajax({
+            type: 'POST',
+            url: 'eliminar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $("#id_delete_organizacion").val(),
+            },
+            success: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Organizacion eliminada correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+                location.reload();       
+            }
+         });
+    });
+
 
     //Funcion para mostrar los municipios dependiendo del estado seleccionado
     $('#estado').change(function(){
@@ -1254,6 +1276,7 @@ $(document).on('click','.edit-modal',function(){
 $(document).on('click', '.delete-modal', function() {
     $('#delete_organizacion').modal('show');
     $('#show').modal('show');
+    $('#id_delete_organizacion').val($(this).data('id'));
     
 });
 
@@ -1478,47 +1501,73 @@ $('#caja_busqueda').keyup(function(){
 
 $('#caja_busqueda_actividades').keyup(function(){
     var consulta=$('#caja_busqueda_actividades').val();
+    if(consulta==""){
+        console.log("vacio");
+        $.get('/Actividades/vacio', function(data){
+            $('#table_actividades tbody').empty();
+            if(data.length==0){
+                $('#table_actividades').append("<tr>" +
+                    "<td colspan='4' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
     
-    if(consulta.length==0){
-       consulta="";
+            for (var i=0; i<data.length;i++){  
+                $('#table_actividades').append("<tr class='post" + data[i].id + "'>" +
+                    "<td >" + data[i].id + "</td>" +
+                    "<td >" + data[i].nombre_actividad + "</td>" +
+                    "<td >" + data[i].total + "</td>" +
+                    "<td align='center'>" +
+                        "<button type='button' class='show-modal-actividad btn btn-warning btn-sm' data-id='data[i].id' "+
+                            "data-nombre_actividad='data[i].nombre_actividad'"+ 
+                            "data-total='data[i].total'"+
+                            "title='Mostrar'>"+
+                            "<i class='fa fa-eye'></i>"+
+                        "</button>"+
+                        "<button type='button' class='detalles-actividad btn btn-secondary btn-sm' data-id='{{$a->id}}' title='Detalles'>"+
+                            "<i class='fa fa-info-circle'></i>"+
+                        "</button>"+
+                    "</td>" +
+                "</tr>");
+                
+            }
+    
+        });
+    
+    }else{
+        console.log("con datos");
+        $.get('/Actividades/buscar/'+consulta, function(data){
+            $('#table_actividades tbody').empty();
+            if(data.length==0){
+                $('#table_actividades').append("<tr>" +
+                    "<td colspan='4' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+    
+            for (var i=0; i<data.length;i++){  
+                
+                $('#table_actividades').append("<tr class='post" + data[i].id + "'>" +
+                    "<td >" + data[i].id + "</td>" +
+                    "<td >" + data[i].nombre_actividad + "</td>" +
+                    "<td >" + data[i].total + "</td>" +
+                    "<td align='center'>" +
+                        "<button type='button' class='show-modal-actividad btn btn-warning btn-sm' data-id='"+data[i].id+"' "+
+                            "data-nombre_actividad='"+data[i].nombre_actividad+"'"+ 
+                            "data-total='"+data[i].total+"'"+
+                            "title='Mostrar'>"+
+                            "<i class='fa fa-eye'></i>"+
+                        "</button>"+
+                        "<button type='button' class='detalles-actividad btn btn-secondary btn-sm' "+
+                        "data-id='"+data[i].id+"' title='Detalles'>"+
+                            "<i class='fa fa-info-circle'></i>"+
+                        "</button>"+
+                    "</td>" +
+                "</tr>");
+            }
+    
+        });
     }
 
-    $.get('/Actividades/buscar/'+consulta, function(data){
-        $('#table_actividades tbody').empty();
-        if(data.length==0){
-            $('#table_actividades').append("<tr>" +
-                "<td colspan='4' align='center' >No hay registros</td>"
-            +"</tr>");
-        }
-
-        for (var i=0; i<data.length;i++){  
-            
-            $('#table_actividades').append("<tr class='post" + data[i].id + "'>" +
-                "<td >" + data[i].id + "</td>" +
-                "<td >" + data[i].nombre_actividad + "</td>" +
-                "<td >" + data[i].total + "</td>" +
-                "<td align='center'>" +
-                    "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].id + "'" +
-                    "data-nombre_dirigente='" + data[i].id + "'>"+
-                        "<i class='fa fa-eye'></i>"+
-                    "</button>" +
-                    "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
-                        "title='Editar' "+
-                        "data-nombre_organizacion='"+data[i].id+"' "+ 
-                        "data-nombre_dirigente='"+data[i].id+"'> "+
-                        "<i class='fa fa-pencil'></i>"+
-                    "</button>"+
-                    "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
-                        "<i class='fa fa-eraser'></i>"+
-                    "</button>"+
-                    "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
-                        "<i class='fa fa-info-circle'></i>"+
-                    "</button>"+
-                "</td>" +
-            "</tr>");
-        }
-
-    });
+   
 
 
 });

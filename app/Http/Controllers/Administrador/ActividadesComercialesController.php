@@ -100,22 +100,22 @@ class ActividadesComercialesController extends Controller
     }
 
     public function buscar($dato){
-
-        if($dato==""){
-            $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
-            ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
-            ->groupBy('tipo_actividad.id')
-            ->get();
-
-        }else{
-
             $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
             ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
             ->where('tipo_actividad.id','=',$dato)
             ->orWhere('tipo_actividad.nombre_actividad','LIKE',"%$dato%")
             ->groupBy('tipo_actividad.id')
             ->get();
-        }
+        
+
+        return $actividades;
+    }
+
+    public function vacio(){
+        $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
+        ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
+        ->groupBy('tipo_actividad.id')
+        ->get();
 
         return $actividades;
     }
