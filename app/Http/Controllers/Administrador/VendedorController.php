@@ -64,8 +64,8 @@ class VendedorController extends Controller
     }
 
     /**Funcion para cambiar el password a partir de un correo electronico dado */
-    public function actualizar_password(Request $request,$email){
-      $user=User::where('email','=',$email)
+    public function actualizar_password(Request $request){
+      $user=User::where('email','=',$request->email)
       ->first();
 
       $user->password=Hash::make($request->password);

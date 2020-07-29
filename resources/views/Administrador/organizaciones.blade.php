@@ -3,7 +3,7 @@
 
 @section('content')
 
-<!--
+
 <div class="container-fluid center"> 
 
     <div class="card">
@@ -45,11 +45,11 @@
             <table id="table" class="table table-bordered table-striped table-sm">
                 <thead >
                     <tr >
-                        <th  >Id</th>
-                        <th  >Nombre de la organizacion</th>
-                        <th  >Nombre del dirigente</th>
-                        <th  >Total de vendedores</th>
-                        <th >Opciones</th>
+                        <th >Id</th>
+                        <th >Nombre de la organizacion</th>
+                        <th >Nombre del dirigente</th>
+                        <th >Total de vendedores</th>
+                        <th style="text-align: center">Opciones</th>
                     </tr>
                     {{ csrf_field() }}
 
@@ -373,14 +373,20 @@
     
 
 </div>
--->
 
-<form action="{{url('Vendedores/actualizar_password/azu123j@gmail.com')}}" method="POST">
+
+<!--
+
+
+<form action="{{url('Vendedores/actualizar_password')}}" method="POST">
     @csrf
-    <input type="submit" value="enviar" >
+   
+    <input type="email" value="azu123j@gmail.com" name="email" id="email">
     <input type="text" value="holamundo" name="password" id="password">
+    <input type="submit" value="enviar" >
 </form>
 
+-->
 
 
 @endsection

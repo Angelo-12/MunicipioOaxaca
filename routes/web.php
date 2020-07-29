@@ -45,7 +45,7 @@ Route::group(['prefix' => 'Secretarias'], function () {
 
 Route::group(['prefix' => 'Vendedores'], function () {
     Route::get('index','Administrador\VendedorController@index');
-    Route::post('actualizar_password/{email}','Administrador\VendedorController@actualizar_password');
+    Route::post('actualizar_password','Administrador\VendedorController@actualizar_password');
     Route::get('insertar','Administrador\VendedorController@insertar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('descargar_pdf','Administrador\VendedorController@descargar_pdf');
@@ -84,7 +84,7 @@ Route::group(['prefix' => 'Zonas'], function () {
     Route::get('index','Administrador\ZonaController@index');
     Route::get('detalle_zona/{id}','Administrador\ZonaController@detalle_zona');
     Route::get('pagination', 'Administrador\ZonaController@fetch_data');
-    Route::get('download/pdf','Administrador\ZonaController@exportarPdf');
+    Route::get('descargar_pdf','Administrador\ZonaController@exportarPdf');
 });
 
 Route::group(['prefix' => 'Organizaciones'], function () {
@@ -94,6 +94,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::post('eliminar','Administrador\OrganizacionesController@eliminar');
     Route::get('detalle/{id}','Administrador\OrganizacionesController@detalle_organizacion');
     Route::get('buscar/{dato}','Administrador\OrganizacionesController@buscar');
+    Route::get('vacio','Administrador\OrganizacionesController@vacio');
     Route::get('descargar_pdf','Administrador\OrganizacionesController@descargar_pdf');
     Route::get('descargar_pdf_detalle/{id}','Administrador\OrganizacionesController@descargar_pdf_detalle');
 });

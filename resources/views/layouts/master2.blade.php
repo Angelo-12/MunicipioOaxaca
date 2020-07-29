@@ -82,14 +82,13 @@
                       <li><a href="{{url('Permisos/index/Cancelados')}}">Cancelados</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-thumbtack"></i> Comercializacion <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="{{url('Zonas/index')}}">Zonas</a></li>
-                      <li><a href="{{url('Zonas/detalle_zona/1')}}">Permitida</a></li>
-                      <li><a href="{{url('Zonas/detalle_zona/2')}}">Restringida</a></li>
-                      <li><a href="{{url('Zonas/detalle_zona/3')}}">Prohibida</a></li>
-                    </ul>
+                  <li>
+                    <a href="{{url('Zonas/index')}}">
+                      <i class="fa fa-thumbtack"></i>
+                      Zonas de comercializacion
+                    </a>
                   </li>
+
                   <li>
                     <a href="{{url('Organizaciones/index')}}">
                       <i class="fa fa-sitemap"></i> 

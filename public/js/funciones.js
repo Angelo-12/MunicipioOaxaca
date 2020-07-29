@@ -643,6 +643,15 @@ $(document).ready(function() {
         });
     });
 
+    $(document).on('click','.detalles-zona',function(){
+        $('#show_detalles').modal('show');
+        var id=$(this).data('id');
+        $('#id_zona').val(id);
+        $('#table_zona_vendedor tbody').empty();
+    
+    });
+    
+
     $(document).on('click','.detalles-actividad',function(){
         $('#show_detalles_actividad').modal('show');
         var id=$(this).data('id');
@@ -1458,45 +1467,85 @@ function limpiarCamposTipoPermiso(){
 $('#caja_busqueda').keyup(function(){
    var consulta=$('#caja_busqueda').val();
 
+   if(consulta==""){
+        $.get('/Organizaciones/vacio', function(data){
+            $('#table tbody').empty();
+            if(data.length==0){
+                $('#table').append("<tr>" +
+                    "<td colspan='5' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
 
- 
-    $.get('/Organizaciones/buscar/'+consulta, function(data){
-        $('#table tbody').empty();
-        if(data.length==0){
-            $('#table').append("<tr>" +
-                "<td colspan='5' align='center' >No hay registros</td>"
-            +"</tr>");
-        }
+            for (var i=0; i<data.length;i++){  
+                
+                $('#table').append("<tr class='post" + data[i].id + "'>" +
+                    "<td >" + data[i].id + "</td>" +
+                    "<td >" + data[i].nombre_organizacion + "</td>" +
+                    "<td >" + data[i].nombre_dirigente + "</td>" +
+                    "<td >" + data[i].id + "</td>" +
+                    "<td align='center'>" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
+                        "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
+                            "<i class='fa fa-eye'></i>"+
+                        "</button>" +
+                        "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
+                            "title='Editar' "+
+                            "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
+                            "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
+                            "<i class='fa fa-pencil'></i>"+
+                        "</button>"+
+                        "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
+                            "<i class='fa fa-eraser'></i>"+
+                        "</button>"+
+                        "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
+                            "<i class='fa fa-info-circle'></i>"+
+                        "</button>"+
+                    "</td>" +
+                "</tr>");
+            }
 
-        for (var i=0; i<data.length;i++){  
-            
-            $('#table').append("<tr class='post" + data[i].id + "'>" +
-                "<td >" + data[i].id + "</td>" +
-                "<td >" + data[i].nombre_organizacion + "</td>" +
-                "<td >" + data[i].nombre_dirigente + "</td>" +
-                "<td >" + data[i].id + "</td>" +
-                "<td align='center'>" +
-                    "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
-                    "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
-                        "<i class='fa fa-eye'></i>"+
-                    "</button>" +
-                    "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
-                        "title='Editar' "+
-                        "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
-                        "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
-                        "<i class='fa fa-pencil'></i>"+
-                    "</button>"+
-                    "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
-                        "<i class='fa fa-eraser'></i>"+
-                    "</button>"+
-                    "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
-                        "<i class='fa fa-info-circle'></i>"+
-                    "</button>"+
-                "</td>" +
-            "</tr>");
-        }
+        });
+   }else{
+        $.get('/Organizaciones/buscar/'+consulta, function(data){
+                $('#table tbody').empty();
+                if(data.length==0){
+                    $('#table').append("<tr>" +
+                        "<td colspan='5' align='center' >No hay registros</td>"
+                    +"</tr>");
+                }
 
-    });
+                for (var i=0; i<data.length;i++){  
+                    
+                    $('#table').append("<tr class='post" + data[i].id + "'>" +
+                        "<td >" + data[i].id + "</td>" +
+                        "<td >" + data[i].nombre_organizacion + "</td>" +
+                        "<td >" + data[i].nombre_dirigente + "</td>" +
+                        "<td >" + data[i].id + "</td>" +
+                        "<td align='center'>" +
+                            "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
+                            "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
+                                "<i class='fa fa-eye'></i>"+
+                            "</button>" +
+                            "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
+                                "title='Editar' "+
+                                "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
+                                "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
+                                "<i class='fa fa-pencil'></i>"+
+                            "</button>"+
+                            "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
+                                "<i class='fa fa-eraser'></i>"+
+                            "</button>"+
+                            "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
+                                "<i class='fa fa-info-circle'></i>"+
+                            "</button>"+
+                        "</td>" +
+                    "</tr>");
+                }
+
+        });
+   }
+
+   
 }); 
 
 $('#caja_busqueda_actividades').keyup(function(){
@@ -1534,7 +1583,6 @@ $('#caja_busqueda_actividades').keyup(function(){
         });
     
     }else{
-        console.log("con datos");
         $.get('/Actividades/buscar/'+consulta, function(data){
             $('#table_actividades tbody').empty();
             if(data.length==0){

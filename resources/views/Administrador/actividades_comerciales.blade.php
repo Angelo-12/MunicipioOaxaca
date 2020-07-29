@@ -38,7 +38,7 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Total de vendedores</th>
-                        <th>Opciones</th>
+                        <th style="text-align: center">Opciones</th>
                     </tr>
                     {{ csrf_field() }}
 
@@ -217,20 +217,31 @@
         </div>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
 </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 @endsection

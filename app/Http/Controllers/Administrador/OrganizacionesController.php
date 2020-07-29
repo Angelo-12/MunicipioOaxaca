@@ -112,4 +112,15 @@ class OrganizacionesController extends Controller
 
         return $organizaciones;
     }
+
+    public function vacio(){
+        $organizaciones=Organizacion::join('vendedor','organizacion.id','=','vendedor.id_organizacion')
+        ->select('organizacion.*',DB::raw('count(vendedor.id_organizacion)as total'))
+        ->where('organizacion.status','=',1)
+        ->groupBy('organizacion.id')
+        ->get();
+        //->paginate(10);
+
+        return $organizaciones;
+    }
 }

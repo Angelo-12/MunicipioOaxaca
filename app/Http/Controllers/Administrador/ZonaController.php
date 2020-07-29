@@ -22,7 +22,7 @@ class ZonaController extends Controller
         //->get();
 
         $zonas=Zona::all();
-        return view('Administrador.zonas_comercializacion')->with('zonas',$zonas);
+        return view('Administrador.zonas_comercializacion_inicio')->with('zonas',$zonas);
     }
 
     //Muestra el detalle de cada una de las zonas 
