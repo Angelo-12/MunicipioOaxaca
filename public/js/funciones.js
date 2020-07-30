@@ -650,7 +650,46 @@ $(document).ready(function() {
         $('#table_zona_vendedor tbody').empty();
     
     });
+
+    $(document).on('click','.detalles-agencia',function(){
+        $('#show_detalles').modal('show');
+        var id=$(this).data('id');
+        $('#id_agencia').val(id);
     
+        $('#table_colonias tbody').empty();
+        $.get('/Agencia/detalle/'+id, function(data){
+
+            if(data.length==0){
+                $('#table_colonias').append("<tr>" +
+                "<td colspan='5' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+
+          for (var i=0; i<data.length;i++){  
+            
+            $('#table_colonias').append("<tr class='post" + data[i].id + "'>" +
+                "<td style='width: 15%'>" + data[i].id + "</td>" +
+                "<td style='width: 20%'>" + data[i].nombre + "</td>" +
+                "<td style='width: 30%'>" + data[i].codigo_postal + "</td>" +
+                "<td style='width: 15%'>" + data[i].id + "</td>" +
+                "<td style='width: 20%'>" +
+                "<button type='button' style='margin-right:3px;'  class='show-modal-colonia btn btn-warning btn-sm' data-id='" + data[i].id + 
+                "' data-nombre='" + data[i].nombre + "' " +
+                "data-toggle='modal' "+
+                "data-target='#show_colonia' "+
+                "data-longitud_noreste='" + data[i].longitud_noresteC  + 
+                "' data-latitud_noreste='" + data[i].latitud_noresteC  + 
+                "' data-longitud_sureste='" + data[i].longitud_suresteC  + 
+                "' data-latitud_sureste='" + data[i].latitud_suresteC  + 
+                "' data-longitud_centro='" + data[i].longitud_centroC  + 
+                "' data-latitud_centro='" + data[i].latitud_centroC  + 
+                "' data-total='" + data[i].id + "'><i class='fa fa-eye'></i></button>" +
+               "</td>" +
+            "</tr>");
+          }
+
+        });
+    });
 
     $(document).on('click','.detalles-actividad',function(){
         $('#show_detalles_actividad').modal('show');
@@ -759,6 +798,11 @@ $(document).ready(function() {
 
     });
 
+    /*$(document).on('click','.show-modal-colonia',function(){
+        $('#show_colonia').modal('show');
+        $('#nombre_show').text($(this).data('nombre'));
+
+    });*/
 
     $(document).on('click','.responder-observacion',function(){
         $('#show_observacion').modal('show');
@@ -818,6 +862,24 @@ $(document).ready(function() {
         format: "yyyy/mm/dd",
         startDate: "+5d",
         autoclose: true
+    });
+
+      //Funcion para mostrar los detalles de una colonia
+    $('#show_colonia').on('shown.bs.modal', function(e) {
+        $('#nombre_show').text($(e.relatedTarget).data('nombre'));
+        var latitudN=$(e.relatedTarget).data('latitud_noreste');
+        var longitudN=$(e.relatedTarget).data('longitud_noreste');
+        var latitudS=$(e.relatedTarget).data('latitud_sureste');
+        var longitudS=$(e.relatedTarget).data('longitud_sureste');
+        var latitudC=$(e.relatedTarget).data('latitud_centro');
+        var longitudC=$(e.relatedTarget).data('longitud_centro');
+        console.log(latitudN);
+        console.log(longitudN);
+        console.log(latitudS);
+        console.log(longitudS);
+        console.log(latitudC);
+        console.log(longitudC);
+        mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC);
     });
 
     //Funcion para mostrar los detalles de un permiso
@@ -1326,8 +1388,6 @@ $(document).on('click','.show-modal-actividad',function(){
 });
 
 
-
-
 $(document).on('click', '.role-usuario', function() {
     $('#role_usuario').modal('show');
     $('#id_usuario').val($(this).data('id'));
@@ -1620,6 +1680,10 @@ $('#caja_busqueda_actividades').keyup(function(){
 
 });
 
+$('#caja_busqueda_zona').keyup(function(){
+    var consulta=$('#caja_busqueda_zona').val();
+
+});
 
 function OrganizacionVendedor(){
     var id=$('#id_organizacion').val();

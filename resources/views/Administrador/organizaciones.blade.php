@@ -363,31 +363,29 @@
         </div>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    
 
 </div>
-
-
-<!--
-
-
-<form action="{{url('Vendedores/actualizar_password')}}" method="POST">
-    @csrf
-   
-    <input type="email" value="azu123j@gmail.com" name="email" id="email">
-    <input type="text" value="holamundo" name="password" id="password">
-    <input type="submit" value="enviar" >
-</form>
-
--->
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 @endsection
 

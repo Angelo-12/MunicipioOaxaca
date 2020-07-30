@@ -173,6 +173,44 @@
 
     </div>
 
+    <div id="show_zona_vendedor" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Nombre :</label>
+                        <p id="nombre_show"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Apellido Paterno :</label>
+                        <p id="apellido_paterno_show"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Apellido Materno :</label>
+                        <p id="apellido_materno_show"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Sexo :</label>
+                        <p id="sexo_show"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Fecha de Registro :</label>
+                        <p id="fecha_show"/>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
     <br>

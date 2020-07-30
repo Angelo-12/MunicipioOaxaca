@@ -118,5 +118,10 @@ Route::group(['prefix' => 'Observaciones'], function () {
 
 });
 
+Route::group(['prefix' => 'Agencia'], function () {
+    Route::get('index','Administrador\AgenciasController@index');
+    Route::get('detalle/{id}','Administrador\AgenciasController@detalle');
+});
+
 Route::get('index','Administrador\LoginController@index');
 Route::post('verificar','Administrador\LoginController@login')->name('verificar');

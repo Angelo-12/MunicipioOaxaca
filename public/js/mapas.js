@@ -151,3 +151,26 @@ function mapaUbicacionFin(){
     map.resize();
 }
 
+function mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC){
+
+    var dimensiones = [
+        [longitudN,latitudN],
+        [longitudS,latitudS]
+   ];
+
+    var map = new mapboxgl.Map({
+        container: 'map_colonia', // container id
+        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+        center: [longitudC,latitudC], // starting position [lng, lat]
+        zoom: 13 // starting zoom,
+        //maxBounds:dimensiones
+
+    });
+
+   
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+
+    map.resize();
+}
+

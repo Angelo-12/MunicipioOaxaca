@@ -103,6 +103,12 @@
                   </li>
 
                   <li>
+                    <a href="{{url('Agencia/index')}}"><i class="fa fa-clipboard-list">
+                      </i>Agencias y Colonias
+                    </a>
+                  </li>
+
+                  <li>
                     <a href="{{url('Observaciones/index')}}">
                       <i class="fa fa-mail-bulk"></i>
                       Quejas y Sugerencias 
