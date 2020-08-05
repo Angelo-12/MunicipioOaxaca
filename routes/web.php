@@ -123,5 +123,9 @@ Route::group(['prefix' => 'Agencia'], function () {
     Route::get('detalle/{id}','Administrador\AgenciasController@detalle');
 });
 
+Route::group(['prefix' => 'Colonia'], function () {
+    Route::get('detalle/{id}','Administrador\ColoniasController@detalle');
+});
+
 Route::get('index','Administrador\LoginController@index');
 Route::post('verificar','Administrador\LoginController@login')->name('verificar');

@@ -542,6 +542,56 @@ $(document).ready(function() {
         });
     });
 
+    $('#id_agencia').change(function(){
+        var agencia = $(this).val();
+        console.log(agencia);
+        $.get('/Agencia/detalle/'+agencia, function(data){
+            var colonia_select = '<option value="" selected disabled>Seleccionar colonia</option>'
+              for (var i=0; i<data.length;i++)
+                colonia_select+='<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
+  
+              $("#id_colonia").html(colonia_select);
+        });
+
+    });
+
+    $('#id_colonia').change(function(){
+        var colonia = $(this).val();
+        console.log(colonia);
+        var latitud_centro,longitud_centro;
+        var latitud_sureste,longitud_sureste;
+        var latitud_noreste,longitud_noreste;
+
+        $.get('/Colonia/detalle/'+colonia, function(data){
+           
+              for (var i=0; i<data.length;i++){
+                latitud_centro=data[i].latitud_centroC;
+                longitud_centro=data[i].longitud_centroC;
+
+                latitud_sureste=data[i].latitud_suresteC;
+                longitud_sureste=data[i].longitud_suresteC;
+
+                latitud_noreste=data[i].latitud_noresteC;
+                longitud_noreste=data[i].longitud_noresteC;
+              }
+           /*
+              console.log(latitud_centro);
+              console.log(longitud_centro);
+              console.log(latitud_sureste);
+              console.log(longitud_sureste);
+              console.log(latitud_noreste);
+              console.log(longitud_noreste);
+             */
+            moverCamara(latitud_noreste,longitud_noreste,latitud_sureste,longitud_sureste,latitud_centro,longitud_centro);
+
+        });
+
+
+    });
+
+
+
+
     $('#observacion').change(function(){
         var id=$(this).val();
         $('#table_seguimiento tbody').empty();

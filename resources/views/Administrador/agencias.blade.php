@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
 <div class="container-fluid">
 
     <div class="card">
@@ -187,5 +189,7 @@
 <br>
 <br>
 <br>
+
+
 
 @endsection

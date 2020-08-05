@@ -8,6 +8,7 @@ use App\Models\Permisos;
 use App\Models\Anuales;
 use App\Models\Eventuales;
 use App\Models\Provisionales;
+use App\Models\Agencia;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -16,7 +17,7 @@ class PermisosController extends Controller
 {
     //Funcion que nos regresa la pagina princiapl de cada uno de los permisos dependiente el parametro que reciba la funcion
     public function index($nombre){
-        //$permisos="";
+        $agencias=Agencia::all();
         if($nombre=="Anuales"){
             $permisos=Permisos::join('anuales','permiso.id','anuales.id_permiso')
             ->paginate(10);
@@ -46,7 +47,8 @@ class PermisosController extends Controller
         }
 
         //return $anuales;
-         return view('Administrador.permisos')->with('permisos',$permisos)->with('nombre',$nombre);
+         return view('Administrador.permisos')->with('permisos',$permisos)->with('nombre',$nombre)
+         ->with('agencias',$agencias);
     }
 
     //Funcion para insertar un nuevo permiso

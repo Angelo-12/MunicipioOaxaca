@@ -2,11 +2,8 @@
 
 @section('content')
 
-<div class="centrado" id="carga">
-    <div class="lds-dual-ring"></div>
-</div>
 
-<div class="container-fluid center hidden"> 
+<div class="container-fluid center"> 
     <div class="card">
         <div class="card-header">
             <h1>
@@ -143,9 +140,44 @@
             {!! $permisos->links() !!}
         </div>
 
+        <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
     </div> 
 
-    <div class="modal fade" id="create_permiso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="create_permiso" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -186,7 +218,30 @@
                                 <option value="7">Prestacion de Servicios</option>
                             </select>
                             <span class="text-danger" id="tipo_actividad_error"></span>
+                        </div>
 
+                        <div class="form-group">
+                            <label>Ubicacion</label>
+                            <select class="form-control" name="id_agencia" id="id_agencia">
+                                <option value="ninguna" selected disabled>Seleccionar agencia</option>
+                                @foreach ($agencias as $a)
+                                 <option value="{{$a->id}}">{{$a->nombre}}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="id_agencia"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Colonia</label>
+                            <select class="form-control" name="id_colonia" id="id_colonia">
+                                <option value="ninguna" selected disabled>Seleccionar colonia</option>
+                            </select>
+                            <span class="text-danger" id="id_colonia"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Seleccione la ubicacion del permiso</label>
+                            <div id="map" style="height:200px;"></div> 
                         </div>
 
                         <div class="form-group">
@@ -194,11 +249,6 @@
                             <input type="text" name="giro" placeholder="Giro"
                             class="form-control" id="giro">
                             <span class="text-danger" id="giro_error"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Seleccione la ubicacion del permiso</label>
-                            <div id="map" style="height:200px;"></div> 
                         </div>
                        
                         <div class="form-group" hidden>
@@ -279,7 +329,6 @@
         </div>
     </div>  
     
-
     {{-- Modal show  --}}
     <div id="show_permiso" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -613,16 +662,8 @@
         </div>
     </div>
 
-    
+
 </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
 @endsection
 

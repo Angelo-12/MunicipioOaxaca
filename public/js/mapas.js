@@ -151,26 +151,58 @@ function mapaUbicacionFin(){
     map.resize();
 }
 
-function mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC){
-
-    var dimensiones = [
-        [longitudN,latitudN],
-        [longitudS,latitudS]
+function moverCamara(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC){
+    var dimensiones=[
+        [longitudS,latitudS],
+        [longitudN,latitudN]
    ];
 
     var map = new mapboxgl.Map({
-        container: 'map_colonia', // container id
+        container: 'map', // container id
         style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
         center: [longitudC,latitudC], // starting position [lng, lat]
-        zoom: 13 // starting zoom,
-        //maxBounds:dimensiones
-
+        zoom: 12 ,// starting zoom,
+        maxBounds:dimensiones
     });
 
-   
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
 
-    map.resize();
+    var marker = new mapboxgl.Marker({
+        draggable: true
+        })
+        .setLngLat([longitudC, latitudC])
+        .addTo(map);
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
+        
+    
+        function onDragEnd() {
+            var lngLat = marker.getLngLat();
+            $("#latitud").val(lngLat.lat);
+            $("#longitud").val(lngLat.lng);
+        }
+    
+        marker.on('dragend', onDragEnd);
+}
+
+function mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC){
+
+   var dimensiones=[
+        [longitudS,latitudS],
+        [longitudN,latitudN]
+   ];
+
+    var map = new mapboxgl.Map({
+        container: 'mapa_colonia',
+        style: 'mapbox://styles/mapbox/streets-v11', 
+        center: [longitudC,latitudC],
+        zoom: 12 ,
+        maxBounds:dimensiones
+    });
+ 
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+
 }
 
