@@ -9,6 +9,8 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\input;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\UsersExport;
 use App\Models\Administrador_Secretaria;
 use App\Models\Permisos;
 use App\Models\Vendedor;
@@ -374,5 +376,9 @@ class UsuarioController extends Controller
       ->select('name','apellido_paterno','apellido_materno','email','cargo')->get();
       return response()->json(['admin'=>$usuario]);
       
-	}
+   }
+   
+   public function descargar_csv(){
+      return Excel::download(new UsersExport,'users.xlsx');
+   }
 }

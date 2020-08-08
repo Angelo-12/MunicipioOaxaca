@@ -589,9 +589,6 @@ $(document).ready(function() {
 
     });
 
-
-
-
     $('#observacion').change(function(){
         var id=$(this).val();
         $('#table_seguimiento tbody').empty();
@@ -721,7 +718,7 @@ $(document).ready(function() {
                 "<td style='width: 15%'>" + data[i].id + "</td>" +
                 "<td style='width: 20%'>" + data[i].nombre + "</td>" +
                 "<td style='width: 30%'>" + data[i].codigo_postal + "</td>" +
-                "<td style='width: 15%'>" + data[i].id + "</td>" +
+                "<td style='width: 15%'>" + data[i].total + "</td>" +
                 "<td style='width: 20%'>" +
                 "<button type='button' style='margin-right:3px;'  class='show-modal-colonia btn btn-warning btn-sm' data-id='" + data[i].id + 
                 "' data-nombre='" + data[i].nombre + "' " +

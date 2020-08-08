@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,6 +20,7 @@ Route::group(['prefix' => 'Usuarios'], function () {
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('perfil','Administrador\UsuarioController@perfil');
     Route::get('descargar_pdf','Administrador\UsuarioController@exportar_pdf_administrador');
+    Route::get('descargar_csv','Administrador\UsuarioController@descargar_csv');
     Route::post('cambiar_foto/{id}','Administrador\UsuarioController@cambiar_foto_perfil');
 
 });
@@ -121,7 +111,10 @@ Route::group(['prefix' => 'Observaciones'], function () {
 Route::group(['prefix' => 'Agencia'], function () {
     Route::get('index','Administrador\AgenciasController@index');
     Route::get('detalle/{id}','Administrador\AgenciasController@detalle');
+    Route::get('descargar_pdf','Administrador\AgenciasController@descargar_pdf');
+    Route::get('descargar_excel','Administrador\AgenciasController@descargar_excel');
 });
+
 
 Route::group(['prefix' => 'Colonia'], function () {
     Route::get('detalle/{id}','Administrador\ColoniasController@detalle');

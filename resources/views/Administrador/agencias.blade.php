@@ -22,9 +22,9 @@
               <i class="fa fa-file-pdf"></i>&nbsp;PDF
           </a>
 
-          <button type="button"  class="btn btn-info">
-              <i class="fa fa-file-csv"></i></i>&nbsp;CSV
-          </button>
+        <a type="button"  class="btn btn-info" href="{{url('Agencia/descargar_excel')}}">
+              <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+          </a>
       </div>
       <div class="card-body">
           <div class="form-group row">
@@ -55,7 +55,7 @@
                       <td>{{$a->id}}</td>
                       <td >{{$a->nombre}}</td>
                       <td >{{$a->tipo_agencia}}</td>
-                      <td >{{$a->id}}</td>
+                      <td >{{$a->total}}</td>
                       <td  align="center">
                           <button type="button" class="show-modal-agencia btn btn-warning btn-sm" 
                                   data-toggle="modal" 
