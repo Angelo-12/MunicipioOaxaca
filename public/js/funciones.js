@@ -920,12 +920,7 @@ $(document).ready(function() {
         var longitudS=$(e.relatedTarget).data('longitud_sureste');
         var latitudC=$(e.relatedTarget).data('latitud_centro');
         var longitudC=$(e.relatedTarget).data('longitud_centro');
-        console.log(latitudN);
-        console.log(longitudN);
-        console.log(latitudS);
-        console.log(longitudS);
-        console.log(latitudC);
-        console.log(longitudC);
+     
         mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC);
     });
 
@@ -976,6 +971,27 @@ $(document).ready(function() {
         $('#id_permiso').val(id_permiso);
     });
 
+    $('#show_agencia').on('shown.bs.modal',function(e){
+        var id_agencia=$(e.relatedTarget).data('id');
+        var nombre=$(e.relatedTarget).data('nombre');
+        var tipo=$(e.relatedTarget).data('tipo');
+        var total=$(e.relatedTarget).data('total');
+        var latitud=$(e.relatedTarget).data('latitud');
+        var longitud=$(e.relatedTarget).data('longitud');
+
+        console.log(id_agencia);
+
+        mostrarAgencia(latitud,longitud);
+
+        $('#id_ag').text(id_agencia);
+        $('#nombre_agencia').text(nombre);
+        $('#tipo_agencia').text(tipo);
+        $('#total_colonias').text(total);
+
+    
+        
+    });
+    
 
     //Funcion para desplegar las opciones dependiendo del radio seleccionado
     $("input[type=radio]").click(function(event){
@@ -1411,7 +1427,6 @@ $('#create_organizacion').on('hidden.bs.modal', function(){
 });
 
 
-
 /******************************************** USUARIOS ************************************************ */
 $(document).on('click', '.create-modal', function() {
     $('#create_usuario').modal('show');
@@ -1478,6 +1493,7 @@ $('#create_usuario').on('hidden.bs.modal', function(){
     $('#password').removeClass('red-border');
     $('#password_error').addClass('d-none');
 });
+
 
 
 //Funcion para agregar un pageloader

@@ -59,10 +59,13 @@
                       <td  align="center">
                           <button type="button" class="show-modal-agencia btn btn-warning btn-sm" 
                                   data-toggle="modal" 
+                                  data-target="#show_agencia"
                                   data-id="{{$a->id}}" 
-                                  data-target="#show_zona"
-                                  data-nombre_zona="{{$a->nombre_zona}}" 
+                                  data-nombre="{{$a->nombre}}" 
+                                  data-tipo="{{$a->tipo_agencia}}"
                                   data-total="{{$a->total}}"
+                                  data-longitud="{{$a->longitud_centro}}"
+                                  data-latitud="{{$a->latitud_centro}}"
                                   title='Mostrar'>
                               <i class="fa fa-eye"></i>
                           </button>
@@ -152,6 +155,46 @@
                         
         </div>
 
+    </div>
+
+    <div id="show_agencia" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Agencia</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <b for="">Id :</b>
+                        <p id="id_ag"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Nombre :</b>
+                        <p id="nombre_agencia"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Tipo :</b>
+                        <p id="tipo_agencia"/>
+                    </div>
+
+                    <div class="form-group">
+                        <b for="">Ubicacion :</b>
+                        <div id="map_agencia" style="height:200px;">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b for="">Numero de colonias :</b>
+                        <p id="total_colonias"/>
+                    </div>
+
+                   
+
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="show_colonia" class="modal fade" role="dialog">

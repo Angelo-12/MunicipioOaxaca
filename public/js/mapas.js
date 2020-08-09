@@ -194,7 +194,7 @@ function mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC
    ];
 
     var map = new mapboxgl.Map({
-        container: 'mapa_colonia',
+        container: 'map_colonia',
         style: 'mapbox://styles/mapbox/streets-v11', 
         center: [longitudC,latitudC],
         zoom: 12 ,
@@ -204,5 +204,23 @@ function mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC
     map.addControl(new mapboxgl.NavigationControl());
     map.addControl(new mapboxgl.FullscreenControl());
 
+}
+
+function mostrarAgencia(latitudC,longitudC){
+
+     var map = new mapboxgl.Map({
+         container: 'map_agencia',
+         style: 'mapbox://styles/mapbox/streets-v11', 
+         center: [longitudC,latitudC],
+         zoom: 16
+     });
+
+     var marker = new mapboxgl.Marker()
+    .setLngLat([longitudC, latitudC])
+    .addTo(map);
+  
+     map.addControl(new mapboxgl.NavigationControl());
+     map.addControl(new mapboxgl.FullscreenControl());
+ 
 }
 
