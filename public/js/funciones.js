@@ -1495,7 +1495,6 @@ $('#create_usuario').on('hidden.bs.modal', function(){
 });
 
 
-
 //Funcion para agregar un pageloader
 window.onload=function(){
     //alert("hola");
@@ -1738,15 +1737,104 @@ $('#caja_busqueda_actividades').keyup(function(){
         });
     }
 
-   
-
-
 });
 
 $('#caja_busqueda_zona').keyup(function(){
     var consulta=$('#caja_busqueda_zona').val();
 
 });
+
+$('#caja_busqueda_agencias').keyup(function(){
+    var consulta=$('#caja_busqueda_agencias').val();
+
+    if(consulta==""){
+
+        $.get('/Agencia/vacio', function(data){
+            $('#table_agencias tbody').empty();
+            if(data.length==0){
+                $('#table_agencias').append("<tr>" +
+                    "<td colspan='4' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+    
+            for (var i=0; i<data.length;i++){  
+
+                $('#table_agencias').append("<tr class='post" + data[i].id + "'>" +
+                    "<td >" + data[i].id + "</td>" +
+                    "<td >" + data[i].nombre + "</td>" +
+                    "<td >" + data[i].tipo_agencia + "</td>" +
+                    "<td >" + data[i].total + "</td>" +
+                    "<td align='center'>" +
+                        "<button type='button' class='show-modal-agencia btn btn-warning btn-sm' " +
+                            "data-toggle='modal' "+ 
+                            "data-target='#show_agencia' "+
+                            "data-id='data[i].id' " +
+                            "data-nombre='data[i].nombre' "+ 
+                            "data-tipo='data[i].tipo_agencia' "+
+                            "data-total='data[i].total' "+
+                            "data-longitud='data[i].longitud_centro' "+
+                            "data-latitud='data[i].latitud_centro' "+
+                            "title='Mostrar'> "+
+                            "<i class='fa fa-eye'> "+"</i>"+
+                        "</button>"+
+
+                        "<button type='button' class='detalles-agencia btn btn-secondary btn-sm' "+
+                            "data-id='data[i].id'" +
+                            "title='Detalles'>"+
+                            "<i class='fa fa-info-circle'></i>"+
+                       "</button>"+
+                    "</td>" +
+                "</tr>");
+                "{!! $agencias->links() !!}"
+
+            }
+    
+        });
+    
+    }else{
+        $.get('/Agencia/buscar/'+consulta, function(data){
+            $('#table_agencias tbody').empty();
+            if(data.length==0){
+                $('#table_agencias').append("<tr>" +
+                    "<td colspan='4' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+    
+            for (var i=0; i<data.length;i++){  
+                
+                $('#table_agencias').append("<tr class='post" + data[i].id + "'>" +
+                    "<td >" + data[i].id + "</td>" +
+                    "<td >" + data[i].nombre + "</td>" +
+                    "<td >" + data[i].tipo_agencia + "</td>" +
+                    "<td >" + data[i].total + "</td>" +
+                    "<td align='center'>" +
+                        "<button type='button' class='show-modal-agencia btn btn-warning btn-sm' " +
+                            "data-toggle='modal' "+ 
+                            "data-target='#show_agencia' "+
+                            "data-id='data[i].id' " +
+                            "data-nombre='data[i].nombre' "+ 
+                            "data-tipo='data[i].tipo_agencia' "+
+                            "data-total='data[i].total' "+
+                            "data-longitud='data[i].longitud_centro' "+
+                            "data-latitud='data[i].latitud_centro' "+
+                            "title='Mostrar'> "+
+                            "<i class='fa fa-eye'> "+"</i>"+
+                        "</button>"+
+
+                        "<button type='button' class='detalles-agencia btn btn-secondary btn-sm' "+
+                            "data-id='data[i].id'" +
+                            "title='Detalles'>"+
+                            "<i class='fa fa-info-circle'></i>"+
+                       "</button>"+
+                    "</td>" +
+                "</tr>");
+            }
+    
+        });
+    }
+
+});
+
 
 function OrganizacionVendedor(){
     var id=$('#id_organizacion').val();

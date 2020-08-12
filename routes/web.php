@@ -110,6 +110,8 @@ Route::group(['prefix' => 'Observaciones'], function () {
 
 Route::group(['prefix' => 'Agencia'], function () {
     Route::get('index','Administrador\AgenciasController@index');
+    Route::get('vacio','Administrador\AgenciasController@vacio');
+    Route::get('buscar/{dato}','Administrador\AgenciasController@buscar');
     Route::get('detalle/{id}','Administrador\AgenciasController@detalle');
     Route::get('descargar_pdf','Administrador\AgenciasController@descargar_pdf');
     Route::get('descargar_excel','Administrador\AgenciasController@descargar_excel');

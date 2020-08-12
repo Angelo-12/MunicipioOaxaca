@@ -37,7 +37,7 @@
                   </div>
               </div>
           </div>
-          <table id="table" class="table table-bordered table-striped table-sm">
+          <table id="table_agencias" class="table table-bordered table-striped table-sm">
               <thead >
                   <tr >
                       <th >Id</th>
