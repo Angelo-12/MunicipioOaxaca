@@ -33,7 +33,7 @@
 
                       <input type="text"  class="form-control" placeholder="Texto a buscar" name="caja_busqueda_agencias" 
                       id="caja_busqueda_agencias">
-                      <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                      <a type="button"  onclick="buscarAgencia();"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</a>
                   </div>
               </div>
           </div>

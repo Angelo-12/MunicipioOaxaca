@@ -25,25 +25,19 @@ class AgenciasController extends Controller
 
     }
 
-    public function vacio(){
-        $agencias=Agencia::join('colonia','agencia.id','=','colonia.id_agencia')
-        ->select('agencia.*',DB::raw('count(colonia.id_agencia)as total'))
-        ->groupBy('agencia.id')
-        ->get();
-
-        return $agencias;
-    }
-
     public function buscar($dato){
         $agencias=Agencia::join('colonia','agencia.id','=','colonia.id_agencia')
         ->select('agencia.*',DB::raw('count(colonia.id_agencia)as total'))
         ->where('agencia.id','=',$dato)
         ->orWhere('agencia.nombre','LIKE','%'.$dato.'%')
-        ->orWhere('agencia.tipo_agencia','LIKE',"%$dato%")
+        ->orWhere('agencia.tipo_agencia','LIKE','%'.$dato.'%')
         ->groupBy('agencia.id')
-        ->get();
+        ->paginate(10);
 
-        return $agencias;
+      //  return $agencias;
+
+      return view('Administrador.agencias')->with('agencias',$agencias);
+
     }
 
     public function detalle($id){
@@ -66,6 +60,10 @@ class AgenciasController extends Controller
         $pdf=\PDF::loadView('Pdfs.agencias',compact('agencias'));
 
         return $pdf->stream();
+
+    }
+
+    public function descargar_pdf_detalle($id){
 
     }
 

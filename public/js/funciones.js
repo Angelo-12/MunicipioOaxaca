@@ -1744,6 +1744,7 @@ $('#caja_busqueda_zona').keyup(function(){
 
 });
 
+/*
 $('#caja_busqueda_agencias').keyup(function(){
     var consulta=$('#caja_busqueda_agencias').val();
 
@@ -1834,7 +1835,17 @@ $('#caja_busqueda_agencias').keyup(function(){
     }
 
 });
+*/
 
+function buscarAgencia(){
+    var dato=$('#caja_busqueda_agencias').val();
+
+    if(dato!=""){
+        location.href='/Agencia/buscar/'+dato;
+    }else{
+        location.href='/Agencia/index';
+    }
+}
 
 function OrganizacionVendedor(){
     var id=$('#id_organizacion').val();
