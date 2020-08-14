@@ -715,11 +715,11 @@ $(document).ready(function() {
           for (var i=0; i<data.length;i++){  
             
             $('#table_colonias').append("<tr class='post" + data[i].id + "'>" +
-                "<td style='width: 15%'>" + data[i].id + "</td>" +
+                "<td style='width: 10%'>" + data[i].id + "</td>" +
                 "<td style='width: 20%'>" + data[i].nombre + "</td>" +
                 "<td style='width: 30%'>" + data[i].codigo_postal + "</td>" +
                 "<td style='width: 15%'>" + data[i].total + "</td>" +
-                "<td style='width: 20%'>" +
+                "<td style='width: 25%'>" +
                 "<button type='button' style='margin-right:3px;'  class='show-modal-colonia btn btn-warning btn-sm' data-id='" + data[i].id + 
                 "' data-nombre='" + data[i].nombre + "' " +
                 "data-toggle='modal' "+
@@ -730,7 +730,9 @@ $(document).ready(function() {
                 "' data-latitud_sureste='" + data[i].latitud_suresteC  + 
                 "' data-longitud_centro='" + data[i].longitud_centroC  + 
                 "' data-latitud_centro='" + data[i].latitud_centroC  + 
-                "' data-total='" + data[i].id + "'><i class='fa fa-eye'></i></button>" +
+                "' data-total='" + data[i].id +
+                "' data-codigo='"+data[i].codigo_postal+ "'>"+
+                "  <i class='fa fa-eye'></i></button>" +
                "</td>" +
             "</tr>");
           }
@@ -757,11 +759,11 @@ $(document).ready(function() {
           for (var i=0; i<data.length;i++){  
             
             $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
-                "<td style='width: 15%'>" + data[i].id + "</td>" +
+                "<td style='width: 10%'>" + data[i].id + "</td>" +
                 "<td style='width: 20%'>" + data[i].rfc + "</td>" +
                 "<td style='width: 30%'>" + data[i].curp + "</td>" +
-                "<td style='width: 10%'>" + data[i].id_permiso + "</td>" +
-                "<td style='width: 25%' align='center'>" +
+                "<td style='width: 15%'>" + data[i].id_permiso + "</td>" +
+                "<td style='width: 25%' style='text-align:center;'>" +
                 "<button type='button' style='margin-right:3px;'  class='show-modal-actividad-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
                 "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
                  "</td>" +
@@ -807,7 +809,6 @@ $(document).ready(function() {
         $('#cargo2').val($(this).data('cargo'));
         $('#email2').val($(this).data('email'));
     });
-    
 
 });
 
@@ -844,12 +845,6 @@ $(document).ready(function() {
          $('#sexo_show').text('Mujer');
 
     });
-
-    /*$(document).on('click','.show-modal-colonia',function(){
-        $('#show_colonia').modal('show');
-        $('#nombre_show').text($(this).data('nombre'));
-
-    });*/
 
     $(document).on('click','.responder-observacion',function(){
         $('#show_observacion').modal('show');
@@ -914,6 +909,7 @@ $(document).ready(function() {
       //Funcion para mostrar los detalles de una colonia
     $('#show_colonia').on('shown.bs.modal', function(e) {
         $('#nombre_show').text($(e.relatedTarget).data('nombre'));
+        $('#codigo_show').text($(e.relatedTarget).data('codigo'));
         var latitudN=$(e.relatedTarget).data('latitud_noreste');
         var longitudN=$(e.relatedTarget).data('longitud_noreste');
         var latitudS=$(e.relatedTarget).data('latitud_sureste');
@@ -987,9 +983,7 @@ $(document).ready(function() {
         $('#nombre_agencia').text(nombre);
         $('#tipo_agencia').text(tipo);
         $('#total_colonias').text(total);
-
-    
-        
+   
     });
     
 
@@ -1744,98 +1738,6 @@ $('#caja_busqueda_zona').keyup(function(){
 
 });
 
-/*
-$('#caja_busqueda_agencias').keyup(function(){
-    var consulta=$('#caja_busqueda_agencias').val();
-
-    if(consulta==""){
-
-        $.get('/Agencia/vacio', function(data){
-            $('#table_agencias tbody').empty();
-            if(data.length==0){
-                $('#table_agencias').append("<tr>" +
-                    "<td colspan='4' align='center' >No hay registros</td>"
-                +"</tr>");
-            }
-    
-            for (var i=0; i<data.length;i++){  
-
-                $('#table_agencias').append("<tr class='post" + data[i].id + "'>" +
-                    "<td >" + data[i].id + "</td>" +
-                    "<td >" + data[i].nombre + "</td>" +
-                    "<td >" + data[i].tipo_agencia + "</td>" +
-                    "<td >" + data[i].total + "</td>" +
-                    "<td align='center'>" +
-                        "<button type='button' class='show-modal-agencia btn btn-warning btn-sm' " +
-                            "data-toggle='modal' "+ 
-                            "data-target='#show_agencia' "+
-                            "data-id='data[i].id' " +
-                            "data-nombre='data[i].nombre' "+ 
-                            "data-tipo='data[i].tipo_agencia' "+
-                            "data-total='data[i].total' "+
-                            "data-longitud='data[i].longitud_centro' "+
-                            "data-latitud='data[i].latitud_centro' "+
-                            "title='Mostrar'> "+
-                            "<i class='fa fa-eye'> "+"</i>"+
-                        "</button>"+
-
-                        "<button type='button' class='detalles-agencia btn btn-secondary btn-sm' "+
-                            "data-id='data[i].id'" +
-                            "title='Detalles'>"+
-                            "<i class='fa fa-info-circle'></i>"+
-                       "</button>"+
-                    "</td>" +
-                "</tr>");
-                "{!! $agencias->links() !!}"
-
-            }
-    
-        });
-    
-    }else{
-        $.get('/Agencia/buscar/'+consulta, function(data){
-            $('#table_agencias tbody').empty();
-            if(data.length==0){
-                $('#table_agencias').append("<tr>" +
-                    "<td colspan='4' align='center' >No hay registros</td>"
-                +"</tr>");
-            }
-    
-            for (var i=0; i<data.length;i++){  
-                
-                $('#table_agencias').append("<tr class='post" + data[i].id + "'>" +
-                    "<td >" + data[i].id + "</td>" +
-                    "<td >" + data[i].nombre + "</td>" +
-                    "<td >" + data[i].tipo_agencia + "</td>" +
-                    "<td >" + data[i].total + "</td>" +
-                    "<td align='center'>" +
-                        "<button type='button' class='show-modal-agencia btn btn-warning btn-sm' " +
-                            "data-toggle='modal' "+ 
-                            "data-target='#show_agencia' "+
-                            "data-id='data[i].id' " +
-                            "data-nombre='data[i].nombre' "+ 
-                            "data-tipo='data[i].tipo_agencia' "+
-                            "data-total='data[i].total' "+
-                            "data-longitud='data[i].longitud_centro' "+
-                            "data-latitud='data[i].latitud_centro' "+
-                            "title='Mostrar'> "+
-                            "<i class='fa fa-eye'> "+"</i>"+
-                        "</button>"+
-
-                        "<button type='button' class='detalles-agencia btn btn-secondary btn-sm' "+
-                            "data-id='data[i].id'" +
-                            "title='Detalles'>"+
-                            "<i class='fa fa-info-circle'></i>"+
-                       "</button>"+
-                    "</td>" +
-                "</tr>");
-            }
-    
-        });
-    }
-
-});
-*/
 
 function buscarAgencia(){
     var dato=$('#caja_busqueda_agencias').val();
@@ -1859,3 +1761,16 @@ function ActividadesComercialesVendedor(){
 
     location.href='/Actividades/descargar_pdf_detalle/'+id;
 }
+
+function DescargarPdfColonias(){
+    var id=$('#id_agencia').val();
+    location.href='/Agencia/descargar_pdf_colonias/'+id;
+    
+}
+
+function DescargarExcelColonias(){
+    var id=$('#id_agencia').val();
+    location.href='/Agencia/descargar_excel_colonias/'+id;
+    
+}
+

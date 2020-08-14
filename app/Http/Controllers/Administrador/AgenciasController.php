@@ -9,8 +9,8 @@ use App\Models\Colonia;
 use App\Models\Permiso;
 use DB;
 use Maatwebsite\Excel\Facades\Excel;
-//use Maatwebsite\Excel\Excel;
 use App\Exports\AgenciaExport;
+use App\Exports\AgenciaColoniaExport;
 
 class AgenciasController extends Controller
 {
@@ -63,11 +63,25 @@ class AgenciasController extends Controller
 
     }
 
-    public function descargar_pdf_detalle($id){
+    public function descargar_pdf_colonias($id){
+        $agencias=Agencia::join('colonia','agencia.id','=','colonia.id_agencia')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
+        ->select('colonia.*',DB::raw('count(permiso.id_colonia)as total'))
+        ->groupBy('colonia.id')
+        ->where('agencia.id','=',$id)
+        ->get();
+
+        $pdf=\PDF::loadView('Pdfs.agencias_detalle',compact('agencias'));
+
+        return $pdf->stream();
 
     }
 
     public function descargar_excel(){
         return Excel::download(new AgenciaExport, 'agencias.xlsx');
+    }
+
+    public function descargar_excel_colonias($id){
+        return Excel::download(new AgenciaColoniaExport($id), 'agencias_colonias.xlsx');
     }
 }

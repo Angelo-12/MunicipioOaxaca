@@ -119,16 +119,14 @@
                     </div>
 
                     <div class="modal-body" >
-
-
                         
                         <div class="card-header">
                             <button type="button" onclick="ActividadesComercialesVendedor();"  class="btn btn-info">
-                                <i class="fa fa-file-pdf"></i>&nbsp;PDfS
+                                <i class="fa fa-file-pdf"></i>&nbsp;PDF
                             </button>
                 
                             <button type="button"  class="btn btn-info">
-                                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
                             </button>
                         </div>
 
@@ -143,22 +141,23 @@
                                 </div>
                             </div>
 
+                            <table  class="table table-bordered table-striped table-sm">
+                                <thead>
+                                    <tr >
+                                        <th style="width: 10%" >Id</th>
+                                        <th style="width: 20%">RFC</th>
+                                        <th style="width: 30%">Curp</th>
+                                        <th style="width: 15%">Permiso</th>
+                                        <th style="width: 25%" style="text-align:center;">Opciones</th>
+                                    </tr>
+                                    {{ csrf_field() }}
+                
+                                </thead>
+                            </table>
+
                             <div class="ajustar" style="overflow-y: auto">
 
-                                <input type="text" id="id_actividad" name="id_actividad" hidden.>
-
                                 <table id="table_actividad_vendedor" class="table table-bordered table-striped table-sm">
-                                    <thead>
-                                        <tr >
-                                            <th style="width: 15%" >Id</th>
-                                            <th style="width: 20%">RFC</th>
-                                            <th style="width: 30%">Curp</th>
-                                            <th style="width: 10%">Permiso</th>
-                                            <th style="width: 25%" align="center">Opciones</th>
-                                        </tr>
-                                        {{ csrf_field() }}
-                    
-                                    </thead>
                                     <tbody >
                                                           
                                     </tbody>

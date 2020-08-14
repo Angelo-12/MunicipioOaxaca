@@ -114,8 +114,12 @@ Route::group(['prefix' => 'Agencia'], function () {
     Route::get('buscar/{dato}','Administrador\AgenciasController@buscar');
     Route::get('detalle/{id}','Administrador\AgenciasController@detalle');
     Route::get('descargar_pdf','Administrador\AgenciasController@descargar_pdf');
+    Route::get('descargar_pdf_colonias/{id}','Administrador\AgenciasController@descargar_pdf_colonias');
     Route::get('descargar_excel','Administrador\AgenciasController@descargar_excel');
+    Route::get('descargar_excel_colonias/{id}','Administrador\AgenciasController@descargar_excel_colonias');
+    
 });
+
 
 
 Route::group(['prefix' => 'Colonia'], function () {

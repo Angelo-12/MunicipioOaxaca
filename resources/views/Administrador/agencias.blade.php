@@ -100,12 +100,12 @@
 
                         <div class="card-header">
 
-                            <button type="button" onclick="Colonias();"  class="btn btn-info">
+                            <button type="button" onclick="DescargarPdfColonias();"  class="btn btn-info">
                                 <i class="fa fa-file-csv"></i></i>&nbsp;PDF
                             </button>
                 
-                            <button type="button"  class="btn btn-info">
-                                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                            <button type="button" onclick="DescargarExcelColonias();" class="btn btn-info">
+                                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
                             </button>
                         </div>
 
@@ -123,10 +123,10 @@
                             <table class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th style="width: 15%" >Id</th>
+                                        <th style="width: 10%" >Id</th>
                                         <th style="width: 20%">Colonia</th>
                                         <th style="width: 30%">Codigo Postal</th>
-                                        <th style="width: 10%">Numero de Vendedores</th>
+                                        <th style="width: 15%">Vendedores</th>
                                         <th style="width: 25%" style="text-align: center">Opciones</th>
                                     </tr>
                                     {{ csrf_field() }}
@@ -134,7 +134,6 @@
                                 </thead>
                             </table> 
                            
-
                             <div class="ajustar" style="overflow-y: auto">
 
                                 <input type="text" id="id_agencia" name="id_agencia" hidden>
@@ -215,6 +214,10 @@
                         <div id="map_colonia" style="height:200px;"></div> 
                     </div>
 
+                    <div class="form-group">
+                        <label for="">Codigo Postal :</label>
+                        <b id="codigo_show"/>
+                    </div>
                 
                 </div>
             </div>
