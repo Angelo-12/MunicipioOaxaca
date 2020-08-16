@@ -18,8 +18,8 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <a type="button" href=""  class="btn btn-info">
-                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+            <a type="button" href="{{url('Actividades/descargar_excel')}}" class="btn btn-info">
+                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
             </a>
         </div>
         <div class="card-body">
@@ -27,8 +27,8 @@
                 <div class="col-md-6">
                     <div class="input-group">
 
-                        <input type="text"  class="form-control" placeholder="Texto a buscar" id="caja_busqueda_actividades" name="caja_busqueda_actividades">
-                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                        <input type="text"   class="form-control" placeholder="Texto a buscar" id="caja_busqueda_actividades">
+                        <button type="submit" onclick="BuscarActividadComercial();" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
             </div>
@@ -44,6 +44,12 @@
 
                 </thead>
                 <tbody>
+                    @if ($actividades->count()==0)
+                        <tr>
+                            <td colspan='5' align='center' >No hay registros</td>
+                        </tr>
+                    @else
+                    
                     @foreach ($actividades as $a)
                    
                     <tr class="post{{$a->id}}">
@@ -63,7 +69,8 @@
                             </button>
                         </td>
                     </tr>             
-                    @endforeach                   
+                    @endforeach  
+                    @endif                        
                 </tbody>
             </table>
          
@@ -125,7 +132,7 @@
                                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
                             </button>
                 
-                            <button type="button"  class="btn btn-info">
+                            <button type="button" onclick="DescargarExcelActividadesVendedor();" class="btn btn-info">
                                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
                             </button>
                         </div>
@@ -135,8 +142,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                 
-                                        <input type="text"  class="form-control" placeholder="Texto a buscar">
-                                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                        <input type="text"  class="form-control" placeholder="Texto a buscar" id="caja_busqueda_actividad_vendedor">
                                     </div>
                                 </div>
                             </div>
@@ -144,11 +150,11 @@
                             <table  class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr >
-                                        <th style="width: 10%" >Id</th>
-                                        <th style="width: 20%">RFC</th>
-                                        <th style="width: 30%">Curp</th>
-                                        <th style="width: 15%">Permiso</th>
-                                        <th style="width: 25%" style="text-align:center;">Opciones</th>
+                                        <th style="width: 10%;" >Id</th>
+                                        <th style="width: 20%;">RFC</th>
+                                        <th style="width: 30%;">Curp</th>
+                                        <th style="width: 15%;">Permiso</th>
+                                        <th style="width: 25%; text-align:center;" >Opciones</th>
                                     </tr>
                                     {{ csrf_field() }}
                 
@@ -156,6 +162,8 @@
                             </table>
 
                             <div class="ajustar" style="overflow-y: auto">
+                                <input type="text" id="id_actividad_comercial" name="id_actividad_comercial" hidden>
+
 
                                 <table id="table_actividad_vendedor" class="table table-bordered table-striped table-sm">
                                     <tbody >

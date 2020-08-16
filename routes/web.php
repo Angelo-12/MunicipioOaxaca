@@ -97,7 +97,8 @@ Route::group(['prefix' => 'Actividades'], function () {
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
     Route::get('descargar_pdf','Administrador\ActividadesComercialesController@descargar_pdf');
     Route::get('descargar_pdf_detalle/{id}','Administrador\ActividadesComercialesController@descargar_pdf_detalle');
-
+    Route::get('descargar_excel','Administrador\ActividadesComercialesController@descargar_excel');
+    Route::get('descargar_excel_vendedor/{id}','Administrador\ActividadesComercialesController@descargar_excel_vendedor');
 });
 
 Route::group(['prefix' => 'Observaciones'], function () {
@@ -124,6 +125,8 @@ Route::group(['prefix' => 'Agencia'], function () {
 
 Route::group(['prefix' => 'Colonia'], function () {
     Route::get('detalle/{id}','Administrador\ColoniasController@detalle');
+    Route::get('buscar/{dato}','Administrador\ColoniasController@buscar');
+    Route::get('vacio/{id}','Administrador\ColoniasController@vacio');
 });
 
 Route::get('index','Administrador\LoginController@index');

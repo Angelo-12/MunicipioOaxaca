@@ -10,7 +10,6 @@ use DB;
 class ColoniasController extends Controller
 {
     public function detalle($id){
-
         $colonia=Colonia::join('permiso','colonia.id','=','permiso.id_colonia')
         ->select('colonia.*',DB::raw('count(permiso.id_colonia)as total'))
         ->groupBy('colonia.id')
@@ -18,14 +17,18 @@ class ColoniasController extends Controller
         ->get();
 
         return $colonia;
-
     }
 
-    public function descargar_pdf(){
+    public function buscar($dato){
+        $colonia=Colonia::join('permiso','colonia.id','=','permiso.id_colonia')
+        ->select('colonia.*',DB::raw('count(permiso.id_colonia)as total'))
+        ->groupBy('colonia.id')
+        ->orWhere('colonia.id','=',$dato)
+        ->orWhere('colonia.nombre','LIKE','%'.$dato.'%')
+        ->orWhere('colonia.codigo_postal','=',$dato)
+        ->get();
 
+        return $colonia;
     }
 
-    public function descargar_excel(){
-
-    }
 }

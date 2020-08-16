@@ -11,6 +11,9 @@ use App\Models\Tipo_Actividad;
 use App\Models\Vendedor;
 use App\Models\Actividad_Comercial;
 use DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ActividadExport;
+use App\Exports\ActividadVendedorExport;
 
 class ActividadesComercialesController extends Controller
 {
@@ -88,8 +91,6 @@ class ActividadesComercialesController extends Controller
     }
 
     public function descargar_pdf(){
-
-
         $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
         ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
         ->groupBy('tipo_actividad.id')
@@ -106,18 +107,16 @@ class ActividadesComercialesController extends Controller
             ->orWhere('tipo_actividad.nombre_actividad','LIKE',"%$dato%")
             ->groupBy('tipo_actividad.id')
             ->get();
-        
 
-        return $actividades;
+        return view('administrador.actividades_comerciales')->with('actividades',$actividades);
     }
 
-    public function vacio(){
-        $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
-        ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
-        ->groupBy('tipo_actividad.id')
-        ->get();
+    public function descargar_excel(){
+        return Excel::download(new ActividadExport, 'actividades_comerciales.xlsx');
+    }
 
-        return $actividades;
+    public function descargar_excel_vendedor($id){
+        return Excel::download(new ActividadVendedorExport($id), 'actividades_comerciales_vendedores.xlsx');
     }
 
 }

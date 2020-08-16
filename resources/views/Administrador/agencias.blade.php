@@ -50,35 +50,41 @@
 
               </thead>
               <tbody >
-                  @foreach ($agencias as $a)
-                  <tr class="post{{$a->id}}">
-                      <td>{{$a->id}}</td>
-                      <td >{{$a->nombre}}</td>
-                      <td >{{$a->tipo_agencia}}</td>
-                      <td >{{$a->total}}</td>
-                      <td  align="center">
-                          <button type="button" class="show-modal-agencia btn btn-warning btn-sm" 
-                                  data-toggle="modal" 
-                                  data-target="#show_agencia"
-                                  data-id="{{$a->id}}" 
-                                  data-nombre="{{$a->nombre}}" 
-                                  data-tipo="{{$a->tipo_agencia}}"
-                                  data-total="{{$a->total}}"
-                                  data-longitud="{{$a->longitud_centro}}"
-                                  data-latitud="{{$a->latitud_centro}}"
-                                  title='Mostrar'>
-                              <i class="fa fa-eye"></i>
-                          </button>
+                  @if ($agencias->count()==0)
+                      <tr>
+                        <td colspan='5' align='center' >No hay registros</td>
+                      </tr>
+                  @else
+                    @foreach ($agencias as $a)
+                    <tr class="post{{$a->id}}">
+                        <td>{{$a->id}}</td>
+                        <td >{{$a->nombre}}</td>
+                        <td >{{$a->tipo_agencia}}</td>
+                        <td >{{$a->total}}</td>
+                        <td  align="center">
+                            <button type="button" class="show-modal-agencia btn btn-warning btn-sm" 
+                                    data-toggle="modal" 
+                                    data-target="#show_agencia"
+                                    data-id="{{$a->id}}" 
+                                    data-nombre="{{$a->nombre}}" 
+                                    data-tipo="{{$a->tipo_agencia}}"
+                                    data-total="{{$a->total}}"
+                                    data-longitud="{{$a->longitud_centro}}"
+                                    data-latitud="{{$a->latitud_centro}}"
+                                    title='Mostrar'>
+                                <i class="fa fa-eye"></i>
+                            </button>
 
-                          <button type="button" class="detalles-agencia btn btn-secondary btn-sm"
-                           data-id="{{$a->id}}" 
-                           title='Detalles'>
-                              <i class="fa fa-info-circle"></i>
-                          </button>
+                            <button type="button" class="detalles-agencia btn btn-secondary btn-sm"
+                            data-id="{{$a->id}}" 
+                            title='Detalles'>
+                                <i class="fa fa-info-circle"></i>
+                            </button>
 
-                      </td>
-                  </tr>             
-                  @endforeach                   
+                        </td>
+                    </tr>             
+                    @endforeach 
+                  @endif                  
               </tbody>
           </table>
           {!! $agencias->links() !!}
@@ -114,8 +120,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                 
-                                        <input type="text"  class="form-control" placeholder="Texto a buscar">
-                                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                        <input type="text" id="caja_busqueda_colonias"  class="form-control" placeholder="Texto a buscar">
                                     </div>
                                 </div>
                             </div>
