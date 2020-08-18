@@ -87,6 +87,8 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('vacio','Administrador\OrganizacionesController@vacio');
     Route::get('descargar_pdf','Administrador\OrganizacionesController@descargar_pdf');
     Route::get('descargar_pdf_detalle/{id}','Administrador\OrganizacionesController@descargar_pdf_detalle');
+    Route::get('descargar_excel','Administrador\OrganizacionesController@descargar_excel');
+    Route::get('descargar_excel_vendedor/{id}','Administrador\OrganizacionesController@descargar_excel_vendedor');
 });
 
 Route::group(['prefix' => 'Actividades'], function () {
@@ -117,10 +119,8 @@ Route::group(['prefix' => 'Agencia'], function () {
     Route::get('descargar_pdf','Administrador\AgenciasController@descargar_pdf');
     Route::get('descargar_pdf_colonias/{id}','Administrador\AgenciasController@descargar_pdf_colonias');
     Route::get('descargar_excel','Administrador\AgenciasController@descargar_excel');
-    Route::get('descargar_excel_colonias/{id}','Administrador\AgenciasController@descargar_excel_colonias');
-    
+    Route::get('descargar_excel_colonias/{id}','Administrador\AgenciasController@descargar_excel_colonias'); 
 });
-
 
 
 Route::group(['prefix' => 'Colonia'], function () {

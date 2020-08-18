@@ -765,7 +765,7 @@ $(document).ready(function() {
                 "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
                 "<td style='width: 23%;' align='center'>" +
                 "<button type='button' style='margin-right:3px;'  class='show-modal-actividad-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
-                "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                    "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
                  "</td>" +
             "</tr>");
           }
@@ -1579,91 +1579,6 @@ $(document).ready(function() {
         $('#fecha_vencimiento_error').addClass('d-none');
     }
 
-    $('#caja_busqueda').keyup(function(){
-    var consulta=$('#caja_busqueda').val();
-
-    if(consulta==""){
-            $.get('/Organizaciones/vacio', function(data){
-                $('#table tbody').empty();
-                if(data.length==0){
-                    $('#table').append("<tr>" +
-                        "<td colspan='5' align='center' >No hay registros</td>"
-                    +"</tr>");
-                }
-
-                for (var i=0; i<data.length;i++){  
-                    
-                    $('#table').append("<tr class='post" + data[i].id + "'>" +
-                        "<td >" + data[i].id + "</td>" +
-                        "<td >" + data[i].nombre_organizacion + "</td>" +
-                        "<td >" + data[i].nombre_dirigente + "</td>" +
-                        "<td >" + data[i].id + "</td>" +
-                        "<td align='center'>" +
-                            "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
-                            "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
-                                "<i class='fa fa-eye'></i>"+
-                            "</button>" +
-                            "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
-                                "title='Editar' "+
-                                "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
-                                "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
-                                "<i class='fa fa-pencil'></i>"+
-                            "</button>"+
-                            "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
-                                "<i class='fa fa-eraser'></i>"+
-                            "</button>"+
-                            "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
-                                "<i class='fa fa-info-circle'></i>"+
-                            "</button>"+
-                        "</td>" +
-                    "</tr>");
-                }
-
-            });
-    }else{
-            $.get('/Organizaciones/buscar/'+consulta, function(data){
-                    $('#table tbody').empty();
-                    if(data.length==0){
-                        $('#table').append("<tr>" +
-                            "<td colspan='5' align='center' >No hay registros</td>"
-                        +"</tr>");
-                    }
-
-                    for (var i=0; i<data.length;i++){  
-                        
-                        $('#table').append("<tr class='post" + data[i].id + "'>" +
-                            "<td >" + data[i].id + "</td>" +
-                            "<td >" + data[i].nombre_organizacion + "</td>" +
-                            "<td >" + data[i].nombre_dirigente + "</td>" +
-                            "<td >" + data[i].id + "</td>" +
-                            "<td align='center'>" +
-                                "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre_organizacion='" + data[i].nombre_organizacion + "'" +
-                                "data-nombre_dirigente='" + data[i].nombre_dirigente + "'>"+
-                                    "<i class='fa fa-eye'></i>"+
-                                "</button>" +
-                                "<button type='button' class='edit-modal btn btn-danger btn-sm'+ data-id='"+data[i].id+"'"+
-                                    "title='Editar' "+
-                                    "data-nombre_organizacion='"+data[i].nombre_organizacion+"' "+ 
-                                    "data-nombre_dirigente='"+data[i].nombre_dirigente+"'> "+
-                                    "<i class='fa fa-pencil'></i>"+
-                                "</button>"+
-                                "<button type='button' class='delete-modal btn btn-info btn-sm'+ data-id="+data[i].id+" title='Eliminar'>"+
-                                    "<i class='fa fa-eraser'></i>"+
-                                "</button>"+
-                                "<button type='button' class='detalles-organizacion btn btn-secondary btn-sm' data-id='"+data[i].id+"' title='Detalles'>"+
-                                    "<i class='fa fa-info-circle'></i>"+
-                                "</button>"+
-                            "</td>" +
-                        "</tr>");
-                    }
-
-            });
-    }
-
-    
-    }); 
-
-
     $('#caja_busqueda_colonias').keyup(function(){
         var consulta=$('#caja_busqueda_colonias').val();
         var id_agencia=$('#id_agencia').val();
@@ -1744,6 +1659,74 @@ $(document).ready(function() {
 
     });
 
+    $('#caja_busqueda_actividad_vendedor').keyup(function(){
+        var consulta=$('#caja_busqueda_actividad_vendedor').val();
+        var id_actividad=$('#id_actividad_comercial').val();
+        
+        if(consulta==""){
+          
+        $.get('/Actividad/detalle/'+id_actividad, function(data){
+                $('#table_actividad_vendedor tbody').empty();
+                if(data.length==0){
+                    $('#table_actividad_vendedor').append("<tr>" +
+                        "<td colspan='5' align='center' >No hay registros</td>"
+                    +"</tr>");
+                }
+        
+                for (var i=0; i<data.length;i++){  
+                    $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
+                        "<td style='width: 10%;'>" + data[i].id + "</td>" +
+                        "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                        "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
+                        "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
+                        "<td style='width: 23%;' align='center'>" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal-actividad-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                            "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                        "</td>" +
+                    "</tr>");
+                    
+                }
+        
+        });
+        
+        }else{
+            $.get('/Actividad/buscar/'+consulta, function(data){
+                $('#table_colonias tbody').empty();
+                if(data.length==0){
+                    $('#table_colonias').append("<tr>" +
+                        "<td colspan='4' align='center' >No hay registros</td>"
+                    +"</tr>");
+                }
+        
+                for (var i=0; i<data.length;i++){  
+                    
+                    $('#table_colonias').append("<tr class='post" + data[i].id + "'>" +
+                    "<td >" + data[i].id + "</td>" +
+                    "<td >" + data[i].nombre + "</td>" +
+                    "<td >" + data[i].codigo_postal + "</td>" +
+                    "<td >" + data[i].total + "</td>" +
+                    "<td style='width: 25%'>" +
+                        "<button type='button' style='margin-right:3px;'  class='show-modal-colonia btn btn-warning btn-sm' data-id='" + data[i].id + 
+                        "' data-nombre='" + data[i].nombre + "' " +
+                        "data-toggle='modal' "+
+                        "data-target='#show_colonia' "+
+                        "data-longitud_noreste='" + data[i].longitud_noresteC  + 
+                        "' data-latitud_noreste='" + data[i].latitud_noresteC  + 
+                        "' data-longitud_sureste='" + data[i].longitud_suresteC  + 
+                        "' data-latitud_sureste='" + data[i].latitud_suresteC  + 
+                        "' data-longitud_centro='" + data[i].longitud_centroC  + 
+                        "' data-latitud_centro='" + data[i].latitud_centroC  + 
+                        "' data-total='" + data[i].total +
+                        "' data-codigo='"+data[i].codigo_postal+ "'>"+
+                        "  <i class='fa fa-eye'></i></button>" +
+                    "</td>" +
+                    "</tr>");
+                }
+        
+            });
+        }
+
+    });
 
     function buscarAgencia(){
         var dato=$('#caja_busqueda_agencias').val();
@@ -1763,6 +1746,16 @@ $(document).ready(function() {
         }else{
             location.href='/Actividades/index';
         }    
+    }
+
+    function BuscarOrganizacion(){
+        var dato=$('#caja_busqueda_organizacion').val();
+        if(dato!=""){
+            location.href='/Organizaciones/buscar/'+dato;
+        }else{
+            location.href='/Organizaciones/index';
+        }    
+
     }
 
     function OrganizacionVendedor(){
@@ -1795,3 +1788,7 @@ $(document).ready(function() {
         location.href='/Actividades/descargar_excel_vendedor/'+id;
     }
 
+    function DescargarExcelOrganizacionesVendedores(){
+        var id=$('#id_organizacion').val();
+        location.href='/Organizaciones/descargar_excel_vendedor/'+id;
+    }

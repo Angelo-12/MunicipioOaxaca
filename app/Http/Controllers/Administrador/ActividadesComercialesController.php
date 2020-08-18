@@ -62,7 +62,7 @@ class ActividadesComercialesController extends Controller
         ->get();
 
         return $vendedor;
-    }
+   }
 
     public function descargar_pdf_detalle($id){
         if($id==1){
@@ -109,6 +109,18 @@ class ActividadesComercialesController extends Controller
             ->get();
 
         return view('administrador.actividades_comerciales')->with('actividades',$actividades);
+    }
+
+    public function buscar_vendedor($dato){
+        $vendedor=Vendedor::join('users','vendedor.id_usuario','=','users.id')
+        ->join('permiso','permiso.id','=','tipo_actividad')
+        ->where('tipo_actividad','=',$dato)
+        ->orWhere('tipo_actividad','=',$dato)
+        ->orWhere('tipo_actividad','=',$dato)
+        ->orWhere('tipo_actividad','=',$dato)
+        ->get();
+
+        return $vendedor;
     }
 
     public function descargar_excel(){

@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Organizacion;
 use App\Models\Vendedor;
+use App\Exports\OrganizacionExport;
+use App\Exports\OrganizacionVendedorExport;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 class OrganizacionesController extends Controller
 {
@@ -105,22 +108,25 @@ class OrganizacionesController extends Controller
     }
 
     public function buscar($dato){
-        $organizaciones=Organizacion::where('id','=',$dato)
-        ->orWhere('nombre_organizacion','LIKE',"%$dato%")
-        ->orWhere('nombre_dirigente','LIKE',"%$dato%")
-        ->get();
-
-        return $organizaciones;
-    }
-
-    public function vacio(){
         $organizaciones=Organizacion::join('vendedor','organizacion.id','=','vendedor.id_organizacion')
         ->select('organizacion.*',DB::raw('count(vendedor.id_organizacion)as total'))
         ->where('organizacion.status','=',1)
+        ->where('organizacion.id','=',$dato)
+        ->orWhere('organizacion.nombre_organizacion','LIKE','%'.$dato.'%')
+        ->orWhere('organizacion.nombre_dirigente','LIKE','%'.$dato.'%')
         ->groupBy('organizacion.id')
-        ->get();
-        //->paginate(10);
+        ->paginate(10);
 
-        return $organizaciones;
+        return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
+    }
+
+    public function descargar_excel(){
+        return Excel::download(new OrganizacionExport, 'organizaciones.xlsx');
+
+    }
+
+    public function descargar_excel_vendedor($id){
+        return Excel::download(new OrganizacionVendedorExport($id), 'organizaciones_vendedor.xlsx');
+
     }
 }

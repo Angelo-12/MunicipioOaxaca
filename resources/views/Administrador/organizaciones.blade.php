@@ -16,29 +16,28 @@
 
     <div class="card">
 
-        <div class="salida"></div>
-
         <div class="card-header">
 
-            <a class="create-modal btn btn-secondary">
+            <button class="create-modal btn btn-secondary">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
-            </a>
+            </button>
+            
             <a type="button"  class="btn btn-info" href="{{url('Organizaciones/descargar_pdf')}}">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <button type="button"  class="btn btn-info">
-                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
-            </button>
+            <a type="button" href="{{url('Organizaciones/descargar_excel')}}"  class="btn btn-info">
+                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+            </a>
         </div>
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-md-6">
                     <div class="input-group">
 
-                        <input type="text"  class="form-control" placeholder="Texto a buscar" name="caja_busqueda" 
-                        id="caja_busqueda">
-                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                        <input type="text" class="form-control" placeholder="Texto a buscar" name="caja_busqueda" 
+                        id="caja_busqueda_organizacion">
+                        <button type="submit" onclick="BuscarOrganizacion();" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
             </div>
@@ -55,40 +54,48 @@
 
                 </thead>
                 <tbody >
-                    @foreach ($organizaciones as $o)
-                    <tr class="post{{$o->id}}">
-                        <td>{{$o->id}}</td>
-                        <td >{{$o->nombre_organizacion}}</td>
-                        <td >{{$o->nombre_dirigente}}</td>
-                        <td >{{$o->total}}</td>
-                        <td  align="center">
-                            <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$o->id}}"
+
+                    @if($organizaciones->count()==0)
+                      <tr>
+                        <td colspan='5' align='center' >No hay registros</td>
+                      </tr>
+                    @else
+                        @foreach ($organizaciones as $o)
+                            <tr class="post{{$o->id}}">
+                                <td>{{$o->id}}</td>
+                                <td >{{$o->nombre_organizacion}}</td>
+                                <td >{{$o->nombre_dirigente}}</td>
+                                <td >{{$o->total}}</td>
+                                <td  align="center">
+                                    <button type="button" class="show-modal btn btn-warning btn-sm" data-id="{{$o->id}}"
+                                            data-nombre_organizacion="{{$o->nombre_organizacion}}" 
+                                            data-nombre_dirigente="{{$o->nombre_dirigente}}"
+                                            data-total="{{$o->total}}"
+                                            title='Mostrar'>
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+
+                                    <button type="button" class="edit-modal btn btn-danger btn-sm" data-id="{{$o->id}}"
                                     data-nombre_organizacion="{{$o->nombre_organizacion}}" 
-                                    data-nombre_dirigente="{{$o->nombre_dirigente}}"
-                                    data-total="{{$o->total}}"
-                                    title='Mostrar'>
-                                <i class="fa fa-eye"></i>
-                            </button>
+                                            data-nombre_dirigente="{{$o->nombre_dirigente}}"
+                                            title='Editar'>
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
 
-                            <button type="button" class="edit-modal btn btn-danger btn-sm" data-id="{{$o->id}}"
-                              data-nombre_organizacion="{{$o->nombre_organizacion}}" 
-                                    data-nombre_dirigente="{{$o->nombre_dirigente}}"
-                                    title='Editar'>
-                                <i class="fa fa-pencil-alt"></i>
-                            </button>
+                                    <button type="button" class="delete-modal btn btn-info btn-sm" data-id="{{$o->id}}" title='Eliminar'>
+                                        <i class="fa fa-eraser"></i>
+                                    </button>
 
-                            <button type="button" class="delete-modal btn btn-info btn-sm" data-id="{{$o->id}}" title='Eliminar'>
-                                <i class="fa fa-eraser"></i>
-                            </button>
+                                    <button type="button" class="detalles-organizacion btn btn-secondary btn-sm"
+                                    data-id="{{$o->id}}" title='Detalles'>
+                                        <i class="fa fa-info-circle"></i>
+                                    </button>
 
-                            <button type="button" class="detalles-organizacion btn btn-secondary btn-sm"
-                             data-id="{{$o->id}}" title='Detalles'>
-                                <i class="fa fa-info-circle"></i>
-                            </button>
-
-                        </td>
-                    </tr>             
-                    @endforeach                   
+                                </td>
+                            </tr>             
+                        @endforeach          
+                    @endif
+         
                 </tbody>
             </table>
             {!! $organizaciones->links() !!}
@@ -269,12 +276,12 @@
                         <div class="modal-body" >
 
                             <div class="card-header">
-                                <a type="button" onclick="OrganizacionVendedor();"  class="btn btn-info">
+                                <button type="button" onclick="OrganizacionVendedor();"  class="btn btn-info">
                                     <i class="fa fa-file-pdf"></i>&nbsp;PDF
-                                </a>
+                                </button>
                     
-                                <button type="button"  class="btn btn-info">
-                                    <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                                <button type="button" onclick="DescargarExcelOrganizacionesVendedores();" class="btn btn-info">
+                                    <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
                                 </button>
                             </div>
 
@@ -283,8 +290,7 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                     
-                                            <input type="text"  class="form-control" placeholder="Texto a buscar">
-                                            <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                            <input type="text" id="caja_busqueda_vendedor_organizacion" class="form-control" placeholder="Texto a buscar">
                                         </div>
                                     </div>
                                 </div>

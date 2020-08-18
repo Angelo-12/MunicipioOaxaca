@@ -34,8 +34,6 @@ class AgenciasController extends Controller
         ->groupBy('agencia.id')
         ->paginate(10);
 
-      //  return $agencias;
-
       return view('Administrador.agencias')->with('agencias',$agencias);
 
     }
