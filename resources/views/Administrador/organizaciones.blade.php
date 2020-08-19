@@ -290,27 +290,32 @@
                                     <div class="col-md-6">
                                         <div class="input-group">
                     
-                                            <input type="text" id="caja_busqueda_vendedor_organizacion" class="form-control" placeholder="Texto a buscar">
+                                            <input type="text" id="caja_busqueda_organizacion_vendedor" class="form-control" placeholder="Texto a buscar">
                                         </div>
                                     </div>
                                 </div>
+
+                                <table  class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr >
+                                            <th style="width: 10%;" >Id</th>
+                                            <th style="width: 20%;">RFC</th>
+                                            <th style="width: 30%;">Curp</th>
+                                            <th style="width: 15%;">Permiso</th>
+                                            <th style="width: 25%; text-align:center;" >Opciones</th>
+                                        </tr>
+                                        {{ csrf_field() }}
+                    
+                                    </thead>
+                                </table>
+
 
                                 <div class="ajustar" style="overflow-y: auto">
 
                                     <input type="text" id="id_organizacion" name="id" hidden>
 
                                     <table id="table_organizacion_vendedor" class="table table-bordered table-striped table-sm">
-                                        <thead>
-                                            <tr >
-                                                <th style="width: 15%" >Id</th>
-                                                <th style="width: 20%">RFC</th>
-                                                <th style="width: 30%">Curp</th>
-                                                <th style="width: 10%">Permiso</th>
-                                                <th style="width: 25%" align="center">Opciones</th>
-                                            </tr>
-                                            {{ csrf_field() }}
-                        
-                                        </thead>
+                                    
                                         <tbody >
                                                             
                                         </tbody>

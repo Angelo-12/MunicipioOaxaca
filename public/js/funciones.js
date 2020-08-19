@@ -544,8 +544,8 @@ $(document).ready(function() {
 
     $('#id_agencia').change(function(){
         var agencia = $(this).val();
-        console.log(agencia);
-        $.get('/Agencia/detalle/'+agencia, function(data){
+        
+        $.get('/Agencia/detalle_agencia/'+agencia, function(data){
             var colonia_select = '<option value="" selected disabled>Seleccionar colonia</option>'
               for (var i=0; i<data.length;i++)
                 colonia_select+='<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
@@ -674,11 +674,11 @@ $(document).ready(function() {
           for (var i=0; i<data.length;i++){  
             
             $('#table_organizacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
-                "<td style='width: 15%'>" + data[i].id + "</td>" +
-                "<td style='width: 20%'>" + data[i].rfc + "</td>" +
-                "<td style='width: 30%'>" + data[i].curp + "</td>" +
-                "<td style='width: 10%'>" + data[i].id_permiso + "</td>" +
-                "<td style='width: 25%' align='center'>" +
+                "<td style='width: 10%'>" + data[i].id + "</td>" +
+                "<td style='width: 21%'>" + data[i].rfc + "</td>" +
+                "<td style='width: 30.5%'>" + data[i].curp + "</td>" +
+                "<td style='width: 16%'>" + data[i].id_permiso + "</td>" +
+                "<td style='width: 23%; text-align:center;' >" +
                 "<button type='button' style='margin-right:3px;'  class='show-modal-organizacion-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
                 "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
                 /*"<button type='button' style='margin-right:3px;' class='btn btn-danger btn-sm' data-idorganizacion='" + data[i].id + "'><i class='fa fa-pencil-alt'></i></button>" +
@@ -1253,6 +1253,8 @@ $(document).ready(function() {
     //Funcion para agregar un nuevo permiso e insertar el registro en la base de datos
     $("#agregar_permiso").click(function(){
         var actividad=$('#tipo_actividad option:selected').val();
+        var id_colonia=$('#id_colonia option:selected').val();
+
         var dias = '';    
         var total_dias;
         $('#formulario input[type=checkbox]').each(function(){
@@ -1277,6 +1279,7 @@ $(document).ready(function() {
                 'hora_inicio': $('input[name=hora_inicio]').val(),
                 'hora_fin': $('input[name=hora_fin]').val(),
                 'detalles': $('textarea[name=detalles]').val(),
+                'id_colonia': id_colonia,
             },
             dataType:'json',
             success: function(data) {
@@ -1665,7 +1668,32 @@ $(document).ready(function() {
         
         if(consulta==""){
           
-        $.get('/Actividad/detalle/'+id_actividad, function(data){
+            $.get('/Actividades/detalle/'+id_actividad, function(data){
+                    $('#table_actividad_vendedor tbody').empty();
+                    if(data.length==0){
+                        $('#table_actividad_vendedor').append("<tr>" +
+                            "<td colspan='5' align='center' >No hay registros</td>"
+                        +"</tr>");
+                    }
+            
+                    for (var i=0; i<data.length;i++){  
+                        $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
+                            "<td style='width: 10%;'>" + data[i].id + "</td>" +
+                            "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                            "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
+                            "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
+                            "<td style='width: 23%' style='text-align=center'>" +
+                            "<button type='button' style='margin-right:3px;'  class='show-modal-actividad-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                                "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                            "</td>" +
+                        "</tr>");
+                        
+                    }
+            
+            });
+        
+        }else{
+            $.get('/Actividades/buscar_vendedor/'+consulta, function(data){
                 $('#table_actividad_vendedor tbody').empty();
                 if(data.length==0){
                     $('#table_actividad_vendedor').append("<tr>" +
@@ -1674,53 +1702,17 @@ $(document).ready(function() {
                 }
         
                 for (var i=0; i<data.length;i++){  
+                    
                     $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
-                        "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                        "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
-                        "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
-                        "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
-                        "<td style='width: 23%;' align='center'>" +
-                        "<button type='button' style='margin-right:3px;'  class='show-modal-actividad-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
-                            "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
-                        "</td>" +
-                    "</tr>");
-                    
-                }
-        
-        });
-        
-        }else{
-            $.get('/Actividad/buscar/'+consulta, function(data){
-                $('#table_colonias tbody').empty();
-                if(data.length==0){
-                    $('#table_colonias').append("<tr>" +
-                        "<td colspan='4' align='center' >No hay registros</td>"
-                    +"</tr>");
-                }
-        
-                for (var i=0; i<data.length;i++){  
-                    
-                    $('#table_colonias').append("<tr class='post" + data[i].id + "'>" +
-                    "<td >" + data[i].id + "</td>" +
-                    "<td >" + data[i].nombre + "</td>" +
-                    "<td >" + data[i].codigo_postal + "</td>" +
-                    "<td >" + data[i].total + "</td>" +
-                    "<td style='width: 25%'>" +
-                        "<button type='button' style='margin-right:3px;'  class='show-modal-colonia btn btn-warning btn-sm' data-id='" + data[i].id + 
-                        "' data-nombre='" + data[i].nombre + "' " +
-                        "data-toggle='modal' "+
-                        "data-target='#show_colonia' "+
-                        "data-longitud_noreste='" + data[i].longitud_noresteC  + 
-                        "' data-latitud_noreste='" + data[i].latitud_noresteC  + 
-                        "' data-longitud_sureste='" + data[i].longitud_suresteC  + 
-                        "' data-latitud_sureste='" + data[i].latitud_suresteC  + 
-                        "' data-longitud_centro='" + data[i].longitud_centroC  + 
-                        "' data-latitud_centro='" + data[i].latitud_centroC  + 
-                        "' data-total='" + data[i].total +
-                        "' data-codigo='"+data[i].codigo_postal+ "'>"+
-                        "  <i class='fa fa-eye'></i></button>" +
-                    "</td>" +
-                    "</tr>");
+                            "<td style='width: 10%;'>" + data[i].id + "</td>" +
+                            "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                            "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
+                            "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
+                            "<td style='width: 23%' style='text-align=center'>" +
+                            "<button type='button' style='margin-right:3px;'  class='show-modal-actividad-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                                "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                            "</td>" +
+                        "</tr>");
                 }
         
             });
@@ -1728,7 +1720,61 @@ $(document).ready(function() {
 
     });
 
-    function buscarAgencia(){
+    $('#caja_busqueda_organizacion_vendedor').keyup(function(){
+        var consulta=$('#caja_busqueda_organizacion_vendedor').val();
+        var id_organizacion=$('#id_organizacion').val();
+        
+        if(consulta==""){
+            $.get('/Organizaciones/detalle/'+id_organizacion, function(data){
+                    $('#table_organizacion_vendedor tbody').empty();
+                    if(data.length==0){
+                        $('#table_organizacion_vendedor').append("<tr>" +
+                            "<td colspan='5' align='center' >No hay registros</td>"
+                        +"</tr>");
+                    }
+            
+                    for (var i=0; i<data.length;i++){  
+                        $('#table_organizacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
+                            "<td style='width: 10%;'>" + data[i].id + "</td>" +
+                            "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                            "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
+                            "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
+                            "<td style='width: 25%' style='text-align=center'>" +
+                                "<button type='button' style='margin-right:3px;'  class='show-modal-organizacion-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                                "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                            "</td>" +
+                        "</tr>");
+                    }
+            
+            });
+        
+        }else{
+            $.get('/Organizaciones/buscar_vendedor/'+consulta, function(data){
+                $('#table_organizacion_vendedor tbody').empty();
+                if(data.length==0){
+                    $('#table_organizacion_vendedor').append("<tr>" +
+                        "<td colspan='5' align='center' >No hay registros</td>"
+                    +"</tr>");
+                }
+        
+                for (var i=0; i<data.length;i++){  
+                    
+                    $('#table_organizacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
+                        "<td >" + data[i].id + "</td>" +
+                        "<td >" + data[i].rfc + "</td>" +
+                        "<td >" + data[i].curp + "</td>" +
+                        "<td >" + data[i].id_permiso + "</td>" +
+                        "<td style='width: 25%' align='center'>" +
+                            "<button type='button' style='margin-right:3px;'  class='show-modal-organizacion-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                            "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                        "</td>" +
+                    "</tr>");
+                }
+            });
+        }
+    });    
+
+    function BuscarAgencia(){
         var dato=$('#caja_busqueda_agencias').val();
 
         if(dato!=""){
@@ -1756,6 +1802,15 @@ $(document).ready(function() {
             location.href='/Organizaciones/index';
         }    
 
+    }
+
+    function BuscarZona(){
+        var dato=$('#caja_busqueda_zona').val();
+        if(dato!=""){
+            location.href='/Zonas/buscar/'+dato;
+        }else{
+            location.href='/Zonas/index';
+        }     
     }
 
     function OrganizacionVendedor(){

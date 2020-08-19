@@ -14,14 +14,12 @@ class ZonaController extends Controller
 {
     //Funcion que regresa la pagina principal de las zonas de comercializacion
     public function index(){
-        //$zonas=Permisos::join('calle','permiso.id_calle','=','calle.id')
-        //$zonas=Calle::join('zona','zona.id','=','calle.id_zona')
-        //->join('zona','zona.id','=','calle.id_zona')
-        //->select('zona.*',DB::raw('count(permiso.id)as total'))
-        //->groupBy('zona.id')
-        //->get();
+        $zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
+        ->select('zona.*',DB::raw('count(permiso.id)as total'))
+        ->groupBy('zona.id')
+        ->get();
 
-        $zonas=Zona::all();
         return view('Administrador.zonas_comercializacion_inicio')->with('zonas',$zonas);
     }
 
@@ -47,8 +45,21 @@ class ZonaController extends Controller
         return view('Administrador.detalle_zona')->with('vendedor',$vendedor)->with('zona',$zona);
     }
 
+    public function detalle($id){
+        $zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
+        ->join('users','users.id','permiso.id_usuario')
+        ->join('vendedor','vendedor.id_usuario','users.id')
+        ->select('permiso.*')
+        ->where('zona.id','=',$id)
+        ->get();
+
+        return $zonas;
+
+    }
+
     //Muestra un pdf con las zonas y el detalle de cada una de ellas y asi como tambien muestra la opcion para descargalos
-    public function exportarPdf(){
+    public function descargar_pdf(){
         $zonas=Permisos::join('calle','permiso.id_calle','=','calle.id')
         ->join('zona','zona.id','=','calle.id_zona')
         ->select('zona.*',DB::raw('count(permiso.id)as total'))
@@ -58,6 +69,17 @@ class ZonaController extends Controller
         $pdf=\PDF::loadView('Pdfs.zonas',compact('zonas'));
 
         return $pdf->stream();
+    }
+
+    public function buscar($dato){
+        $zonas=Zona::where('id','=',$dato)
+        ->orWhere('nombre','LIKE','%'.$dato.'%')
+        ->get();
+        return view('Administrador.zonas_comercializacion_inicio')->with('zonas',$zonas);
+    }
+
+    public function descargar_excel(){
+
     }
 
 }

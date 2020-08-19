@@ -16,16 +16,16 @@
 
       <div class="card-header">
 
-          <a class="create-modal btn btn-secondary">
+          <button type="button" class="create-modal btn btn-secondary">
               <i class="fa fa-plus"></i>&nbsp;Nuevo
-          </a>
+          </button>
           <a type="button"  class="btn btn-info" href="{{url('Zonas/descargar_pdf')}}">
               <i class="fa fa-file-pdf"></i>&nbsp;PDF
           </a>
 
-          <button type="button"  class="btn btn-info">
-              <i class="fa fa-file-csv"></i></i>&nbsp;CSV
-          </button>
+          <a type="button" href="{{url('Zonas/descargar_excel')}}" class="btn btn-info">
+              <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+          </a>
       </div>
       <div class="card-body">
           <div class="form-group row">
@@ -34,11 +34,11 @@
 
                       <input type="text"  class="form-control" placeholder="Texto a buscar" name="caja_busqueda_zona" 
                       id="caja_busqueda_zona">
-                      <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                      <button type="submit" onclick="BuscarZona();"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                   </div>
               </div>
           </div>
-          <table id="table" class="table table-bordered table-striped table-sm">
+          <table id="table_zona" class="table table-bordered table-striped table-sm">
               <thead >
                   <tr >
                       <th  >Id</th>
@@ -50,6 +50,11 @@
 
               </thead>
               <tbody >
+                @if ($zonas->count()==0)
+                    <tr>
+                    <td colspan='5' align='center' >No hay registros</td>
+                    </tr>
+                @else
                   @foreach ($zonas as $z)
                   <tr class="post{{$z->id}}">
                       <td>{{$z->id}}</td>
@@ -74,7 +79,8 @@
 
                       </td>
                   </tr>             
-                  @endforeach                   
+                  @endforeach  
+                @endif                      
               </tbody>
           </table>
          
@@ -116,13 +122,13 @@
                     <div class="modal-body" >
 
                         <div class="card-header">
-                            <a type="button" onclick="ZonaVendedor();"  class="btn btn-info">
+                            <button type="button" onclick="" class="btn btn-info">
                                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-                            </a>
-                
-                            <button type="button"  class="btn btn-info">
-                                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
                             </button>
+                
+                            <button type="button" onclick="" class="btn btn-info">
+                                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+                            </a>
                         </div>
 
                         <div class="card-body">
@@ -131,7 +137,6 @@
                                     <div class="input-group">
                 
                                         <input type="text"  class="form-control" placeholder="Texto a buscar">
-                                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                     </div>
                                 </div>
                             </div>

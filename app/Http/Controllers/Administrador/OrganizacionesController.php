@@ -120,6 +120,17 @@ class OrganizacionesController extends Controller
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
     }
 
+    public function buscar_vendedor($dato){
+        $vendedores=Vendedor::join('users','users.id','=','vendedor.id_usuario')
+        ->where('vendedor.id_organizacion','=',$dato)
+        ->orWhere('vendedor.rfc','LIKE','%'.$dato.'%')
+        ->orWhere('vendedor.curp','LIKE','%'.$dato.'%')
+        ->orWhere('vendedor.id_permiso','LIKE','%'.$dato.'%')
+        ->get();
+
+        return $vendedores;   
+    }
+
     public function descargar_excel(){
         return Excel::download(new OrganizacionExport, 'organizaciones.xlsx');
 

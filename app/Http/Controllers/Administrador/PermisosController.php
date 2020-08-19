@@ -64,6 +64,7 @@ class PermisosController extends Controller
             'hora_inicio'=>'required',
             'hora_fin'=>'required',
             'detalles'=>'required',
+            'id_colonia'=>'required'
          );
  
          $validator = Validator::make ( Input::all(), $rules);
@@ -83,6 +84,7 @@ class PermisosController extends Controller
              $permiso->hora_inicio=$request->input('hora_inicio');
              $permiso->hora_fin=$request->input('hora_fin');
              $permiso->detalles=$request->input('detalles');
+             $permiso->id_colonia=$request->input('id_colonia');
              $permiso->asignado='0';
              $permiso->status='1';
              $permiso->save();

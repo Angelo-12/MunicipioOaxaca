@@ -22,7 +22,6 @@ class AgenciasController extends Controller
         ->paginate(10);
 
         return view('Administrador.agencias')->with('agencias',$agencias);
-
     }
 
     public function buscar($dato){
@@ -43,6 +42,14 @@ class AgenciasController extends Controller
         ->join('permiso','permiso.id_colonia','=','colonia.id')
         ->select('colonia.*',DB::raw('count(permiso.id_colonia)as total'))
         ->groupBy('colonia.id')
+        ->where('agencia.id','=',$id)
+        ->get();
+
+        return $agencias;
+    }
+
+    public function detalle_agencia($id){
+        $agencias=Agencia::join('colonia','agencia.id','=','colonia.id_agencia')
         ->where('agencia.id','=',$id)
         ->get();
 

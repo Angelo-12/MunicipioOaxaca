@@ -1,83 +1,6 @@
 @extends('layouts.master2')
 
 @section('content')
-
-<div class="container-fluid center">
-      <div class="card">
-        <div class="card-header">
-            <h1>
-              Zonas
-              de Comercialización
-            </h1>
-        </div>
-        <div class="card-body">
-        
-          <div class="row">
-                <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box azul">
-                    <div class="inner verde" >
-                      <h3>150</h3>
-  
-                      <p>PERMITIDA</p>
-                    </div>
-                    <div class="icon azul">
-                      <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="detalle_zona/1" id="permitida" class="small-box-footer">Mas Informacion <i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-green azul">
-                    <div class="inner amarillo">
-                      <h3>53<sup style="font-size: 20px">%</sup></h3>
-  
-                      <p>REGISTRINGIDA</p>
-                    </div>
-                    <div class="icon">
-                      <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="detalle_zona/2" class="small-box-footer">Mas Informacion <i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-yellow azul">
-                    <div class="inner rojo">
-                      <h3>44</h3>
-  
-                      <p>PROHIBIDA</p>
-                    </div>
-                    <div class="icon">
-                      <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="detalle_zona/3" class="small-box-footer">Mas Informacion<i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-xs-6">
-                  <!-- small box -->
-                  <div class="small-box bg-red azul">
-                    <div class="inner gris">
-                      <h3>65</h3>
-  
-                      <p>SIN ZONA</p>
-                    </div>
-                    <div class="icon">
-                      <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="detalle_zona/4" class="small-box-footer">Mas Informacion<i class="fa fa-arrow-circle-right"></i></a>
-                  </div>
-                </div>
-                <!-- ./col -->
-              </div>
-        </div>
-      </div>
-
-</div>
         
   <div class="container-fluid">
     <!-- Ejemplo de tabla Listado -->
@@ -88,7 +11,7 @@
             </a>
 
             <button type="button"  class="btn btn-info">
-                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
             </button>
         </div>
         <div class="card-body">
@@ -96,7 +19,7 @@
                 <div class="col-md-6">
                     <div class="input-group">
                        
-                        <input type="text"  class="form-control" placeholder="Texto a buscar">
+                        <input type="text"  class="form-control" id="caja_busqueda_zona" placeholder="Texto a buscar">
                         <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>

@@ -72,9 +72,9 @@ Route::group(['prefix' => 'Revalidaciones'], function () {
 
 Route::group(['prefix' => 'Zonas'], function () {
     Route::get('index','Administrador\ZonaController@index');
-    Route::get('detalle_zona/{id}','Administrador\ZonaController@detalle_zona');
-    Route::get('pagination', 'Administrador\ZonaController@fetch_data');
-    Route::get('descargar_pdf','Administrador\ZonaController@exportarPdf');
+    Route::get('buscar/{dato}','Administrador\ZonaController@buscar');
+    Route::get('detalle/{id}','Administrador\ZonaController@detalle');
+    Route::get('descargar_pdf','Administrador\ZonaController@descargar_pdf');
 });
 
 Route::group(['prefix' => 'Organizaciones'], function () {
@@ -84,6 +84,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::post('eliminar','Administrador\OrganizacionesController@eliminar');
     Route::get('detalle/{id}','Administrador\OrganizacionesController@detalle_organizacion');
     Route::get('buscar/{dato}','Administrador\OrganizacionesController@buscar');
+    Route::get('buscar_vendedor/{dato}','Administrador\OrganizacionesController@buscar_vendedor');
     Route::get('vacio','Administrador\OrganizacionesController@vacio');
     Route::get('descargar_pdf','Administrador\OrganizacionesController@descargar_pdf');
     Route::get('descargar_pdf_detalle/{id}','Administrador\OrganizacionesController@descargar_pdf_detalle');
@@ -94,6 +95,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
 Route::group(['prefix' => 'Actividades'], function () {
     Route::get('index','Administrador\ActividadesComercialesController@index');
     Route::get('buscar/{dato}','Administrador\ActividadesComercialesController@buscar');
+    Route::get('buscar_vendedor/{dato}','Administrador\ActividadesComercialesController@buscar_vendedor');
     Route::get('vacio','Administrador\ActividadesComercialesController@vacio');
     Route::get('detalle/{id}','Administrador\ActividadesComercialesController@detalles');
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
@@ -116,6 +118,7 @@ Route::group(['prefix' => 'Agencia'], function () {
     Route::get('vacio','Administrador\AgenciasController@vacio');
     Route::get('buscar/{dato}','Administrador\AgenciasController@buscar');
     Route::get('detalle/{id}','Administrador\AgenciasController@detalle');
+    Route::get('detalle_agencia/{id}','Administrador\AgenciasController@detalle_agencia');
     Route::get('descargar_pdf','Administrador\AgenciasController@descargar_pdf');
     Route::get('descargar_pdf_colonias/{id}','Administrador\AgenciasController@descargar_pdf_colonias');
     Route::get('descargar_excel','Administrador\AgenciasController@descargar_excel');
