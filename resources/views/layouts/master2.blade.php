@@ -103,7 +103,7 @@
                   </li>
 
                   <li>
-                    <a href="{{url('Agencia/index')}}"><i class="fa fa-clipboard-list">
+                    <a href="{{url('Agencia/index')}}"><i class="fa fa-map-pin"></i>
                       </i>Agencias y Colonias
                     </a>
                   </li>

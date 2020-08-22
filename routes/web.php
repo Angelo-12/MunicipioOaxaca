@@ -75,6 +75,10 @@ Route::group(['prefix' => 'Zonas'], function () {
     Route::get('buscar/{dato}','Administrador\ZonaController@buscar');
     Route::get('detalle/{id}','Administrador\ZonaController@detalle');
     Route::get('descargar_pdf','Administrador\ZonaController@descargar_pdf');
+    Route::get('descargar_pdf_detalle/{id}','Administrador\ZonaController@descargar_pdf_detalle');
+    Route::get('descargar_excel','Administrador\ZonaController@descargar_excel');
+    Route::get('descargar_excel_detalle/{id}','Administrador\ZonaController@descargar_excel_detalle');
+    Route::get('buscar_vendedor/{dato}','Administrador\ZonaController@buscar_vendedor');
 });
 
 Route::group(['prefix' => 'Organizaciones'], function () {

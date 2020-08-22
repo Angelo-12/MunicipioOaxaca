@@ -337,7 +337,7 @@
     </div>
 
     <div id="show_organizacion_vendedor" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>

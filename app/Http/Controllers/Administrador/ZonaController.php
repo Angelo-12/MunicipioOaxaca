@@ -9,6 +9,8 @@ use App\Models\Permisos;
 use App\Models\Vendedor;
 use App\Models\Calle;
 use App\User;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ZonaExport;
 use DB;
 class ZonaController extends Controller
 {
@@ -48,9 +50,8 @@ class ZonaController extends Controller
     public function detalle($id){
         $zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
         ->join('permiso','permiso.id_colonia','=','colonia.id')
-        ->join('users','users.id','permiso.id_usuario')
-        ->join('vendedor','vendedor.id_usuario','users.id')
-        ->select('permiso.*')
+        ->join('vendedor','permiso.id','=','vendedor.id_permiso')
+        ->join('users','vendedor.id_usuario','=','users.id')
         ->where('zona.id','=',$id)
         ->get();
 
@@ -71,6 +72,27 @@ class ZonaController extends Controller
         return $pdf->stream();
     }
 
+    public function descargar_pdf_detalle($id){
+        $zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
+        ->join('vendedor','permiso.id','=','vendedor.id_permiso')
+        ->join('users','vendedor.id_usuario','=','users.id')
+        ->where('zona.id','=',$id)
+        ->get();
+
+        if($id==1){
+            $nombre="PERMITIDA";
+        }else if($id==2){
+            $nombre="RESTRINGIDA";
+        }else if($id==3){
+            $nombre="PROHIBIDA";
+        }
+
+        $pdf=\PDF::loadView('Pdfs.vendedores_zona',compact('zonas','nombre'));
+
+        return $pdf->stream();
+    }
+
     public function buscar($dato){
         $zonas=Zona::where('id','=',$dato)
         ->orWhere('nombre','LIKE','%'.$dato.'%')
@@ -79,7 +101,7 @@ class ZonaController extends Controller
     }
 
     public function descargar_excel(){
-
+        return Excel::download(new ZonaExport, 'ZonasComercializacion.xlsx');
     }
 
 }

@@ -122,11 +122,11 @@
                     <div class="modal-body" >
 
                         <div class="card-header">
-                            <button type="button" onclick="" class="btn btn-info">
+                            <button onclick="ZonasVendedor();" type="button" class="btn btn-info">
                                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
                             </button>
                 
-                            <button type="button" onclick="" class="btn btn-info">
+                            <button onclick="DescargarExcelZonasVendedores();" type="button" class="btn btn-info">
                                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
                             </a>
                         </div>
@@ -136,7 +136,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                 
-                                        <input type="text"  class="form-control" placeholder="Texto a buscar">
+                                        <input type="text" id="caja_busqueda_zona_vendedor"  class="form-control" placeholder="Texto a buscar">
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
     </div>
 
     <div id="show_zona_vendedor" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Detalles Vendedor</h5>
@@ -188,26 +188,26 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="">Nombre :</label>
-                        <p id="nombre_show"/>
+                        <b  for="">Nombre :</b>
+                        <p  id="nombre_show"/>
                     </div>
                     <div class="form-group">
-                        <label for="">Apellido Paterno :</label>
+                        <b for="">Apellido Paterno :</b>
                         <p id="apellido_paterno_show"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="">Apellido Materno :</label>
+                        <b for="">Apellido Materno :</b>
                         <p id="apellido_materno_show"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="">Sexo :</label>
+                        <b for="">Sexo :</b>
                         <p id="sexo_show"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="">Fecha de Registro :</label>
+                        <b for="">Fecha de Registro :</b>
                         <p id="fecha_show"/>
                     </div>
                 
