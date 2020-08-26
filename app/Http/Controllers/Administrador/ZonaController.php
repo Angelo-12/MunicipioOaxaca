@@ -11,6 +11,7 @@ use App\Models\Calle;
 use App\User;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ZonaExport;
+use App\Exports\ZonaVendedorExport;
 use DB;
 class ZonaController extends Controller
 {
@@ -94,14 +95,49 @@ class ZonaController extends Controller
     }
 
     public function buscar($dato){
-        $zonas=Zona::where('id','=',$dato)
-        ->orWhere('nombre','LIKE','%'.$dato.'%')
+        $zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
+        ->select('zona.*',DB::raw('count(permiso.id)as total'))
+        ->where('zona.id','=',$dato)
+        ->orWhere('zona.nombre','LIKE','%'.$dato.'%')
+        ->groupBy('zona.id')
         ->get();
+
         return view('Administrador.zonas_comercializacion_inicio')->with('zonas',$zonas);
+    }
+
+    public function buscar_vendedor($id,$dato){
+
+        $dato2 = '%'.$dato.'%';
+
+        $sql="select * from colonia c inner join zona z on c.id_zona= z.id 
+        inner join permiso p on p.id_colonia=c.id 
+        inner join vendedor v on v.id_permiso=p.id
+        inner join users u on u.id=v.id_usuario
+        where c.id_zona=? and (v.rfc like ? OR v.curp like ? OR u.name like ?)";
+        
+        return  DB::select($sql,array($id,$dato2,$dato2,$dato2));
+
+        /*$zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
+        ->join('vendedor','permiso.id','=','vendedor.id_permiso')
+        ->join('users','vendedor.id_usuario','=','users.id')
+        ->where('colonia.id_zona','=',$id)
+        ->orWhere('vendedor.rfc','LIKE','%'.$dato.'%')
+        ->orWhere('vendedor.curp','LIKE','%'.$dato.'%')
+        ->orWhere('vendedor.id_permiso','LIKE','%'.$dato.'%')
+       
+        ->get();
+    
+        return $zonas;*/
     }
 
     public function descargar_excel(){
         return Excel::download(new ZonaExport, 'ZonasComercializacion.xlsx');
+    }
+
+    public function descargar_excel_vendedor($id){
+        return Excel::download(new ZonaVendedorExport($id), 'VendedorZonas.xlsx');
     }
 
 }

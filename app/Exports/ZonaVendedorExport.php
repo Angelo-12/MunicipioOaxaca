@@ -2,14 +2,15 @@
 
 namespace App\Exports;
 
-use App\Models\Actividad_Comercial;
-use App\Models\Vendedor;
+use App\Models\Zona;
 use App\Models\Permiso;
+use App\Models\Colonia;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\view;
 use Maatwebsite\Excel\Facades\Excel;
 use DB;
-class ActividadVendedorExport implements FromView
+
+class ZonaVendedorExport implements FromView
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -24,18 +25,17 @@ class ActividadVendedorExport implements FromView
 
     public function collection()
     {
-        return Actividad_Comercial::all();
+        return Zona::all();
     }
 
     public function view(): View{
-
-        $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')
-        ->join('permiso','permiso.id','=','tipo_actividad')
+        $zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
         ->join('vendedor','permiso.id','=','vendedor.id_permiso')
         ->join('users','vendedor.id_usuario','=','users.id')
-        ->where('tipo_actividad','=',$this->id)
+        ->where('zona.id','=',$this->id)
         ->get();
 
-        return view('excel.actividad_vendedor',compact('vendedores'));
+        return view('excel.zonas_vendedor',compact('zonas'));
     }
 }

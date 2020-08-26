@@ -54,7 +54,7 @@
                    
                     <tr class="post{{$a->id}}">
                         <td >{{$a->id}}</td>
-                        <td >{{$a->nombre_actividad}}</td>
+                        <td >{{$a->nombreactividad}}</td>
                         <td >{{$a->total}}</td>
                         <td align="center">
                             <button type="button" class="show-modal-actividad btn btn-warning btn-sm" data-id="{{$a->id}}"

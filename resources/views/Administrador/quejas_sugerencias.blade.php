@@ -18,17 +18,17 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <button type="button"  class="btn btn-info">
-                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
-            </button>
+            <a type="button" href="{{url('Observaciones/descargar_excel')}}" class="btn btn-info">
+                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+            </a>
         </div>
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-md-6">
                     <div class="input-group">
 
-                        <input type="text"  class="form-control" placeholder="Texto a buscar">
-                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                        <input type="text" id="caja_busqueda_observacion" class="form-control" placeholder="Texto a buscar">
+                        <button type="submit" onclick="BuscarObservacion();" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,6 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Apellido Paterno</th>
-                        <th>Apellido Materno</th>
                         <th>Email</th>
                         <th>Motivo</th>
                         <th>Fecha</th>
@@ -50,15 +49,14 @@
                 <tbody>
                     @if ($observaciones->count()==0)
                         <tr>
-                            <td colspan="9" align="center" style="font-family: 'Courier New', Courier, monospace">No hay registros</td>
-                        </tr>    
+                            <td colspan='7' align='center' >No hay registros</td>
+                        </tr>
                     @else
                         @foreach ($observaciones as $o)
                         <tr class="post{{$o->id}}">
                             <td >{{$o->id}}</td>
                             <td >{{$o->nombre}}</td>
                             <td>{{$o->apellido_paterno}}</td>
-                            <td>{{$o->apellido_materno}}</td>
                             <td>{{$o->email}}</td>
                             <td>{{$o->motivo}}</td>
                             <td>{{$o->fecha}}</td>
@@ -71,6 +69,13 @@
                                         title="Responder">
                                         <i class="fa fa-inbox"></i>
                                 </button>
+
+                                <button type="button" class="detalles-observaciones btn btn-secondary btn-sm"
+                                data-id="{{$o->id}}" 
+                                title='Detalles'>
+                                    <i class="fa fa-info-circle"></i>
+                                </button>
+
                             </td>
                         </tr>             
                         @endforeach        
@@ -85,75 +90,6 @@
 
     <br>
     <br>
-
-    <div class="card">
-        <div class="card-header">
-            <h1>
-               Ver Seguimiento
-            </h1>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-
-                <button type="button"  class="btn btn-info">
-                    <i class="fa fa-file-pdf"></i>&nbsp;PDF
-                </button>
-    
-                <button type="button"  class="btn btn-info">
-                    <i class="fa fa-file-csv"></i></i>&nbsp;CSV
-                </button>
-        </div>
-
-
-        <div class="card-body">
-
-            <div class="form-group">
-                <label>Seleccione la queja</label>
-                <select name="observacion" id="observacion" class="form-control">
-                    <option value="" selected disabled>Seleccione la queja</option>
-                        @foreach ($observaciones as $o)
-                            <option value="{{$o->id}}">{{$o->email}}</option>
-                        @endforeach
-                </select>
-                <span class="text-danger" id="estado_error"></span>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <div class="input-group">
-
-                        <input type="text"  class="form-control" placeholder="Texto a buscar">
-                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
-                    </div>
-                </div>
-            </div>
-
-
-            <table id="table_seguimiento" class="table table-bordered table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Mensaje</th>
-                        <th>Status</th>
-                        <th>Id Queja</th>
-                        <th>Opciones</th>
-                    </tr>
-                    {{ csrf_field() }}
-
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="9" align="center" style="font-family: 'Courier New', Courier, monospace">No hay registros</td>
-                    </tr>    
-                         
-                </tbody>
-            </table>
-            {!! $observaciones->links() !!}
-        </div>
-
-    </div>
 
     <div id="show_observacion" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -236,6 +172,104 @@
         </div>
     </div>
 
+    <div id="show_detalles_observacion" class="modal fade" role="dialog">
+
+            <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Quejas</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+                        </div>
+
+                        <div class="modal-body" >
+
+                            <div class="card-header">
+                                <button type="button" onclick="OrganizacionVendedor();"  class="btn btn-info">
+                                    <i class="fa fa-file-pdf"></i>&nbsp;PDF
+                                </button>
+                    
+                                <button type="button" onclick="DescargarExcelOrganizacionesVendedores();" class="btn btn-info">
+                                    <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+                                </button>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                    
+                                            <input type="text" id="caja_busqueda_observacion_vendedor" class="form-control" placeholder="Texto a buscar">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <table  class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr >
+                                            <th style="width: 10%;" >Id</th>
+                                            <th style="width: 20%;">RFC</th>
+                                            <th style="width: 30%;">Curp</th>
+                                            <th style="width: 15%;">Permiso</th>
+                                            <th style="width: 25%; text-align:center;" >Opciones</th>
+                                        </tr>
+                                        {{ csrf_field() }}
+                    
+                                    </thead>
+                                </table>
+
+
+                                <div class="ajustar" style="overflow-y: auto">
+
+                                    <input type="text" id="id_observacion" name="id" hidden>
+
+                                    <table id="table_observacion_vendedor" class="table table-bordered table-striped table-sm">
+                                    
+                                        <tbody >
+                                                            
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            
+                            </div>
+                        </div>
+                         
+                        <div class="modal-footer">       
+                        </div>
+                    </div>            
+            </div>
+    </div>
+
+
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 @endsection

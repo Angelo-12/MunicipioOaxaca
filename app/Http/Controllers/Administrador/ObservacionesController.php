@@ -40,6 +40,19 @@ class ObservacionesController extends Controller
          }
     }
 
+    public function buscar($dato){
+        $observaciones=Observaciones::where('id','=',$dato)
+        ->orWhere('nombre','LIKE','%'.$dato.'%')
+        ->orWhere('apellido_paterno','LIKE','%'.$dato.'%')
+        ->orWhere('apellido_materno','LIKE','%'.$dato.'%')
+        ->orWhere('email','LIKE','%'.$dato.'%')
+        ->orWhere('fecha','=',$dato)
+        ->paginate(10);
+
+        return view('Administrador.quejas_sugerencias')->with('observaciones',$observaciones);
+        
+    }
+
     /**Funcion para mostrar el seguimiento a detalle de cada uno de las quejas y sugerencias  */
     public function seguimiento($id){
         $seguimiento=Seguimiento_Observaciones::where('id_observacion','=',$id)

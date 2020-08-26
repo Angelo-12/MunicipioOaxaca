@@ -43,6 +43,7 @@ class OrganizacionesController extends Controller
 
             $org->nombre_organizacion=$request->input('nombre_organizacion');
             $org->nombre_dirigente=$request->input('nombre_dirigente');
+            $org->status='1';
             $org->save();
     
             return response()->json($org);
@@ -120,15 +121,23 @@ class OrganizacionesController extends Controller
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
     }
 
-    public function buscar_vendedor($dato){
-        $vendedores=Vendedor::join('users','users.id','=','vendedor.id_usuario')
+    public function buscar_vendedor($id,$dato){
+
+        $dato2 = '%'.$dato.'%';
+
+        $sql="select * from users u inner join vendedor v on u.id= v.id_usuario 
+        where v.id_organizacion=? and (v.rfc like ? OR v.curp like ? OR u.name like ?)";
+        
+        return  DB::select($sql,array($id,$dato2,$dato2,$dato2));
+
+        /*$vendedores=Vendedor::join('users','users.id','=','vendedor.id_usuario')
         ->where('vendedor.id_organizacion','=',$dato)
         ->orWhere('vendedor.rfc','LIKE','%'.$dato.'%')
         ->orWhere('vendedor.curp','LIKE','%'.$dato.'%')
         ->orWhere('vendedor.id_permiso','LIKE','%'.$dato.'%')
         ->get();
 
-        return $vendedores;   
+        return $vendedores;   */
     }
 
     public function descargar_excel(){

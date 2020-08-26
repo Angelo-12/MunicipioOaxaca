@@ -16,9 +16,6 @@
 
       <div class="card-header">
 
-          <button type="button" class="create-modal btn btn-secondary">
-              <i class="fa fa-plus"></i>&nbsp;Nuevo
-          </button>
           <a type="button"  class="btn btn-info" href="{{url('Zonas/descargar_pdf')}}">
               <i class="fa fa-file-pdf"></i>&nbsp;PDF
           </a>
@@ -149,10 +146,10 @@
                                     <thead>
                                         <tr >
                                             <th style="width: 15%" >Id</th>
-                                            <th style="width: 20%">RFC</th>
+                                            <th style="width: 10%">Rfc</th>
                                             <th style="width: 30%">Curp</th>
-                                            <th style="width: 10%">Permiso</th>
-                                            <th style="width: 25%" style="text-align: center">Opciones</th>
+                                            <th style="width: 20%">Permiso</th>
+                                            <th style="width: 25%; text-align: center" style="text-align: center">Opciones</th>
                                         </tr>
                                         {{ csrf_field() }}
                     

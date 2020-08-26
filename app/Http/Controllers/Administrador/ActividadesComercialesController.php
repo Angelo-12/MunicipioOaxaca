@@ -8,7 +8,7 @@ use Response;
 use App\User;
 use App\Models\Permiso;
 use App\Models\Vendedor;
-use App\Models\Actividad_Comercial;
+use App\Models\ActividadComercial;
 use DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ActividadExport;
@@ -18,9 +18,9 @@ class ActividadesComercialesController extends Controller
 {
    
    public function index(){
-        $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
-        ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
-        ->groupBy('tipo_actividad.id')
+        $actividades=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
+        ->select('actividadcomercial.*',DB::raw('count(permiso.tipo_actividad)as total'))
+        ->groupBy('actividadcomercial.id')
         ->get();
         //return $actividades;
         return view('administrador.actividades_comerciales')->with('actividades',$actividades);
@@ -28,12 +28,14 @@ class ActividadesComercialesController extends Controller
    }
 
    public function detalles($id){
-    $vendedor=Vendedor::join('users','vendedor.id_usuario','=','users.id')
-    ->join('permiso','permiso.id','=','tipo_actividad')
-    ->where('tipo_actividad','=',$id)
+
+    $actividades=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
+    ->join('vendedor','vendedor.id_permiso','=','permiso.id')
+    ->join('users','users.id','=','vendedor.id_usuario')
+    ->where('actividadcomercial.id','=',$id)
     ->get();
 
-    return $vendedor;
+    return $actividades;
 
    }
 
@@ -84,15 +86,17 @@ class ActividadesComercialesController extends Controller
         return view('administrador.actividades_comerciales')->with('actividades',$actividades);
     }
 
-    public function buscar_vendedor($dato){
-        $vendedor=Vendedor::join('users','vendedor.id_usuario','=','users.id')
-        ->join('permiso','permiso.id','=','tipo_actividad')
-        ->where('tipo_actividad','=',$dato)
-        ->orWhere('vendedor.rfc','LIKE','%'.$dato.'%')
-        ->orWhere('vendedor.curp','LIKE','%'.$dato.'%')
-        ->get();
+    public function buscar_vendedor($dato,$id){
+        $dato2 = '%'.$dato.'%';
 
-        return $vendedor;
+        $sql="select * from actividadcomercial a inner join permiso p 
+        on a.id= p.tipo_actividad 
+        inner join vendedor v on v.id_permiso=p.id 
+        inner join users u on u.id=v.id_usuario
+        where a.id=? and (v.rfc like ? OR v.curp like ? OR u.name like ?)";
+        
+        return  DB::select($sql,array($id,$dato2,$dato2,$dato2));
+       
     }
 
     public function descargar_excel(){
