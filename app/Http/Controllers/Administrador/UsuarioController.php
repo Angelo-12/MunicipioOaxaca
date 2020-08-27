@@ -20,6 +20,7 @@ use App\Models\Calle;
 use App\Models\Estado;
 use Validator;
 use Response;
+use DB;
 
 class UsuarioController extends Controller
 {
@@ -43,7 +44,8 @@ class UsuarioController extends Controller
       
       $usuario->foto_perfil=$nombre_imagen;
       $usuario->save();
-      return $usuario;
+
+       return redirect()->to('home');
    
    }
 
@@ -226,6 +228,32 @@ class UsuarioController extends Controller
       }
    }
 
+   public function eliminar(Request $request){
+      $user=User::find($request->id);
+
+      $user->status='0';
+
+      $user->save();
+
+      return response()->json($user);      
+   }
+
+   public function buscar($dato){
+
+      $tipo="Administradores";
+
+      $dato2 = '%'.$dato.'%';
+
+      $sql="select * from users u inner join admin_secretaria a  on u.id= a.id_usuario 
+      where a.cargo like '%Administrador%' and (u.name like ? OR u.apellido_paterno like ? OR u.apellido_materno like ?
+      OR u.email like ? OR u.sexo = ? )";
+      
+      $usuarios = DB::select($sql,array($dato2,$dato2,$dato2,$dato2,$dato2));
+      $estado=Estado::all();
+
+      return view('Administrador.busqueda_usuarios',compact('usuarios','estado','tipo'))->render();
+
+   }
 
    public function insertar_rol(Request $request){
       $usuario=Administrador_Secretaria::where('id_usuario','=',$request->input('id_usuario'))->first();

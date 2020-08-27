@@ -9,6 +9,9 @@ use App\Models\Seguimiento_Observaciones;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use App\Exports\ObservacionExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ObservacionesController extends Controller
 {
     /**Muesta la pagina principal de las observaciones realizadas */
@@ -50,11 +53,10 @@ class ObservacionesController extends Controller
         ->paginate(10);
 
         return view('Administrador.quejas_sugerencias')->with('observaciones',$observaciones);
-        
     }
 
     /**Funcion para mostrar el seguimiento a detalle de cada uno de las quejas y sugerencias  */
-    public function seguimiento($id){
+    public function detalle($id){
         $seguimiento=Seguimiento_Observaciones::where('id_observacion','=',$id)
         ->get();
 
@@ -62,10 +64,17 @@ class ObservacionesController extends Controller
     }
 
     public function descargar_pdf(){
-
         $observaciones=Observaciones::all();
 
         $pdf=\PDF::loadView('Pdfs.quejas_sugerencias',compact('observaciones'));
         return $pdf->stream();
+    }
+
+    public function descargar_excel(){
+        return Excel::download(new ObservacionExport, 'observaciones.xlsx');
+    }
+
+    public function buscar_observacion($id,$dato){
+
     }
 }

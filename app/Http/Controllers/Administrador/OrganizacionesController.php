@@ -130,14 +130,6 @@ class OrganizacionesController extends Controller
         
         return  DB::select($sql,array($id,$dato2,$dato2,$dato2));
 
-        /*$vendedores=Vendedor::join('users','users.id','=','vendedor.id_usuario')
-        ->where('vendedor.id_organizacion','=',$dato)
-        ->orWhere('vendedor.rfc','LIKE','%'.$dato.'%')
-        ->orWhere('vendedor.curp','LIKE','%'.$dato.'%')
-        ->orWhere('vendedor.id_permiso','LIKE','%'.$dato.'%')
-        ->get();
-
-        return $vendedores;   */
     }
 
     public function descargar_excel(){

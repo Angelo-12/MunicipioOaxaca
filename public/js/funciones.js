@@ -462,7 +462,28 @@ $(document).ready(function() {
 
                 location.reload();       
             }
-         });
+        });
+    });
+
+    $('.modal-footer').on('click','.eliminar_usuario',function(){
+        $.ajax({
+            type: 'POST',
+            url: 'eliminar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $("#id_delete_usuario").val(),
+            },
+            success: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario eliminado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+                location.reload();       
+            }
+        });
     });
 
     //Funcion para mostrar los municipios dependiendo del estado seleccionado
@@ -584,6 +605,35 @@ $(document).ready(function() {
             $('#div_responder').hide();
             $('#div_enviar').hide();
         }     
+    });
+
+    $(document).on('click','.detalles-observacion',function(){
+       $('#show_detalles_observacion').modal('show');
+       var id=$(this).data('id');
+       $('#id_observacion2').val(id);
+       $('#table_observacion_vendedor tbody').empty();
+        $.get('/Observaciones/detalle/'+id, function(data){
+
+            if(data.length==0){
+                $('#table_observacion_vendedor').append("<tr>" +
+                    "<td colspan='5' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+
+          for (var i=0; i<data.length;i++){  
+            
+            $('#table_observacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
+                    "<td style='width: 10%'>" + data[i].id + "</td>" +
+                    "<td style='width: 21%'>" + data[i].mensaje + "</td>" +
+                    "<td style='width: 30.5%'>" + data[i].status + "</td>" +
+                    "<td style='width: 23%; text-align:center;' >" +
+                    "<button type='button' style='margin-right:3px;'  class='show-modal-organizacion-vendedor btn btn-warning btn-sm' data-id='" + data[i].id + "' data-nombre='" + data[i].name + "'" +
+                    "data-apellido-paterno='" + data[i].apellido_paterno + "' data-apellido-materno='" + data[i].apellido_materno + "' data-registro='" + data[i].created_at + "'  data-sexo='" + data[i].sexo + "'><i class='fa fa-eye'></i></button>" +
+                "</td>" +
+            "</tr>");
+            }
+
+        });
     });
 
     $(document).on('click','.detalles-organizacion',function(){
@@ -735,7 +785,6 @@ $(document).ready(function() {
          $('#show_vendedor').modal('show');
 
         var status=$(this).data('status');
-        console.log(status);
         if(status==1){
            $('#status_show').text('Activo'); 
         }else{
@@ -763,7 +812,6 @@ $(document).ready(function() {
     });
 
 });
-
 /******************************************* PERMISOS *****************************************************/
     //Funcion para que al dar click en el boton de sancion aparezca la ventana modal
     $(document).on('click','.asignar-sancion',function(){
@@ -1319,7 +1367,6 @@ $(document).ready(function() {
         });
     });
 
-
 /********************************************ORGANIZACIONES************************************************ */
 
     //Funcuion para crear la ventana modal para agregar una organizacion
@@ -1331,7 +1378,6 @@ $(document).ready(function() {
     $(document).on('click', '.create-modal-administrativo', function() {
         $('#create_administrativo').modal('show');    
     });
-
 
     //Funcuion para mostrar la ventana modal para crear un permiso
     $(document).on('click', '.create-modal-vendedor', function() {
@@ -1375,6 +1421,12 @@ $(document).ready(function() {
         
     });
 
+    $(document).on('click','.delete-modal-usuario',function(){
+        $('#delete_usuario').modal('show');
+        $('#show').modal('show');
+        $('#id_delete_usuario').val($(this).data('id'));
+    });
+
     //Funcion para limpiar los datos de la ventana modal al cerrarla
     $('#create_organizacion').on('hidden.bs.modal', function(){ 
         $('#form_organizaciones')[0].reset();
@@ -1386,7 +1438,6 @@ $(document).ready(function() {
         $('#nombre_dirigente').removeClass('green-border');
         $('#nombre_dirigente').removeClass('red-border');
     });
-
 
     /******************************************** USUARIOS ************************************************ */
     $(document).on('click', '.create-modal', function() {
@@ -1400,6 +1451,16 @@ $(document).ready(function() {
         $('#paterno_show').text($(this).data('apellido_paterno'));
         $('#materno_show').text($(this).data('apellido_materno'));
         $('#email_show').text($(this).data('email'));
+
+        var status=$(this).data('status');
+
+        if(status==1){
+            $('#status_show').text('Activo');
+            $('#status_show').css('background','green');
+        }else{
+            $('#status_show').text('Inactivo');
+            $('#status_show').css('background','red');
+        }
     });
 
 
@@ -1792,6 +1853,16 @@ $(document).ready(function() {
             });
         }
     }); 
+
+    function BuscarUsuario(){
+        var dato=$('#caja_busqueda_usuario').val();
+
+        if(dato!=""){
+            location.href='/Usuarios/buscar/'+dato;
+        }else{
+            location.href='/Usuarios/index';
+        }
+    }
 
     function BuscarAgencia(){
         var dato=$('#caja_busqueda_agencias').val();

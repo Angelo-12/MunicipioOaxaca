@@ -14,6 +14,8 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar','Administrador\UsuarioController@insertar');
     Route::post('editar','Administrador\UsuarioController@editar');
+    Route::post('eliminar','Administrador\UsuarioController@eliminar');
+    Route::get('buscar/{dato}','Administrador\UsuarioController@buscar');
     Route::post('insertar_administrador','Administrador\UsuarioController@insertar_administrador');
     Route::post('insertar_rol','Administrador\UsuarioController@insertar_rol');
     Route::get('index','Administrador\UsuarioController@index');
@@ -112,10 +114,10 @@ Route::group(['prefix' => 'Actividades'], function () {
 Route::group(['prefix' => 'Observaciones'], function () {
     Route::get('index','Administrador\ObservacionesController@index');
     Route::get('buscar/{dato}','Administrador\ObservacionesController@buscar');
-    Route::get('seguimiento/{id}','Administrador\ObservacionesController@seguimiento');
+    Route::get('detalle/{id}','Administrador\ObservacionesController@detalle');
     Route::post('responder','Administrador\ObservacionesController@responder_observacion');
     Route::get('descargar_pdf','Administrador\ObservacionesController@descargar_pdf');
-
+    Route::get('descargar_excel','Administrador\ObservacionesController@descargar_excel');
 });
 
 Route::group(['prefix' => 'Agencia'], function () {

@@ -70,9 +70,9 @@
                                         <i class="fa fa-inbox"></i>
                                 </button>
 
-                                <button type="button" class="detalles-observaciones btn btn-secondary btn-sm"
-                                data-id="{{$o->id}}" 
-                                title='Detalles'>
+                                <button type="button" class="detalles-observacion btn btn-secondary btn-sm"
+                                    data-id="{{$o->id}}" 
+                                    title='Detalles'>
                                     <i class="fa fa-info-circle"></i>
                                 </button>
 
@@ -185,11 +185,11 @@
                         <div class="modal-body" >
 
                             <div class="card-header">
-                                <button type="button" onclick="OrganizacionVendedor();"  class="btn btn-info">
+                                <button type="button" onclick="DescargarPdfObservacion();"  class="btn btn-info">
                                     <i class="fa fa-file-pdf"></i>&nbsp;PDF
                                 </button>
                     
-                                <button type="button" onclick="DescargarExcelOrganizacionesVendedores();" class="btn btn-info">
+                                <button type="button" onclick="DescargarExcelObservacionesVendedores();" class="btn btn-info">
                                     <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
                                 </button>
                             </div>
@@ -208,9 +208,8 @@
                                     <thead>
                                         <tr >
                                             <th style="width: 10%;" >Id</th>
-                                            <th style="width: 20%;">RFC</th>
-                                            <th style="width: 30%;">Curp</th>
-                                            <th style="width: 15%;">Permiso</th>
+                                            <th style="width: 35%;">Mensaje</th>
+                                            <th style="width: 30%;">Status</th>
                                             <th style="width: 25%; text-align:center;" >Opciones</th>
                                         </tr>
                                         {{ csrf_field() }}
@@ -218,18 +217,14 @@
                                     </thead>
                                 </table>
 
-
                                 <div class="ajustar" style="overflow-y: auto">
 
-                                    <input type="text" id="id_observacion" name="id" hidden>
+                                    <input type="text" id="id_observacion2" name="id_observacion2" hidden>
 
                                     <table id="table_observacion_vendedor" class="table table-bordered table-striped table-sm">
-                                    
-                                        <tbody >
-                                                            
+                                        <tbody >                   
                                         </tbody>
                                     </table>
-
 
                                 </div>
                             

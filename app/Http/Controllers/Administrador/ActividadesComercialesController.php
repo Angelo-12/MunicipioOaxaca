@@ -66,7 +66,7 @@ class ActividadesComercialesController extends Controller
     }
 
     public function descargar_pdf(){
-        $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
+        $actividades=ActividadComercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
         ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
         ->groupBy('tipo_actividad.id')
         ->get();
@@ -76,7 +76,7 @@ class ActividadesComercialesController extends Controller
     }
 
     public function buscar($dato){
-            $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
+            $actividades=ActividadComercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
             ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
             ->where('tipo_actividad.id','=',$dato)
             ->orWhere('tipo_actividad.nombre_actividad','LIKE',"%$dato%")
