@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-header">
 
-            <button class="create-modal-vendedor btn btn-success" data-total="{{$permisos->count()}}">
+            <button class="create-modal-vendedor btn btn-secondary" data-total="{{$permisos->count()}}">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </button>
             <a type="button" href="{{url('Vendedores/descargar_pdf')}}" class="btn btn-info">
@@ -22,7 +22,7 @@
             </a>
 
             <button type="button"  class="btn btn-info">
-                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
             </button>
         </div>
 
@@ -51,53 +51,71 @@
                     
                 </thead>
                 <tbody>
-                
-                  @foreach ($vendedores as $u)
-                  <tr class="post{{$u->id}}" id="{{$u->id}}">
-                    <td>{{$u->id}}</td>
-                    <td>{{$u->name}}</td>
-                    <td>{{$u->apellido_paterno}}</td>
-                    <td>{{$u->apellido_materno}}</td>
-                    <td>{{$u->email}}</td>
-                        
-                    <td>@if($u->status==1)
-                        <div class="switch">
-                            <label>
-                              Activo
-                              <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
-                            </label>
-                          </div>
-                        @else
-                        <div class="switch">
-                            <label>
-                              Inactivo
-                              <input type="checkbox" readonly onclick="javascript: return false;">
-                            </label>
-                          </div>
-                        @endif</td>
-                   
-                    <td align="center">
-                      <button type="button" class="show-modal-vendedor btn btn-warning btn-sm" data-id="{{$u->id}}"
-                        data-nombre="{{$u->name}}" 
-                        data-apellido_paterno="{{$u->apellido_paterno}}"
-                        data-apellido_materno="{{$u->apellido_materno}}"
-                        data-cargo="Vendedor"
-                        data-email="{{$u->email}}"
-                        data-estado="{{$u->status}}">
-                          <i class="fa fa-eye"></i>
-                      </button>
-        
-                      <button type="button" class="edit-vendedores btn btn-danger btn-sm" data-id="{{$u->id}}">
-                          <i class="fa fa-pencil-alt"></i>
-                      </button>
-                     
-                      <button type="button" class="btn btn-info btn-sm" data-id="{{$u->id}}">
-                          <i class="fa fa-eraser"></i>
-                      </button>
-                    
-                   </td>
-                  </tr>             
-                  @endforeach                   
+                    @if($vendedores->count()==0)
+                        <tr>
+                            <td colspan='5' align='center' >No hay registros</td>
+                        </tr>
+                    @else
+                        @foreach ($vendedores as $u)
+                            <tr class="post{{$u->id}}" id="{{$u->id}}">
+                                <td>{{$u->id}}</td>
+                                <td>{{$u->name}}</td>
+                                <td>{{$u->apellido_paterno}}</td>
+                                <td>{{$u->apellido_materno}}</td>
+                                <td>{{$u->email}}</td>
+                                    
+                                <td>@if($u->status==1)
+                                    <div class="switch">
+                                        <label>
+                                        Activo
+                                        <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                                        </label>
+                                    </div>
+                                    @else
+                                    <div class="switch">
+                                        <label>
+                                        Inactivo
+                                        <input type="checkbox" readonly onclick="javascript: return false;">
+                                        </label>
+                                    </div>
+                                    @endif</td>
+                            
+                                    <td align="center">
+                                            <button type="button" class="show-modal-vendedor btn btn-warning btn-sm" data-id="{{$u->id}}"
+                                                data-nombre="{{$u->name}}" 
+                                                data-apellido_paterno="{{$u->apellido_paterno}}"
+                                                data-apellido_materno="{{$u->apellido_materno}}"
+                                                data-cargo="Vendedor"
+                                                data-email="{{$u->email}}"
+                                                data-estado="{{$u->status}}">
+                                                <i class="fa fa-eye"></i>
+                                            </button>
+                                
+                                            <button type="button" class="edit-modal-vendedor btn btn-danger btn-sm" data-id="{{$u->id}}"
+                                                data-nombre="{{$u->name}}" 
+                                                data-apellido_paterno="{{$u->apellido_paterno}}"
+                                                data-apellido_materno="{{$u->apellido_materno}}"
+                                                data-cargo="Administrador"
+                                                data-status="{{$u->status}}"
+                                                data-email="{{$u->email}}">
+
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </button>
+                                            
+                                            @if ($u->status==1)
+                                                <button type="button" class="delete-modal-vendedor btn btn-info btn-sm" data-id="{{$u->id}}">
+                                                    <i class="fa fa-eraser"></i>
+                                                </button>
+                                            @else
+                                                <button type="button" class="delete-modal-vendedor btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
+                                                    <i class="fa fa-eraser" ></i>
+                                                </button>      
+                                            @endif
+                                            
+                                    </td>
+                            </tr>             
+                        @endforeach  
+                    @endif                 
                 </tbody>
             </table>
             {!! $vendedores->links() !!}
@@ -301,7 +319,7 @@
 
     {{-- Modal show  --}}
     <div id="show_vendedor" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
@@ -342,7 +360,146 @@
         </div>
     </div>
 
+    <div id="update_vendedor" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar vendedor</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" role="form">
+                        @csrf
+
+                        <div class="form-group">
+                            <b for="">Id:</b>
+                            <input class="form-control" type="text" readonly id="id2" name="id2"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Nombre:</b>
+                            <input class="form-control" type="text" id="nombre" name="nombre2"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <b for="">Apellido Paterno:</b>
+                            <input  class="form-control"  type="text" name="paterno2" id="paterno"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Apellido Materno:</b>
+                            <input  class="form-control"  type="text" name="materno22" id="materno"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Email:</b>
+                            <input  class="form-control" type="email" name="email2" id="email2"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Cargo:</b>
+                            <input  class="form-control" readonly type="text" name="cargo" id="cargo2"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioStatusVendedor" id="activo" value="1">
+                                  Activo
+                                </label>
+                            </div>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioStatusVendedor" id="inactivo" value="0">
+                                  Inactivo
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </form>
+
+                   
+                </div>
+
+                <div class="modal-footer">
+                    <button class="actualizar-vendedor btn btn-primary" type="submit" id="update_vendedor">
+                        Actualizar
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="delete_vendedor" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar vendedor</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" role="form">
+                        @csrf
+
+                        <input type="text" name="id_delete_vendedor" id="id_delete_vendedor" hidden>
+
+                        <div class="deleteContent">
+                            ¿Esta seguro que desea eliminar este vendedor? <span class="title"></span>
+                        
+                        </div>
+                       
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary eliminar_vendedor" type="submit" id="eliminar_vendedor">
+                        Eliminar
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 @endsection
 

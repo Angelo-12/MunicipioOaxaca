@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Actividad_Comercial;
+use App\Models\ActividadComercial;
 use App\Models\Vendedor;
 use App\Models\Permiso;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -24,7 +24,7 @@ class ActividadVendedorExport implements FromView
 
     public function collection()
     {
-        return Actividad_Comercial::all();
+        return ActividadComercial::all();
     }
 
     public function view(): View{
@@ -33,7 +33,7 @@ class ActividadVendedorExport implements FromView
         ->join('permiso','permiso.id','=','tipo_actividad')
         ->join('vendedor','permiso.id','=','vendedor.id_permiso')
         ->join('users','vendedor.id_usuario','=','users.id')
-        ->where('tipo_actividad','=',$this->id)
+        ->where('actividadcomercial.id','=',$this->id)
         ->get();
 
         return view('excel.actividad_vendedor',compact('vendedores'));

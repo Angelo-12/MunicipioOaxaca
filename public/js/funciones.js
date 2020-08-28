@@ -265,7 +265,7 @@ $(document).ready(function() {
     });
 
      //Funcion para agregar un nuevo vendedor se valida antes que haya un permiso disponible
-     $("#agregar_vendedor").click(function(){
+    $("#agregar_vendedor").click(function(){
         
         $.ajax({
             type: 'POST',
@@ -369,8 +369,8 @@ $(document).ready(function() {
         });
     });
 
-    $('.modal-footer').on('click','.update-usuario',function(){
-        console.log('hola');
+    $('.modal-footer').on('click','.actualizar-usuario',function(){
+        var status=$('input:radio[name=radioStatus]:checked').val();
         $.ajax({
             type: 'POST',
             url: '/Usuarios/editar',
@@ -384,6 +384,7 @@ $(document).ready(function() {
                 'fecha_nacimiento': '1996-02-11',
                 'id_municipio': '10',
                 'email': $('input[name=email2]').val(),    
+                'status': status,    
             },
             dataType:'json',
             success: function(data) {
@@ -408,6 +409,95 @@ $(document).ready(function() {
             },
         });
     })
+
+    $('.modal-footer').on('click','.actualizar-usuario-administrativo',function(){
+        var status=$('input:radio[name=radioStatusAdministrativo]:checked').val();
+
+        console.log(status);
+
+        $.ajax({
+            type: 'POST',
+            url: '/Usuarios/editar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $('input[name=id2]').val(),
+                'name': $('input[name=nombre2]').val(),
+                'apellido_paterno': $('input[name=paterno2]').val(),
+                'apellido_materno': $('input[name=materno22]').val(),
+                'sexo': 'H',
+                'fecha_nacimiento': '1996-02-11',
+                'id_municipio': '10',
+                'email': $('input[name=email2]').val(),    
+                'status': status,    
+            },
+            dataType:'json',
+            success: function(data) {
+               
+                if ((data.errors)) {
+                    
+                    $.each( data.errors, function( key, value ) {
+                       console.log(value);
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Usuario actualizado correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
+                    location.reload();
+                }     
+            },
+        });
+    })
+
+    $('.modal-footer').on('click','.actualizar-vendedor',function(){
+        var status=$('input:radio[name=radioStatusVendedor]:checked').val();
+
+        console.log(status);
+
+        $.ajax({
+            type: 'POST',
+            url: '/Usuarios/editar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $('input[name=id2]').val(),
+                'name': $('input[name=nombre2]').val(),
+                'apellido_paterno': $('input[name=paterno2]').val(),
+                'apellido_materno': $('input[name=materno22]').val(),
+                'sexo': 'H',
+                'fecha_nacimiento': '1996-02-11',
+                'id_municipio': '10',
+                'email': $('input[name=email2]').val(),    
+                'status': status,    
+            },
+            dataType:'json',
+            success: function(data) {
+               
+                if ((data.errors)) {
+                    
+                    $.each( data.errors, function( key, value ) {
+                       console.log(value);
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Usuario actualizado correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+
+                    location.reload();
+                }     
+            },
+        });
+    })
+    
     
     //Funcion para actualizar una organizacion
     $('.modal-footer').on('click', '.actualizar_organizacion', function() {
@@ -477,6 +567,48 @@ $(document).ready(function() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Usuario eliminado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+                location.reload();       
+            }
+        });
+    });
+
+    $('.modal-footer').on('click','.eliminar_usuario_administrativo',function(){
+        $.ajax({
+            type: 'POST',
+            url: '/Usuarios/eliminar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $("#id_delete_usuario_administrativo").val(),
+            },
+            success: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario eliminado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+
+                location.reload();       
+            }
+        });
+    });
+
+    $('.modal-footer').on('click','.eliminar_vendedor',function(){
+        $.ajax({
+            type: 'POST',
+            url: '/Usuarios/eliminar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $("#id_delete_vendedor").val(),
+            },
+            success: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Vendedor eliminado correctamente',
                     showConfirmButton: false,
                     timer: 1500
                   })
@@ -784,15 +916,17 @@ $(document).ready(function() {
     $(document).on('click','.show-modal-vendedor',function(){
          $('#show_vendedor').modal('show');
 
-        var status=$(this).data('status');
-        if(status==1){
-           $('#status_show').text('Activo'); 
-        }else{
-            $('#status_show').text('Inactivo'); 
-        }
+         var status=$(this).data('status');
+
+         if(status==1){
+             $('#status_show').text('Activo');
+             $('#status_show').css('background','green');
+         }else{
+             $('#status_show').text('Inactivo');
+             $('#status_show').css('background','red');
+         }
        
         $('#id').text($(this).data('id'));
-        $('#status_show').text($(this).data('estado')); 
         $('#nombre_usuario_show').text($(this).data('nombre'));
         $('#paterno_show').text($(this).data('apellido_paterno'));
         $('#materno_show').text($(this).data('apellido_materno'));
@@ -800,7 +934,55 @@ $(document).ready(function() {
         $('#email_show').text($(this).data('email'));
     });
 
+     //Funcion que muestra la zona de comercializacion en un mapa modal
+    $('#show_zona').on('shown.bs.modal',function(e){
+        var aux =$(e.relatedTarget).data('id');
+        $('#id_zona_update').val(aux);
+        cargarMapa(aux);
+        //map.resize();
+    });
+
+      //Funcion para mostrar los detalles de una colonia
+    $('#show_colonia').on('shown.bs.modal', function(e) {
+        $('#nombre_show').text($(e.relatedTarget).data('nombre'));
+        $('#codigo_show').text($(e.relatedTarget).data('codigo'));
+        var latitudN=$(e.relatedTarget).data('latitud_noreste');
+        var longitudN=$(e.relatedTarget).data('longitud_noreste');
+        var latitudS=$(e.relatedTarget).data('latitud_sureste');
+        var longitudS=$(e.relatedTarget).data('longitud_sureste');
+        var latitudC=$(e.relatedTarget).data('latitud_centro');
+        var longitudC=$(e.relatedTarget).data('longitud_centro');
+     
+        mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC);
+    });
+
+    //Funcion para mostrar los detalles de un permiso
+    $('#show_permiso').on('shown.bs.modal', function(e) {
+        var latitud=$(e.relatedTarget).data('latitud');
+        var longitud=$(e.relatedTarget).data('longitud');
+        var id=$(e.relatedTarget).data('id');
+        var cuenta=$(e.relatedTarget).data('numero_cuenta');
+        var expediente=$(e.relatedTarget).data('numero_expediente');
+        var actividad=$(e.relatedTarget).data('tipo_actividad');
+        var giro=$(e.relatedTarget).data('giro');
+        var laborales=$(e.relatedTarget).data('dias_laborados');
+        var inicio=$(e.relatedTarget).data('hora_inicio');
+        var fin=$(e.relatedTarget).data('hora_fin');
+        $('#id').text(id);
+        $('#numero_cuenta_show').text(cuenta);
+        $('#numero_expediente_show').text(expediente);
+        $('#actividad_show').text(actividad);
+        $('#giro_show').text(giro);
+        $('#laborales_show').text(laborales);
+        $('#inicio_show').text(inicio);
+        $('#fin_show').text(fin);
+        
+        agregarMarcador(latitud,longitud);
+    });
+
+
     $(document).on('click','.edit-modal-usuario',function(){
+        var status=$(this).data('status');
         $('#update_usuario').modal('show');
 
         $('#id2').val($(this).data('id'));
@@ -809,6 +991,60 @@ $(document).ready(function() {
         $('#materno').val($(this).data('apellido_materno'));
         $('#cargo2').val($(this).data('cargo'));
         $('#email2').val($(this).data('email'));
+
+        if(status==1){
+            $('#activo').attr('checked', true);
+        }else{
+             $('#inactivo').attr('checked', true);
+        }
+    });
+
+    $(document).on('click','.edit-modal-usuario-administrativo',function(){
+        var status=$(this).data('status');
+
+        $('#update_usuario_administrativo').modal('show');
+
+        $('#id2').val($(this).data('id'));
+        $('#nombre').val($(this).data('nombre'));
+        $('#paterno').val($(this).data('apellido_paterno'));
+        $('#materno').val($(this).data('apellido_materno'));
+        $('#cargo2').val($(this).data('cargo'));
+        $('#email2').val($(this).data('email'));
+
+        if(status==1){
+            $('#activo').attr('checked', true);
+        }else{
+             $('#inactivo').attr('checked', true);
+        }
+    });
+
+    $(document).on('click','.edit-modal-vendedor',function(){
+        var status=$(this).data('status');
+
+        $('#update_vendedor').modal('show');
+
+        $('#id2').val($(this).data('id'));
+        $('#nombre').val($(this).data('nombre'));
+        $('#paterno').val($(this).data('apellido_paterno'));
+        $('#materno').val($(this).data('apellido_materno'));
+        $('#cargo2').val($(this).data('cargo'));
+        $('#email2').val($(this).data('email'));
+
+        if(status==1){
+            $('#activo').attr('checked', true);
+        }else{
+             $('#inactivo').attr('checked', true);
+        }
+    });
+
+    $('#create_permiso').on('shown.bs.modal', function() {
+        limpiarCamposPermiso();
+        agregarPosicion();
+    });
+
+    $('#update_permiso').on('shown.bs.modal',function(e){
+       
+        actualizarPosicion(latitud,longitud);
     });
 
 });
@@ -919,57 +1155,10 @@ $(document).ready(function() {
         autoclose: true
     });
 
-      //Funcion para mostrar los detalles de una colonia
-    $('#show_colonia').on('shown.bs.modal', function(e) {
-        $('#nombre_show').text($(e.relatedTarget).data('nombre'));
-        $('#codigo_show').text($(e.relatedTarget).data('codigo'));
-        var latitudN=$(e.relatedTarget).data('latitud_noreste');
-        var longitudN=$(e.relatedTarget).data('longitud_noreste');
-        var latitudS=$(e.relatedTarget).data('latitud_sureste');
-        var longitudS=$(e.relatedTarget).data('longitud_sureste');
-        var latitudC=$(e.relatedTarget).data('latitud_centro');
-        var longitudC=$(e.relatedTarget).data('longitud_centro');
-     
-        mostrarColonia(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC);
-    });
-
-    //Funcion para mostrar los detalles de un permiso
-    $('#show_permiso').on('shown.bs.modal', function(e) {
-        var latitud=$(e.relatedTarget).data('latitud');
-        var longitud=$(e.relatedTarget).data('longitud');
-        var id=$(e.relatedTarget).data('id');
-        var cuenta=$(e.relatedTarget).data('numero_cuenta');
-        var expediente=$(e.relatedTarget).data('numero_expediente');
-        var actividad=$(e.relatedTarget).data('tipo_actividad');
-        var giro=$(e.relatedTarget).data('giro');
-        var laborales=$(e.relatedTarget).data('dias_laborados');
-        var inicio=$(e.relatedTarget).data('hora_inicio');
-        var fin=$(e.relatedTarget).data('hora_fin');
-        $('#id').text(id);
-        $('#numero_cuenta_show').text(cuenta);
-        $('#numero_expediente_show').text(expediente);
-        $('#actividad_show').text(actividad);
-        $('#giro_show').text(giro);
-        $('#laborales_show').text(laborales);
-        $('#inicio_show').text(inicio);
-        $('#fin_show').text(fin);
-        
-        agregarMarcador(latitud,longitud);
-    });
-
     //Funcion para mostrar la ventana para registrar un nuevo permiso
     $('#create_permiso').on('shown.bs.modal', function() {
-       limpiarCamposPermiso();
+        limpiarCamposPermiso();
         agregarPosicion();
-        
-    });
-
-    //Funcion que muestra la zona de comercializacion en un mapa modal
-    $('#show_zona').on('shown.bs.modal',function(e){
-        var aux =$(e.relatedTarget).data('id');
-        $('#id_zona_update').val(aux);
-        cargarMapa(aux);
-        //map.resize();
     });
 
     //Funcion para asignar un tipo de permiso a los permisos pendientes que hay en los registros
@@ -1103,14 +1292,14 @@ $(document).ready(function() {
                         }
                     } else {
                     
-                        var registros=document.getElementById("table").rows.length;
-
                         Swal.fire({
                             icon: 'success',
                             title: 'Tipo Asignado Correctamente',
                             showConfirmButton: false,
                             timer: 1500
                         })
+
+                         location.reload();
                     }     
                 },
             });
@@ -1138,8 +1327,6 @@ $(document).ready(function() {
 
                     } else {
                     
-                        var registros=document.getElementById("table").rows.length;
-
                         Swal.fire({
                             icon: 'success',
                             title: 'Tipo Asignado Correctamente',
@@ -1147,6 +1334,7 @@ $(document).ready(function() {
                             timer: 1500
                         })
 
+                         location.reload();
                     }     
                 },
             });
@@ -1176,8 +1364,6 @@ $(document).ready(function() {
                         });
                     } else {
                     
-                        var registros=document.getElementById("table").rows.length;
-
                         Swal.fire({
                             icon: 'success',
                             title: 'Tipo Asignado Correctamente',
@@ -1185,6 +1371,7 @@ $(document).ready(function() {
                             timer: 1500
                         })
 
+                        location.reload();
                     }     
                 },
             });    
@@ -1427,6 +1614,17 @@ $(document).ready(function() {
         $('#id_delete_usuario').val($(this).data('id'));
     });
 
+    $(document).on('click','.delete-modal-usuario-administrativo',function(){
+        $('#delete_usuario_administrativo').modal('show');
+        $('#id_delete_usuario_administrativo').val($(this).data('id'));
+    });
+
+    $(document).on('click','.delete-modal-vendedor',function(){
+        $('#delete_vendedor').modal('show');
+        $('#id_delete_vendedor').val($(this).data('id'));
+    });
+
+
     //Funcion para limpiar los datos de la ventana modal al cerrarla
     $('#create_organizacion').on('hidden.bs.modal', function(){ 
         $('#form_organizaciones')[0].reset();
@@ -1463,6 +1661,24 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click','.show-modal-usuario-administrativo',function(){
+        $('#show_usuario_administrativo').modal('show');
+        $('#id').text($(this).data('id'));
+        $('#nombre_usuario_show').text($(this).data('nombre'));
+        $('#paterno_show').text($(this).data('apellido_paterno'));
+        $('#materno_show').text($(this).data('apellido_materno'));
+        $('#email_show').text($(this).data('email'));
+
+        var status=$(this).data('status');
+
+        if(status==1){
+            $('#status_show').text('Activo');
+            $('#status_show').css('background','green');
+        }else{
+            $('#status_show').text('Inactivo');
+            $('#status_show').css('background','red');
+        }
+    });
 
     $(document).on('click','.show-modal-actividad',function(){
         $('#show_actividad').modal('show');
@@ -1955,4 +2171,3 @@ $(document).ready(function() {
         var id=$('#id_zona').val();
         location.href='/Zonas/descargar_excel_vendedor/'+id;
     }
-

@@ -219,7 +219,7 @@ class UsuarioController extends Controller
          $user->sexo=$request->input('sexo');
          $user->email=$request->input('email');
          $user->id_municipio=$request->input('id_municipio');
-         $user->status='1';
+         $user->status=$request->input('status');
 
          $user->save();
 
@@ -313,6 +313,11 @@ class UsuarioController extends Controller
 
       $pdf=\PDF::loadView('Pdfs.usuarios',compact('usuarios'));
       return $pdf->stream();
+   }
+
+   public function descargar_excel_administrador(){
+      return Excel::download(new UsersExport, 'administradores.xlsx');
+
    }
 
    public function fetch_data(Request $request){

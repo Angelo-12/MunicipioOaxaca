@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Actividad_Comercial;
+use App\Models\ActividadComercial;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\view;
 use Maatwebsite\Excel\Facades\Excel;
@@ -15,14 +15,14 @@ class ActividadExport implements FromView
     */
     public function collection()
     {
-        return Actividad_Comercial::all();
+        return ActividadComercial::all();
     }
 
     public function view(): View{
 
-        $actividades=Actividad_Comercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
-        ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
-        ->groupBy('tipo_actividad.id')
+        $actividades=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
+        ->select('actividadcomercial.*',DB::raw('count(permiso.tipo_actividad)as total'))
+        ->groupBy('actividadcomercial.id')
         ->get();
 
         return view('excel.actividades_comerciales',compact('actividades'));

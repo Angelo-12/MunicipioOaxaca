@@ -9,5 +9,5 @@ class ActividadComercial extends Model
     protected $table='actividadcomercial';
     protected $primarykey='id';
     public $timestamps=false;
-    protected $fillable=['id','nombreactividad'];
+    protected $fillable=['id','nombre_actividad'];
 }

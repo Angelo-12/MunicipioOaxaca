@@ -66,10 +66,11 @@ class ActividadesComercialesController extends Controller
     }
 
     public function descargar_pdf(){
-        $actividades=ActividadComercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
-        ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
-        ->groupBy('tipo_actividad.id')
+        $actividades=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
+        ->select('actividadcomercial.*',DB::raw('count(permiso.tipo_actividad)as total'))
+        ->groupBy('actividadcomercial.id')
         ->get();
+
 
         $pdf=\PDF::loadView('Pdfs.actividades_comerciales',compact('actividades'));
         return $pdf->stream();

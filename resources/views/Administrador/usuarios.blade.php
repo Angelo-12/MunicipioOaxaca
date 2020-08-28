@@ -21,9 +21,9 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <button type="button"  class="btn btn-info">
+        <a type="button" href="{{url('Usuarios/descargar_excel_administrador')}}" class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
-            </button>
+            </a>
         </div>
 
         <div class="card-body">
@@ -52,68 +52,75 @@
                     
                 </thead>
                 <tbody>
-                
-                  @foreach ($usuarios as $u)
-                    <tr class="post{{$u->id}}" id="{{$u->id}}">
-                        <td>{{$u->id}}</td>
-                        <td>{{$u->name}}</td>
-                        <td>{{$u->apellido_paterno}}</td>
-                        <td>{{$u->apellido_materno}}</td>
-                        <td>{{$u->email}}</td>
-                        <td>
-                            {{$u->cargo}}
+                    @if($usuarios->count()==0)
+                        <tr>
+                            <td colspan='7' align='center' >No hay registros</td>
+                        </tr>
+                    @else
+                        @foreach ($usuarios as $u)
+                            <tr class="post{{$u->id}}" id="{{$u->id}}">
+                                <td>{{$u->id}}</td>
+                                <td>{{$u->name}}</td>
+                                <td>{{$u->apellido_paterno}}</td>
+                                <td>{{$u->apellido_materno}}</td>
+                                <td>{{$u->email}}</td>
+                                <td>
+                                    {{$u->cargo}}
+                                    
+                                </td>
+                                    
+                                <td>@if($u->status==1)
+                                    <div class="switch">
+                                        <label>
+                                        Activo
+                                        <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                                        </label>
+                                    </div>
+                                    @else
+                                    <div class="switch">
+                                        <label>
+                                        Inactivo
+                                        <input type="checkbox" readonly onclick="javascript: return false;">
+                                        </label>
+                                    </div>
+                                    @endif</td>
                             
-                        </td>
-                            
-                        <td>@if($u->status==1)
-                            <div class="switch">
-                                <label>
-                                Activo
-                                <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
-                                </label>
-                            </div>
-                            @else
-                            <div class="switch">
-                                <label>
-                                Inactivo
-                                <input type="checkbox" readonly onclick="javascript: return false;">
-                                </label>
-                            </div>
-                            @endif</td>
-                    
-                        <td align="center">
-                            <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
-                                data-nombre="{{$u->name}}" 
-                                data-apellido_paterno="{{$u->apellido_paterno}}"
-                                data-apellido_materno="{{$u->apellido_materno}}"
-                                data-email="{{$u->email}}"
-                                data-status="{{$u->status}}">
-                                <i class="fa fa-eye"></i>
-                            </button>
-                
-                            <button type="button" class="edit-modal-usuario btn btn-danger btn-sm" data-id="{{$u->id}}"
-                                data-nombre="{{$u->name}}" 
-                                data-apellido_paterno="{{$u->apellido_paterno}}"
-                                data-apellido_materno="{{$u->apellido_materno}}"
-                                data-cargo="Administrador"
-                                data-email="{{$u->email}}">
+                                <td align="center">
+                                    <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
+                                        data-nombre="{{$u->name}}" 
+                                        data-apellido_paterno="{{$u->apellido_paterno}}"
+                                        data-apellido_materno="{{$u->apellido_materno}}"
+                                        data-email="{{$u->email}}"
+                                        data-status="{{$u->status}}">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                        
+                                    <button type="button" class="edit-modal-usuario btn btn-danger btn-sm" data-id="{{$u->id}}"
+                                        data-nombre="{{$u->name}}" 
+                                        data-apellido_paterno="{{$u->apellido_paterno}}"
+                                        data-apellido_materno="{{$u->apellido_materno}}"
+                                        data-cargo="Administrador"
+                                        data-status="{{$u->status}}"
+                                        data-email="{{$u->email}}">
 
-                                <i class="fa fa-pencil-alt"></i>
-                            </button>
-                            @if ($u->status==1)
-                            <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
-                                <i class="fa fa-eraser"></i>
-                            </button>
-                            @else
-                                <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
-                                    <i class="fa fa-eraser" ></i>
-                                </button>      
-                            @endif
-                           
-                            
-                        </td>
-                    </tr>             
-                  @endforeach                   
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </button>
+                                    @if ($u->status==1)
+                                        <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
+                                            <i class="fa fa-eraser"></i>
+                                        </button>
+                                    @else
+                                        <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
+                                            <i class="fa fa-eraser" ></i>
+                                        </button>      
+                                    @endif
+                                
+                                    
+                                </td>
+                            </tr>             
+                        @endforeach 
+                    @endif    
+                                 
                 </tbody>
             </table>
             {!! $usuarios->links() !!}
@@ -345,18 +352,26 @@
                         </div>
 
                         <div class="form-group">
-                            <b for="">Status:</b>
-                            <input  class="form-control" type="radio" name="activod" id="activo"/>
-                            <input  class="form-control" type="radio" name="activod" id="inactivo"/>
+                            <label>Status</label>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioStatus" id="activo" value="1">
+                                  Activo
+                                </label>
+                            </div>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioStatus" id="inactivo" value="0">
+                                  Inactivo
+                                </label>
+                            </div>
                         </div>
                         
                     </form>
-
-                   
                 </div>
 
                 <div class="modal-footer">
-                    <button class="update-usuario btn btn-primary" type="submit" id="update_usuario">
+                    <button class="actualizar-usuario btn btn-primary" type="submit" id="update_usuario">
                         Actualizar
                         <i class="fas fa-edit"></i>
                     </button>

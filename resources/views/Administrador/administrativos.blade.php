@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-header">
 
-            <a class="create-modal-administrativo btn btn-success">
+            <a class="create-modal-administrativo btn btn-secondary">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
             <button type="button"  class="btn btn-info">
@@ -21,7 +21,7 @@
             </button>
 
             <button type="button"  class="btn btn-info">
-                <i class="fa fa-file-csv"></i></i>&nbsp;CSV
+                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
             </button>
         </div>
 
@@ -60,14 +60,7 @@
                     <td>{{$u->apellido_materno}}</td>
                     <td>{{$u->email}}</td>
                     <td>
-                        
-                      
-                        {{$u->cargo}}
-                        
-                        <p><button type="button" class="role-usuario btn btn-success btn-sm" data-id="{{$u->id}}">
-                            <i class="fa fa-user-shield"></i>
-                        </button></p>
-                        
+                        {{$u->cargo}}   
                     </td>
                         
                     <td>@if($u->status==1)
@@ -87,7 +80,7 @@
                         @endif</td>
                    
                     <td align="center">
-                      <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
+                      <button type="button" class="show-modal-usuario-administrativo btn btn-warning btn-sm" data-id="{{$u->id}}"
                         data-nombre="{{$u->name}}" 
                         data-apellido_paterno="{{$u->apellido_paterno}}"
                         data-apellido_materno="{{$u->apellido_materno}}"
@@ -96,13 +89,26 @@
                           <i class="fa fa-eye"></i>
                       </button>
         
-                      <button type="button" class="btn btn-danger btn-sm" data-id="{{$u->id}}">
-                          <i class="fa fa-pencil-alt"></i>
-                      </button>
+                      <button type="button" class="edit-modal-usuario-administrativo btn btn-danger btn-sm" data-id="{{$u->id}}"
+                        data-nombre="{{$u->name}}" 
+                        data-apellido_paterno="{{$u->apellido_paterno}}"
+                        data-apellido_materno="{{$u->apellido_materno}}"
+                        data-cargo="Administrador"
+                        data-status="{{$u->status}}"
+                        data-email="{{$u->email}}">
+
+                        <i class="fa fa-pencil-alt"></i>
+                    </button>
                      
-                      <button type="button" class="btn btn-info btn-sm" data-id="{{$u->id}}">
-                          <i class="fa fa-eraser"></i>
-                      </button>
+                    @if ($u->status==1)
+                        <button type="button" class="delete-modal-usuario-administrativo btn btn-info btn-sm" data-id="{{$u->id}}">
+                            <i class="fa fa-eraser"></i>
+                        </button>
+                    @else
+                        <button type="button" class="delete-modal-usuario-administrativo btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
+                            <i class="fa fa-eraser" ></i>
+                        </button>      
+                    @endif
                     
                   </td>
                 </tr>             
@@ -258,50 +264,186 @@
         </div>
     </div>
 
-    {{-- Modal show  --}}
-<div id="show_administrativo" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Usuario</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div id="show_usuario_administrativo" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Secretari@</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="">Id:</label>
-                    <p id="id"/>
                 </div>
-                <div class="form-group">
-                    <label for="">Nombre:</label>
-                    <p id="nombre_usuario_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Apellido Paterno:</label>
-                    <p id="paterno_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Apellido Materno:</label>
-                    <p id="materno_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Email:</label>
-                    <p id="email_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Cargo:</label>
-                    <p id="cargo_show"/>
-                </div>
-                <div class="form-group">
-                    <label for="">Status:</label>
-                    <p id="status_show"/>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <b for="">Id:</b>
+                        <p id="id"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Nombre:</b>
+                        <p id="nombre_usuario_show"/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <b for="">Apellido Paterno:</b>
+                        <p id="paterno_show"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Apellido Materno:</b>
+                        <p id="materno_show"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Email:</b>
+                        <p id="email_show"/>
+                    </div>
+                    <div class="form-group">
+                        <b for="">Status:</b>
+                        <p id="status_show"/>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div id="update_usuario_administrativo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Editar usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" role="form">
+                        @csrf
+
+                        <div class="form-group">
+                            <b for="">Id:</b>
+                            <input class="form-control" type="text" readonly id="id2" name="id2"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Nombre:</b>
+                            <input class="form-control" type="text" id="nombre" name="nombre2"/>
+                        </div>
+                        
+                        <div class="form-group">
+                            <b for="">Apellido Paterno:</b>
+                            <input  class="form-control"  type="text" name="paterno2" id="paterno"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Apellido Materno:</b>
+                            <input  class="form-control"  type="text" name="materno22" id="materno"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Email:</b>
+                            <input  class="form-control" type="email" name="email2" id="email2"/>
+                        </div>
+                        <div class="form-group">
+                            <b for="">Cargo:</b>
+                            <input  class="form-control" readonly type="text" name="cargo" id="cargo2"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioStatusAdministrativo" id="activo" value="1">
+                                  Activo
+                                </label>
+                            </div>
+                            <div class="radio tipo">
+                                <label>
+                                  <input type="radio" name="radioStatusAdministrativo" id="inactivo" value="0">
+                                  Inactivo
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </form>
+
+                   
+                </div>
+
+                <div class="modal-footer">
+                    <button class="actualizar-usuario-administrativo btn btn-primary" type="submit" id="update_usuario_administrativo">
+                        Actualizar
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="delete_usuario_administrativo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Eliminar usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <form class="form-horizontal" role="form">
+                        @csrf
+
+                        <input type="text" name="id_delete_usuario_administrativo" id="id_delete_usuario_administrativo" hidden>
+
+                        <div class="deleteContent">
+                            ¿Esta seguro que desea eliminar este usuario? <span class="title"></span>
+                        
+                        </div>
+                       
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary eliminar_usuario_administrativo" type="submit" id="eliminar_usuario_administrativo">
+                        Eliminar
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">
+                        Cerrar
+                        <i class="fa fa-times-circle"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 @endsection
 

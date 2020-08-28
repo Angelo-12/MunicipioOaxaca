@@ -12,6 +12,8 @@ use App\Models\Agencia;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PermisoExport;
 use DB;
 class PermisosController extends Controller
 {
@@ -107,13 +109,10 @@ class PermisosController extends Controller
         return Permisos::join('vendedor','vendedor.id_permiso','=','permiso.id')
         ->where('permiso.id','=',$id)
         ->get();
-
-        //return $permisos;
-        //return Permisos::where('id','=',$id)->get();
     }
 
     //Esporta a pdf cada uno de los registros de los permisos
-    public function exportarPdf($nombre){
+    public function descargar_pdf($nombre){
         $permisos="";
         if($nombre=="Anuales"){
             $permisos=Permisos::join('anuales','permiso.id','anuales.id_permiso')
@@ -147,5 +146,9 @@ class PermisosController extends Controller
         $pdf=\PDF::loadView('Pdfs.permisos',compact('permisos','nombre'));
         return $pdf->stream();
 
+    }
+
+    public function descargar_excel($nombre){
+        return Excel::download(new PermisoExport($nombre), 'permisos.xlsx');
     }
 }
