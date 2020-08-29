@@ -22,7 +22,7 @@ Route::group(['prefix' => 'Usuarios'], function () {
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('perfil','Administrador\UsuarioController@perfil');
     Route::get('descargar_pdf','Administrador\UsuarioController@exportar_pdf_administrador');
-    Route::get('descargar_excel_administrador','Administrador\UsuarioController@descargar_excel_administrador');
+    Route::get('descargar_excel','Administrador\UsuarioController@descargar_excel');
     Route::post('cambiar_foto/{id}','Administrador\UsuarioController@cambiar_foto_perfil');
 
 });
@@ -32,7 +32,8 @@ Route::group(['prefix' => 'Secretarias'], function () {
     Route::get('index','Administrador\Administrador_SecretariaController@index');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::post('insertar_secretaria','Administrador\UsuarioController@insertar_secretaria');
-    Route::get('descargar_pdf','Administrador\UsuarioController@exportar_pdf_secretaria');
+    Route::get('descargar_pdf','Administrador\Administrador_SecretariaController@descargar_pdf');
+    Route::get('descargar_excel','Administrador\Administrador_SecretariaController@descargar_excel');
 });
 
 Route::group(['prefix' => 'Vendedores'], function () {
@@ -41,6 +42,7 @@ Route::group(['prefix' => 'Vendedores'], function () {
     Route::get('insertar','Administrador\VendedorController@insertar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('descargar_pdf','Administrador\VendedorController@descargar_pdf');
+    Route::get('descargar_excel','Administrador\VendedorController@descargar_excel');
 });
 
 Route::group(['prefix' => 'Permisos'], function () {

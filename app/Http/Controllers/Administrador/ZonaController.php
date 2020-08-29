@@ -62,8 +62,8 @@ class ZonaController extends Controller
 
     //Muestra un pdf con las zonas y el detalle de cada una de ellas y asi como tambien muestra la opcion para descargalos
     public function descargar_pdf(){
-        $zonas=Permisos::join('calle','permiso.id_calle','=','calle.id')
-        ->join('zona','zona.id','=','calle.id_zona')
+        $zonas=Zona::join('colonia','zona.id','=','colonia.id_zona')
+        ->join('permiso','permiso.id_colonia','=','colonia.id')
         ->select('zona.*',DB::raw('count(permiso.id)as total'))
         ->groupBy('zona.id')
         ->get();

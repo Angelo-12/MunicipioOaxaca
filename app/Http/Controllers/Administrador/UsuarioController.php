@@ -35,7 +35,6 @@ class UsuarioController extends Controller
       }else {
          \File::delete(public_path().'/img/'.$usuario->foto_perfil);
       }
-     
 
 		$imagen=$request->file('imagen');
 		$nombre_imagen=time().$imagen->getClientOriginalName();

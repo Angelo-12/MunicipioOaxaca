@@ -21,10 +21,10 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-        <a type="button" href="{{url('Usuarios/descargar_excel_administrador')}}" class="btn btn-info">
-                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
-            </a>
-        </div>
+            <a type="button" href="{{url('Usuarios/descargar_excel')}}" class="btn btn-info">
+                    <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+                </a>
+            </div>
 
         <div class="card-body">
             <div class="form-group row">

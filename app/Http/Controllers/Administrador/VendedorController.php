@@ -10,6 +10,8 @@ use App\Models\Organizacion;
 use App\Models\Permisos;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\VendedorExport;
 
 class VendedorController extends Controller
 {
@@ -59,8 +61,8 @@ class VendedorController extends Controller
       return $pdf->stream();
     }
 
-    public function editar(){
-        
+    public function descargar_excel(){
+      return Excel::download(new VendedorExport, 'vendedores.xlsx');
     }
 
     /**Funcion para cambiar el password a partir de un correo electronico dado */

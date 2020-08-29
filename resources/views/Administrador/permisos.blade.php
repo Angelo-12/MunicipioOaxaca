@@ -144,6 +144,7 @@
                                             data-dias_laborados="{{$p->dias_laborados}}"
                                             data-hora_inicio="{{$p->hora_inicio}}"
                                             data-hora_fin="{{$p->hora_fin}}"
+                                            data-detalles="{{$p->detalles}}"
                                             data-latitud="{{$p->latitud}}"
                                             data-longitud="{{$p->longitud}}">
                                             <i class="fa fa-pencil-alt"></i>
@@ -368,7 +369,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <b for=""><p>Id</p></b>
+                        <b for="">Id</b>
                         <p id="id"/>
                     </div>
 
@@ -420,102 +421,115 @@
                 </div>
                 <div class="modal-body">
 
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" id="formulario_actualizar_permiso" role="form">
+
+                        <input type="text" id="id_permiso" name="id_permiso" hidden>
+
+                        <input type="text" id="latitud_permiso" name="latitud_permiso" hidden>
+
+                        <input type="text" id="longitud_permiso" name="longitud_permiso" hidden>
+
+                        <input type="text" id="tipo_actividad_permiso" name="tipo_actividad_permiso" hidden>
+
+                        <div class="form-group">
+                            <label>Ubicacion</label>
+                            <select class="form-control" name="id_agencia" id="id_agencia2">
+                                <option value="ninguna" selected disabled>Seleccionar agencia</option>
+                                @foreach ($agencias as $a)
+                                <option value="{{$a->id}}">{{$a->nombre}}</option>
+                                @endforeach
+                            </select>
+                            <span class="text-danger" id="id_agencia"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Colonia</label>
+                            <select class="form-control" name="id_colonia_permiso" id="id_colonia_permiso">
+                                <option value="ninguna" selected disabled>Seleccionar colonia</option>
+                            </select>
+                            <span class="text-danger" id="id_colonia"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <div id="map_permiso" style="height:200px;"></div> 
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tipo de actividad</label>
+                            <select class="form-control" name="tipo_actividad_permiso" id="tipo_actividad_permiso2">
+                                <option value="ninguna" selected disabled>Seleccionar Actividad</option>
+                                <option value="1">Comercial Movil</option>
+                                <option value="2">Comercial Semifija</option>
+                                <option value="3">Comercial Movil Con Equipo Rodante</option>
+                                <option value="4">Comercial Fija</option>
+                                <option value="5">Comercio Establecido</option>
+                                <option value="6">Tianguis</option>
+                                <option value="7">Prestacion de Servicios</option>
+                            </select>
+                            <span class="text-danger" id="tipo_actividad_error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Giro:</label>
+                            <input class="form-control" type="text" name="giro" id="giro_permiso"/>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label>Dias Laborados</label>
+                            <div class="checkbox" name="dias_laborados" id="checkbox">
+                                <label>
+                                    <input type="checkbox" name="dias[]" value="Lunes" id="lunes"> Lunes
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="dias[]" value="Martes" id="martes"> Martes
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="dias[]" value="Miercoles"> Miercoles
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="dias[]" value="Jueves"> Jueves
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="dias[]" value="Viernes"> Viernes
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="dias[]" value="Sabado"> Sabado
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="dias[]" value="Domingo"> Domingo
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="seleccionar-todos"> Seleccionar Todos
+                                </label>
+                            </div>
+                            <span class="text-danger" id="dias_laborados_error"></span>
+                        </div> 
+
+                        <div class="form-group">
+                            <label>Hora de Inicio</label>
+                            <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
+                            data-autoclose="true" readonly="" name="hora_inicio" id="hora_inicio">
+                            <span class="text-danger" id="hora_inicio_error"></span>    
+                        </div>
                         
-                    <div class="form-group">
-                        <label for=""><p>Id</p></label>
-                        <input class="form-control" type="text" readonly name="id_permiso" id="id_permiso"/>
-                    </div>
+                        <div class="form-group">
+                            <label>Hora de Fin</label>
+                            <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
+                            data-autoclose="true" readonly="" name="hora_fin" id="hora_fin">  
+                            <span class="text-danger" id="hora_fin_error"></span>   
+                        </div>
 
-                    <div class="form-group">
-                        <div id="map" style="height:200px;"></div> 
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">N° Cuenta:</label>
-                        <input class="form-control" type="text" readonly name="numero_cuenta" id="numero_cuenta_show"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="">N° Expediente:</label>
-                        <input class="form-control" type="text" readonly name="numero_expediente" id="numero_expediente_show"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Tipo de actividad</label>
-                        <select class="form-control" name="tipo_actividad" id="tipo_actividad">
-                            <option value="ninguna" selected disabled>Seleccionar Actividad</option>
-                            <option value="1">Comercial Movil</option>
-                            <option value="2">Comercial Semifija</option>
-                            <option value="3">Comercial Movil Con Equipo Rodante</option>
-                            <option value="4">Comercial Fija</option>
-                            <option value="5">Comercio Establecido</option>
-                            <option value="6">Tianguis</option>
-                            <option value="7">Prestacion de Servicios</option>
-                        </select>
-                        <span class="text-danger" id="tipo_actividad_error"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Giro:</label>
-                        <input class="form-control" type="text" name="giro" id="giro_show"/>
-                    </div>
-                   
-                    <div class="form-group">
-                        <label>Dias Laborados</label>
-                        <div class="checkbox" name="dias_laborados" id="checkbox">
-                            <label>
-                                <input type="checkbox" name="dias[]" value="Lunes"> Lunes
-                            </label>
-                            <label>
-                                <input type="checkbox" name="dias[]" value="Martes"> Martes
-                            </label>
-                            <label>
-                                <input type="checkbox" name="dias[]" value="Miercoles"> Miercoles
-                            </label>
-                            <label>
-                                <input type="checkbox" name="dias[]" value="Jueves"> Jueves
-                            </label>
-                            <label>
-                                <input type="checkbox" name="dias[]" value="Viernes"> Viernes
-                            </label>
-                            <label>
-                                <input type="checkbox" name="dias[]" value="Sabado"> Sabado
-                            </label>
-                            <label>
-                                <input type="checkbox" name="dias[]" value="Domingo"> Domingo
-                            </label>
-                            <label>
-                                <input type="checkbox" id="seleccionar-todos"> Seleccionar Todos
-                            </label>
-                          </div>
-                          <span class="text-danger" id="dias_laborados_error"></span>
-                    </div> 
-
-                    <div class="form-group">
-                        <label>Hora de Inicio</label>
-                        <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
-                        data-autoclose="true" readonly="" name="hora_inicio">
-                        <span class="text-danger" id="hora_inicio_error"></span>    
-                    </div>
-                      
-                    <div class="form-group">
-                        <label>Hora de Fin</label>
-                        <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
-                        data-autoclose="true" readonly="" name="hora_fin">  
-                        <span class="text-danger" id="hora_fin_error"></span>   
-                    </div>
-
-                    <div class="form-group">
-                        <label for="detalles">Detalles</label>
-                        <textarea class="form-control" id="detalles" name="detalles" placeholder="Detalles" rows="3"></textarea>
-                        <span class="text-danger" id="detalles_error"></span>
-                    </div>
+                        <div class="form-group">
+                            <label for="detalles">Detalles</label>
+                            <textarea class="form-control" id="detalles_permiso" name="detalles" placeholder="Detalles" rows="3"></textarea>
+                            <span class="text-danger" id="detalles_error"></span>
+                        </div>
                     </form>
                 
                 </div>
 
                 <div class="modal-footer">
-                    <button class="actualizar-permiso btn btn-primary" type="submit" id="update_permiso">
+                    <button class="actualizar_permiso btn btn-primary" type="submit" id="update_permiso">
                         Actualizar
                         <i class="fas fa-edit"></i>
                     </button>

@@ -221,6 +221,55 @@ function mostrarAgencia(latitudC,longitudC){
   
      map.addControl(new mapboxgl.NavigationControl());
      map.addControl(new mapboxgl.FullscreenControl());
+}
+
+function actualizarPosicion(latitudN,longitudN,latitudS,longitudS,latitudC,longitudC){
+
+    var dimensiones=[
+         [longitudS,latitudS],
+         [longitudN,latitudN]
+    ];
  
+     var map = new mapboxgl.Map({
+         container: 'map_permiso',
+         style: 'mapbox://styles/mapbox/streets-v11', 
+         center: [longitudC,latitudC],
+         zoom: 12 ,
+         maxBounds:dimensiones
+     });
+  
+     map.addControl(new mapboxgl.NavigationControl());
+     map.addControl(new mapboxgl.FullscreenControl());
+ 
+}
+
+function mostrarPosicion(latitud,longitud){
+    var map = new mapboxgl.Map({
+        container: 'map_permiso',
+        style: 'mapbox://styles/mapbox/streets-v11', 
+        center: [longitud,latitud],
+        zoom: 12 ,
+        maxBounds:bounds
+    });
+ 
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.FullscreenControl());
+
+    var marker = new mapboxgl.Marker({
+        draggable: true
+        })
+        .setLngLat([longitud, latitud])
+        .addTo(map);
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.FullscreenControl());
+        
+    
+        function onDragEnd() {
+            var lngLat = marker.getLngLat();
+            $("#latitud_permiso").val(lngLat.lat);
+            $("#longitud_permiso").val(lngLat.lng);
+        }
+    
+        marker.on('dragend', onDragEnd);
 }
 

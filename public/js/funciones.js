@@ -498,6 +498,101 @@ $(document).ready(function() {
         });
     })
     
+    $('#update_permiso').on('shown.bs.modal',function(e){
+
+        $('#checkbox > label >input[type=checkbox]').prop('checked', false);
+
+        $('#id_permiso').val($(e.relatedTarget).data('id'));
+        $('#tipo_actividad_permiso').val($(e.relatedTarget).data('tipo_actividad'));
+        $('#giro_permiso').val($(e.relatedTarget).data('giro'));
+        $('#hora_inicio').val($(e.relatedTarget).data('hora_inicio'));
+        $('#hora_fin').val($(e.relatedTarget).data('hora_fin'));
+        $('#detalles_permiso').val($(e.relatedTarget).data('detalles'));
+        $('#latitud_permiso').val($(e.relatedTarget).data('latitud'));
+        $('#longitud_permiso').val($(e.relatedTarget).data('longitud'));
+
+       
+        var latitud=$(e.relatedTarget).data('latitud');
+        var longitud=$(e.relatedTarget).data('longitud');
+        var auxiliar=$(e.relatedTarget).data('dias_laborados');
+        
+        var dias=auxiliar.split(',');
+
+       for(var i=0; i<dias.length; i++){
+            if(dias[i]=='Lunes'){
+                $("#formulario_actualizar_permiso input[type=checkbox]").eq(0).prop("checked",true);
+            }else if(dias[i]=='Martes'){
+                $("#formulario_actualizar_permiso input[type=checkbox]").eq(1).prop("checked",true);
+            }else if(dias[i]=='Miercoles'){
+                $("#formulario_actualizar_permiso input[type=checkbox]").eq(2).prop("checked",true);
+            }else if(dias[i]=='Jueves'){
+                $("#formulario_actualizar_permiso input[type=checkbox]").eq(3).prop("checked",true);
+            }else if(dias[i]=='Viernes'){
+                $("#formulario_actualizar_permiso input[type=checkbox]").eq(4).prop("checked",true);
+            }else if(dias[i]=='Sabado'){
+                $("#formulario_actualizar_permiso input[type=checkbox]").eq(5).prop("checked",true);
+            }else if(dias[i]=='Domingo'){
+                $("#formulario_actualizar_permiso input[type=checkbox]").eq(6).prop("checked",true);
+            }
+       }
+
+       mostrarPosicion(latitud,longitud);
+
+    });
+
+    $('.modal-footer').on('click', '.actualizar_permiso',function(){
+        var actividad=$('#tipo_actividad_permiso2 option:selected').val();
+        var id_colonia=$('#id_colonia_permiso option:selected').val();
+
+        console.log(id_colonia);
+
+        if(actividad=="ninguna"){
+            actividad=$('input[name=tipo_actividad_permiso]').val()
+        }
+
+        if(coloni=="ninguna"){
+            id_colonia=$('input[name=id_colonia_permiso]').val()
+        }
+
+
+        /*$.ajax({
+            type: 'POST',
+            url: '/Permisos/editar',
+            data: {
+                '_token': $('input[name=_token]').val(),
+                'id': $('input[name=id_permiso]').val(),
+                'tipo_actividad': $('input[name=nombre2]').val(),
+                'giro': $('input[name=paterno2]').val(),
+                'latitud': $('input[name=materno22]').val(),
+                'longitud': 'H',
+                'dias_laborados': '1996-02-11',
+                'hora_inicio': '10',
+                'hora_fin': $('input[name=email2]').val(),    
+                'status': status,    
+            },
+            dataType:'json',
+            success: function(data) {
+               
+                if ((data.errors)) {
+                    
+                    $.each( data.errors, function( key, value ) {
+                       console.log(value);
+                    });
+    
+                } else {
+    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Permiso actualizado correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+    
+                    location.reload();
+                }     
+            },
+        });*/
+    });
     
     //Funcion para actualizar una organizacion
     $('.modal-footer').on('click', '.actualizar_organizacion', function() {
@@ -643,9 +738,22 @@ $(document).ready(function() {
 
     });
 
+    $('#id_agencia2').change(function(){
+        var agencia = $(this).val();
+        
+        $.get('/Agencia/detalle_agencia/'+agencia, function(data){
+            var colonia_select = '<option value="" selected disabled>Seleccionar colonia</option>'
+              for (var i=0; i<data.length;i++)
+                colonia_select+='<option value="'+data[i].id+'">'+data[i].nombre+'</option>';
+  
+              $("#id_colonia2").html(colonia_select);
+        });
+
+    });
+
     $('#id_colonia').change(function(){
         var colonia = $(this).val();
-        console.log(colonia);
+
         var latitud_centro,longitud_centro;
         var latitud_sureste,longitud_sureste;
         var latitud_noreste,longitud_noreste;
@@ -664,6 +772,33 @@ $(document).ready(function() {
               }
         
             moverCamara(latitud_noreste,longitud_noreste,latitud_sureste,longitud_sureste,latitud_centro,longitud_centro);
+
+        });
+
+
+    });
+
+    $('#id_colonia2').change(function(){
+        var colonia = $(this).val();
+
+        var latitud_centro,longitud_centro;
+        var latitud_sureste,longitud_sureste;
+        var latitud_noreste,longitud_noreste;
+
+        $.get('/Colonia/detalle/'+colonia, function(data){
+           
+              for (var i=0; i<data.length;i++){
+                latitud_centro=data[i].latitud_centroC;
+                longitud_centro=data[i].longitud_centroC;
+
+                latitud_sureste=data[i].latitud_suresteC;
+                longitud_sureste=data[i].longitud_suresteC;
+
+                latitud_noreste=data[i].latitud_noresteC;
+                longitud_noreste=data[i].longitud_noresteC;
+              }
+        
+            actualizarPosicion(latitud_noreste,longitud_noreste,latitud_sureste,longitud_sureste,latitud_centro,longitud_centro);
 
         });
 
@@ -934,6 +1069,16 @@ $(document).ready(function() {
         $('#email_show').text($(this).data('email'));
     });
 
+     //Funcion para mostrar los datos de la organizacion
+    $(document).on('click', '.show-modal', function() {
+        $('#show_organizacion').modal('show');
+        $('#id').text($(this).data('id'));
+        $('#nombre_organizacion_show').text($(this).data('nombre_organizacion'));
+        $('#nombre_dirigente_show').text($(this).data('nombre_dirigente'));
+        $('#show').modal('show');
+
+    });
+
      //Funcion que muestra la zona de comercializacion en un mapa modal
     $('#show_zona').on('shown.bs.modal',function(e){
         var aux =$(e.relatedTarget).data('id');
@@ -968,16 +1113,138 @@ $(document).ready(function() {
         var laborales=$(e.relatedTarget).data('dias_laborados');
         var inicio=$(e.relatedTarget).data('hora_inicio');
         var fin=$(e.relatedTarget).data('hora_fin');
+
+        var tipo_actividad;
+        if(actividad==1){
+            tipo_actividad="Comercial Movil";
+        }else if(actividad==2){
+            tipo_actividad="Comercial Semifija";
+        }else if(actividad==3){
+            tipo_actividad="Comercial Movil Con Equipo Rodante";
+        }else if(actividad==4){
+            tipo_actividad="Comercial Fija";
+        }else if(actividad==5){
+            tipo_actividad="Comercios Establecidos";
+        }else if(actividad==6){
+            tipo_actividad="Tianguis";
+        }else if(actividad==7){
+            tipo_actividad="Prestacion de Servicios";
+        }
+
         $('#id').text(id);
         $('#numero_cuenta_show').text(cuenta);
         $('#numero_expediente_show').text(expediente);
-        $('#actividad_show').text(actividad);
+        $('#actividad_show').text(tipo_actividad);
         $('#giro_show').text(giro);
         $('#laborales_show').text(laborales);
         $('#inicio_show').text(inicio);
         $('#fin_show').text(fin);
         
         agregarMarcador(latitud,longitud);
+    });
+
+    $('#show_agencia').on('shown.bs.modal',function(e){
+        var id_agencia=$(e.relatedTarget).data('id');
+        var nombre=$(e.relatedTarget).data('nombre');
+        var tipo=$(e.relatedTarget).data('tipo');
+        var total=$(e.relatedTarget).data('total');
+        var latitud=$(e.relatedTarget).data('latitud');
+        var longitud=$(e.relatedTarget).data('longitud');
+
+        console.log(id_agencia);
+
+        mostrarAgencia(latitud,longitud);
+
+        $('#id_ag').text(id_agencia);
+        $('#nombre_agencia').text(nombre);
+        $('#tipo_agencia').text(tipo);
+        $('#total_colonias').text(total);
+   
+    });
+
+
+    $(document).on('click','.show-modal-organizacion-vendedor',function(){
+        $('#show_organizacion_vendedor').modal('show');
+        $('#nombre_show').text($(this).data('nombre'));
+        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
+        $('#apellido_materno_show').text($(this).data('apellido-materno'));
+        $('#fecha_show').text($(this).data('registro'));
+        if($(this).data('sexo')=='H'){
+            $('#sexo_show').text('Hombre');
+        }else
+         $('#sexo_show').text('Mujer');
+
+    });
+
+    $(document).on('click','.show-modal-zona-vendedor',function(){
+        $('#show_zona_vendedor').modal('show');
+        $('#nombre_show').text($(this).data('nombre'));
+        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
+        $('#apellido_materno_show').text($(this).data('apellido-materno'));
+        $('#fecha_show').text($(this).data('registro'));
+        if($(this).data('sexo')=='H'){
+            $('#sexo_show').text('Hombre');
+        }else
+         $('#sexo_show').text('Mujer');
+
+    });
+
+    $(document).on('click','.show-modal-actividad-vendedor',function(){
+        $('#show_actividad_vendedor').modal('show');
+        $('#nombre_show').text($(this).data('nombre'));
+        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
+        $('#apellido_materno_show').text($(this).data('apellido-materno'));
+        $('#fecha_show').text($(this).data('registro'));
+        if($(this).data('sexo')=='H'){
+            $('#sexo_show').text('Hombre');
+        }else
+         $('#sexo_show').text('Mujer');
+
+    });
+
+    $(document).on('click','.show-modal-usuario',function(){
+        $('#show_usuario').modal('show');
+        $('#id').text($(this).data('id'));
+        $('#nombre_usuario_show').text($(this).data('nombre'));
+        $('#paterno_show').text($(this).data('apellido_paterno'));
+        $('#materno_show').text($(this).data('apellido_materno'));
+        $('#email_show').text($(this).data('email'));
+
+        var status=$(this).data('status');
+
+        if(status==1){
+            $('#status_show').text('Activo');
+            $('#status_show').css('background','green');
+        }else{
+            $('#status_show').text('Inactivo');
+            $('#status_show').css('background','red');
+        }
+    });
+
+    $(document).on('click','.show-modal-usuario-administrativo',function(){
+        $('#show_usuario_administrativo').modal('show');
+        $('#id').text($(this).data('id'));
+        $('#nombre_usuario_show').text($(this).data('nombre'));
+        $('#paterno_show').text($(this).data('apellido_paterno'));
+        $('#materno_show').text($(this).data('apellido_materno'));
+        $('#email_show').text($(this).data('email'));
+
+        var status=$(this).data('status');
+
+        if(status==1){
+            $('#status_show').text('Activo');
+            $('#status_show').css('background','green');
+        }else{
+            $('#status_show').text('Inactivo');
+            $('#status_show').css('background','red');
+        }
+    });
+
+    $(document).on('click','.show-modal-actividad',function(){
+        $('#show_actividad').modal('show');
+        $('#id').text($(this).data('id'));
+        $('#actividad_show').text($(this).data('nombre_actividad'));
+        $('#numero_vendedores_show').text($(this).data('total'));
     });
 
 
@@ -1042,10 +1309,6 @@ $(document).ready(function() {
         agregarPosicion();
     });
 
-    $('#update_permiso').on('shown.bs.modal',function(e){
-       
-        actualizarPosicion(latitud,longitud);
-    });
 
 });
 /******************************************* PERMISOS *****************************************************/
@@ -1053,46 +1316,6 @@ $(document).ready(function() {
     $(document).on('click','.asignar-sancion',function(){
         $('#asignar_sancion').modal('show');
         $('#id_permiso_sancion').val($(this).data('id'));
-    });
-       
-
-    $(document).on('click','.show-modal-organizacion-vendedor',function(){
-        $('#show_organizacion_vendedor').modal('show');
-        $('#nombre_show').text($(this).data('nombre'));
-        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
-        $('#apellido_materno_show').text($(this).data('apellido-materno'));
-        $('#fecha_show').text($(this).data('registro'));
-        if($(this).data('sexo')=='H'){
-            $('#sexo_show').text('Hombre');
-        }else
-         $('#sexo_show').text('Mujer');
-
-    });
-
-    $(document).on('click','.show-modal-zona-vendedor',function(){
-        $('#show_zona_vendedor').modal('show');
-        $('#nombre_show').text($(this).data('nombre'));
-        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
-        $('#apellido_materno_show').text($(this).data('apellido-materno'));
-        $('#fecha_show').text($(this).data('registro'));
-        if($(this).data('sexo')=='H'){
-            $('#sexo_show').text('Hombre');
-        }else
-         $('#sexo_show').text('Mujer');
-
-    });
-
-    $(document).on('click','.show-modal-actividad-vendedor',function(){
-        $('#show_actividad_vendedor').modal('show');
-        $('#nombre_show').text($(this).data('nombre'));
-        $('#apellido_paterno_show').text($(this).data('apellido-paterno'));
-        $('#apellido_materno_show').text($(this).data('apellido-materno'));
-        $('#fecha_show').text($(this).data('registro'));
-        if($(this).data('sexo')=='H'){
-            $('#sexo_show').text('Hombre');
-        }else
-         $('#sexo_show').text('Mujer');
-
     });
 
     $(document).on('click','.responder-observacion',function(){
@@ -1169,24 +1392,6 @@ $(document).ready(function() {
         $('#id_permiso').val(id_permiso);
     });
 
-    $('#show_agencia').on('shown.bs.modal',function(e){
-        var id_agencia=$(e.relatedTarget).data('id');
-        var nombre=$(e.relatedTarget).data('nombre');
-        var tipo=$(e.relatedTarget).data('tipo');
-        var total=$(e.relatedTarget).data('total');
-        var latitud=$(e.relatedTarget).data('latitud');
-        var longitud=$(e.relatedTarget).data('longitud');
-
-        console.log(id_agencia);
-
-        mostrarAgencia(latitud,longitud);
-
-        $('#id_ag').text(id_agencia);
-        $('#nombre_agencia').text(nombre);
-        $('#tipo_agencia').text(tipo);
-        $('#total_colonias').text(total);
-   
-    });
 
     //Funcion para desplegar las opciones dependiendo del radio seleccionado
     $("input[type=radio]").click(function(event){
@@ -1459,7 +1664,7 @@ $(document).ready(function() {
         var total_dias;
         $('#formulario input[type=checkbox]').each(function(){
             if (this.checked) {
-                dias += $(this).val()+', ';
+                dias += $(this).val()+',';
                 total_dias++;
             }
         }); 
@@ -1581,16 +1786,6 @@ $(document).ready(function() {
         
     });
 
-    //Funcion para mostrar los datos de la organizacion
-    $(document).on('click', '.show-modal', function() {
-        $('#show_organizacion').modal('show');
-        $('#id').text($(this).data('id'));
-        $('#nombre_organizacion_show').text($(this).data('nombre_organizacion'));
-        $('#nombre_dirigente_show').text($(this).data('nombre_dirigente'));
-        $('#show').modal('show');
-
-    });
-
     //Funcion para mostrar la ventana modal para actualizar la organizacion
     $(document).on('click','.edit-modal',function(){
         $('#update_organizacion').modal('show');
@@ -1641,52 +1836,6 @@ $(document).ready(function() {
     $(document).on('click', '.create-modal', function() {
         $('#create_usuario').modal('show');
     });
-
-    $(document).on('click','.show-modal-usuario',function(){
-        $('#show_usuario').modal('show');
-        $('#id').text($(this).data('id'));
-        $('#nombre_usuario_show').text($(this).data('nombre'));
-        $('#paterno_show').text($(this).data('apellido_paterno'));
-        $('#materno_show').text($(this).data('apellido_materno'));
-        $('#email_show').text($(this).data('email'));
-
-        var status=$(this).data('status');
-
-        if(status==1){
-            $('#status_show').text('Activo');
-            $('#status_show').css('background','green');
-        }else{
-            $('#status_show').text('Inactivo');
-            $('#status_show').css('background','red');
-        }
-    });
-
-    $(document).on('click','.show-modal-usuario-administrativo',function(){
-        $('#show_usuario_administrativo').modal('show');
-        $('#id').text($(this).data('id'));
-        $('#nombre_usuario_show').text($(this).data('nombre'));
-        $('#paterno_show').text($(this).data('apellido_paterno'));
-        $('#materno_show').text($(this).data('apellido_materno'));
-        $('#email_show').text($(this).data('email'));
-
-        var status=$(this).data('status');
-
-        if(status==1){
-            $('#status_show').text('Activo');
-            $('#status_show').css('background','green');
-        }else{
-            $('#status_show').text('Inactivo');
-            $('#status_show').css('background','red');
-        }
-    });
-
-    $(document).on('click','.show-modal-actividad',function(){
-        $('#show_actividad').modal('show');
-        $('#id').text($(this).data('id'));
-        $('#actividad_show').text($(this).data('nombre_actividad'));
-        $('#numero_vendedores_show').text($(this).data('total'));
-    });
-
 
     $(document).on('click', '.role-usuario', function() {
         $('#role_usuario').modal('show');

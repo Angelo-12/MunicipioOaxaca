@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Estado;
 use App\Models\Administrador_Secretaria;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SecretariaExport;
 
 class Administrador_SecretariaController extends Controller
 {
@@ -28,6 +30,10 @@ class Administrador_SecretariaController extends Controller
         $pdf=\PDF::loadView('Pdfs.secretarias',compact('secretarias'));
 
         return $pdf->stream();
+    }
+
+    public function descargar_excel(){
+        return Excel::download(new SecretariaExport, 'secretaria.xlsx');
     }
 
 }

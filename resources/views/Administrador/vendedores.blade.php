@@ -21,9 +21,9 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <button type="button"  class="btn btn-info">
+            <a href="{{url('Vendedores/descargar_excel')}}" type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
-            </button>
+            </a>
         </div>
 
         <div class="card-body">

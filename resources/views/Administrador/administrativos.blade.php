@@ -16,13 +16,13 @@
             <a class="create-modal-administrativo btn btn-secondary">
                 <i class="fa fa-plus"></i>&nbsp;Nuevo
             </a>
-            <button type="button"  class="btn btn-info">
+            <a href="{{url('Secretarias/descargar_pdf')}}" type="button"  class="btn btn-info">
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
-            </button>
+            </a>
 
-            <button type="button"  class="btn btn-info">
+            <a href="{{url('Secretarias/descargar_excel')}}" type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
-            </button>
+            </a>
         </div>
 
         <div class="card-body">

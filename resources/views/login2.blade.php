@@ -270,7 +270,7 @@ input[type=text]:placeholder,input[type=password] :placeholder {
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <br>
-    <h2>Iniciar Sesion</h2>
+    <h2>Iniciar Sesión</h2>
     <div class="fadeIn first">
       
       <img src="{{asset('img/login.png')}}" id="icon" alt="User Icon" />

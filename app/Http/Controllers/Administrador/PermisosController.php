@@ -97,13 +97,41 @@ class PermisosController extends Controller
     }
 
     public function editar(Request $request){
+        $rules= array(
+            'tipo_actividad'=>'required',
+            'giro'=>'required',
+            'latitud'=>'required',
+            'longitud'=>'required|numeric',
+            'dias_laborados'=>'required',
+            'hora_inicio'=>'required',
+            'hora_fin'=>'required',
+            'detalles'=>'required',
+            'id_colonia'=>'required'
+         );
+ 
+         $validator = Validator::make ( Input::all(), $rules);
+         if ($validator->fails())
+             return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
+     
+         else {
+             $permiso=Permisos::find($request->id);
 
+             $permiso->tipo_actividad=$request->input('tipo_actividad');
+             $permiso->giro=$request->input('giro');
+             $permiso->latitud=$request->input('latitud');
+             $permiso->longitud=$request->input('longitud');
+             $permiso->dias_laborados=$request->input('dias_laborados');
+             $permiso->hora_inicio=$request->input('hora_inicio');
+             $permiso->hora_fin=$request->input('hora_fin');
+             $permiso->detalles=$request->input('detalles');
+             $permiso->id_colonia=$request->input('id_colonia');
+            
+             $permiso->save();
+     
+             return response()->json($permiso);
+         }
     }
-
-    public function eliminar(Request $request){
-
-    }
-
+    
     //Funcion que regresa los detalles de el permiso se recibe como parametro un id
     public function detalle_permiso($id){
         return Permisos::join('vendedor','vendedor.id_permiso','=','permiso.id')
