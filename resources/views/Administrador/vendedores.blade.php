@@ -21,7 +21,7 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <a href="{{url('Vendedores/descargar_excel')}}" type="button"  class="btn btn-info">
+            <a href="{{url('Vendedores/descargar_excel')}}" onclick="MensajeConfirmacion();" type="button"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
             </a>
         </div>
@@ -43,7 +43,7 @@
                         <th>Nombre</th>
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
-                        <th>Correo Electronico</th>
+                        <th>Correo Electrónico</th>
                         <th>Status</th>
                         <th>Opciones</th>
                     </tr>
@@ -149,14 +149,14 @@
                                 <label>Nombre</label>
                                 <input  type="text" name="nombre" placeholder="Nombre"
                                         class="form-control" id="name">
-                                <span class="text-danger" id="name_error">El campo nombre es obligatorio</span>
+                               <!-- <span class="text-danger" id="name_error">El campo nombre es obligatorio</span>-->
                             </div>
     
                             <div class="form-group">
                                 <label>Apellido Paterno</label>
                                 <input type="text" name="apellido_paterno" placeholder="Apellido Paterno"
                                        class="form-control" id="apellido_paterno">
-                                <span class="text-danger" id="apellido_paterno_error">El campo apellido paterno es obligatorio</span>
+                                <!-- <span class="text-danger" id="apellido_paterno_error">El campo apellido paterno es obligatorio</span>-->
     
                             </div>
     
@@ -164,7 +164,7 @@
                                 <label>Apellido Materno</label>
                                 <input  type="text" name="apellido_materno" placeholder="Apellido Materno"
                                         class="form-control" id="apellido_materno">
-                                <span class="text-danger" id="apellido_materno_error">El campo apellido materno es obligatorio</span>
+                              <!--   <span class="text-danger" id="apellido_materno_error">El campo apellido materno es obligatorio</span>-->
     
                             </div>
     
@@ -208,7 +208,6 @@
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" id="email" placeholder="Email" name="email">
-                                <span class="text-danger" id="email_error">El campo email ya se encuentra</span>
                             </div>
     
                             <div class="form-group">
@@ -231,14 +230,14 @@
                                 <label>RFC</label>
                                 <input  type="text" name="rfc" placeholder="RFC (Opcional)"
                                         class="form-control" id="rfc">
-                                <span class="text-danger" id="rfc_error">El campo RFC es requerido</span>
+                                <!--<span class="text-danger" id="rfc_error">El campo RFC es requerido</span>-->
                             </div>
     
                             <div class="form-group">
                                 <label>CURP</label>
                                 <input type="text" name="curp" placeholder="CURP"
                                        class="form-control" id="curp">
-                                <span class="text-danger" id="curp_error">El campo CURP es requerido</span>
+                                <!-- <span class="text-danger" id="curp_error">El campo CURP es requerido</span>-->
     
                             </div>
     
@@ -250,7 +249,7 @@
                                         <option value="{{$o->id}}">{{$o->nombre_organizacion}}</option>
                                     @endforeach
                                 </select>
-                                <span class="text-danger" id="id_organizacion_error">Debe Seleccionar una organizacion</span>
+                                <!-- <span class="text-danger" id="id_organizacion_error">Debe Seleccionar una organizacion</span>-->
                             </div>
     
                             <div class="form-group">

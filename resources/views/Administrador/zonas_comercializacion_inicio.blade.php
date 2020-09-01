@@ -7,7 +7,7 @@
     <div class="card">
       <div class="card-header">
           <h1>
-              Zonas de comercializacion
+              Zonas de comercialización
           </h1>
       </div>
     </div>
@@ -20,7 +20,7 @@
               <i class="fa fa-file-pdf"></i>&nbsp;PDF
           </a>
 
-          <a type="button" href="{{url('Zonas/descargar_excel')}}" class="btn btn-info">
+          <a type="button" onclick="MensajeConfirmacion();" href="{{url('Zonas/descargar_excel')}}" class="btn btn-info">
               <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
           </a>
       </div>

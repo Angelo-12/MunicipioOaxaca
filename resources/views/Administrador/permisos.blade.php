@@ -27,7 +27,7 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
               </a>
 
-            <a type="button" href="{{url('Permisos/descargar_excel/'.$nombre)}}" class="btn btn-info">
+            <a type="button" href="{{url('Permisos/descargar_excel/'.$nombre)}}" onclick="MensajeConfirmacion();" class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
             </a>
         </div>
@@ -37,8 +37,9 @@
                 <div class="col-md-6">
                     <div class="input-group">
                        
-                        <input type="text"  class="form-control" placeholder="Texto a buscar">
-                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                    <input type="text" name="tipo_permiso" id="tipo_permiso" value="{{$nombre}}" hidden>
+                        <input type="text" id="caja_busqueda_permiso"  class="form-control" placeholder="Texto a buscar">
+                        <button type="submit" onclick="BuscarPermiso();" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
             </div>
@@ -137,6 +138,7 @@
                                         <button type="button" title="Editar" class="btn btn-danger btn-sm" 
                                             data-toggle="modal" data-target="#update_permiso"
                                             data-id="{{$p->id}}"
+                                            data-id_colonia="{{$p->id_colonia}}"
                                             data-numero_cuenta="{{$p->numero_cuenta}}"
                                             data-numero_expediente="{{$p->numero_expediente}}"
                                             data-tipo_actividad="{{$p->tipo_actividad}}"
@@ -425,6 +427,8 @@
 
                         <input type="text" id="id_permiso" name="id_permiso" hidden>
 
+                        <input type="text" id="id_colonia2" name="id_colonia" hidden>
+
                         <input type="text" id="latitud_permiso" name="latitud_permiso" hidden>
 
                         <input type="text" id="longitud_permiso" name="longitud_permiso" hidden>
@@ -471,12 +475,12 @@
 
                         <div class="form-group">
                             <label for="">Giro:</label>
-                            <input class="form-control" type="text" name="giro" id="giro_permiso"/>
+                            <input class="form-control" type="text" name="giro_permiso" id="giro_permiso"/>
                         </div>
                     
                         <div class="form-group">
                             <label>Dias Laborados</label>
-                            <div class="checkbox" name="dias_laborados" id="checkbox">
+                            <div class="checkbox" name="dias_laborados" id="checkbox_dias">
                                 <label>
                                     <input type="checkbox" name="dias[]" value="Lunes" id="lunes"> Lunes
                                 </label>
@@ -508,20 +512,20 @@
                         <div class="form-group">
                             <label>Hora de Inicio</label>
                             <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
-                            data-autoclose="true" readonly="" name="hora_inicio" id="hora_inicio">
+                            data-autoclose="true" readonly="" name="hora_inicio2" id="hora_inicio">
                             <span class="text-danger" id="hora_inicio_error"></span>    
                         </div>
                         
                         <div class="form-group">
                             <label>Hora de Fin</label>
                             <input type="text" class="form-control clockpicker" data-placement="right" data-align="top"
-                            data-autoclose="true" readonly="" name="hora_fin" id="hora_fin">  
+                            data-autoclose="true" readonly="" name="hora_fin2" id="hora_fin">  
                             <span class="text-danger" id="hora_fin_error"></span>   
                         </div>
 
                         <div class="form-group">
                             <label for="detalles">Detalles</label>
-                            <textarea class="form-control" id="detalles_permiso" name="detalles" placeholder="Detalles" rows="3"></textarea>
+                            <textarea class="form-control" id="detalles_permiso" name="detalles_permiso" placeholder="Detalles" rows="3"></textarea>
                             <span class="text-danger" id="detalles_error"></span>
                         </div>
                     </form>

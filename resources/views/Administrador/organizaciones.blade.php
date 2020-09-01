@@ -26,8 +26,12 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <a type="button" href="{{url('Organizaciones/descargar_excel')}}"  class="btn btn-info">
+            <a type="button" onclick="MensajeConfirmacion();" href="{{url('Organizaciones/descargar_excel')}}"  class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+            </a>
+
+            <a type="button" onclick="MostrarOrganizaciones();" class="btn btn-info" title="Organizaciones">
+                    <i class="fa fa-list"></i></i>&nbsp;
             </a>
         </div>
         <div class="card-body">
@@ -45,7 +49,7 @@
                 <thead >
                     <tr >
                         <th >Id</th>
-                        <th >Nombre de la organizacion</th>
+                        <th >Nombre de la organización</th>
                         <th >Nombre del dirigente</th>
                         <th >Total de vendedores</th>
                         <th style="text-align: center">Opciones</th>
@@ -374,6 +378,66 @@
         </div>
     </div>
 
+    <div id="show_organizaciones" class="modal fade" role="dialog">
+
+        <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Organizaciones</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+                    </div>
+
+                    <div class="modal-body" >
+
+                        <div class="card-header">
+                            <a type="button" href="{{url('Organizaciones/descargar_organizaciones')}}" class="btn btn-info">
+                                <i class="fa fa-file-pdf"></i>&nbsp;PDF
+                            </a>
+                
+                            <a type="button" href="{{url('Organizaciones/descargar_excel_organizaciones')}}" class="btn btn-info">
+                                <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+                            </a>
+                        </div>
+
+                        <div class="card-body">
+
+                            <table  class="table table-bordered table-striped table-sm">
+                                <thead>
+                                    <tr >
+                                        <th >Id</th>
+                                        <th >Nombre de la organización</th>
+                                        <th >Nombre del dirigente</th>
+                                    </tr>
+                                    {{ csrf_field() }}
+                
+                                </thead>
+                            </table>
+
+
+                            <div class="ajustar" style="overflow-y: auto">
+
+                                <table id="table_organizaciones" class="table table-bordered table-striped table-sm">
+                                
+                                    <tbody >
+                                                        
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        
+                        </div>
+                    </div>
+        
+                        
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+                        
+        </div>
+    </div>
 
 </div>
 <br>

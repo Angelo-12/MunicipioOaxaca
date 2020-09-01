@@ -13,8 +13,8 @@ class EventualesController extends Controller
 {
     public function insertar(Request $request){
         $rules= array(
-            'latitud'=>'required',
-            'longitud'=>'required',
+            'latitud_fin'=>'required',
+            'longitud_fin'=>'required',
             'id_permiso'=>'required',
          );
  
@@ -27,8 +27,8 @@ class EventualesController extends Controller
              $id_permiso=$request->input('id_permiso');
              $eventuales=new Eventuales;
  
-             $eventuales->latitud_fin=$request->input('latitud');
-             $eventuales->longitud_fin=$request->input('longitud');
+             $eventuales->latitud_fin=$request->input('latitud_fin');
+             $eventuales->longitud_fin=$request->input('longitud_fin');
              $eventuales->id_permiso=$request->input('id_permiso');
         
              $eventuales->save();

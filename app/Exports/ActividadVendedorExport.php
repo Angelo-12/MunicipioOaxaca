@@ -30,9 +30,8 @@ class ActividadVendedorExport implements FromView
     public function view(): View{
 
         $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')
-        ->join('permiso','permiso.id','=','tipo_actividad')
-        ->join('vendedor','permiso.id','=','vendedor.id_permiso')
-        ->join('users','vendedor.id_usuario','=','users.id')
+        ->join('permiso','permiso.id','=','vendedor.id_permiso')
+        ->join('actividadcomercial','actividadcomercial.id','=','permiso.tipo_actividad')
         ->where('actividadcomercial.id','=',$this->id)
         ->get();
 

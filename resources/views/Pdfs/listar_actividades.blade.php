@@ -38,7 +38,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Organizaciones</title>
+    <title>Actividades Comerciales</title>
 </head>
 <body>
     <br>
@@ -51,7 +51,7 @@
     <br>
     <br>
     <h4 class="texto">
-       Organizaciones
+        Actividades Comerciales
     </h4>
 
     <p>
@@ -60,29 +60,28 @@
             ?>
             <?=date('m/d/Y g:ia');?></p>
         <p>Total de registros :
-          {{$organizaciones->count()}}
+          {{$actividades->count()}}
         </p>
     </p>
 
     <div id="table_data">
         <table class="table table-striped">
             <thead >
-                <tr >
+                <tr>
                     <th>Id</th>
-                    <th>Nombre de la organización</th>
-                    <th>Nombre del dirigente</th>
-                    <th>Total de vendedores</th>
+                    <th>Nombre de la Actividad</th>
+                   
                 </tr>
             </thead>
             <tbody>
-                @foreach ($organizaciones as $o)
-                    <tr class="post{{$o->id}}">
-                        <td>{{$o->id}}</td>
-                        <td >{{$o->nombre_organizacion}}</td>
-                        <td >{{$o->nombre_dirigente}}</td>
-                        <td >{{$o->total}}</td>
-                    </tr>             
-                    @endforeach              
+                @foreach ($actividades as $a)
+                   
+                <tr class="post{{$a->id}}">
+                    <td >{{$a->id}}</td>
+                    <td >{{$a->nombre_actividad}}</td>
+                </tr>             
+                @endforeach  
+                
             </tbody>
         </table>
 

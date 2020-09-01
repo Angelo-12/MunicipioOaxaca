@@ -314,7 +314,7 @@ class UsuarioController extends Controller
       return $pdf->stream();
    }
 
-   public function descargar_excel_administrador(){
+   public function descargar_excel(){
       return Excel::download(new UsersExport, 'administradores.xlsx');
 
    }

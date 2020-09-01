@@ -21,7 +21,7 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <a type="button" href="{{url('Usuarios/descargar_excel')}}" class="btn btn-info">
+            <a type="button" onclick="MensajeConfirmacion();" href="{{url('Usuarios/descargar_excel')}}" class="btn btn-info">
                     <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
                 </a>
             </div>
@@ -43,7 +43,7 @@
                         <th>Nombre</th>
                         <th>Apellido Paterno</th>
                         <th>Apellido Materno</th>
-                        <th>Correo Electronico</th>
+                        <th>Correo Electrónico</th>
                         <th>Cargo</th>
                         <th>Status</th>
                         <th>Opciones</th>

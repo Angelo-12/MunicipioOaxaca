@@ -18,9 +18,14 @@
                 <i class="fa fa-file-pdf"></i>&nbsp;PDF
             </a>
 
-            <a type="button" href="{{url('Actividades/descargar_excel')}}" class="btn btn-info">
+            <a type="button" onclick="MensajeConfirmacion();" href="{{url('Actividades/descargar_excel')}}" class="btn btn-info">
                 <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
             </a>
+
+            <a type="button" onclick="MostrarActividades();" class="btn btn-info" title="Actividades Comerciales">
+                <i class="fa fa-list"></i></i>&nbsp;
+            </a>
+
         </div>
         <div class="card-body">
             <div class="form-group row">
@@ -113,7 +118,6 @@
                         
         </div>
     </div>
-
 
     <div id="show_detalles_actividad" class="modal fade" role="dialog">
 
@@ -224,6 +228,66 @@
         </div>
     </div>
 
+    <div id="show_actividades" class="modal fade" role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Actividades Comerciales</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    
+                </div>
+
+                <div class="modal-body" >
+
+                    <div class="card-header">
+                    <a type="button" href="{{url('Actividades/descargar_actividades')}}" class="btn btn-info">
+                            <i class="fa fa-file-pdf"></i>&nbsp;PDF
+                    </a>
+            
+                        <a type="button" href="{{url('Actividades/descargar_excel_actividades')}}" onclick="MensajeConfirmacion();" class="btn btn-info">
+                            <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+
+                        <table  class="table table-bordered table-striped table-sm">
+                            <thead>
+                                <tr >
+                                    <th >Id</th>
+                                    <th >Nombre de la actividad</th>
+                                </tr>
+                                {{ csrf_field() }}
+            
+                            </thead>
+                        </table>
+
+
+                        <div class="ajustar" style="overflow-y: auto">
+
+                            <table id="table_actividades_comerciales" class="table table-bordered table-striped table-sm">
+                            
+                                <tbody >
+                                                    
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    
+                    </div>
+                </div>
+    
+                    
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+                    
+    </div>
+      
+    </div>
 
 </div>
 <br>

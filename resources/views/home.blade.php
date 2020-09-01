@@ -65,67 +65,88 @@
                 
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-
-                                    <div class="row">
-                                        <div class="col-md-6">
+                        <div class="tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class=" form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Id</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{Auth::user()->id}}</p>
+                                            <input type="text" class="form-control" value="{{Auth::user()->id}}" readonly>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Nombre</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{Auth::user()->name}}</p>
+                                            <input type="text" class="form-control" value="{{Auth::user()->name}}" >
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Apellido Paterno</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{$user->apellido_paterno}}</p>
+                                            <input type="text" value="{{$user->apellido_paterno}}" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Apellido Materno</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{Auth::user()->apellido_materno}}</p>
+                                            <input class="form-control" type="text" value="{{Auth::user()->apellido_materno}}">
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
+                                            <label>Contraseña</label>
+                                        </div>
                                         <div class="col-md-6">
+                                            <input type="password" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
+                                            <label>Confirmar contraseña</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="password" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Edad</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{$edad}}</p>
+                                            <input type="text" class="form-control" readonly value="{{$edad}}">
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Sexo</label>
                                         </div>
                                         <div class="col-md-6">
+
                                             @if (Auth::user()->sexo=='H')
-                                                <p>Hombre</p>
+                                                <input type="text" class="form-control" readonly value="Hombre"> 
                                             @else
-                                            <p>Mujer</p>
+                                                <input type="text" class="form-control" readonly value="Mujer"> 
                                             @endif
                                         
                                         </div>
                                     </div>
 
-                                    <div class="row form-group">
+                                    <div class="form-group row" style="text-align: center;">
+                                        <div class="form-control col-md-6" style="display: none;">
+                                           
+                                        </div>
                                         <div class="col-md-6">
-                                            <button class="btn btn-success" type="submit">Guardar</button>
+                                            <button class="form-control btn btn-success" type="submit">Guardar</button>
                                         </div>
                                     </div>
 
@@ -133,65 +154,40 @@
                             
 
                         </div>
+
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Email</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{Auth::user()->email}}</p>
+                                            <input type="email" readonly class="form-control" value="{{Auth::user()->email}}">
                                         </div>
                                     </div>
 
                                     @foreach ($rol as $r)
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Cargo</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{$r['cargo']}}</p>
+                                            <input type="text" class="form-control" value="{{$r['cargo']}}" readonly>
                                         </div>
                                     </div> 
 
-                                    <div class="row">
-                                        <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <div class="form-control col-md-6">
                                             <label>Fecha de registro</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <p>{{Auth::user()->created_at}}</p>
+                                            <input type="text" class="form-control" readonly value="{{Auth::user()->created_at}}">
                                         </div>
                                     </div>
                                     @endforeach
 
-                                    <div class="row">
-                                    
-                                            <div class="col-md-6">
-                                                <label>Cambiar contraseña</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="password" class="form-control">
-                                            </div>
-                                    
-                                    </div>
+                                    <br>
+                                    <br>
 
-                                        <div class="row form-group">
-                                            <div class="col-md-6">
-                                                <label>Confirmar contraseña</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="password" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <br>
-                                        <br>
-
-                                        <div class="row form-group">
-                                            <div class="col-md-6">
-                                                <button class="btn btn-success">Actualizar</button>
-                                            </div>
-                                        </div>
-                                        
                                     </div> 
                                 
                                 

@@ -71,7 +71,6 @@
                     <th>Id</th>
                     <th>Nombre de la organización</th>
                     <th>Nombre del dirigente</th>
-                    <th>Total de vendedores</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,7 +79,6 @@
                         <td>{{$o->id}}</td>
                         <td >{{$o->nombre_organizacion}}</td>
                         <td >{{$o->nombre_dirigente}}</td>
-                        <td >{{$o->total}}</td>
                     </tr>             
                     @endforeach              
             </tbody>

@@ -47,7 +47,9 @@ Route::group(['prefix' => 'Vendedores'], function () {
 
 Route::group(['prefix' => 'Permisos'], function () {
     Route::get('index/{nombre}','Administrador\PermisosController@index');
+    Route::get('buscar/{dato}/{nombre}','Administrador\PermisosController@buscar');
     Route::post('insertar','Administrador\PermisosController@insertar');
+    Route::post('editar','Administrador\PermisosController@editar');
     Route::get('detalle/{id}','Administrador\PermisosController@detalle_permiso');
     Route::get('descargar_pdf/{nombre}','Administrador\PermisosController@descargar_pdf');
     Route::get('descargar_excel/{nombre}','Administrador\PermisosController@descargar_excel');
@@ -89,6 +91,9 @@ Route::group(['prefix' => 'Zonas'], function () {
 
 Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('index','Administrador\OrganizacionesController@index');
+    Route::get('mostrar_organizaciones','Administrador\OrganizacionesController@mostrar_organizaciones');
+    Route::get('descargar_organizaciones','Administrador\OrganizacionesController@descargar_organizaciones');
+    Route::get('descargar_excel_organizaciones','Administrador\OrganizacionesController@descargar_excel_organizaciones');
     Route::post('insertar','Administrador\OrganizacionesController@insertar');
     Route::post('editar','Administrador\OrganizacionesController@editar');
     Route::post('eliminar','Administrador\OrganizacionesController@eliminar');
@@ -104,11 +109,14 @@ Route::group(['prefix' => 'Organizaciones'], function () {
 
 Route::group(['prefix' => 'Actividades'], function () {
     Route::get('index','Administrador\ActividadesComercialesController@index');
+    Route::get('mostrar_actividades','Administrador\ActividadesComercialesController@mostrar_actividades');
     Route::get('buscar/{dato}','Administrador\ActividadesComercialesController@buscar');
     Route::get('buscar_vendedor/{dato}/{id}','Administrador\ActividadesComercialesController@buscar_vendedor');
     Route::get('vacio','Administrador\ActividadesComercialesController@vacio');
     Route::get('detalle/{id}','Administrador\ActividadesComercialesController@detalles');
     Route::get('comerciales/{id}','Administrador\ActividadesComercialesController@index');
+    Route::get('descargar_actividades','Administrador\ActividadesComercialesController@descargar_actividades');
+    Route::get('descargar_excel_actividades','Administrador\ActividadesComercialesController@descargar_excel_actividades');
     Route::get('descargar_pdf','Administrador\ActividadesComercialesController@descargar_pdf');
     Route::get('descargar_pdf_detalle/{id}','Administrador\ActividadesComercialesController@descargar_pdf_detalle');
     Route::get('descargar_excel','Administrador\ActividadesComercialesController@descargar_excel');

@@ -22,7 +22,7 @@
               <i class="fa fa-file-pdf"></i>&nbsp;PDF
           </a>
 
-        <a type="button"  class="btn btn-info" href="{{url('Agencia/descargar_excel')}}">
+        <a type="button" onclick="MensajeConfirmacion();" class="btn btn-info" href="{{url('Agencia/descargar_excel')}}">
               <i class="fa fa-file-csv"></i></i>&nbsp;EXCEL
           </a>
       </div>
@@ -43,7 +43,7 @@
                       <th >Id</th>
                       <th >Nombre agencia</th>
                       <th >Tipo agencia</th>
-                      <th >Numero de colonias</th>
+                      <th >Número de colonias</th>
                       <th style="text-align: center">Opciones</th>
                   </tr>
                   {{ csrf_field() }}
@@ -130,7 +130,7 @@
                                     <tr>
                                         <th style="width: 10%" >Id</th>
                                         <th style="width: 20%">Colonia</th>
-                                        <th style="width: 30%">Codigo Postal</th>
+                                        <th style="width: 30%">Código Postal</th>
                                         <th style="width: 15%">Vendedores</th>
                                         <th style="width: 25%" style="text-align: center">Opciones</th>
                                     </tr>

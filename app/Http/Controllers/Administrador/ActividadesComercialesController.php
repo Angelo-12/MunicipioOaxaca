@@ -13,6 +13,8 @@ use DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ActividadExport;
 use App\Exports\ActividadVendedorExport;
+use App\Exports\ListaActividadesExport;
+
 
 class ActividadesComercialesController extends Controller
 {
@@ -22,9 +24,25 @@ class ActividadesComercialesController extends Controller
         ->select('actividadcomercial.*',DB::raw('count(permiso.tipo_actividad)as total'))
         ->groupBy('actividadcomercial.id')
         ->get();
-        //return $actividades;
-        return view('administrador.actividades_comerciales')->with('actividades',$actividades);
 
+        return view('administrador.actividades_comerciales')->with('actividades',$actividades);
+   }
+
+   public function mostrar_actividades(){
+       $actividades=ActividadComercial::all();
+
+       return $actividades;
+   }
+
+   public function descargar_actividades(){
+        $actividades=ActividadComercial::all();
+
+        $pdf=\PDF::loadView('Pdfs.listar_actividades',compact('actividades'));
+        return $pdf->stream();
+   }
+
+   public function descargar_excel_actividades(){
+        return Excel::download(new ListaActividadesExport, 'lista_actividades.xlsx');
    }
 
    public function detalles($id){
@@ -77,11 +95,11 @@ class ActividadesComercialesController extends Controller
     }
 
     public function buscar($dato){
-            $actividades=ActividadComercial::join('permiso','tipo_actividad.id','=','permiso.tipo_actividad')
-            ->select('tipo_actividad.*',DB::raw('count(permiso.tipo_actividad)as total'))
-            ->where('tipo_actividad.id','=',$dato)
-            ->orWhere('tipo_actividad.nombre_actividad','LIKE',"%$dato%")
-            ->groupBy('tipo_actividad.id')
+            $actividades=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
+            ->select('actividadcomercial.*',DB::raw('count(permiso.tipo_actividad)as total'))
+            ->where('actividadcomercial.id','=',$dato)
+            ->orWhere('actividadcomercial.nombre_actividad','LIKE',"%$dato%")
+            ->groupBy('actividadcomercial.id')
             ->get();
 
         return view('administrador.actividades_comerciales')->with('actividades',$actividades);

@@ -503,6 +503,7 @@ $(document).ready(function() {
         $('#checkbox > label >input[type=checkbox]').prop('checked', false);
 
         $('#id_permiso').val($(e.relatedTarget).data('id'));
+        $('#id_colonia2').val($(e.relatedTarget).data('id_colonia'));
         $('#tipo_actividad_permiso').val($(e.relatedTarget).data('tipo_actividad'));
         $('#giro_permiso').val($(e.relatedTarget).data('giro'));
         $('#hora_inicio').val($(e.relatedTarget).data('hora_inicio'));
@@ -544,31 +545,37 @@ $(document).ready(function() {
         var actividad=$('#tipo_actividad_permiso2 option:selected').val();
         var id_colonia=$('#id_colonia_permiso option:selected').val();
 
-        console.log(id_colonia);
+        var dias = '';    
+        $('#formulario_actualizar_permiso input[type=checkbox]').each(function(){
+            if (this.checked) {
+                dias += $(this).val()+',';
+            }
+        }); 
 
         if(actividad=="ninguna"){
             actividad=$('input[name=tipo_actividad_permiso]').val()
         }
 
-        if(coloni=="ninguna"){
-            id_colonia=$('input[name=id_colonia_permiso]').val()
+        if(id_colonia=="ninguna"){
+            id_colonia=$('input[name=id_colonia]').val()
         }
 
 
-        /*$.ajax({
+        $.ajax({
             type: 'POST',
             url: '/Permisos/editar',
             data: {
                 '_token': $('input[name=_token]').val(),
                 'id': $('input[name=id_permiso]').val(),
-                'tipo_actividad': $('input[name=nombre2]').val(),
-                'giro': $('input[name=paterno2]').val(),
-                'latitud': $('input[name=materno22]').val(),
-                'longitud': 'H',
-                'dias_laborados': '1996-02-11',
-                'hora_inicio': '10',
-                'hora_fin': $('input[name=email2]').val(),    
-                'status': status,    
+                'tipo_actividad': actividad,
+                'giro': $('input[name=giro_permiso]').val(),
+                'latitud': $('input[name=latitud_permiso]').val(),
+                'longitud':$('input[name=longitud_permiso]').val(),
+                'dias_laborados': dias,
+                'hora_inicio': $('input[name=hora_inicio2]').val(),
+                'hora_fin': $('input[name=hora_fin2]').val(),   
+                'detalles':$('textarea[name=detalles_permiso]').val(),    
+                'id_colonia':id_colonia,
             },
             dataType:'json',
             success: function(data) {
@@ -591,7 +598,7 @@ $(document).ready(function() {
                     location.reload();
                 }     
             },
-        });*/
+        });
     });
     
     //Funcion para actualizar una organizacion
@@ -606,7 +613,7 @@ $(document).ready(function() {
             'nombre_dirigente': $('#nombre_dirigente_update').val()
         },
         success: function(data) {
-                $('.post' + data.id).replaceWith(" "+
+               /* $('.post' + data.id).replaceWith(" "+
                 "<tr class='post" + data.id + "'>"+
                     "<td>" + data.id + "</td>"+
                     "<td>" + data.nombre_organizacion + "</td>"+
@@ -623,7 +630,8 @@ $(document).ready(function() {
                                     + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
                                     "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eraser'></i></button>" +
                     "</td>" +
-                "</tr>");
+                "</tr>");*/
+                location.reload();
             }
             });
     });
@@ -1294,7 +1302,7 @@ $(document).ready(function() {
         $('#nombre').val($(this).data('nombre'));
         $('#paterno').val($(this).data('apellido_paterno'));
         $('#materno').val($(this).data('apellido_materno'));
-        $('#cargo2').val($(this).data('cargo'));
+        $('#cargo2').val('Vendedor');
         $('#email2').val($(this).data('email'));
 
         if(status==1){
@@ -1455,132 +1463,155 @@ $(document).ready(function() {
     /*Funcion para asignar que tipo de permiso sera el anteriormente creado
     ya sea Anual, provisional o Eventual*/
     $('#agregar_tipo_permiso').click(function(e){
-        var seleccionado=$('input:radio[name=radioTipo]:checked').val();
-        var ancho = $('#ancho').val();
-        var otraOpcion='';
-        var utensilios = '';  
-        var total_utensilios=0;  
-        $('#formulario_asignar input[type=checkbox]').each(function(){
-            if (this.checked) {
-                utensilios += $(this).val()+', ';
-                total_utensilios++;
+
+        var contador=0;
+       
+        if($('#Anual').is(':checked')) {  
+           contador++;
+        }else if($('#Eventual').is(':checked')){
+            contador++;
+        }else if($('#Provisional').is(':checked')){
+            contador++;
+        }
+
+        if(contador>0){
+            var seleccionado=$('input:radio[name=radioTipo]:checked').val();
+            var ancho = $('#ancho').val();
+            var otraOpcion='';
+            var utensilios = '';  
+            var total_utensilios=0;  
+            var latitud_fin=$('#latitudfin').val();
+            var longitud_fin=$('#longitudfin').val();;
+    
+            $('#formulario_asignar input[type=checkbox]').each(function(){
+                if (this.checked) {
+                    utensilios += $(this).val()+', ';
+                    total_utensilios++;
+                }
+            }); 
+    
+            if( $('#otra').prop('checked') ) {
+                otraOpcion=$('input[name=otraOpcion]').val()
+                utensilios+=otraOpcion;
             }
-        }); 
-
-        if( $('#otra').prop('checked') ) {
-        otraOpcion=$('input[name=otraOpcion]').val()
-        utensilios+=otraOpcion;
+    
+            if(seleccionado=='Anual'){
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/insertarAnuales',
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        'largo': $('#largo').val(),
+                        'ancho': ancho,
+                        'utensilios':utensilios,
+                        'id_permiso':$('input[name=id_permiso]').val(),
+                    },
+                    dataType:'json',
+                    success: function(data) {
+                        mensajesPermiso();
+                        if ((data.errors)) {
+                            if(total_utensilios==0){
+                                
+                                $('#utensilios').removeClass('green-border');
+                                $('#utensilios').addClass('red-border');
+                                $('#utensilios_error').removeClass('d-none');
+                                $('#utensilios_error').text('El campo utensilios es obligatorio');
+                            }
+                        } else {
+                        
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Tipo Asignado Correctamente',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+    
+                             location.reload();
+                        }     
+                    },
+                });
+    
+            }else if(seleccionado=='Eventual'){
+    
+                $.ajax({
+                    type: 'POST',
+                    url: '/Eventuales/insertar',
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        'longitud_fin': longitud_fin,
+                        'latitud_fin': latitud_fin,
+                        'id_permiso':$('input[name=id_permiso]').val(),
+                    },
+                    dataType:'json',
+                    success: function(data) {
+                        mensajesPermiso();
+                        if ((data.errors)) {
+                            $.each( data.errors, function( key, value ) {
+                                console.log(key);
+                                console.log(value);
+                            });
+    
+                        } else {
+                        
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Tipo Asignado Correctamente',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+    
+                             location.reload();
+                        }     
+                    },
+                });
+            }else if(seleccionado=='Provisional'){
+                $.ajax({
+                    type: 'POST',
+                    url: '/Provisionales/insertar',
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        'largo': $('#largo').val(),
+                        'ancho': ancho,
+                        'utensilios':utensilios,
+                        'fecha_vencimiento':$('input[name=fecha_vencimiento]').val(),
+                        'id_permiso':$('input[name=id_permiso]').val(),
+                    },
+                    dataType:'json',
+                    success: function(data) {
+                        mensajesPermiso();
+                        if ((data.errors)) {
+                            $.each( data.errors, function( key, value ) {
+                                var ErrorId='#'+key+'_error';
+                                var aux='#'+key;
+                                $(aux).removeClass('green-border');
+                                $(aux).addClass('red-border');
+                                $(ErrorId).removeClass('d-none');
+                                $(ErrorId).text(value);
+                            });
+                        } else {
+                        
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Tipo Asignado Correctamente',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+    
+                            location.reload();
+                        }     
+                    },
+                });    
+            } 
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Debe seleccionar un tipo de permiso',
+                showConfirmButton: true
+            })
         }
 
-        if(seleccionado=='Anual'){
-            
-            $.ajax({
-                type: 'POST',
-                url: '/insertarAnuales',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'largo': $('#largo').val(),
-                    'ancho': ancho,
-                    'utensilios':utensilios,
-                    'id_permiso':$('input[name=id_permiso]').val(),
-                },
-                dataType:'json',
-                success: function(data) {
-                    mensajesPermiso();
-                    if ((data.errors)) {
-                        if(total_utensilios==0){
-                            
-                            $('#utensilios').removeClass('green-border');
-                            $('#utensilios').addClass('red-border');
-                            $('#utensilios_error').removeClass('d-none');
-                            $('#utensilios_error').text('El campo utensilios es obligatorio');
-                        }
-                    } else {
-                    
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Tipo Asignado Correctamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-
-                         location.reload();
-                    }     
-                },
-            });
-
-        }else if(seleccionado=='Eventual'){
-
-            $.ajax({
-                type: 'POST',
-                url: '/Eventuales/insertar',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'largo': $('#largo').val(),
-                    'ancho': ancho,
-                    'utensilios':utensilios,
-                    'id_permiso':$('input[name=id_permiso]').val(),
-                },
-                dataType:'json',
-                success: function(data) {
-                    mensajesPermiso();
-                    if ((data.errors)) {
-                        $.each( data.errors, function( key, value ) {
-                            console.log(key);
-                            console.log(value);
-                        });
-
-                    } else {
-                    
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Tipo Asignado Correctamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-
-                         location.reload();
-                    }     
-                },
-            });
-        }else if(seleccionado=='Provisional'){
-            $.ajax({
-                type: 'POST',
-                url: '/Provisionales/insertar',
-                data: {
-                    '_token': $('input[name=_token]').val(),
-                    'largo': $('#largo').val(),
-                    'ancho': ancho,
-                    'utensilios':utensilios,
-                    'fecha_vencimiento':$('input[name=fecha_vencimiento]').val(),
-                    'id_permiso':$('input[name=id_permiso]').val(),
-                },
-                dataType:'json',
-                success: function(data) {
-                    mensajesPermiso();
-                    if ((data.errors)) {
-                        $.each( data.errors, function( key, value ) {
-                            var ErrorId='#'+key+'_error';
-                            var aux='#'+key;
-                            $(aux).removeClass('green-border');
-                            $(aux).addClass('red-border');
-                            $(ErrorId).removeClass('d-none');
-                            $(ErrorId).text(value);
-                        });
-                    } else {
-                    
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Tipo Asignado Correctamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-
-                        location.reload();
-                    }     
-                },
-            });    
-        }
+        
     });
 
     //Funcion para asignrar una sancion al permiso seleccionado
@@ -1605,8 +1636,6 @@ $(document).ready(function() {
                     });
 
                 } else {
-                
-                    var registros=document.getElementById("table").rows.length;
 
                     Swal.fire({
                         icon: 'success',
@@ -1614,6 +1643,8 @@ $(document).ready(function() {
                         showConfirmButton: false,
                         timer: 1500
                     })
+
+                    location.reload();
                 }     
             },
         });
@@ -1641,8 +1672,6 @@ $(document).ready(function() {
                     });
 
                 } else {
-                
-                    var registros=document.getElementById("table").rows.length;
 
                     Swal.fire({
                         icon: 'success',
@@ -1650,6 +1679,8 @@ $(document).ready(function() {
                         showConfirmButton: false,
                         timer: 1500
                     })
+
+                    location.reload();
                 }     
             },
         });
@@ -1718,7 +1749,7 @@ $(document).ready(function() {
                         timer: 1500
                     })
 
-                    
+                    location.reload();
                 }     
             },
         });
@@ -1745,8 +1776,6 @@ $(document).ready(function() {
                     });
 
                 } else {
-                
-                    var registros=document.getElementById("table").rows.length;
 
                     Swal.fire({
                         icon: 'success',
@@ -1754,6 +1783,8 @@ $(document).ready(function() {
                         showConfirmButton: false,
                         timer: 1500
                     })
+
+                    location.reload();
                 }     
             },
         });
@@ -2239,6 +2270,16 @@ $(document).ready(function() {
         }
     }
 
+    function MensajeConfirmacion(){
+        console.log('hola');
+        Swal.fire({
+            icon: 'success',
+            title: 'Se ha descargado el archivo con éxito',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
     function BuscarActividadComercial(){
         var dato=$('#caja_busqueda_actividades').val();
 
@@ -2247,6 +2288,17 @@ $(document).ready(function() {
         }else{
             location.href='/Actividades/index';
         }    
+    }
+
+    function BuscarPermiso(){
+         var dato=$('#caja_busqueda_permiso').val();
+         var nombre=$('#tipo_permiso').val();
+
+        if(dato!=""){
+            location.href='/Permisos/buscar/'+dato+'/'+nombre;
+        }else{
+            location.href='/Permisos/index/'+nombre;
+        }   
     }
 
     function BuscarObservacion(){
@@ -2304,6 +2356,56 @@ $(document).ready(function() {
     function DescargarExcelColonias(){
         var id=$('#id_agencia').val();
         location.href='/Agencia/descargar_excel_colonias/'+id;
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Se ha descargado el archivo con éxito',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+    function MostrarOrganizaciones(){
+        $('#show_organizaciones').modal('show');
+        
+        $.get('/Organizaciones/mostrar_organizaciones', function(data){
+            $('#table_organizaciones tbody').empty();
+            if(data.length==0){
+                $('#table_organizaciones').append("<tr>" +
+                    "<td colspan='3' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+    
+            for (var i=0; i<data.length;i++){  
+                
+               $('#table_organizaciones').append("<tr class='post" + data[i].id + "'>" +
+                    "<td style='width: 7%;'>" + data[i].id + "</td>" +
+                    "<td style='width: 52%;'>" + data[i].nombre_organizacion + "</td>" +
+                    "<td style='width: 47%;'>" + data[i].nombre_dirigente + "</td>" +
+                "</tr>");
+            }
+        });
+    }
+
+    function MostrarActividades(){
+        $('#show_actividades').modal('show');
+
+        $.get('/Actividades/mostrar_actividades', function(data){
+            $('#table_actividades_comerciales tbody').empty();
+            if(data.length==0){
+                $('#table_actividades_comerciales').append("<tr>" +
+                    "<td colspan='2' align='center' >No hay registros</td>"
+                +"</tr>");
+            }
+    
+            for (var i=0; i<data.length;i++){  
+                
+               $('#table_actividades_comerciales').append("<tr class='post" + data[i].id + "'>" +
+                    "<td style='width: 7%;'>" + data[i].id + "</td>" +
+                    "<td style='width: 52%;'>" + data[i].nombre_actividad + "</td>" +
+                "</tr>");
+            }
+        });
     }
 
     function DescargarExcelActividadesVendedor(){
@@ -2314,9 +2416,23 @@ $(document).ready(function() {
     function DescargarExcelOrganizacionesVendedores(){
         var id=$('#id_organizacion').val();
         location.href='/Organizaciones/descargar_excel_vendedor/'+id;
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Se ha descargado el archivo con éxito',
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
 
     function DescargarExcelZonasVendedores(){
         var id=$('#id_zona').val();
         location.href='/Zonas/descargar_excel_vendedor/'+id;
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Se ha descargado el archivo con éxito',
+            showConfirmButton: false,
+            timer: 1500
+        })
     }

@@ -8,6 +8,7 @@ use App\Models\Organizacion;
 use App\Models\Vendedor;
 use App\Exports\OrganizacionExport;
 use App\Exports\OrganizacionVendedorExport;
+use App\Exports\ListaOrganizacionesExport;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
@@ -24,6 +25,12 @@ class OrganizacionesController extends Controller
         ->groupBy('organizacion.id')
         ->paginate(10);
         return view('Administrador.organizaciones')->with('organizaciones',$organizaciones);
+    }
+
+    public function mostrar_organizaciones(){
+        $organizaciones=Organizacion::all();
+
+        return $organizaciones;
     }
 
     //Funcion para insertar una nueva organizacion
@@ -108,6 +115,18 @@ class OrganizacionesController extends Controller
         return $pdf->stream();
     }
 
+    public function descargar_organizaciones(){
+        $organizaciones=Organizacion::all();
+
+        $pdf=\PDF::loadView('Pdfs.listar_organizaciones',compact('organizaciones'));
+
+        return $pdf->stream();
+    }
+
+    public function descargar_excel_organizaciones(){
+        return Excel::download(new ListaOrganizacionesExport, 'listar_organizaciones.xlsx');
+    }
+
     public function buscar($dato){
         $organizaciones=Organizacion::join('vendedor','organizacion.id','=','vendedor.id_organizacion')
         ->select('organizacion.*',DB::raw('count(vendedor.id_organizacion)as total'))
@@ -134,11 +153,9 @@ class OrganizacionesController extends Controller
 
     public function descargar_excel(){
         return Excel::download(new OrganizacionExport, 'organizaciones.xlsx');
-
     }
 
     public function descargar_excel_vendedor($id){
         return Excel::download(new OrganizacionVendedorExport($id), 'organizaciones_vendedor.xlsx');
-
     }
 }

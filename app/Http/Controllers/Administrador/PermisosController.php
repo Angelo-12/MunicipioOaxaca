@@ -22,12 +22,15 @@ class PermisosController extends Controller
         $agencias=Agencia::all();
         if($nombre=="Anuales"){
             $permisos=Permisos::join('anuales','permiso.id','anuales.id_permiso')
+            ->where('permiso.status','=',1)
             ->paginate(10);
         }else if($nombre=="Eventuales"){
             $permisos=Permisos::join('eventuales','permiso.id','eventuales.id_permiso')
+            ->where('permiso.status','=',1)
             ->paginate(10);
         }else if($nombre=="Provisionales"){
             $permisos=Permisos::join('provisionales','permiso.id','provisionales.id_permiso')
+            ->where('permiso.status','=',1)
             ->paginate(10);
         }else if($nombre=="Pendientes"){
             $permisos=Permisos::where('asignado','=','0')
@@ -178,5 +181,85 @@ class PermisosController extends Controller
 
     public function descargar_excel($nombre){
         return Excel::download(new PermisoExport($nombre), 'permisos.xlsx');
+    }
+
+    public function buscar($dato,$nombre){
+        $agencias=Agencia::all();
+
+        if($nombre=="Anuales"){
+            $permisos=Permisos::join('anuales','permiso.id','anuales.id_permiso')
+            ->join('actividadcomercial','actividadcomercial.id','permiso.tipo_actividad')
+            ->where('permiso.id','=',$dato)
+            ->orWhere('permiso.numero_cuenta','=',$dato)
+            ->orWhere('permiso.numero_expediente','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->orWhere('permiso.giro','=',$dato)
+            ->orWhere('actividadcomercial.nombre_actividad','=',$dato)
+            ->paginate(10);
+
+        }else if($nombre=="Eventuales"){
+            $permisos=Permisos::join('eventuales','permiso.id','eventuales.id_permiso')
+            ->where('permiso.id','=',$dato)
+            ->orWhere('permiso.numero_cuenta','=',$dato)
+            ->orWhere('permiso.numero_expediente','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->orWhere('permiso.giro','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->paginate(10);
+        }else if($nombre=="Provisionales"){
+            $permisos=Permisos::join('provisionales','permiso.id','provisionales.id_permiso')
+            ->where('permiso.id','=',$dato)
+            ->orWhere('permiso.numero_cuenta','=',$dato)
+            ->orWhere('permiso.numero_expediente','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->orWhere('permiso.giro','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->paginate(10);
+        }else if($nombre=="Pendientes"){
+            $permisos=Permisos::where('asignado','=','0')
+            ->where('permiso.id','=',$dato)
+            ->orWhere('permiso.numero_cuenta','=',$dato)
+            ->orWhere('permiso.numero_expediente','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->orWhere('permiso.giro','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->paginate(10);
+            $nombre="Pendientes";
+        }else if($nombre=="Cancelados"){
+            $permisos=Permisos::join('cancelacion','permiso.id','=','cancelacion.id_permiso')
+            ->where('permiso.id','=',$dato)
+            ->orWhere('permiso.numero_cuenta','=',$dato)
+            ->orWhere('permiso.numero_expediente','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->orWhere('permiso.giro','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->paginate(10);
+            $nombre="Cancelados";
+
+        }else if($nombre=="Sancionados"){
+            $permisos=Permisos::join('sancion','permiso.id','=','sancion.id_permiso')
+            ->where('permiso.id','=',$dato)
+            ->orWhere('permiso.numero_cuenta','=',$dato)
+            ->orWhere('permiso.numero_expediente','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->orWhere('permiso.giro','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->paginate(10);
+            $nombre="Sancionados";
+        }else if($nombre=="Revalidados"){
+            $permisos=Permisos::join('revalidacion','permiso.id','=','revalidacion.id_permiso')
+            ->where('permiso.id','=',$dato)
+            ->orWhere('permiso.numero_cuenta','=',$dato)
+            ->orWhere('permiso.numero_expediente','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->orWhere('permiso.giro','=',$dato)
+            ->orWhere('permiso.tipo_actividad','=',$dato)
+            ->paginate(10);
+            $nombre="Revalidados";
+        }
+
+        //return $permisos;
+         return view('Administrador.permisos')->with('permisos',$permisos)->with('nombre',$nombre)
+         ->with('agencias',$agencias);
     }
 }
