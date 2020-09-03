@@ -28,6 +28,18 @@ class ActividadesComercialesController extends Controller
         return view('administrador.actividades_comerciales')->with('actividades',$actividades);
    }
 
+   public function detalles($id){
+
+    $actividades=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
+    ->join('vendedor','vendedor.id_permiso','=','permiso.id')
+    ->join('users','users.id','=','vendedor.id_usuario')
+    ->where('actividadcomercial.id','=',$id)
+    ->get();
+
+    return $actividades;
+
+   }
+
    public function mostrar_actividades(){
        $actividades=ActividadComercial::all();
 
@@ -45,17 +57,6 @@ class ActividadesComercialesController extends Controller
         return Excel::download(new ListaActividadesExport, 'lista_actividades.xlsx');
    }
 
-   public function detalles($id){
-
-    $actividades=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
-    ->join('vendedor','vendedor.id_permiso','=','permiso.id')
-    ->join('users','users.id','=','vendedor.id_usuario')
-    ->where('actividadcomercial.id','=',$id)
-    ->get();
-
-    return $actividades;
-
-   }
 
     public function descargar_pdf_detalle($id){
         if($id==1){

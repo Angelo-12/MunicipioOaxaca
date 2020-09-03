@@ -227,6 +227,51 @@ class UsuarioController extends Controller
       }
    }
 
+   public function actualizar_datos(Request $request){
+      $rules = array(
+         'name'=>['required','max:40'],
+         'apellido_paterno'=>['required','alpha','max:30'],
+         'apellido_materno'=>['required','alpha','max:30'],
+      );
+
+      $validator=Validator::make(input::all(),$rules);
+
+      if($validator->fails()){
+
+         return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
+      }else{
+
+       
+         $user=User::find($request->id);
+         
+         $user->name=$request->input('name');
+         $user->apellido_paterno=$request->input('apellido_paterno');
+         $user->apellido_materno=$request->input('apellido_materno');
+         if($request->input('password')!=NULL){
+            $user->password=Hash::make($request->input('password'));
+         }
+
+         if($request->file('imagen')!=NULL){
+            if($user->foto_perfil=="profile.png"){
+        
+            }else {
+               \File::delete(public_path().'/img/'.$user->foto_perfil);
+
+               $imagen=$request->file('imagen');
+               $nombre_imagen=time().$imagen->getClientOriginalName();
+               $imagen->move(public_path().'/img/',$nombre_imagen);
+
+               $user->foto_perfil=$nombre_imagen;
+            }
+         }
+        
+         $user->save();
+
+         return redirect()->to('home');
+         
+      }
+   }
+
    public function eliminar(Request $request){
       $user=User::find($request->id);
 
@@ -243,7 +288,7 @@ class UsuarioController extends Controller
 
       $dato2 = '%'.$dato.'%';
 
-      $sql="select * from users u inner join admin_secretaria a  on u.id= a.id_usuario 
+      $sql="select *,count(u.id)as total from users u inner join admin_secretaria a  on u.id= a.id_usuario 
       where a.cargo like '%Administrador%' and (u.name like ? OR u.apellido_paterno like ? OR u.apellido_materno like ?
       OR u.email like ? OR u.sexo = ? )";
       

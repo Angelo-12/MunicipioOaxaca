@@ -140,7 +140,9 @@ input[type=text]:placeholder,input[type=password] :placeholder {
   color: #cccccc;
 }
 
-
+a, a:hover{
+  color:#333
+}
 
 /* ANIMATIONS */
 
@@ -264,6 +266,9 @@ input[type=text]:placeholder,input[type=password] :placeholder {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+    <script type = "text / javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js"> </script>
+
 </head>
 <body style="background-color: #690718">
 
@@ -280,18 +285,23 @@ input[type=text]:placeholder,input[type=password] :placeholder {
     <form method="POST" action="{{route('verificar')}}">
       @csrf
       <div class="form-group {{$errors->has('email') ? 'has-error' : '' }}">
-        <input type="text" id="email" class="fadeIn second" name="email" 
-        placeholder="email" value="{{old('email')}}" maxlength="70">
-        <br>
-        <strong class="text-danger">{{ $errors->first('email') }}</strong>
+          <input type="text" id="email" class="fadeIn second" name="email" 
+          placeholder="email" value="{{old('email')}}" maxlength="70">
+          <br>
+          <strong class="text-danger">{{ $errors->first('email') }}</strong>
       </div>
       
       <div class="form-group {{$errors->has('password') ? 'has-error' : '' }}">
         <input type="password" id="password" class="fadeIn third" name="password" 
-        placeholder="password" maxlength="30">
+        placeholder="password" maxlength="30" >
+
         <br>
         <strong class="text-danger">{{ $errors->first('password') }}</strong>
       </div>
+
+      <div class="form-group" >
+        <label class="fadeIn third"><input type="checkbox" id="show" value="mostrar" onclick="mostrar_password(this);"> Mostrar</label><br>
+      </div>      
   
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
@@ -301,8 +311,23 @@ input[type=text]:placeholder,input[type=password] :placeholder {
       <a class="underlineHover" href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
     </div>
 
+
   </div>
 </div>
 
 </body>
+
+<script src="{{asset('js/app.js')}}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script>
+  function mostrar_password(cb){
+    if(cb.checked)
+      $('#password').attr("type","text");
+    else
+      $('#password').attr("type","password");
+    }
+</script>
+
+
 </html>

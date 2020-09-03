@@ -14,6 +14,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 Route::group(['prefix' => 'Usuarios'], function () {
     Route::post('insertar','Administrador\UsuarioController@insertar');
     Route::post('editar','Administrador\UsuarioController@editar');
+    Route::post('actualizar_datos','Administrador\UsuarioController@actualizar_datos');
     Route::post('eliminar','Administrador\UsuarioController@eliminar');
     Route::get('buscar/{dato}','Administrador\UsuarioController@buscar');
     Route::post('insertar_administrador','Administrador\UsuarioController@insertar_administrador');
@@ -30,6 +31,7 @@ Route::group(['prefix' => 'Usuarios'], function () {
 
 Route::group(['prefix' => 'Secretarias'], function () {
     Route::get('index','Administrador\Administrador_SecretariaController@index');
+    Route::get('buscar/{dato}','Administrador\Administrador_SecretariaController@buscar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::post('insertar_secretaria','Administrador\UsuarioController@insertar_secretaria');
     Route::get('descargar_pdf','Administrador\Administrador_SecretariaController@descargar_pdf');
@@ -38,6 +40,7 @@ Route::group(['prefix' => 'Secretarias'], function () {
 
 Route::group(['prefix' => 'Vendedores'], function () {
     Route::get('index','Administrador\VendedorController@index');
+    Route::get('buscar/{dato}','Administrador\VendedorController@buscar');
     Route::post('actualizar_password','Administrador\VendedorController@actualizar_password');
     Route::get('insertar','Administrador\VendedorController@insertar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');

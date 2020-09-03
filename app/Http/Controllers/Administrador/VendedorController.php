@@ -24,7 +24,6 @@ class VendedorController extends Controller
       $permisos=Permisos::where('asignado','=','0')
       ->get();
 
-      //return $permisos;
       return view('Administrador.vendedores',compact('vendedores','estado','organizaciones','permisos'))->render();
     }
 
@@ -75,5 +74,27 @@ class VendedorController extends Controller
       $user->save();
 
       return $user->email;
+    }
+
+    public function buscar($dato){
+        $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')
+        ->select('users.*')
+        ->where('vendedor.id','=',$dato)
+        ->orWhere('vendedor.rfc','LIKE','%'.$dato.'%')
+        ->orWhere('vendedor.curp','LIKE','%'.$dato.'%')
+        ->orWhere('users.name','LIKE','%'.$dato.'%')
+        ->orWhere('users.apellido_paterno','LIKE','%'.$dato.'%')
+        ->orWhere('users.apellido_materno','LIKE','%'.$dato.'%')
+        ->orWhere('users.email','LIKE','%'.$dato.'%')
+        ->paginate(10);
+
+        $estado=Estado::all();
+        $organizaciones=Organizacion::all();
+
+        $permisos=Permisos::where('asignado','=','0')
+        ->get();
+
+      return view('Administrador.vendedores',compact('vendedores','estado','organizaciones','permisos'))->render();
+    
     }
 }

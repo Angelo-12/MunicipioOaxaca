@@ -1024,7 +1024,6 @@ $(document).ready(function() {
 
         $('#table_actividad_vendedor tbody').empty();
 
-        
         $.get('/Actividades/detalle/'+id, function(data){
 
             if(data.length==0){
@@ -1790,6 +1789,22 @@ $(document).ready(function() {
         });
     });
 
+    var bandera=false;
+    $('#mostrar_password').mousedown(function () { 
+        event.preventDefault();
+        
+        if(bandera==false){
+            $('#password').attr("type","text");
+            $('#mostrar_password').attr('title','Ocultar');
+            bandera=true;
+        }else if(bandera==true){
+            $('#password').attr("type","password");
+             $('#mostrar_password').attr('title','Mostrar');
+            bandera=false;
+        }
+        
+    });
+
 /********************************************ORGANIZACIONES************************************************ */
 
     //Funcuion para crear la ventana modal para agregar una organizacion
@@ -2260,6 +2275,27 @@ $(document).ready(function() {
         }
     }
 
+    function BuscarAdministrativo(){
+        var dato=$('#caja_busqueda_administrativo').val();
+
+        console.log(dato);
+        if(dato!=""){
+            location.href='/Secretarias/buscar/'+dato;
+        }else{
+            location.href='/Secretarias/index';
+        }
+    }
+
+    function BuscarVendedor(){
+        var dato=$('#caja_busqueda_vendedor').val();
+
+        if(dato!=""){
+            location.href='/Vendedores/buscar/'+dato;
+        }else{
+            location.href='/Vendedores/index';
+        }
+    }
+
     function BuscarAgencia(){
         var dato=$('#caja_busqueda_agencias').val();
 
@@ -2279,6 +2315,16 @@ $(document).ready(function() {
             timer: 1500
         })
     }
+
+    function MensajeActualizado(){
+        console.log('hola');
+        Swal.fire({
+            icon: 'success',
+            title: 'Se han actualizado correctamente tus datos',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }    
 
     function BuscarActividadComercial(){
         var dato=$('#caja_busqueda_actividades').val();

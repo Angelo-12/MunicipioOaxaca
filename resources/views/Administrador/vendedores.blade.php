@@ -31,8 +31,8 @@
                 <div class="col-md-6">
                     <div class="input-group">
                        
-                        <input type="text"  class="form-control" placeholder="Texto a buscar">
-                        <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                        <input type="text"  class="form-control" id="caja_busqueda_vendedor" placeholder="Texto a buscar">
+                        <button type="submit" onclick="BuscarVendedor();" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <tbody>
                     @if($vendedores->count()==0)
                         <tr>
-                            <td colspan='5' align='center' >No hay registros</td>
+                            <td colspan='7' align='center' >No hay registros</td>
                         </tr>
                     @else
                         @foreach ($vendedores as $u)

@@ -6,11 +6,9 @@
     </div>
     
     <div class="container emp-profile">
-    
-        <form class="form-horizontal" role="form" method="POST" name="formulario" 
-            action="{{url('Usuarios/cambiar_foto/'.$user->id)}}" id="formulario_asignar" enctype="multipart/form-data">
-                {{ csrf_field() }}  
-    
+          <form class="form-horizontal" action="{{url('Usuarios/actualizar_datos')}}" 
+                            method="post" enctype="multipart/form-data">
+       
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
@@ -42,7 +40,6 @@
                     }
                 </script>
 
-
                 <div class="col-md-6">
                     <div class="profile-head">
                                 <h5>
@@ -61,17 +58,20 @@
                 </div>
                 
             </div>
+
             <div class="row">
                 
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active"  id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class=" form-group row">
+
+                            @csrf
+                                <div class=" form-group row">
                                         <div class="form-control col-md-6">
                                             <label>Id</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" value="{{Auth::user()->id}}" readonly>
+                                            <input type="text" name="id" class="form-control" value="{{Auth::user()->id}}" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -79,7 +79,7 @@
                                             <label>Nombre</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" value="{{Auth::user()->name}}" >
+                                            <input type="text" name="name" class="form-control" value="{{Auth::user()->name}}" >
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -87,7 +87,7 @@
                                             <label>Apellido Paterno</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" value="{{$user->apellido_paterno}}" class="form-control">
+                                            <input type="text" name="apellido_paterno" value="{{$user->apellido_paterno}}" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -95,7 +95,7 @@
                                             <label>Apellido Materno</label>
                                         </div>
                                         <div class="col-md-6">
-                                            <input class="form-control" type="text" value="{{Auth::user()->apellido_materno}}">
+                                            <input class="form-control" name="apellido_materno" type="text" value="{{Auth::user()->apellido_materno}}">
                                         </div>
                                     </div>
 
@@ -103,17 +103,14 @@
                                         <div class="form-control col-md-6">
                                             <label>Contraseña</label>
                                         </div>
-                                        <div class="col-md-6">
-                                            <input type="password" class="form-control">
+                                        <div class="col-md-5">
+                                            <input type="password" name="password" id="password" class="form-control">
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                        <div class="form-control col-md-6">
-                                            <label>Confirmar contraseña</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="password" class="form-control">
+                                        <div class="col-md-1">
+                                            <a id="mostrar_password" title="Mostrar" class="mostrar_password form-control btn btn-primary btn-sm" >
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </div>
                                     </div>
 
@@ -150,8 +147,9 @@
                                         </div>
                                     </div>
 
-                                </form>   
-                            
+                             
+                            </form>
+                                   
 
                         </div>
 

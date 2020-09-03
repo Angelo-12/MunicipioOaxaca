@@ -8,6 +8,7 @@ use App\Models\Estado;
 use App\Models\Administrador_Secretaria;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\SecretariaExport;
+use DB;
 
 class Administrador_SecretariaController extends Controller
 {
@@ -19,6 +20,20 @@ class Administrador_SecretariaController extends Controller
        
         $estado=Estado::all();
         return view('Administrador.administrativos',compact('usuarios','estado'))->render();
+     }
+
+     public function buscar($dato){
+     
+        $dato2 = '%'.$dato.'%';
+  
+        $sql="select *,count(u.id)as total from users u inner join admin_secretaria a  on u.id= a.id_usuario 
+        where a.cargo like '%Secretaria%' and (u.name like ? OR u.apellido_paterno like ? OR u.apellido_materno like ?
+        OR u.email like ? OR u.sexo = ? )";
+        
+        $usuarios = DB::select($sql,array($dato2,$dato2,$dato2,$dato2,$dato2));
+        $estado=Estado::all();
+
+        return view('Administrador.busqueda_administrativos',compact('usuarios','estado'))->render();
      }
   
      //Funcion para visualizar en pdf a las secretarias existentes en el sistema web

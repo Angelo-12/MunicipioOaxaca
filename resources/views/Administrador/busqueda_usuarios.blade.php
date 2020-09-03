@@ -52,67 +52,73 @@
                     
                 </thead>
                 <tbody>
-              
-                    @foreach ($usuarios as $u)
-                        <tr class="post{{$u->id}}" id="{{$u->id}}">
-                            <td>{{$u->id}}</td>
-                            <td>{{$u->name}}</td>
-                            <td>{{$u->apellido_paterno}}</td>
-                            <td>{{$u->apellido_materno}}</td>
-                            <td>{{$u->email}}</td>
-                            <td>
-                                {{$u->cargo}}
-                                
-                            </td>
-                                
-                            <td>@if($u->status==1)
-                                <div class="switch">
-                                    <label>
-                                    Activo
-                                    <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
-                                    </label>
-                                </div>
-                                @else
-                                <div class="switch">
-                                    <label>
-                                    Inactivo
-                                    <input type="checkbox" readonly onclick="javascript: return false;">
-                                    </label>
-                                </div>
-                                @endif</td>
-                        
-                            <td align="center">
-                                <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
-                                    data-nombre="{{$u->name}}" 
-                                    data-apellido_paterno="{{$u->apellido_paterno}}"
-                                    data-apellido_materno="{{$u->apellido_materno}}"
-                                    data-email="{{$u->email}}"
-                                    data-status="{{$u->status}}">
-                                    <i class="fa fa-eye"></i>
-                                </button>
                     
-                                <button type="button" class="edit-modal-usuario btn btn-danger btn-sm" data-id="{{$u->id}}"
-                                    data-nombre="{{$u->name}}" 
-                                    data-apellido_paterno="{{$u->apellido_paterno}}"
-                                    data-apellido_materno="{{$u->apellido_materno}}"
-                                    data-cargo="Administrador"
-                                    data-email="{{$u->email}}">
-
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
-                                @if ($u->status==1)
-                                <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
-                                    <i class="fa fa-eraser"></i>
-                                </button>
-                                @else
-                                    <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
-                                        <i class="fa fa-eraser" ></i>
-                                    </button>      
-                                @endif
+                        @foreach ($usuarios as $u)
+                            @if($u->total==0)
+                                <tr>
+                                    <td colspan='7' align='center' >No hay registros</td>
+                                </tr>
+                            @else
+                                <tr class="post{{$u->id}}" id="{{$u->id}}">
+                                    <td>{{$u->id}}</td>
+                                    <td>{{$u->name}}</td>
+                                    <td>{{$u->apellido_paterno}}</td>
+                                    <td>{{$u->apellido_materno}}</td>
+                                    <td>{{$u->email}}</td>
+                                    <td>
+                                        {{$u->cargo}}
+                                        
+                                    </td>
+                                        
+                                    <td>@if($u->status==1)
+                                        <div class="switch">
+                                            <label>
+                                            Activo
+                                            <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                                            </label>
+                                        </div>
+                                        @else
+                                        <div class="switch">
+                                            <label>
+                                            Inactivo
+                                            <input type="checkbox" readonly onclick="javascript: return false;">
+                                            </label>
+                                        </div>
+                                        @endif</td>
+                                
+                                    <td align="center">
+                                        <button type="button" class="show-modal-usuario btn btn-warning btn-sm" data-id="{{$u->id}}"
+                                            data-nombre="{{$u->name}}" 
+                                            data-apellido_paterno="{{$u->apellido_paterno}}"
+                                            data-apellido_materno="{{$u->apellido_materno}}"
+                                            data-email="{{$u->email}}"
+                                            data-status="{{$u->status}}">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
                             
-                            </td>
-                        </tr>             
-                    @endforeach     
+                                        <button type="button" class="edit-modal-usuario btn btn-danger btn-sm" data-id="{{$u->id}}"
+                                            data-nombre="{{$u->name}}" 
+                                            data-apellido_paterno="{{$u->apellido_paterno}}"
+                                            data-apellido_materno="{{$u->apellido_materno}}"
+                                            data-cargo="Administrador"
+                                            data-email="{{$u->email}}">
+
+                                            <i class="fa fa-pencil-alt"></i>
+                                        </button>
+                                        @if ($u->status==1)
+                                        <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
+                                            <i class="fa fa-eraser"></i>
+                                        </button>
+                                        @else
+                                            <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
+                                                <i class="fa fa-eraser" ></i>
+                                            </button>      
+                                        @endif
+                                    
+                                    </td>
+                                </tr>  
+                            @endif           
+                        @endforeach  
                 
                 </tbody>
             </table>

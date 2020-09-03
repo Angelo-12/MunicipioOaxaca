@@ -291,7 +291,7 @@ input[type=text]:placeholder,input[type=password] :placeholder {
 
                   <div class="form-group {{$errors->has('password') ? 'has-error' : '' }}">
                   <input type="password" id="password" class="fadeIn third" name="password" 
-                  placeholder="password" maxlength="30">
+                  placeholder="Contraseña" maxlength="30">
                   <br>
                   <strong class="text-danger">{{ $errors->first('password') }}</strong>
                   </div>
