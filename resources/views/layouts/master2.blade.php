@@ -144,12 +144,12 @@
                           <span class="badge bg-red pull-right">2</span>
                           <span>Notificaciones</span>
                         </a>
-                    <a class="dropdown-item"  href="javascript:;">Ayuda</a>
-                      <a class="dropdown-item"   href="{{ route('logout') }}"
+                    <button type="button" data-toggle="modal" data-target="#show_ayuda" class="dropdown-item"  href="javascript:;">Ayuda</button>
+                    <a class="dropdown-item"   href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                         <i class="fa fa-sign-out pull-right"></i> Cerrar Sesion
-                      </a>
+                    </a>
 
                       <form method="POST" action="{{route('logout')}}" id="logout-form">
                         @csrf
@@ -238,6 +238,26 @@
             </div>
         </div>
         
+      </div>
+    </div>
+
+    <div id="show_ayuda" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Ayuda</h5>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+              </div>
+              <div class="modal-body">
+
+                  <div class="form-group">
+                      <label for="" class="form-control">Envie un correo electronico al administrador</label>
+                      <label for="" class="form-control">angel23.aj3232@gmail.com</label>
+                  </div>
+              
+              </div>
+          </div>
       </div>
     </div>
 

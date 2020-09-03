@@ -63,7 +63,7 @@
                 <tbody>
                     @if($permisos->count()==0)
                         <tr>
-                            <td colspan='7' align='center' >No hay registros</td>
+                            <td colspan='8' align='center' >No hay registros</td>
                         </tr>
                     @else
                         @foreach ($permisos as $p )
