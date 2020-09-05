@@ -20,6 +20,13 @@ class ColoniasController extends Controller
         return $colonia;
     }
 
+    public function dato($id){
+        $colonia=Colonia::where('id','=',$id)
+        ->get();
+
+        return $colonia;
+    }
+
     public function buscar($id,$dato){
 
         $dato2 = '%'.$dato.'%';

@@ -266,28 +266,43 @@ $(document).ready(function() {
 
      //Funcion para agregar un nuevo vendedor se valida antes que haya un permiso disponible
     $("#agregar_vendedor").click(function(){
-        
+        var aux=$('#id_organizacion option:selected').val();
+        var aux2=$('#id_permiso option:selected').val();
+        var sexo=$('#sexo option:selected').val();
+
         $.ajax({
             type: 'POST',
             url: '/Vendedores/insertar',
             data: {
                 '_token': $('input[name=_token]').val(),
+                'name': $('input[name=nombre]').val(),
+                'apellido_paterno': $('input[name=apellido_paterno]').val(),
+                'apellido_materno': $('input[name=apellido_materno]').val(),
+                'sexo': sexo,
+                'fecha_nacimiento': $('input[name=fecha_nacimiento]').val(),
+                'email': $('input[name=email]').val(),
+                'password': $('input[name=password]').val(),
+                'id_municipio': $('select[name=id_municipio]').val(),
                 'rfc': $('input[name=rfc]').val(),
-                'curp': $('textarea[name=curp]').val(),
-                'id_permiso':$('input[name=id_permiso]').val(),
+                'curp': $('input[name=curp]').val(),
+                'id_organizacion':aux,
+                'id_permiso':aux2,
 
             },
             dataType:'json',
             success: function(data) {
                 if ((data.errors)) {
                     $.each( data.errors, function( key, value ) {
-                        console.log(key);
-                        console.log(value);
+                       
+                        var ErrorId='#'+key+'_error';
+                        var aux='#'+key;
+                        $(aux).removeClass('green-border');
+                        $(aux).addClass('red-border');
+                        $(ErrorId).removeClass('d-none');
+                        $(ErrorId).text(value);
                     });
 
                 } else {
-                
-                    var registros=document.getElementById("table").rows.length;
 
                     Swal.fire({
                         icon: 'success',
@@ -613,24 +628,14 @@ $(document).ready(function() {
             'nombre_dirigente': $('#nombre_dirigente_update').val()
         },
         success: function(data) {
-               /* $('.post' + data.id).replaceWith(" "+
-                "<tr class='post" + data.id + "'>"+
-                    "<td>" + data.id + "</td>"+
-                    "<td>" + data.nombre_organizacion + "</td>"+
-                    "<td>" + data.nombre_dirigente + "</td>"+
-                    "<td>" + data.id + "</td>"+
-                    "<td align='center'>" +
-                                    "<button type='button' style='margin-right:3px;'  class='show-modal btn btn-warning btn-sm' data-id='" 
-                                     + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
-                                    "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eye'></i></button>" +
-                                    "<button type='button' style='margin-right:3px;'  class='edit-modal btn btn-danger btn-sm' data-id='" 
-                                    + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
-                                    "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-pencil'></i></button>" +
-                                    "<button type='button' style='margin-right:3px;'  class='delete-modal btn btn-info btn-sm' data-id='" 
-                                    + data.id + "' data-nombre_organizacion='" + data.nombre_organizacion + "'" +
-                                    "data-nombre_dirigente='" + data.nombre_dirigente + "'><i class='fa fa-eraser'></i></button>" +
-                    "</td>" +
-                "</tr>");*/
+                 Swal.fire({
+                        icon: 'success',
+                        title: 'Organizacion actualizada correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+    
+               
                 location.reload();
             }
             });
@@ -766,7 +771,7 @@ $(document).ready(function() {
         var latitud_sureste,longitud_sureste;
         var latitud_noreste,longitud_noreste;
 
-        $.get('/Colonia/detalle/'+colonia, function(data){
+        $.get('/Colonia/dato/'+colonia, function(data){
            
               for (var i=0; i<data.length;i++){
                 latitud_centro=data[i].latitud_centroC;
@@ -793,7 +798,7 @@ $(document).ready(function() {
         var latitud_sureste,longitud_sureste;
         var latitud_noreste,longitud_noreste;
 
-        $.get('/Colonia/detalle/'+colonia, function(data){
+        $.get('/Colonia/dato/'+colonia, function(data){
            
               for (var i=0; i<data.length;i++){
                 latitud_centro=data[i].latitud_centroC;
@@ -847,7 +852,7 @@ $(document).ready(function() {
     $('#id_permiso').change(function(){
         $('#datos_permiso').show();
         var id = $(this).val();
-        $.get('/Permisos/detalle/'+id, function(data){
+        $.get('/Permisos/dato/'+id, function(data){
            
           var actividad=data[0].tipo_actividad;
           var tipo;
@@ -867,7 +872,8 @@ $(document).ready(function() {
             tipo="Prestacion De Servicios";
           }
           $('#actividad_permiso').val(tipo);  
-          //$('#id_usuario').val(data[0].id_usuario);  
+          $('#giro_permiso').val(data[0].giro);  
+          $('#id_usuario').val(data[0].id_usuario);  
         });
     });
 
@@ -2265,6 +2271,22 @@ $(document).ready(function() {
         }
     }); 
 
+    $('#curp').click(function(){
+        var nombre= $('input[name=nombre]').val();
+        var apellido_paterno=$('input[name=apellido_paterno]').val();
+        var apellido_materno=$('input[name=apellido_materno]').val();
+        var sexo=$('#sexo option:selected').val();
+
+        if(sexo=='H'){
+            sexo='M';
+        }else if(sexo=='M'){
+            sexo='F';
+        }
+
+        var fecha_nac=$('input[name=fecha_nacimiento]').val();
+        GeneraCURP(nombre,apellido_paterno,apellido_materno,fecha_nac,sexo,19);
+    });
+
     function BuscarUsuario(){
         var dato=$('#caja_busqueda_usuario').val();
 
@@ -2397,6 +2419,15 @@ $(document).ready(function() {
         var id=$('#id_agencia').val();
         location.href='/Agencia/descargar_pdf_colonias/'+id;
         
+    }
+
+    function DescargarPdfObservaciones(){
+        var id=$('#id_observacion2').val();
+        location.href='/Observaciones/descargar_pdf_detalle/'+id;
+    }
+
+    function DescargarExcelObservacionesVendedores(){
+
     }
 
     function DescargarExcelColonias(){

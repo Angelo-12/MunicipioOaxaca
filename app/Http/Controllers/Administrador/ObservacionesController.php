@@ -63,6 +63,14 @@ class ObservacionesController extends Controller
         return $seguimiento;
     }
 
+    public function descargar_pdf_detalle($id){
+        $seguimiento=Seguimiento_Observaciones::where('id_observacion','=',$id)
+        ->get();
+
+        $pdf=\PDF::loadView('Pdfs.seguimiento',compact('seguimiento'));
+        return $pdf->stream();
+    }
+
     public function descargar_pdf(){
         $observaciones=Observaciones::all();
 

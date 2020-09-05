@@ -76,6 +76,7 @@ class UsuarioController extends Controller
          $user->email=$request->input('email');
          $user->password=Hash::make($request->input('password'));
          $user->id_municipio=$request->input('id_municipio');
+         $user->foto_perfil='profile.png';
          $user->status='1';
 
          $user->save();
@@ -171,6 +172,7 @@ class UsuarioController extends Controller
          $user->sexo=$request->input('sexo');
          $user->email=$request->input('email');
          $user->password=Hash::make($request->input('password'));
+         $user->foto_perfil='profile.png';
          $user->id_municipio=$request->input('id_municipio');
          $user->status='1';
 
@@ -341,13 +343,17 @@ class UsuarioController extends Controller
 
    //Nos muestra la pagina principal de los administradopres
    public function index(){
+
+      $id=Auth::user()->id;
+      $rol = Administrador_Secretaria::where('id_usuario','=',$id)->get();
+
       $tipo="Administradores";
       $usuarios=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
       ->where('admin_secretaria.cargo','=','Administrador')
       ->paginate(10);
      
       $estado=Estado::all();
-      return view('Administrador.usuarios',compact('usuarios','estado','tipo'))->render();
+      return view('Administrador.usuarios',compact('usuarios','estado','tipo','rol'))->render();
    }
 
    public function exportar_pdf_administrador(){

@@ -11,6 +11,9 @@ use App\Models\Permisos;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\input;
+use Validator;
+use Response;
 use App\Exports\VendedorExport;
 
 class VendedorController extends Controller
@@ -29,9 +32,15 @@ class VendedorController extends Controller
 
     public function insertar(Request $request){
         $rules= array(
-          'rfc'=>'string|min:12|max:13',
+          'name'=>['required','alpha','max:40'],
+          'apellido_paterno'=>['required','alpha','max:30'],
+          'apellido_materno'=>['required','alpha','max:30'],
+          'sexo'=>'required',
+          'fecha_nacimiento'=>'required',
+          'id_municipio'=>'required',
+          'email'=>['email','required'],
+          'password'=>['required','min:6'],
           'curp'=>'string|min:18|max:18',
-          'id_usuario'=>'required',
           'id_organizacion'=>'required',
           'id_permiso'=>'required',
         );
@@ -41,12 +50,37 @@ class VendedorController extends Controller
             return Response::json(array('errors'=> $validator->getMessageBag()->toarray()));
     
         else {
+            $user= new User;
+         
+            $user->name=$request->input('name');
+            $user->apellido_paterno=$request->input('apellido_paterno');
+            $user->apellido_materno=$request->input('apellido_materno');
+            $user->fecha_nacimiento=$request->input('fecha_nacimiento');
+            $user->sexo=$request->input('sexo');
+            $user->email=$request->input('email');
+            $user->password=Hash::make($request->input('password'));
+            $user->foto_perfil='profile.png';
+            $user->id_municipio=$request->input('id_municipio');
+            $user->status='1';
+
+            $user->save();
+
+            $ultimo=User::latest('id')->first();
+            $id_ultimo=$ultimo->id;
+
             $vendedor=new Vendedor;
 
-            $vendedor->rfc=$request->input('nombre_organizacion');
-            $vendedor->curp=$request->input('nombre_dirigente');
+            $vendedor->rfc=$request->input('rfc');
+            $vendedor->curp=$request->input('curp');
+            $vendedor->id_organizacion=$request->input('id_organizacion');
+            $vendedor->id_usuario=$id_ultimo;
+            $vendedor->id_permiso=$request->input('id_permiso');
             $vendedor->save();
-    
+
+            $permiso=Permisos::find($request->input('id_permiso'));
+            $permiso->asignado='1';
+            $permiso->save();
+
             return response()->json($vendedor);
         }
     }

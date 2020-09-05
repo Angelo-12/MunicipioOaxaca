@@ -42,7 +42,7 @@ Route::group(['prefix' => 'Vendedores'], function () {
     Route::get('index','Administrador\VendedorController@index');
     Route::get('buscar/{dato}','Administrador\VendedorController@buscar');
     Route::post('actualizar_password','Administrador\VendedorController@actualizar_password');
-    Route::get('insertar','Administrador\VendedorController@insertar');
+    Route::post('insertar','Administrador\VendedorController@insertar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('descargar_pdf','Administrador\VendedorController@descargar_pdf');
     Route::get('descargar_excel','Administrador\VendedorController@descargar_excel');
@@ -54,6 +54,7 @@ Route::group(['prefix' => 'Permisos'], function () {
     Route::post('insertar','Administrador\PermisosController@insertar');
     Route::post('editar','Administrador\PermisosController@editar');
     Route::get('detalle/{id}','Administrador\PermisosController@detalle_permiso');
+    Route::get('dato/{id}','Administrador\PermisosController@dato');
     Route::get('descargar_pdf/{nombre}','Administrador\PermisosController@descargar_pdf');
     Route::get('descargar_excel/{nombre}','Administrador\PermisosController@descargar_excel');
 
@@ -132,6 +133,7 @@ Route::group(['prefix' => 'Observaciones'], function () {
     Route::get('detalle/{id}','Administrador\ObservacionesController@detalle');
     Route::post('responder','Administrador\ObservacionesController@responder_observacion');
     Route::get('descargar_pdf','Administrador\ObservacionesController@descargar_pdf');
+    Route::get('descargar_pdf_detalle/{id}','Administrador\ObservacionesController@descargar_pdf_detalle');
     Route::get('descargar_excel','Administrador\ObservacionesController@descargar_excel');
 });
 
@@ -150,6 +152,7 @@ Route::group(['prefix' => 'Agencia'], function () {
 
 Route::group(['prefix' => 'Colonia'], function () {
     Route::get('detalle/{id}','Administrador\ColoniasController@detalle');
+    Route::get('dato/{id}','Administrador\ColoniasController@dato');
     Route::get('buscar/{id}/{dato}','Administrador\ColoniasController@buscar');
     Route::get('vacio/{id}','Administrador\ColoniasController@vacio');
 });

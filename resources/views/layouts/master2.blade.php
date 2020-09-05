@@ -57,12 +57,12 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
+                  <!--<li><a><i class="fa fa-home"></i> Inicio <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Estadisticas</a></li>
                       <li><a href="index2.html">Reportes</a></li>
                     </ul>
-                  </li>
+                  </li>-->
                   <li><a><i class="fa fa-edit"></i> Registro de Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('Usuarios/index')}}">Administrador</a></li>
@@ -159,7 +159,7 @@
                   </li>
 
   
-                  <li role="presentation" class="nav-item dropdown open">
+                  <!--<li role="presentation" class="nav-item dropdown open">
                     <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                       <i class="fa fa-envelope-o"></i>
                       <span class="badge bg-green">6</span>
@@ -222,7 +222,7 @@
                         </div>
                       </li>
                     </ul>
-                  </li>
+                  </li>-->
                 </ul>
               </nav>
             </div>
@@ -273,6 +273,7 @@
     <script src="{{asset('js/bootstrap-datepicker.min.js')}}"></script>
     <script src="{{asset('js/custom.min.js')}}"></script>
     <script src="{{asset('js/mapas.js')}}"></script>
+    <script src="{{asset('js/validaciones.js')}}"></script>
     <script src="{{asset('js/funciones.js')}}"></script>
     <script src="{{asset('js/clockpicker.js')}}"></script>
     <script type="text/javascript">

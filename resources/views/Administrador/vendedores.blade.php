@@ -186,7 +186,7 @@
                             </div>
     
                             <div class="form-group">
-                                <label>Estado</label>
+                                <label>Entidad de nacimiento</label>
                                 <select name="estado" id="estado" class="form-control">
                                  <option value="" selected disabled>Seleccione su estado</option>
                                         @foreach ($estado as $e)
@@ -230,14 +230,13 @@
                                 <label>RFC</label>
                                 <input  type="text" name="rfc" placeholder="RFC (Opcional)"
                                         class="form-control" id="rfc">
-                                <!--<span class="text-danger" id="rfc_error">El campo RFC es requerido</span>-->
                             </div>
     
                             <div class="form-group">
                                 <label>CURP</label>
                                 <input type="text" name="curp" placeholder="CURP"
-                                       class="form-control" id="curp">
-                                <!-- <span class="text-danger" id="curp_error">El campo CURP es requerido</span>-->
+                                       class="form-control" id="curp" readonly>
+                                 <span class="text-danger" id="curp_error"></span>
     
                             </div>
     
@@ -249,7 +248,7 @@
                                         <option value="{{$o->id}}">{{$o->nombre_organizacion}}</option>
                                     @endforeach
                                 </select>
-                                <!-- <span class="text-danger" id="id_organizacion_error">Debe Seleccionar una organizacion</span>-->
+                                <span class="text-danger" id="id_organizacion_error"></span>
                             </div>
     
                             <div class="form-group">
@@ -266,22 +265,13 @@
                             <div id="datos_permiso" style="display:none;">
                                 <div class="form-group">
                                     <label>Giro</label>
-                                    <input class="form-control red-border" id="giro_permiso" type="text" name="giro_permiso" readonly></input> 
-                                    <span class="text-danger" id="giro_error"></span>
+                                    <input class="form-control" id="giro_permiso" type="text" name="giro_permiso" readonly></input> 
                                 </div>
     
                                 <div class="form-group">
                                     <label >Actividad</label>
                                     <input class="form-control" type="text" name="actividad_permiso" id="actividad_permiso" readonly>
                                 </div>
-    
-                                <div class="form-group">
-                                    <label>Id Usuario</label>
-                                    <input  type="text" name="id_usuario" placeholder="id"
-                                            class="form-control" id="id_usuario" readonly>
-                                    <span class="text-danger" id="id_usuario_error"></span>
-                                </div>
-        
     
                             </div>
                         </div>

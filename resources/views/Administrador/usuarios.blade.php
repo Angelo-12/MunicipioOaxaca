@@ -7,6 +7,7 @@
         <div class="card-header">
             <h1>
                 Administradores
+               
             </h1>
         </div>
     </div>
@@ -95,26 +96,33 @@
                                         <i class="fa fa-eye"></i>
                                     </button>
                         
-                                    <button type="button" class="edit-modal-usuario btn btn-danger btn-sm" data-id="{{$u->id}}"
-                                        data-nombre="{{$u->name}}" 
-                                        data-apellido_paterno="{{$u->apellido_paterno}}"
-                                        data-apellido_materno="{{$u->apellido_materno}}"
-                                        data-cargo="Administrador"
-                                        data-status="{{$u->status}}"
-                                        data-email="{{$u->email}}">
+                                    @foreach ($rol as $r)
+                                       @if ($r['cargo']=='Administrador')
+                                            <button type="button" class="edit-modal-usuario btn btn-danger btn-sm" data-id="{{$u->id}}"
+                                                data-nombre="{{$u->name}}" 
+                                                data-apellido_paterno="{{$u->apellido_paterno}}"
+                                                data-apellido_materno="{{$u->apellido_materno}}"
+                                                data-cargo="Administrador"
+                                                data-status="{{$u->status}}"
+                                                data-email="{{$u->email}}">
 
-                                        <i class="fa fa-pencil-alt"></i>
-                                    </button>
-                                    @if ($u->status==1)
-                                        <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
-                                            <i class="fa fa-eraser"></i>
-                                        </button>
-                                    @else
-                                        <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
-                                            <i class="fa fa-eraser" ></i>
-                                        </button>      
-                                    @endif
-                                
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </button>
+
+
+                                            @if ($u->status==1)
+                                                <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
+                                                    <i class="fa fa-eraser"></i>
+                                                </button>
+                                            @else
+                                                <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
+                                                    <i class="fa fa-eraser" ></i>
+                                                </button>      
+                                            @endif
+                                       @else
+                                           
+                                       @endif
+                                    @endforeach
                                     
                                 </td>
                             </tr>             
@@ -182,7 +190,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Estado</label>
+                            <label>Entidad de nacimiento</label>
                             <select name="estado" id="estado" class="form-control">
                              <option value="" selected disabled>Seleccione su estado</option>
                                     @foreach ($estado as $e)
@@ -193,7 +201,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Municipio</label>
+                            <label>Municipio de nacimiento</label>
                             <select name="id_municipio" id="id_municipio" class="form-control">
                                 <option value="" selected disabled>Seleccione su municipio</option>
 

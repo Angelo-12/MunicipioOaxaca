@@ -9,17 +9,22 @@ use App\Models\Administrador_Secretaria;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\SecretariaExport;
 use DB;
+use Auth;
 
 class Administrador_SecretariaController extends Controller
 {
     //Funcion que muestra la pagina principal en donde se muestran todas las secretarias disponibles y activas que hay en el sistema
     public function index(){
+
+        $id=Auth::user()->id;
+        $rol = Administrador_Secretaria::where('id_usuario','=',$id)->get();
+
         $usuarios=Administrador_Secretaria::join('users','admin_secretaria.id_usuario','=','users.id')
         ->where('admin_secretaria.cargo','=','Secretaria')
         ->paginate(10);
        
         $estado=Estado::all();
-        return view('Administrador.administrativos',compact('usuarios','estado'))->render();
+        return view('Administrador.administrativos',compact('usuarios','estado','rol'))->render();
      }
 
      public function buscar($dato){

@@ -87,28 +87,34 @@
                                     data-status="{{$u->status}}">
                                     <i class="fa fa-eye"></i>
                                 </button>
-                    
-                                <button type="button" class="edit-modal-usuario-administrativo btn btn-danger btn-sm" data-id="{{$u->id}}"
-                                    data-nombre="{{$u->name}}" 
-                                    data-apellido_paterno="{{$u->apellido_paterno}}"
-                                    data-apellido_materno="{{$u->apellido_materno}}"
-                                    data-cargo="Administrador"
-                                    data-status="{{$u->status}}"
-                                    data-email="{{$u->email}}">
 
-                                    <i class="fa fa-pencil-alt"></i>
-                                </button>
+                               @foreach ($rol as $r)
+                                   @if($r['cargo']=='Administrador')
+                                        <button type="button" class="edit-modal-usuario-administrativo btn btn-danger btn-sm" data-id="{{$u->id}}"
+                                            data-nombre="{{$u->name}}" 
+                                            data-apellido_paterno="{{$u->apellido_paterno}}"
+                                            data-apellido_materno="{{$u->apellido_materno}}"
+                                            data-cargo="Administrador"
+                                            data-status="{{$u->status}}"
+                                            data-email="{{$u->email}}">
+
+                                            <i class="fa fa-pencil-alt"></i>
+                                        </button>
                                 
-                                @if ($u->status==1)
-                                    <button type="button" class="delete-modal-usuario-administrativo btn btn-info btn-sm" data-id="{{$u->id}}">
-                                        <i class="fa fa-eraser"></i>
-                                    </button>
-                                @else
-                                    <button type="button" class="delete-modal-usuario-administrativo btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
-                                        <i class="fa fa-eraser" ></i>
-                                    </button>      
-                                @endif
-                                
+                                        @if ($u->status==1)
+                                            <button type="button" class="delete-modal-usuario-administrativo btn btn-info btn-sm" data-id="{{$u->id}}">
+                                                <i class="fa fa-eraser"></i>
+                                            </button>
+                                        @else
+                                            <button type="button" class="delete-modal-usuario-administrativo btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
+                                                <i class="fa fa-eraser" ></i>
+                                            </button>      
+                                        @endif
+                                        
+                                   @endif
+                               @endforeach
+                    
+                              
                                 </td>
                             </tr>             
                     @endforeach               

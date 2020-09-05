@@ -142,6 +142,10 @@ class PermisosController extends Controller
         ->get();
     }
 
+    public function dato($id){
+        return Permisos::where('id','=',$id)->get();
+    }
+
     //Esporta a pdf cada uno de los registros de los permisos
     public function descargar_pdf($nombre){
         $permisos="";

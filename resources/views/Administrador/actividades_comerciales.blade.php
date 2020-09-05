@@ -146,7 +146,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                 
-                                        <input type="text"  class="form-control" placeholder="Texto a buscar" id="caja_busqueda_actividad_vendedor">
+                                        <input type="text" class="form-control" placeholder="Texto a buscar" id="caja_busqueda_actividad_vendedor">
                                     </div>
                                 </div>
                             </div>

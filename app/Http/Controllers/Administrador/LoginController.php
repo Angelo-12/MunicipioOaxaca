@@ -14,19 +14,34 @@ class LoginController extends Controller
     }
 
     /**Funcion que permite al usuario loguarse validando el usuario y el password vez 1 ITERACION */
-    public function login(){
-        $credenciales =$this->Validate(request(),
-        [
-            'email' => 'required|email',
-            'password'=>'required',
-        ]);
+    public function login(Request $request){
+        
+        $user=User::join('admin_secretaria','users.id','=','admin_secretaria.id_usuario')
+        ->where('users.email','=',$request->email)
+        ->first();
 
-        if(Auth::attempt($credenciales)){
-            return redirect()->route('home');
+        if($user!=NULL){
+            if($user->status==1){
+                $credenciales =$this->Validate(request(),
+                [
+                    'email' => 'required|email',
+                    'password'=>'required',
+                ]);
+        
+                if(Auth::attempt($credenciales)){
+                    return redirect()->route('home');
+                }else {
+                    return redirect()->back()->withErrors(['email'=>'usuario o password incorrecto'])
+                    ->withInput(request(['email']));
+                }
+            }else{
+                return redirect()->back()->withErrors(['email'=>'el usuario ha sido dado de baja']);
+            }
         }else {
-            return redirect()->back()->withErrors(['email'=>'usuario o password incorrecto'])
-            ->withInput(request(['email']));
+            return redirect()->back()->withErrors(['email'=>'usuario o password incorrecto']);
         }
+       
+        
     }
 
 }

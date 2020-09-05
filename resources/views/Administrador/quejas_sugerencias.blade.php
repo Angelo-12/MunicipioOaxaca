@@ -185,7 +185,7 @@
                         <div class="modal-body" >
 
                             <div class="card-header">
-                                <button type="button" onclick="DescargarPdfObservacion();"  class="btn btn-info">
+                                <button type="button" onclick="DescargarPdfObservaciones();"  class="btn btn-info">
                                     <i class="fa fa-file-pdf"></i>&nbsp;PDF
                                 </button>
                     
