@@ -60,7 +60,7 @@ class PermisosController extends Controller
     public function insertar(Request $request){
         $rules= array(
             'numero_cuenta'=>'required|numeric',
-            'numero_expediente'=>'required|numeric',
+            'numero_expediente'=>'required',
             'tipo_actividad'=>'required',
             'giro'=>'required',
             'latitud'=>'required',
@@ -78,9 +78,12 @@ class PermisosController extends Controller
      
          else {
              $permiso=new Permisos;
+             $ultimo=Permisos::latest('id')->first();
  
+             $numero_expediente='Exp-'+date('Y/m/d')+$ultimo->id;
+    
              $permiso->numero_cuenta=$request->input('numero_cuenta');
-             $permiso->numero_expediente=$request->input('numero_expediente');
+             $permiso->numero_expediente=$numero_expediente;
              $permiso->tipo_actividad=$request->input('tipo_actividad');
              $permiso->giro=$request->input('giro');
              $permiso->latitud=$request->input('latitud');
