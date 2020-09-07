@@ -24,7 +24,8 @@ class VendedorController extends Controller
       ->paginate(10);
       $estado=Estado::all();
       $organizaciones=Organizacion::all();
-      $permisos=Permisos::where('asignado','=','0')
+
+      $permisos=Permisos::where('disponible','=','0')
       ->get();
 
       return view('Administrador.vendedores',compact('vendedores','estado','organizaciones','permisos'))->render();
@@ -32,13 +33,13 @@ class VendedorController extends Controller
 
     public function insertar(Request $request){
         $rules= array(
-          'name'=>['required','alpha','max:40'],
-          'apellido_paterno'=>['required','alpha','max:30'],
-          'apellido_materno'=>['required','alpha','max:30'],
+          'name'=>['required','regex:/^[a-zA-Z\s]*$/','max:40'],
+          'apellido_paterno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
+          'apellido_materno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
           'sexo'=>'required',
           'fecha_nacimiento'=>'required',
           'id_municipio'=>'required',
-          'email'=>['email','required'],
+          'email'=>['email','unique:users,email','required'],
           'password'=>['required','min:6'],
           'curp'=>'string|min:18|max:18',
           'id_organizacion'=>'required',
@@ -78,12 +79,13 @@ class VendedorController extends Controller
             $vendedor->save();
 
             $permiso=Permisos::find($request->input('id_permiso'));
-            $permiso->asignado='1';
+            $permiso->disponible='1';
             $permiso->save();
 
             return response()->json($vendedor);
         }
     }
+
 
     public function descargar_pdf(){
       $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')

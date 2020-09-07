@@ -74,9 +74,10 @@ class ActividadesComercialesController extends Controller
         }else if($id==7){
             $nombre='Prestacion de servicios';
         }
-        $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')
-        ->join('permiso','permiso.id','=','tipo_actividad')
-        ->where('tipo_actividad','=',$id)
+        $vendedores=ActividadComercial::join('permiso','actividadcomercial.id','=','permiso.tipo_actividad')
+        ->join('vendedor','vendedor.id_permiso','=','permiso.id')
+        ->join('users','vendedor.id_usuario','=','users.id')
+        ->where('actividadcomercial.id','=',$id)
         ->get();
 
         $pdf=\PDF::loadView('Pdfs.vendedores_actividad',compact('vendedores','nombre'));

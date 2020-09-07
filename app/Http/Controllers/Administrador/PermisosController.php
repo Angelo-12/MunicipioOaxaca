@@ -34,6 +34,7 @@ class PermisosController extends Controller
             ->paginate(10);
         }else if($nombre=="Pendientes"){
             $permisos=Permisos::where('asignado','=','0')
+           
             ->paginate(10);
             $nombre="Pendientes";
         }else if($nombre=="Cancelados"){
@@ -56,11 +57,18 @@ class PermisosController extends Controller
          ->with('agencias',$agencias);
     }
 
+    public function ultimo(){
+        $ultimo=Permisos::latest('id')->first();
+ 
+        
+        $numero_expediente='Exp-'.date('Y/m/d').'-'.$ultimo->id;
+
+        return $numero_expediente;
+    }
+
     //Funcion para insertar un nuevo permiso
     public function insertar(Request $request){
         $rules= array(
-            'numero_cuenta'=>'required|numeric',
-            'numero_expediente'=>'required',
             'tipo_actividad'=>'required',
             'giro'=>'required',
             'latitud'=>'required',
@@ -79,10 +87,33 @@ class PermisosController extends Controller
          else {
              $permiso=new Permisos;
              $ultimo=Permisos::latest('id')->first();
- 
-             $numero_expediente='Exp-'+date('Y/m/d')+$ultimo->id;
+
+             if($request->input('tipo_actividad')==1){
+                $abreviatura='Com-Mov';
+             }else if($request->input('tipo_actividad')==2){
+                $abreviatura='Com-Sem';
+             }else if($request->input('tipo_actividad')==3){
+                $abreviatura='Eq-Rod';
+             }else if($request->input('tipo_actividad')==4){
+                $abreviatura='Com-Fij';
+             }else if($request->input('tipo_actividad')==5){
+                $abreviatura='Com-Est';
+             }else if($request->input('tipo_actividad')==6){
+                $abreviatura='Tia';
+             }else if($request->input('tipo_actividad')==7){
+                $abreviatura='Pres-Serv';
+             }
+
+             if($ultimo!=NULL){
+                 $numero_cuenta='Cta-'.date('Y/m/d').'-'.$ultimo->id;
+                 $numero_expediente='Exp-'.date('Y/m/d').'-'.$ultimo->id.'-'.$abreviatura;
+             }else{
+                $numero_cuenta='Cta-'.date('Y/m/d').'-'.'1';
+                $numero_expediente='Exp-'.date('Y/m/d').'-'.'1'.'-'.$abreviatura;
+             }
+
     
-             $permiso->numero_cuenta=$request->input('numero_cuenta');
+             $permiso->numero_cuenta=$numero_cuenta;
              $permiso->numero_expediente=$numero_expediente;
              $permiso->tipo_actividad=$request->input('tipo_actividad');
              $permiso->giro=$request->input('giro');

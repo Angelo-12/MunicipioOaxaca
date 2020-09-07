@@ -77,8 +77,8 @@ function cambiaPalabra( str ){
 
 function estado( edo ){
     var edo;
-    var vestado = new Array ( 'DF','AS','BC','BS','CC','CL','CM','CS','CH','DG','GT','GR','HG','JC','MC','MN',
-				'MS','NT','NL','OC','PL','QT','QR','SP','SL','SR','TC','TS','TL','VZ','YN','ZS','NE');	
+    var vestado = new Array ('AS','BC','BS','CC','CS','CH','DF','CL','CM','DG','GT','GR','HG','JC','MC','MN',
+				'MS','NT','NL','OC','PL','QO','QR','SP','SL','SR','TC','TS','TL','VZ','YN','ZS');	
 	return vestado[edo];
 }
 

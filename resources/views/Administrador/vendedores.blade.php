@@ -87,7 +87,7 @@
                                                 data-apellido_materno="{{$u->apellido_materno}}"
                                                 data-cargo="Vendedor"
                                                 data-email="{{$u->email}}"
-                                                data-estado="{{$u->status}}">
+                                                data-status="{{$u->status}}">
                                                 <i class="fa fa-eye"></i>
                                             </button>
                                 
@@ -148,23 +148,23 @@
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input  type="text" name="nombre" placeholder="Nombre"
-                                        class="form-control" id="name">
-                               <!-- <span class="text-danger" id="name_error">El campo nombre es obligatorio</span>-->
+                                        class="form-control" id="name" maxlength="30">
+                               <span class="text-danger" id="name_error"></span>
                             </div>
     
                             <div class="form-group">
                                 <label>Apellido Paterno</label>
                                 <input type="text" name="apellido_paterno" placeholder="Apellido Paterno"
-                                       class="form-control" id="apellido_paterno">
-                                <!-- <span class="text-danger" id="apellido_paterno_error">El campo apellido paterno es obligatorio</span>-->
+                                       class="form-control" id="apellido_paterno" maxlength="25">
+                                <span class="text-danger" id="apellido_paterno_error"></span>
     
                             </div>
     
                             <div class="form-group">
                                 <label>Apellido Materno</label>
                                 <input  type="text" name="apellido_materno" placeholder="Apellido Materno"
-                                        class="form-control" id="apellido_materno">
-                              <!--   <span class="text-danger" id="apellido_materno_error">El campo apellido materno es obligatorio</span>-->
+                                        class="form-control" id="apellido_materno" maxlength="25">
+                              <span class="text-danger" id="apellido_materno_error"></span>
     
                             </div>
     
@@ -207,12 +207,14 @@
     
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+                                <input type="email" class="form-control" id="email" placeholder="Email" name="email" maxlength="50">
+                                <span class="text-danger" id="email_error"></span>
                             </div>
     
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input  type="password" name="password" class="form-control" id="password" placeholder="Password">
+                                <input  type="password" name="password" class="form-control" 
+                                        id="password" placeholder="Password" maxlength="25">
                                 <span class="text-danger" id="password_error"></span>
                             </div>
     
@@ -228,10 +230,17 @@
 
                             <div class="form-group">
                                 <label>RFC</label>
-                                <input  type="text" name="rfc" placeholder="RFC (Opcional)"
-                                        class="form-control" id="rfc">
+                                <div class="form-group-row">
+                                    <input  type="text" name="rfc"
+                                    class="form-control col-md-8" id="rfc">
+                            
+                                    <input  type="text" name="homoclave" placeholder="Homoclave"
+                                    class="form-control col-md-4" id="homoclave" maxlength="3">
+                                    <span class="text-danger" id="password_error"></span>
+                                </div>
+                                <br>
                             </div>
-    
+                            <br>
                             <div class="form-group">
                                 <label>CURP</label>
                                 <input type="text" name="curp" placeholder="CURP"

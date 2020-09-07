@@ -286,14 +286,14 @@ a, a:hover{
       @csrf
       <div class="form-group {{$errors->has('email') ? 'has-error' : '' }}">
           <input type="text" id="email" class="fadeIn second" name="email" 
-          placeholder="email" value="{{old('email')}}" maxlength="70">
+          placeholder="email" value="{{old('email')}}" maxlength="50">
           <br>
           <strong class="text-danger">{{ $errors->first('email') }}</strong>
       </div>
       
       <div class="form-group {{$errors->has('password') ? 'has-error' : '' }}">
         <input type="password" id="password" class="fadeIn third" name="password" 
-        placeholder="password" maxlength="30" >
+        placeholder="password" autocomplete="off" maxlength="30" >
 
         <br>
         <strong class="text-danger">{{ $errors->first('password') }}</strong>

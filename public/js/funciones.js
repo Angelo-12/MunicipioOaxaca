@@ -13,7 +13,6 @@ $(document).ready(function() {
     });
 
     //Funcion para asignar un rol a un usuario
-
     $("#asignar_rol").click(function(){
         var aux=$('#cargo option:selected').val();
         var a=$("#id_usuario").val();
@@ -80,6 +79,7 @@ $(document).ready(function() {
                 $('#municipio').addClass('green-border');
                 $('#email').addClass('green-border');
                 $('#password').addClass('green-border');
+                $('#id_municipio').addClass('green-border');
                 //Oculta los errores en caso de que el valor sea correcto
                 $('#name_error').addClass('d-none');
                 $('#apellido_paterno_error').addClass('d-none');
@@ -90,6 +90,7 @@ $(document).ready(function() {
                 $('#municipio_error').addClass('d-none');
                 $('#email_error').addClass('d-none');
                 $('#password_error').addClass('d-none');
+                $('#id_municipio_error').addClass('d-none');
 
                 if ((data.errors)) {   
 
@@ -149,8 +150,7 @@ $(document).ready(function() {
                         timer: 1500
                       })
 
-                      location.reload();
-                        
+                      location.reload();                        
                 }
             },
         });
@@ -188,6 +188,7 @@ $(document).ready(function() {
                 $('#municipio').addClass('green-border');
                 $('#email').addClass('green-border');
                 $('#password').addClass('green-border');
+                 $('#id_municipio').addClass('green-border');
                 //Oculta los errores en caso de que el valor sea correcto
                 $('#name_error').addClass('d-none');
                 $('#apellido_paterno_error').addClass('d-none');
@@ -198,6 +199,7 @@ $(document).ready(function() {
                 $('#municipio_error').addClass('d-none');
                 $('#email_error').addClass('d-none');
                 $('#password_error').addClass('d-none');
+                $('#id_municipio_error').addClass('d-none');
 
                 if ((data.errors)) {   
 
@@ -266,6 +268,28 @@ $(document).ready(function() {
 
      //Funcion para agregar un nuevo vendedor se valida antes que haya un permiso disponible
     $("#agregar_vendedor").click(function(){
+        $('#name').addClass('green-border');
+        $('#name_error').addClass('d-none');
+        $('#apellido_paterno').addClass('green-border');
+        $('#apellido_paterno_error').addClass('d-none');
+        $('#apellido_materno').addClass('green-border');
+        $('#apellido_materno_error').addClass('d-none');
+        $('#sexo').addClass('green-border');
+        $('#sexo_error').addClass('d-none');
+        $('#fecha_nacimiento').addClass('green-border');
+        $('#fecha_nacimiento_error').addClass('d-none');
+        $('#id_municipio').addClass('green-border');
+        $('#id_municipio_error').addClass('d-none');
+        $('#email').addClass('green-border');
+        $('#email_error').addClass('d-none');
+        $('#password').addClass('green-border');
+        $('#password_error').addClass('d-none');
+        $('#id_organizacion').addClass('green-border');
+        $('#id_organizacion_error').addClass('d-none');
+        $('#id_permiso').addClass('green-border');
+        $('#id_permiso_error').addClass('d-none');
+
+
         var aux=$('#id_organizacion option:selected').val();
         var aux2=$('#id_permiso option:selected').val();
         var sexo=$('#sexo option:selected').val();
@@ -310,7 +334,6 @@ $(document).ready(function() {
                         showConfirmButton: false,
                         timer: 1500
                     })
-
                     location.reload();
                 }     
             },
@@ -408,6 +431,9 @@ $(document).ready(function() {
                     
                     $.each( data.errors, function( key, value ) {
                        console.log(value);
+                       if(key=='name'){
+                           console.log("hola");
+                       }
                     });
 
                 } else {
@@ -931,10 +957,15 @@ $(document).ready(function() {
             }
 
           for (var i=0; i<data.length;i++){  
-            
+            var rfc;
+            if(data[i].rfc==null){
+                 rfc='No capturado'
+            }else{
+                rfc=data[i].rfc;
+            }
             $('#table_organizacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
                 "<td style='width: 10%'>" + data[i].id + "</td>" +
-                "<td style='width: 21%'>" + data[i].rfc + "</td>" +
+                "<td style='width: 21%'>" + rfc + "</td>" +
                 "<td style='width: 30.5%'>" + data[i].curp + "</td>" +
                 "<td style='width: 16%'>" + data[i].id_permiso + "</td>" +
                 "<td style='width: 23%; text-align:center;' >" +
@@ -964,10 +995,16 @@ $(document).ready(function() {
             }
 
           for (var i=0; i<data.length;i++){  
-            
+            var rfc;
+            if(data[i].rfc==null){
+                rfc='No capturado'
+            }else{
+                rfc=data[i].rfc;
+            }
+
             $('#table_zona_vendedor').append("<tr class='post" + data[i].id + "'>" +
                "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                "<td style='width: 21%;'>" + rfc + "</td>" +
                 "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
                 "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
                 "<td style='width: 23%; text-align:center;' >" +
@@ -1039,10 +1076,15 @@ $(document).ready(function() {
             }
 
           for (var i=0; i<data.length;i++){  
-            
+            var rfc;
+            if(data[i].rfc==null){
+                 rfc='No capturado'
+            }else{
+                rfc=data[i].rfc;
+            }
             $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
                 "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                "<td style='width: 21%;'>" +rfc+ "</td>" +
                 "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
                 "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
                 "<td style='width: 23%;' align='center'>" +
@@ -1065,6 +1107,7 @@ $(document).ready(function() {
          $('#show_vendedor').modal('show');
 
          var status=$(this).data('status');
+        console.log(status);
 
          if(status==1){
              $('#status_show').text('Activo');
@@ -1175,7 +1218,6 @@ $(document).ready(function() {
    
     });
 
-
     $(document).on('click','.show-modal-organizacion-vendedor',function(){
         $('#show_organizacion_vendedor').modal('show');
         $('#nombre_show').text($(this).data('nombre'));
@@ -1259,7 +1301,6 @@ $(document).ready(function() {
         $('#actividad_show').text($(this).data('nombre_actividad'));
         $('#numero_vendedores_show').text($(this).data('total'));
     });
-
 
     $(document).on('click','.edit-modal-usuario',function(){
         var status=$(this).data('status');
@@ -1700,7 +1741,15 @@ $(document).ready(function() {
         var total_dias;
         $('#formulario input[type=checkbox]').each(function(){
             if (this.checked) {
-                dias += $(this).val()+',';
+
+                if($(this).val()=='Domingo'){
+                    dias += $(this).val();
+                }else if($(this).val()=='todos'){
+
+                }else{
+                    dias += $(this).val()+',';
+                }
+               
                 total_dias++;
             }
         }); 
@@ -1710,8 +1759,6 @@ $(document).ready(function() {
             url: '/Permisos/insertar',
             data: {
                 '_token': $('input[name=_token]').val(),
-                'numero_cuenta': $('input[name=numero_cuenta]').val(),
-                'numero_expediente': $('input[name=numero_expediente]').val(),
                 'tipo_actividad': actividad,
                 'giro': $('input[name=giro]').val(),
                 'latitud': $('input[name=latitud]').val(),
@@ -2120,9 +2167,16 @@ $(document).ready(function() {
                     }
             
                     for (var i=0; i<data.length;i++){  
+                        var rfc;
+                        if(data[i].rfc==null){
+                             rfc='No capturado'
+                        }else{
+                            rfc=data[i].rfc;
+                        }
+
                         $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
                             "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                            "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                            "<td style='width: 21%;'>" + rfc + "</td>" +
                             "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
                             "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
                             "<td style='width: 23%' style='text-align=center'>" +
@@ -2145,10 +2199,16 @@ $(document).ready(function() {
                 }
         
                 for (var i=0; i<data.length;i++){  
-                    
+                    var rfc;
+                    if(data[i].rfc==null){
+                         rfc='No capturado'
+                    }else{
+                        rfc=data[i].rfc;
+                    }
+
                     $('#table_actividad_vendedor').append("<tr class='post" + data[i].id + "'>" +
                             "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                            "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                            "<td style='width: 21%;'>" + rfc + "</td>" +
                             "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
                             "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
                             "<td style='width: 23%' style='text-align=center'>" +
@@ -2177,9 +2237,16 @@ $(document).ready(function() {
                     }
             
                     for (var i=0; i<data.length;i++){  
+                        var rfc;
+                        if(data[i].rfc==null){
+                             rfc='No capturado'
+                        }else{
+                            rfc=data[i].rfc;
+                        }
+
                         $('#table_organizacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
                             "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                            "<td style='width: 20%;'>" + data[i].rfc + "</td>" +
+                            "<td style='width: 20%;'>" + rfc + "</td>" +
                             "<td style='width: 30%;'>" + data[i].curp + "</td>" +
                             "<td style='width: 15%;'>" + data[i].id_permiso + "</td>" +
                             "<td style='width: 25%; text-align:center;' >" +
@@ -2201,10 +2268,16 @@ $(document).ready(function() {
                 }
         
                 for (var i=0; i<data.length;i++){  
-                    
+                    var rfc;
+                    if(data[i].rfc==null){
+                         rfc='No capturado'
+                    }else{
+                        rfc=data[i].rfc;
+                    }
+
                     $('#table_organizacion_vendedor').append("<tr class='post" + data[i].id + "'>" +
                         "<td style='width: 10%;' >" + data[i].id + "</td>" +
-                        "<td style='width: 20%;' >" + data[i].rfc + "</td>" +
+                        "<td style='width: 20%;' >" + rfc + "</td>" +
                         "<td style='width: 30%;'>" + data[i].curp + "</td>" +
                         "<td style='width: 15%;'>" + data[i].id_permiso + "</td>" +
                         "<td style='width: 25%; text-align:center;'>" +
@@ -2231,9 +2304,16 @@ $(document).ready(function() {
                     }
             
                     for (var i=0; i<data.length;i++){  
+                        var rfc;
+                        if(data[i].rfc==null){
+                             rfc='No capturado'
+                        }else{
+                            rfc=data[i].rfc;
+                        }
+
                        $('#table_zona_vendedor').append("<tr class='post" + data[i].id + "'>" +
                             "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                            "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                            "<td style='width: 21%;'>" + rfc + "</td>" +
                             "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
                             "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
                             "<td style='width: 23%; text-align:center;' >" +
@@ -2255,10 +2335,16 @@ $(document).ready(function() {
                 }
         
                 for (var i=0; i<data.length;i++){  
-                    
+                    var rfc;
+                    if(data[i].rfc==null){
+                         rfc='No capturado'
+                    }else{
+                        rfc=data[i].rfc;
+                    }
+
                    $('#table_zona_vendedor').append("<tr class='post" + data[i].id + "'>" +
                         "<td style='width: 10%;'>" + data[i].id + "</td>" +
-                        "<td style='width: 21%;'>" + data[i].rfc + "</td>" +
+                        "<td style='width: 21%;'>" + rfc + "</td>" +
                         "<td style='width: 30.5%;'>" + data[i].curp + "</td>" +
                         "<td style='width: 16%;'>" + data[i].id_permiso + "</td>" +
                         "<td style='width: 23%; text-align:center;' >" +
@@ -2276,6 +2362,8 @@ $(document).ready(function() {
         var apellido_paterno=$('input[name=apellido_paterno]').val();
         var apellido_materno=$('input[name=apellido_materno]').val();
         var sexo=$('#sexo option:selected').val();
+        var id_estado=$("#estado option:selected").index();
+        console.log(id_estado);
 
         if(sexo=='H'){
             sexo='M';
@@ -2284,7 +2372,7 @@ $(document).ready(function() {
         }
 
         var fecha_nac=$('input[name=fecha_nacimiento]').val();
-        GeneraCURP(nombre,apellido_paterno,apellido_materno,fecha_nac,sexo,19);
+        GeneraCURP(nombre,apellido_paterno,apellido_materno,fecha_nac,sexo,id_estado-1);
     });
 
     function BuscarUsuario(){

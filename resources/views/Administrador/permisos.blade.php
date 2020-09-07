@@ -222,20 +222,20 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" name="formulario" id="formulario">
                         @csrf
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label>Numero de cuenta</label>
                             <input  type="text" name="numero_cuenta" placeholder="Numero de cuenta"
                                     class="form-control" id="numero_cuenta">
                             <span class="text-danger" id="numero_cuenta_error"></span>
-                        </div>
+                        </div>-->
 
-                        <div class="form-group">
+                       <!-- <div class="form-group">
                             <label>Numero de expediente</label>
                             <input type="text" name="numero_expediente" placeholder="Numero de expediente"
                                    class="form-control" id="numero_expediente">
                             <span class="text-danger" id="numero_expediente_error"></span>
 
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <label>Tipo de actividad</label>
@@ -318,7 +318,7 @@
                                     <input type="checkbox" name="dias[]" value="Domingo"> Domingo
                                 </label>
                                 <label>
-                                    <input type="checkbox" id="seleccionar-todos"> Seleccionar Todos
+                                    <input type="checkbox" value="todos" id="seleccionar-todos"> Seleccionar Todos
                                 </label>
                               </div>
                               <span class="text-danger" id="dias_laborados_error"></span>

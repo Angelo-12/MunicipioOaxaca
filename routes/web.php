@@ -51,6 +51,7 @@ Route::group(['prefix' => 'Vendedores'], function () {
 Route::group(['prefix' => 'Permisos'], function () {
     Route::get('index/{nombre}','Administrador\PermisosController@index');
     Route::get('buscar/{dato}/{nombre}','Administrador\PermisosController@buscar');
+    Route::get('ultimo','Administrador\PermisosController@ultimo');
     Route::post('insertar','Administrador\PermisosController@insertar');
     Route::post('editar','Administrador\PermisosController@editar');
     Route::get('detalle/{id}','Administrador\PermisosController@detalle_permiso');

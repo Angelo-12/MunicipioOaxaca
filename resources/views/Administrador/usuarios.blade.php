@@ -204,7 +204,6 @@
                             <label>Municipio de nacimiento</label>
                             <select name="id_municipio" id="id_municipio" class="form-control">
                                 <option value="" selected disabled>Seleccione su municipio</option>
-
                             </select>
                             <span class="text-danger" id="id_municipio_error"></span>
                         </div>
@@ -340,15 +339,18 @@
                         <div class="form-group">
                             <b for="">Nombre:</b>
                             <input class="form-control" type="text" id="nombre" name="nombre2"/>
+                            <span class="text-danger" id="name_error"></span>
                         </div>
                         
                         <div class="form-group">
                             <b for="">Apellido Paterno:</b>
                             <input  class="form-control"  type="text" name="paterno2" id="paterno"/>
+                            <span class="text-danger" id="apellido_paterno_error"></span>
                         </div>
                         <div class="form-group">
                             <b for="">Apellido Materno:</b>
                             <input  class="form-control"  type="text" name="materno22" id="materno"/>
+                            <span class="text-danger" id="apellido_materno_error"></span>
                         </div>
                         <div class="form-group">
                             <b for="">Email:</b>
