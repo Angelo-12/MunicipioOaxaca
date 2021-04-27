@@ -294,6 +294,16 @@ $(document).ready(function() {
         var aux2=$('#id_permiso option:selected').val();
         var sexo=$('#sexo option:selected').val();
 
+        var homoclave=$('input[name=homoclave]').val();
+        var rfc=$('input[name=rfc]').val();
+
+        console.log(homoclave);
+        if(homoclave===""){
+            homoclave="NO CAPTURADO";
+        }else{
+            homoclave= rfc + homoclave;
+        }
+
         $.ajax({
             type: 'POST',
             url: '/Vendedores/insertar',
@@ -307,7 +317,7 @@ $(document).ready(function() {
                 'email': $('input[name=email]').val(),
                 'password': $('input[name=password]').val(),
                 'id_municipio': $('select[name=id_municipio]').val(),
-                'rfc': $('input[name=rfc]').val(),
+                'rfc': homoclave,
                 'curp': $('input[name=curp]').val(),
                 'id_organizacion':aux,
                 'id_permiso':aux2,
@@ -2363,7 +2373,6 @@ $(document).ready(function() {
         var apellido_materno=$('input[name=apellido_materno]').val();
         var sexo=$('#sexo option:selected').val();
         var id_estado=$("#estado option:selected").index();
-        console.log(id_estado);
 
         if(sexo=='H'){
             sexo='M';
@@ -2374,6 +2383,7 @@ $(document).ready(function() {
         var fecha_nac=$('input[name=fecha_nacimiento]').val();
         GeneraCURP(nombre,apellido_paterno,apellido_materno,fecha_nac,sexo,id_estado-1);
     });
+
 
     function BuscarUsuario(){
         var dato=$('#caja_busqueda_usuario').val();

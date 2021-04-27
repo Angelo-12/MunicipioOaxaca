@@ -197,7 +197,7 @@
                             </div>
     
                             <div class="form-group">
-                                <label>Municipio</label>
+                                <label>Municipio de nacimiento</label>
                                 <select name="id_municipio" id="id_municipio" class="form-control">
                                     <option value="" selected disabled>Seleccione su municipio</option>
     
@@ -229,25 +229,26 @@
                             </div>
 
                             <div class="form-group">
-                                <label>RFC</label>
-                                <div class="form-group-row">
-                                    <input  type="text" name="rfc"
-                                    class="form-control col-md-8" id="rfc">
-                            
-                                    <input  type="text" name="homoclave" placeholder="Homoclave"
-                                    class="form-control col-md-4" id="homoclave" maxlength="3">
-                                    <span class="text-danger" id="password_error"></span>
-                                </div>
-                                <br>
-                            </div>
-                            <br>
-                            <div class="form-group">
                                 <label>CURP</label>
                                 <input type="text" name="curp" placeholder="CURP"
                                        class="form-control" id="curp" readonly>
                                  <span class="text-danger" id="curp_error"></span>
     
                             </div>
+                            <br>
+                            <div class="form-group">
+                                <label>RFC (Opcional)</label>
+                                <div class="form-group-row">
+                                    <input  type="text" name="rfc"
+                                    class="form-control col-md-8" id="rfc" maxlength="10" readonly>
+                            
+                                    <input  type="text" name="homoclave" placeholder="Homoclave"
+                                    class="form-control col-md-4" id="homoclave" maxlength="3">
+                                    <span class="text-danger" id="homoclave_error"></span>
+                                </div>
+                                <br>
+                            </div>
+                            <br>
     
                             <div class="form-group">
                                 <label for="sexo">Seleccione la Organizacion</label>

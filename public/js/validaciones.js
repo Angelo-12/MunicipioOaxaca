@@ -1,6 +1,6 @@
 // JavaScript Document
 function GeneraCURP( nom, pat, mat, fecha, genero, edo ){
-    var quitar, nombres, curp;
+    var quitar, nombres, curp, rfc;
 
 	nom=nom.toUpperCase();
 	pat=pat.toUpperCase();
@@ -20,6 +20,10 @@ function GeneraCURP( nom, pat, mat, fecha, genero, edo ){
 	curp  = cambiaPalabra( curp );
     curp += fecha.substring(2,4) + fecha.substring(5,7) + fecha.substring(8,10);
 
+	rfc  = pat.substring(0,1) + buscaVocal( pat )+ mat.substring(0,1) + nom.substring(0,2);
+	rfc  = cambiaPalabra( rfc );
+    rfc += fecha.substring(2,4) + fecha.substring(5,7) + fecha.substring(8,10);
+
     console.log(fecha.substring(2,3) );
     console.log(fecha.substring(5,6) );
     console.log(fecha.substring(8,9) );
@@ -31,6 +35,7 @@ function GeneraCURP( nom, pat, mat, fecha, genero, edo ){
 	curp += ultdig( curp );
 	
 	$('#curp').val(curp);	
+	$('#rfc').val(rfc);	
 }
 
 function buscaVocal( str ){

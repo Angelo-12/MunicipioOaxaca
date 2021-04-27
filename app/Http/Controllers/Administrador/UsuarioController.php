@@ -50,9 +50,9 @@ class UsuarioController extends Controller
 
    public function insertar(Request $request){
       $rules = array(
-         'name'=>['required','regex:/^[a-zA-Z\s]*$/','max:40'],
-         'apellido_paterno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
-         'apellido_materno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
+         'name'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:40'],
+         'apellido_paterno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
+         'apellido_materno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
          'sexo'=>'required',
          'fecha_nacimiento'=>'required',
          'id_municipio'=>'required',
@@ -99,9 +99,9 @@ class UsuarioController extends Controller
    //Funcion pora insertar un nuevo administrador  validando los inputs correspondientes
    public function insertar_administrador(Request $request){
       $rules = array(
-         'name'=>['required','regex:/^[a-zA-Z\s]*$/','max:40'],
-         'apellido_paterno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
-         'apellido_materno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
+         'name'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:40'],
+         'apellido_paterno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
+         'apellido_materno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
          'sexo'=>'required',
          'fecha_nacimiento'=>'required',
          'id_municipio'=>'required',
@@ -147,9 +147,9 @@ class UsuarioController extends Controller
    //Funcion para insertar una nueva secretaria y para validar los campos correspondientes de cada dato
    public function insertar_secretaria(Request $request){
       $rules = array(
-         'name'=>['required','regex:/^[a-zA-Z\s]*$/','max:40'],
-         'apellido_paterno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
-         'apellido_materno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
+         'name'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:40'],
+         'apellido_paterno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
+         'apellido_materno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
          'sexo'=>'required',
          'fecha_nacimiento'=>'required',
          'id_municipio'=>'required',
@@ -233,7 +233,6 @@ class UsuarioController extends Controller
          'name'=>['required','regex:/^[a-zA-Z\s]*$/','max:40'],
          'apellido_paterno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
          'apellido_materno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
-         'password'=>['min:6'],
       );
 
       $validator=Validator::make(input::all(),$rules);

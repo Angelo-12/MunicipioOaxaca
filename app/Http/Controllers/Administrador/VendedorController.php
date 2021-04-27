@@ -33,15 +33,16 @@ class VendedorController extends Controller
 
     public function insertar(Request $request){
         $rules= array(
-          'name'=>['required','regex:/^[a-zA-Z\s]*$/','max:40'],
-          'apellido_paterno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
-          'apellido_materno'=>['required','regex:/^[a-zA-Z\s]*$/','max:30'],
+          'name'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:40'],
+          'apellido_paterno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
+          'apellido_materno'=>['required','regex:/^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/','max:30'],
           'sexo'=>'required',
           'fecha_nacimiento'=>'required',
           'id_municipio'=>'required',
           'email'=>['email','unique:users,email','required'],
           'password'=>['required','min:6'],
           'curp'=>'string|min:18|max:18',
+          'rfc'=>'unique',
           'id_organizacion'=>'required',
           'id_permiso'=>'required',
         );

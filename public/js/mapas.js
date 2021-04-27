@@ -18,6 +18,10 @@ function cargarMapa(id){
         
     }else if(id==3){
 
+    }else if(id==4){
+        longitud=new Array(-96.731441,-96.730719,-96.733687,-96.731441);
+        latitud=new Array(17.057917,17.061186,17.061151,17.057917);
+        var color='#39ff14';
     }
   
     var map = new mapboxgl.Map({
