@@ -293,64 +293,172 @@ $(document).ready(function() {
         var aux=$('#id_organizacion option:selected').val();
         var aux2=$('#id_permiso option:selected').val();
         var sexo=$('#sexo option:selected').val();
+        var curp=$('input[name=curp]').val();
 
         var homoclave=$('input[name=homoclave]').val();
         var rfc=$('input[name=rfc]').val();
 
-        console.log(homoclave);
         if(homoclave===""){
             homoclave="NO CAPTURADO";
         }else{
             homoclave= rfc + homoclave;
         }
 
-        $.ajax({
-            type: 'POST',
-            url: '/Vendedores/insertar',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'name': $('input[name=nombre]').val(),
-                'apellido_paterno': $('input[name=apellido_paterno]').val(),
-                'apellido_materno': $('input[name=apellido_materno]').val(),
-                'sexo': sexo,
-                'fecha_nacimiento': $('input[name=fecha_nacimiento]').val(),
-                'email': $('input[name=email]').val(),
-                'password': $('input[name=password]').val(),
-                'id_municipio': $('select[name=id_municipio]').val(),
-                'rfc': homoclave,
-                'curp': $('input[name=curp]').val(),
-                'id_organizacion':aux,
-                'id_permiso':aux2,
-
-            },
-            dataType:'json',
-            success: function(data) {
-                if ((data.errors)) {
-                    $.each( data.errors, function( key, value ) {
-                       
-                        var ErrorId='#'+key+'_error';
-                        var aux='#'+key;
-                        $(aux).removeClass('green-border');
-                        $(aux).addClass('red-border');
-                        $(ErrorId).removeClass('d-none');
-                        $(ErrorId).text(value);
+        
+        $.get('buscar_curp/'+curp, function(data){
+         
+            $.get('buscar_rfc/'+homoclave, function(data2){
+                
+                if(data.length==0&&data2.length==0){
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Vendedores/insertar',
+                        data: {
+                            '_token': $('input[name=_token]').val(),
+                            'name': $('input[name=nombre]').val(),
+                            'apellido_paterno': $('input[name=apellido_paterno]').val(),
+                            'apellido_materno': $('input[name=apellido_materno]').val(),
+                            'sexo': sexo,
+                            'fecha_nacimiento': $('input[name=fecha_nacimiento]').val(),
+                            'email': $('input[name=email]').val(),
+                            'password': $('input[name=password]').val(),
+                            'id_municipio': $('select[name=id_municipio]').val(),
+                            'rfc': homoclave,
+                            'curp': curp,
+                            'id_organizacion':aux,
+                            'id_permiso':aux2,
+            
+                        },
+                        dataType:'json',
+                        success: function(data) {
+                            if ((data.errors)) {
+                                $.each( data.errors, function( key, value ) {
+                                   
+                                    var ErrorId='#'+key+'_error';
+                                    var aux='#'+key;
+                                    $(aux).removeClass('green-border');
+                                    $(aux).addClass('red-border');
+                                    $(ErrorId).removeClass('d-none');
+                                    $(ErrorId).text(value);
+                                });
+            
+                            } else {
+            
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Vendedor creado correctamente',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                                location.reload();
+                            }     
+                        },
                     });
-
-                } else {
-
+           
+                }else if(data.length>0&&data2.length==0){
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Vendedor creado correctamente',
+                        icon: "error",
+                        title: 'El CURP ya se encuentra registrado',
                         showConfirmButton: false,
-                        timer: 1500
-                    })
+                        timer: 3500
+                    });
                     location.reload();
-                }     
-            },
-        });
+                }else if(data.length==0&&data2.length>0){
+                    Swal.fire({
+                        icon: "error",
+                        title: 'El RFC ya se encuentra registrado',
+                        showConfirmButton: false,
+                        timer: 3500
+                    });
+                    location.reload();
+                }else{
+                    Swal.fire({
+                        icon: "error",
+                        title: 'El CURP y el RFC ya se encuentran registrados',
+                        showConfirmButton: false,
+                        timer: 3500
+                    });
+                    location.reload();
+                }
 
+            });
+        });
+        
+
+
+        /*if(existe_curp==0&&existe_rfc==0){
+            $.ajax({
+                type: 'POST',
+                url: '/Vendedores/insertar',
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'name': $('input[name=nombre]').val(),
+                    'apellido_paterno': $('input[name=apellido_paterno]').val(),
+                    'apellido_materno': $('input[name=apellido_materno]').val(),
+                    'sexo': sexo,
+                    'fecha_nacimiento': $('input[name=fecha_nacimiento]').val(),
+                    'email': $('input[name=email]').val(),
+                    'password': $('input[name=password]').val(),
+                    'id_municipio': $('select[name=id_municipio]').val(),
+                    'rfc': homoclave,
+                    'curp': curp,
+                    'id_organizacion':aux,
+                    'id_permiso':aux2,
     
-    });
+                },
+                dataType:'json',
+                success: function(data) {
+                    if ((data.errors)) {
+                        $.each( data.errors, function( key, value ) {
+                           
+                            var ErrorId='#'+key+'_error';
+                            var aux='#'+key;
+                            $(aux).removeClass('green-border');
+                            $(aux).addClass('red-border');
+                            $(ErrorId).removeClass('d-none');
+                            $(ErrorId).text(value);
+                        });
+    
+                    } else {
+    
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Vendedor creado correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        location.reload();
+                    }     
+                },
+            });
+        } else if(existe_rfc==0&&existe_curp>0){
+                Swal.fire({
+                    icon: "error",
+                    title: 'El CURP ya se encuentra registrado',
+                    showConfirmButton: false,
+                    timer: 3500
+                });
+                location.reload();
+        }/*else if(existe_curp==0&&existe_rfc>0){
+            Swal.fire({
+                icon: "error",
+                title: 'El RFC ya se encuentra registrado',
+                showConfirmButton: false,
+                timer: 3500
+            });
+            location.reload();
+        }else if(existe_rfc>0&&existe_curp>0){
+            Swal.fire({
+                icon: "error",
+                title: 'El CURP Y RFC ya se encuentran registrados',
+                showConfirmButton: false,
+                timer: 3500
+            });
+            location.reload();   
+        }*/
+        
+    
+});
 
     $("#btn_siguiente").click(function(){
         $("#paso1").hide();
@@ -1374,7 +1482,7 @@ $(document).ready(function() {
     });
 
 
-});
+    });
 /******************************************* PERMISOS *****************************************************/
     //Funcion para que al dar click en el boton de sancion aparezca la ventana modal
     $(document).on('click','.asignar-sancion',function(){

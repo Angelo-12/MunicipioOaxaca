@@ -42,7 +42,6 @@ class VendedorController extends Controller
           'email'=>['email','unique:users,email','required'],
           'password'=>['required','min:6'],
           'curp'=>'string|min:18|max:18',
-          'rfc'=>'unique',
           'id_organizacion'=>'required',
           'id_permiso'=>'required',
         );
@@ -87,6 +86,17 @@ class VendedorController extends Controller
         }
     }
 
+    public function buscar_curp($curp){
+      $vendedor=Vendedor::where('curp','=',$curp)->get();
+
+      return $vendedor;
+    }
+
+    public function buscar_rfc($rfc){
+      $vendedor=Vendedor::where('rfc','=',$rfc)->get();
+
+      return $vendedor;
+    }
 
     public function descargar_pdf(){
       $vendedores=Vendedor::join('users','vendedor.id_usuario','=','users.id')

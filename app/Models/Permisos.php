@@ -10,6 +10,6 @@ class Permisos extends Model
     protected $primarykey='id_permiso';
     public $timestamps=false;
     protected $fillable=['id_permiso','numero_cuenta','numero_expediente',
-    'fecha_registro','tipo_actividad','giro','latitud','asignado','disponible','longitud','dias_laborados',
+    'fecha_registro','tipo_actividad','giro','latitud','asignado','usuario_asignado','disponible','longitud','dias_laborados',
     'hora_inicio','hora_fin','detalles','id_colonia'];
 }

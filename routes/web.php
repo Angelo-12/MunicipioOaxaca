@@ -43,6 +43,8 @@ Route::group(['prefix' => 'Vendedores'], function () {
     Route::get('buscar/{dato}','Administrador\VendedorController@buscar');
     Route::post('actualizar_password','Administrador\VendedorController@actualizar_password');
     Route::post('insertar','Administrador\VendedorController@insertar');
+    Route::get('buscar_curp/{curp}','Administrador\VendedorController@buscar_curp');
+    Route::get('buscar_rfc/{rfc}','Administrador\VendedorController@buscar_rfc');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
     Route::get('descargar_pdf','Administrador\VendedorController@descargar_pdf');
     Route::get('descargar_excel','Administrador\VendedorController@descargar_excel');
