@@ -51,7 +51,12 @@
                     
                 </thead>
                 <tbody>
-                    @foreach ($usuarios as $u)
+                    @if($usuarios->count()==0)
+                        <tr>
+                            <td colspan='8' align='center' >No hay registros</td>
+                        </tr>
+                    @else
+                        @foreach ($usuarios as $u)
                             <tr class="post{{$u->id}}" id="{{$u->id}}">
                                 <td>{{$u->id}}</td>
                                 <td>{{$u->name}}</td>
@@ -88,8 +93,8 @@
                                     <i class="fa fa-eye"></i>
                                 </button>
 
-                               @foreach ($rol as $r)
-                                   @if($r['cargo']=='Administrador')
+                            @foreach ($rol as $r)
+                                @if($r['cargo']=='Administrador')
                                         <button type="button" class="edit-modal-usuario-administrativo btn btn-danger btn-sm" data-id="{{$u->id}}"
                                             data-nombre="{{$u->name}}" 
                                             data-apellido_paterno="{{$u->apellido_paterno}}"
@@ -111,13 +116,15 @@
                                             </button>      
                                         @endif
                                         
-                                   @endif
-                               @endforeach
+                                @endif
+                            @endforeach
                     
-                              
+                            
                                 </td>
                             </tr>             
-                    @endforeach               
+                        @endforeach   
+                    @endif
+                               
                 </tbody>
             </table>
             {!! $usuarios->links() !!}
@@ -399,7 +406,7 @@
                         <input type="text" name="id_delete_usuario_administrativo" id="id_delete_usuario_administrativo" hidden>
 
                         <div class="deleteContent">
-                            ¿Esta seguro que desea eliminar este usuario? <span class="title"></span>
+                            ¿Está seguro que desea eliminar este usuario? <span class="title"></span>
                         
                         </div>
                        

@@ -276,11 +276,6 @@ input[type=text]:placeholder,input[type=password] :placeholder {
               <img src="{{asset('img/login.png')}}" id="icon" alt="User Icon" />
           </div>
 
-          @if (session('status'))
-              <div class="alert alert-success" role="alert">
-                  {{ session('status') }}
-              </div>
-          @endif
       
           <!-- Login Form -->
           <form method="POST" action="{{ route('password.email') }}">
@@ -290,10 +285,17 @@ input[type=text]:placeholder,input[type=password] :placeholder {
                       <input type="text" class="fadeIn second" name="email" 
                           placeholder="email" value="{{old('email')}}" maxlength="70">
                       <br>
-                      <strong class="text-danger">{{ $errors->first('email') }}</strong>
+                      <strong class="text-success">{{ $errors->first('email') }}</strong>
+                     
                   </div>
+
+                  @if (session('status'))
+                  <strong class="text-success">
+                      {{ session('status') }}
+                  </strong>
+                  @endif
               
-                  <input type="submit" class="fadeIn fourth" value="Enviar enlace de restablecimiento">
+                  <input type="submit" class="fadeIn fourth" value="Enviar enlace de reestablecimiento">
           </form>
 
       

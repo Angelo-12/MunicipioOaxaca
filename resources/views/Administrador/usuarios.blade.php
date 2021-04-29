@@ -71,19 +71,19 @@
                                 </td>
                                     
                                 <td>@if($u->status==1)
-                                    <div class="switch">
-                                        <label>
-                                        Activo
-                                        <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
-                                        </label>
-                                    </div>
+                                        <div class="switch">
+                                            <label>
+                                            Activo
+                                            <input type="checkbox" checked readonly="readonly" onclick="javascript: return false;">
+                                            </label>
+                                        </div>
                                     @else
-                                    <div class="switch">
-                                        <label>
-                                        Inactivo
-                                        <input type="checkbox" readonly onclick="javascript: return false;">
-                                        </label>
-                                    </div>
+                                        <div class="switch">
+                                            <label>
+                                            Inactivo
+                                            <input type="checkbox" readonly onclick="javascript: return false;">
+                                            </label>
+                                        </div>
                                     @endif</td>
                             
                                 <td align="center">
@@ -110,15 +110,22 @@
                                             </button>
 
 
-                                            @if ($u->status==1)
-                                                <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
-                                                    <i class="fa fa-eraser"></i>
-                                                </button>
+                                            @if($u->id!=Auth::user()->id)
+
+                                                @if ($u->status==1)
+                                                    <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}">
+                                                        <i class="fa fa-eraser"></i>
+                                                    </button>
+                                                @else
+                                                    <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
+                                                        <i class="fa fa-eraser" ></i>
+                                                    </button>      
+                                                @endif
                                             @else
                                                 <button type="button" class="delete-modal-usuario btn btn-info btn-sm" data-id="{{$u->id}}" disabled>
                                                     <i class="fa fa-eraser" ></i>
-                                                </button>      
-                                            @endif
+                                                </button>    
+                                            @endif    
                                        @else
                                            
                                        @endif
@@ -411,7 +418,7 @@
                         <input type="text" name="id_delete_usuario" id="id_delete_usuario" hidden>
 
                         <div class="deleteContent">
-                            ¿Esta seguro que desea eliminar este usuario? <span class="title"></span>
+                            ¿Está seguro que desea eliminar este usuario? <span class="title"></span>
                         
                         </div>
                        

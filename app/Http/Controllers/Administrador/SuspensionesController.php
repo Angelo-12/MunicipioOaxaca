@@ -29,7 +29,7 @@ class SuspensionesController extends Controller
 
              $sancion->fecha_sancion=date('Y-m-d');
              $sancion->multa=$request->input('multa');
-             $sancion->motivo=$request->input('motivo');
+             $sancion->motivo=strtoupper($request->input('motivo'));
              $sancion->save();
      
              return response()->json($sancion);

@@ -27,8 +27,8 @@ class CancelacionesController extends Controller
              $cancelacion->id_permiso=$request->input('id_permiso');
 
              $cancelacion->fecha_cancelacion=date('Y-m-d');
-             $cancelacion->motivo_cancelacion=$request->input('motivo_cancelacion');
-             $cancelacion->observaciones=$request->input('observaciones');
+             $cancelacion->motivo_cancelacion=strtoupper($request->input('motivo_cancelacion'));
+             $cancelacion->observaciones=strtoupper($request->input('observaciones'));
              $cancelacion->save();
      
              return response()->json($cancelacion);

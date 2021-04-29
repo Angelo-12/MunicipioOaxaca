@@ -48,8 +48,8 @@ class OrganizacionesController extends Controller
         else {
             $org=new Organizacion;
 
-            $org->nombre_organizacion=$request->input('nombre_organizacion');
-            $org->nombre_dirigente=$request->input('nombre_dirigente');
+            $org->nombre_organizacion=strtoupper($request->input('nombre_organizacion'));
+            $org->nombre_dirigente=strtoupper($request->input('nombre_dirigente'));
             $org->status='1';
             $org->save();
     
@@ -70,8 +70,8 @@ class OrganizacionesController extends Controller
 
         else{
             $org = Organizacion::find ($request->id);
-            $org->nombre_organizacion = $request->nombre_organizacion;
-            $org->nombre_dirigente = $request->nombre_dirigente;
+            $org->nombre_organizacion =strtoupper ($request->nombre_organizacion);
+            $org->nombre_dirigente =strtoupper( $request->nombre_dirigente);
             $org->save();
             return response()->json($org);
         }
@@ -102,6 +102,13 @@ class OrganizacionesController extends Controller
         $pdf=\PDF::loadView('Pdfs.vendedores_organizacion',compact('vendedores','organizacion'));
 
         return $pdf->stream();
+    }
+
+    public function buscar_organizacion($dato){
+        $organizacion=Organizacion::where('nombre_organizacion','=',$dato)
+        ->get();
+
+        return $organizacion;
     }
 
     public function descargar_pdf(){

@@ -34,8 +34,8 @@ class ObservacionesController extends Controller
          else {
              $seguimiento=new Seguimiento_Observaciones;
  
-             $seguimiento->status=$request->input('status');
-             $seguimiento->mensaje=$request->input('mensaje');
+             $seguimiento->status=strtoupper($request->input('status'));
+             $seguimiento->mensaje=strtoupper($request->input('mensaje'));
              $seguimiento->id_observacion=$request->input('id_observacion');
              $seguimiento->save();
      

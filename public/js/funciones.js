@@ -295,9 +295,10 @@ $(document).ready(function() {
         var sexo=$('#sexo option:selected').val();
         var curp=$('input[name=curp]').val();
 
-        var homoclave=$('input[name=homoclave]').val();
+        var homoclaveaux=$('input[name=homoclave]').val();
         var rfc=$('input[name=rfc]').val();
 
+        var homoclave=homoclaveaux.toUpperCase();
         if(homoclave===""){
             homoclave="NO CAPTURADO";
         }else{
@@ -458,7 +459,7 @@ $(document).ready(function() {
         }*/
         
     
-});
+    });
 
     $("#btn_siguiente").click(function(){
         $("#paso1").hide();
@@ -477,52 +478,69 @@ $(document).ready(function() {
     //Funcion para agregar una organizacion
     $('#agregar_organizacion').click(function() {
         
-        $.ajax({
-            type: 'POST',
-            url: 'insertar',
-            data: {
-                '_token': $('input[name=_token]').val(),
-                'nombre_organizacion': $('input[name=nombre_organizacion]').val(),
-                'nombre_dirigente': $('input[name=nombre_dirigente]').val()
-            },
-            dataType:'json',
-            success: function(data) {
-                $('#nombre_organizacion').addClass('green-border');
-                $('#nombre_dirigente').addClass('green-border');
-                $('#nombre_organizacion_error').addClass('d-none');
-                $('#nombre_dirigente_error').addClass('d-none');
-                if ((data.errors)) {
-                    
-                    $.each( data.errors, function( key, value ) {
-                        var ErrorId='#'+key+'_error';
-                        var aux='#'+key;
-                        $(aux).removeClass('green-border');
-                        $(aux).addClass('red-border');
-                        $(ErrorId).removeClass('d-none');
-                        $(ErrorId).text(value);
-                    });
+        var nombre_organizacion=$('input[name=nombre_organizacion]').val();
 
-                } else {
-                    $('#nombre_organizacion').val('');
-                    $('#nombre_dirigente').val('');
-                    $('#nombre_organizacion').removeClass('green-border');
-                    $('#nombre_dirigente').removeClass('green-border');
+        $.get('buscar_organizacion/'+nombre_organizacion, function(data){
+            if(data.length==0){
+                $.ajax({
+                    type: 'POST',
+                    url: 'insertar',
+                    data: {
+                        '_token': $('input[name=_token]').val(),
+                        'nombre_organizacion': $('input[name=nombre_organizacion]').val(),
+                        'nombre_dirigente': $('input[name=nombre_dirigente]').val()
+                    },
+                    dataType:'json',
+                    success: function(data) {
+                        $('#nombre_organizacion').addClass('green-border');
+                        $('#nombre_dirigente').addClass('green-border');
+                        $('#nombre_organizacion_error').addClass('d-none');
+                        $('#nombre_dirigente_error').addClass('d-none');
+                        if ((data.errors)) {
+                            
+                            $.each( data.errors, function( key, value ) {
+                                var ErrorId='#'+key+'_error';
+                                var aux='#'+key;
+                                $(aux).removeClass('green-border');
+                                $(aux).addClass('red-border');
+                                $(ErrorId).removeClass('d-none');
+                                $(ErrorId).text(value);
+                            });
+        
+                        } else {
+                            $('#nombre_organizacion').val('');
+                            $('#nombre_dirigente').val('');
+                            $('#nombre_organizacion').removeClass('green-border');
+                            $('#nombre_dirigente').removeClass('green-border');
+        
+                            var registros=document.getElementById("table").rows.length;
+        
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Organización agregada correctamente',
+                                showConfirmButton: false,
+                                timer: 2500
+                              })
+        
+                             $('#create_organizacion').modal('hide');
+        
+                             location.reload();
+                        }     
+                    },
+                });
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'El nombre de organización ya existe',
+                    showConfirmButton: false,
+                    timer: 3500
+                  })
 
-                    var registros=document.getElementById("table").rows.length;
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Organizacion agregada correctamente',
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
-
-                     $('#create_organizacion').modal('hide');
-
-                     location.reload();
-                }     
-            },
+                 location.reload();
+            }
         });
+
+       
     });
 
     $('.modal-footer').on('click','.actualizar-usuario',function(){

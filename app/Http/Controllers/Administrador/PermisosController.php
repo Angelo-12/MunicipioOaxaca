@@ -34,6 +34,7 @@ class PermisosController extends Controller
             ->paginate(10);
         }else if($nombre=="Pendientes"){
             $permisos=Permisos::where('asignado','=','0')
+            ->orWhere('usuario_asignado','=','0')
            
             ->paginate(10);
             $nombre="Pendientes";
@@ -89,40 +90,40 @@ class PermisosController extends Controller
              $ultimo=Permisos::latest('id')->first();
 
              if($request->input('tipo_actividad')==1){
-                $abreviatura='Com-Mov';
+                $abreviatura='COM-MOV';
              }else if($request->input('tipo_actividad')==2){
-                $abreviatura='Com-Sem';
+                $abreviatura='COM-SEM';
              }else if($request->input('tipo_actividad')==3){
-                $abreviatura='Eq-Rod';
+                $abreviatura='EQ-ROD';
              }else if($request->input('tipo_actividad')==4){
-                $abreviatura='Com-Fij';
+                $abreviatura='COM-FIJ';
              }else if($request->input('tipo_actividad')==5){
-                $abreviatura='Com-Est';
+                $abreviatura='COM-EST';
              }else if($request->input('tipo_actividad')==6){
-                $abreviatura='Tia';
+                $abreviatura='TIAN';
              }else if($request->input('tipo_actividad')==7){
-                $abreviatura='Pres-Serv';
+                $abreviatura='PREST-SERV';
              }
 
              if($ultimo!=NULL){
-                 $numero_cuenta='Cta-'.date('Y/m/d').'-'.$ultimo->id;
-                 $numero_expediente='Exp-'.date('Y/m/d').'-'.$ultimo->id.'-'.$abreviatura;
+                 $numero_cuenta='CTA-'.date('Y/m/d').'-'.$ultimo->id;
+                 $numero_expediente='EXP-'.date('Y/m/d').'-'.$ultimo->id.'-'.$abreviatura;
              }else{
-                $numero_cuenta='Cta-'.date('Y/m/d').'-'.'1';
-                $numero_expediente='Exp-'.date('Y/m/d').'-'.'1'.'-'.$abreviatura;
+                $numero_cuenta='CTA-'.date('Y/m/d').'-'.'1';
+                $numero_expediente='EXP-'.date('Y/m/d').'-'.'1'.'-'.$abreviatura;
              }
 
     
              $permiso->numero_cuenta=$numero_cuenta;
              $permiso->numero_expediente=$numero_expediente;
              $permiso->tipo_actividad=$request->input('tipo_actividad');
-             $permiso->giro=$request->input('giro');
+             $permiso->giro=strtoupper($request->input('giro'));
              $permiso->latitud=$request->input('latitud');
              $permiso->longitud=$request->input('longitud');
              $permiso->dias_laborados=$request->input('dias_laborados');
              $permiso->hora_inicio=$request->input('hora_inicio');
              $permiso->hora_fin=$request->input('hora_fin');
-             $permiso->detalles=$request->input('detalles');
+             $permiso->detalles=strtoupper($request->input('detalles'));
              $permiso->id_colonia=$request->input('id_colonia');
              $permiso->asignado='0';
              $permiso->status='1';
@@ -154,13 +155,13 @@ class PermisosController extends Controller
              $permiso=Permisos::find($request->id);
 
              $permiso->tipo_actividad=$request->input('tipo_actividad');
-             $permiso->giro=$request->input('giro');
+             $permiso->giro=strtoupper($request->input('giro'));
              $permiso->latitud=$request->input('latitud');
              $permiso->longitud=$request->input('longitud');
              $permiso->dias_laborados=$request->input('dias_laborados');
              $permiso->hora_inicio=$request->input('hora_inicio');
              $permiso->hora_fin=$request->input('hora_fin');
-             $permiso->detalles=$request->input('detalles');
+             $permiso->detalles=strtoupper($request->input('detalles'));
              $permiso->id_colonia=$request->input('id_colonia');
             
              $permiso->save();

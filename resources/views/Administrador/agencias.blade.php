@@ -183,14 +183,14 @@
                     </div>
 
                     <div class="form-group">
-                        <b for="">Ubicacion :</b>
+                        <b for="">Ubicación :</b>
                         <div id="map_agencia" style="height:200px;">
 
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <b for="">Numero de colonias :</b>
+                        <b for="">Número de colonias :</b>
                         <p id="total_colonias"/>
                     </div>
 
@@ -220,7 +220,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Codigo Postal :</label>
+                        <label for="">Código Postal :</label>
                         <b id="codigo_show"/>
                     </div>
                 

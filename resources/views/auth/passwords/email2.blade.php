@@ -275,12 +275,6 @@
                 
                 <img src="{{asset('img/login.png')}}" id="icon" alt="User Icon" />
             </div>
-
-            @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
         
             <!-- Login Form -->
             <form method="POST" action="{{ route('password.email') }}">
@@ -292,6 +286,12 @@
                         <br>
                         <strong class="text-danger">{{ $errors->first('email') }}</strong>
                     </div>
+
+                    @if (session('status'))
+                      <div class="alert alert-success" role="alert">
+                          {{ session('status') }}
+                      </div>
+                    @endif
                 
                     <input type="submit" class="fadeIn fourth" value="Enviar enlace de restablecimiento de contraseña">
             </form>

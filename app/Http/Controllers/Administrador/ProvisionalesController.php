@@ -32,7 +32,7 @@ class ProvisionalesController extends Controller
  
              $provisionales->largo=$request->input('largo');
              $provisionales->ancho=$request->input('ancho');
-             $provisionales->utensilios=$request->input('utensilios');
+             $provisionales->utensilios=strtoupper($request->input('utensilios'));
              $provisionales->fecha_vencimiento=$request->input('fecha_vencimiento');
              $provisionales->id_permiso=$request->input('id_permiso');
         

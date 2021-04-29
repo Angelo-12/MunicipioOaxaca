@@ -94,11 +94,19 @@
 
                                     @if ($nombre=="Pendientes")
                                     <td>
-                                        Pendiente
-                                        <button type="button" class="tipo-permiso btn btn-success btn-sm" data-toggle="modal"
+                                        @if($p->usuario_asignado==0&&$p->asignado==1)
+                                            <button disabled type="button" class="tipo-permiso btn btn-success btn-sm" data-toggle="modal"
                                             data-target="#asignar_tipo_permiso" data-id-permiso="{{$p->id}}" >
                                             <i class="fas fa-cog"></i>
-                                        </button>
+                                            </button>
+                                        @else
+                                            <button type="button" class="tipo-permiso btn btn-success btn-sm" data-toggle="modal"
+                                            data-target="#asignar_tipo_permiso" data-id-permiso="{{$p->id}}" >
+                                            <i class="fas fa-cog"></i>
+                                            </button>
+                                        @endif
+                                        
+                                      
                                     </td> 
                                     @endif
                                 
@@ -222,20 +230,7 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" name="formulario" id="formulario">
                         @csrf
-                        <!--<div class="form-group">
-                            <label>Numero de cuenta</label>
-                            <input  type="text" name="numero_cuenta" placeholder="Numero de cuenta"
-                                    class="form-control" id="numero_cuenta">
-                            <span class="text-danger" id="numero_cuenta_error"></span>
-                        </div>-->
-
-                       <!-- <div class="form-group">
-                            <label>Numero de expediente</label>
-                            <input type="text" name="numero_expediente" placeholder="Numero de expediente"
-                                   class="form-control" id="numero_expediente">
-                            <span class="text-danger" id="numero_expediente_error"></span>
-
-                        </div>-->
+                       
 
                         <div class="form-group">
                             <label>Tipo de actividad</label>

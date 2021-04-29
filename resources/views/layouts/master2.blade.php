@@ -85,7 +85,7 @@
                   <li>
                     <a href="{{url('Zonas/index')}}">
                       <i class="fa fa-thumbtack"></i>
-                      Zonas de comercializacion
+                      Zonas de comercialización
                     </a>
                   </li>
 
@@ -148,7 +148,7 @@
                     <a class="dropdown-item"   href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
-                        <i class="fa fa-sign-out pull-right"></i> Cerrar Sesion
+                        <i class="fa fa-sign-out pull-right"></i> Cerrar Sesión
                     </a>
 
                       <form method="POST" action="{{route('logout')}}" id="logout-form">

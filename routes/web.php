@@ -106,6 +106,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::post('eliminar','Administrador\OrganizacionesController@eliminar');
     Route::get('detalle/{id}','Administrador\OrganizacionesController@detalle_organizacion');
     Route::get('buscar/{dato}','Administrador\OrganizacionesController@buscar');
+    Route::get('buscar_organizacion/{dato}','Administrador\OrganizacionesController@buscar_organizacion');
     Route::get('buscar_vendedor/{id}/{dato}','Administrador\OrganizacionesController@buscar_vendedor');
     Route::get('vacio','Administrador\OrganizacionesController@vacio');
     Route::get('descargar_pdf','Administrador\OrganizacionesController@descargar_pdf');
@@ -162,3 +163,12 @@ Route::group(['prefix' => 'Colonia'], function () {
 
 Route::get('index','Administrador\LoginController@index');
 Route::post('verificar','Administrador\LoginController@login')->name('verificar');
+
+Route::get('error', function () {
+    abort(404);
+   
+});
+
+Route::get('error', function () {
+    abort(505);
+});

@@ -68,12 +68,12 @@ class UsuarioController extends Controller
       }else{
          $user= new User;
          
-         $user->name=$request->input('name');
-         $user->apellido_paterno=$request->input('apellido_paterno');
-         $user->apellido_materno=$request->input('apellido_materno');
-         $user->fecha_nacimiento=$request->input('fecha_nacimiento');
+         $user->name=strtoupper($request->input('name'));
+         $user->apellido_paterno=strtoupper($request->input('apellido_paterno'));
+         $user->apellido_materno=strtoupper($request->input('apellido_materno'));
+         $user->fecha_nacimiento=strtoupper($request->input('fecha_nacimiento'));
          $user->sexo=$request->input('sexo');
-         $user->email=$request->input('email');
+         $user->email=strtoupper($request->input('email'));
          $user->password=Hash::make($request->input('password'));
          $user->id_municipio=$request->input('id_municipio');
          $user->foto_perfil='profile.png';
@@ -117,12 +117,12 @@ class UsuarioController extends Controller
       }else{
          $user= new User;
          
-         $user->name=$request->input('name');
-         $user->apellido_paterno=$request->input('apellido_paterno');
-         $user->apellido_materno=$request->input('apellido_materno');
+         $user->name=strtoupper($request->input('name'));
+         $user->apellido_paterno=strtoupper($request->input('apellido_paterno'));
+         $user->apellido_materno=strtoupper($request->input('apellido_materno'));
          $user->fecha_nacimiento=$request->input('fecha_nacimiento');
          $user->sexo=$request->input('sexo');
-         $user->email=$request->input('email');
+         $user->email=strtoupper($request->input('email'));
          $user->password=Hash::make($request->input('password'));
          $user->foto_perfil='profile.png';
          $user->id_municipio=$request->input('id_municipio');
@@ -165,12 +165,12 @@ class UsuarioController extends Controller
       }else{
          $user= new User;
          
-         $user->name=$request->input('name');
-         $user->apellido_paterno=$request->input('apellido_paterno');
-         $user->apellido_materno=$request->input('apellido_materno');
+         $user->name=strtoupper($request->input('name'));
+         $user->apellido_paterno=strtoupper($request->input('apellido_paterno'));
+         $user->apellido_materno=strtoupper($request->input('apellido_materno'));
          $user->fecha_nacimiento=$request->input('fecha_nacimiento');
          $user->sexo=$request->input('sexo');
-         $user->email=$request->input('email');
+         $user->email=strtoupper($request->input('email'));
          $user->password=Hash::make($request->input('password'));
          $user->foto_perfil='profile.png';
          $user->id_municipio=$request->input('id_municipio');
@@ -212,12 +212,12 @@ class UsuarioController extends Controller
       }else{
          $user=User::find($request->id);
          
-         $user->name=$request->input('name');
-         $user->apellido_paterno=$request->input('apellido_paterno');
-         $user->apellido_materno=$request->input('apellido_materno');
+         $user->name=strtoupper($request->input('name'));
+         $user->apellido_paterno=strtoupper($request->input('apellido_paterno'));
+         $user->apellido_materno=strtoupper($request->input('apellido_materno'));
          $user->fecha_nacimiento=$request->input('fecha_nacimiento');
          $user->sexo=$request->input('sexo');
-         $user->email=$request->input('email');
+         $user->email=strtoupper($request->input('email'));
          $user->id_municipio=$request->input('id_municipio');
          $user->status=$request->input('status');
 
@@ -242,12 +242,11 @@ class UsuarioController extends Controller
          return response::json(array('errors'=>$validator->getMessageBag()->toarray()));
       }else{
 
-       
          $user=User::find($request->id);
          
-         $user->name=$request->input('name');
-         $user->apellido_paterno=$request->input('apellido_paterno');
-         $user->apellido_materno=$request->input('apellido_materno');
+         $user->name=strtoupper($request->input('name'));
+         $user->apellido_paterno=strtoupper($request->input('apellido_paterno'));
+         $user->apellido_materno=strtoupper($request->input('apellido_materno'));
          if($request->input('password')!=NULL){
             $user->password=Hash::make($request->input('password'));
          }
