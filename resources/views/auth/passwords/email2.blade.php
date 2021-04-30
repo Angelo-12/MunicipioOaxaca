@@ -282,7 +282,7 @@
 
                     <div class="form-group {{$errors->has('email') ? 'has-error' : '' }}">
                         <input type="text" class="fadeIn second" name="email" 
-                            placeholder="email" value="{{old('email')}}" maxlength="70">
+                            placeholder="Correo electrónico" value="{{old('email')}}" maxlength="70">
                         <br>
                         <strong class="text-danger">{{ $errors->first('email') }}</strong>
                     </div>

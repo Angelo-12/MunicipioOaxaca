@@ -31,14 +31,14 @@ class LoginController extends Controller
                 if(Auth::attempt($credenciales)){
                     return redirect()->route('home');
                 }else {
-                    return redirect()->back()->withErrors(['email'=>'usuario o password incorrecto'])
+                    return redirect()->back()->withErrors(['email'=>'usuario o contraseña incorrecto'])
                     ->withInput(request(['email']));
                 }
             }else{
                 return redirect()->back()->withErrors(['email'=>'el usuario ha sido dado de baja']);
             }
         }else {
-            return redirect()->back()->withErrors(['email'=>'usuario o password incorrecto']);
+            return redirect()->back()->withErrors(['email'=>'usuario o contraseña incorrecto']);
         }
        
         

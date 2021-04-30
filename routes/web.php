@@ -11,7 +11,7 @@ Auth::routes(['verify'=>true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
-Route::group(['prefix' => 'Usuarios'], function () {
+Route::group(['prefix' => 'Usuarios','middleware'=>'auth'], function () {
     Route::post('insertar','Administrador\UsuarioController@insertar');
     Route::post('editar','Administrador\UsuarioController@editar');
     Route::post('actualizar_datos','Administrador\UsuarioController@actualizar_datos');
@@ -29,7 +29,7 @@ Route::group(['prefix' => 'Usuarios'], function () {
 });
 
 
-Route::group(['prefix' => 'Secretarias'], function () {
+Route::group(['prefix' => 'Secretarias','middleware'=>'auth'], function () {
     Route::get('index','Administrador\Administrador_SecretariaController@index');
     Route::get('buscar/{dato}','Administrador\Administrador_SecretariaController@buscar');
     Route::get('municipioEstado/{id}','Administrador\MunicipioController@listarMunicipios');
@@ -38,7 +38,7 @@ Route::group(['prefix' => 'Secretarias'], function () {
     Route::get('descargar_excel','Administrador\Administrador_SecretariaController@descargar_excel');
 });
 
-Route::group(['prefix' => 'Vendedores'], function () {
+Route::group(['prefix' => 'Vendedores','middleware'=>'auth'], function () {
     Route::get('index','Administrador\VendedorController@index');
     Route::get('buscar/{dato}','Administrador\VendedorController@buscar');
     Route::post('actualizar_password','Administrador\VendedorController@actualizar_password');
@@ -50,7 +50,7 @@ Route::group(['prefix' => 'Vendedores'], function () {
     Route::get('descargar_excel','Administrador\VendedorController@descargar_excel');
 });
 
-Route::group(['prefix' => 'Permisos'], function () {
+Route::group(['prefix' => 'Permisos','middleware'=>'auth'], function () {
     Route::get('index/{nombre}','Administrador\PermisosController@index');
     Route::get('buscar/{dato}/{nombre}','Administrador\PermisosController@buscar');
     Route::get('ultimo','Administrador\PermisosController@ultimo');
@@ -63,29 +63,29 @@ Route::group(['prefix' => 'Permisos'], function () {
 
 });
 
-Route::post('insertarAnuales','Administrador\AnualesController@insertarAnuales');
+//Route::post('insertarAnuales','Administrador\AnualesController@insertarAnuales');
 
-Route::group(['prefix' => 'Eventuales'], function () {
+Route::group(['prefix' => 'Eventuales','middleware'=>'auth'], function () {
     Route::post('insertar','Administrador\EventualesController@insertar');
 });
 
-Route::group(['prefix' => 'Provisionales'], function () {
+Route::group(['prefix' => 'Provisionales','middleware'=>'auth'], function () {
     Route::post('insertar','Administrador\ProvisionalesController@insertar');
 });
 
-Route::group(['prefix' => 'Sanciones'], function () {
+Route::group(['prefix' => 'Sanciones','middleware'=>'auth'], function () {
     Route::post('insertar','Administrador\SuspensionesController@insertar');
 });
 
-Route::group(['prefix' => 'Cancelaciones'], function () {
+Route::group(['prefix' => 'Cancelaciones','middleware'=>'auth'], function () {
     Route::post('insertar','Administrador\CancelacionesController@insertar');
 });
 
-Route::group(['prefix' => 'Revalidaciones'], function () {
+Route::group(['prefix' => 'Revalidaciones','middleware'=>'auth'], function () {
     Route::post('insertar','Administrador\ReevalidacionesController@insertar');
 });
 
-Route::group(['prefix' => 'Zonas'], function () {
+Route::group(['prefix' => 'Zonas','middleware'=>'auth'], function () {
     Route::get('index','Administrador\ZonaController@index');
     Route::get('buscar/{dato}','Administrador\ZonaController@buscar');
     Route::get('detalle/{id}','Administrador\ZonaController@detalle');
@@ -96,7 +96,7 @@ Route::group(['prefix' => 'Zonas'], function () {
     Route::get('buscar_vendedor/{id}/{dato}','Administrador\ZonaController@buscar_vendedor');
 });
 
-Route::group(['prefix' => 'Organizaciones'], function () {
+Route::group(['prefix' => 'Organizaciones','middleware'=>'auth'], function () {
     Route::get('index','Administrador\OrganizacionesController@index');
     Route::get('mostrar_organizaciones','Administrador\OrganizacionesController@mostrar_organizaciones');
     Route::get('descargar_organizaciones','Administrador\OrganizacionesController@descargar_organizaciones');
@@ -115,7 +115,7 @@ Route::group(['prefix' => 'Organizaciones'], function () {
     Route::get('descargar_excel_vendedor/{id}','Administrador\OrganizacionesController@descargar_excel_vendedor');
 });
 
-Route::group(['prefix' => 'Actividades'], function () {
+Route::group(['prefix' => 'Actividades','middleware'=>'auth'], function () {
     Route::get('index','Administrador\ActividadesComercialesController@index');
     Route::get('mostrar_actividades','Administrador\ActividadesComercialesController@mostrar_actividades');
     Route::get('buscar/{dato}','Administrador\ActividadesComercialesController@buscar');
@@ -131,7 +131,7 @@ Route::group(['prefix' => 'Actividades'], function () {
     Route::get('descargar_excel_vendedor/{id}','Administrador\ActividadesComercialesController@descargar_excel_vendedor');
 });
 
-Route::group(['prefix' => 'Observaciones'], function () {
+Route::group(['prefix' => 'Observaciones','middleware'=>'auth'], function () {
     Route::get('index','Administrador\ObservacionesController@index');
     Route::get('buscar/{dato}','Administrador\ObservacionesController@buscar');
     Route::get('detalle/{id}','Administrador\ObservacionesController@detalle');
@@ -141,7 +141,7 @@ Route::group(['prefix' => 'Observaciones'], function () {
     Route::get('descargar_excel','Administrador\ObservacionesController@descargar_excel');
 });
 
-Route::group(['prefix' => 'Agencia'], function () {
+Route::group(['prefix' => 'Agencia','middleware'=>'auth'], function () {
     Route::get('index','Administrador\AgenciasController@index');
     Route::get('vacio','Administrador\AgenciasController@vacio');
     Route::get('buscar/{dato}','Administrador\AgenciasController@buscar');
@@ -154,21 +154,16 @@ Route::group(['prefix' => 'Agencia'], function () {
 });
 
 
-Route::group(['prefix' => 'Colonia'], function () {
+Route::group(['prefix' => 'Colonia','middleware'=>'auth'], function () {
     Route::get('detalle/{id}','Administrador\ColoniasController@detalle');
     Route::get('dato/{id}','Administrador\ColoniasController@dato');
     Route::get('buscar/{id}/{dato}','Administrador\ColoniasController@buscar');
     Route::get('vacio/{id}','Administrador\ColoniasController@vacio');
 });
 
-Route::get('index','Administrador\LoginController@index');
 Route::post('verificar','Administrador\LoginController@login')->name('verificar');
 
 Route::get('error', function () {
     abort(404);
    
-});
-
-Route::get('error', function () {
-    abort(505);
 });

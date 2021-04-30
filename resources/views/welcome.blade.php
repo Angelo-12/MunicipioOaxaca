@@ -22,11 +22,19 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{{ url('index') }}">Iniciar Sesión
-                  <span class="sr-only">(current)</span>
+            @if (Route::has('login'))
+              @auth
+                <a class="nav-link" href="{{ url('/home') }}">Inicio
+                      <span class="sr-only">(current)</span>
                 </a>
+              @else    
+                <a class="nav-link" href="{{ url('login') }}">Iniciar Sesión
+                      <span class="sr-only">(current)</span>
+                </a>
+              @endauth
+            @endif
           </li>
-          
+
         </ul>
       </div>
     </div>
